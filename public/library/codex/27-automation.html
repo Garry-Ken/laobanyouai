@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>27 自动化与 CI/CD：让 Codex 在你不在的时候自己干活 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 27 篇:自动化与 CI/CD：让 Codex 在你不在的时候自己干活。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/27-automation.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class="cur"><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class="cur"><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 27 篇</p>
+      <h1>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇〔<a href="26-git-github.html">26 Git 与 GitHub 集成</a> 〕教你怎么让 Codex 在本地帮你管分支、写提交、开 PR——那都是<strong>你坐在电脑前、它在你身边干</strong>。这一篇把它送上「无人值守」：<strong>配好之后，PR 一开 Codex 自动审一遍、CI 一挂它自动提个修复补丁、每天定点给你产一份昨日提交简报，全程不用你盯着</strong>。下一篇〔<a href="28-noninteractive.html">28 非交互模式 codex exec</a> 〕再把驱动这一切的那条核心命令单独讲透。</p>
+</blockquote>
+<p>都说「AI 编程工具最大的价值是陪你结对编程，边写边聊」——但说句实话，这话只说对了一半。</p>
+<p>我自己用 Codex 大半年，越用越觉得：<strong>它真正解放生产力的地方，恰恰是你不在场的时候</strong>。结对编程那套，你人得在、得盯、得审每一步，本质还是「你主导、它打下手」，你一离开它就停摆。可代码这行有太多又烦又规律的活——每个 PR 都要有人扫一眼、CI 半夜挂了得有人看、每周一要给老板攒一份「上周大家改了啥」的简报——这些活的共同点是：<strong>重复、有套路、但没人愿意一直干</strong>。</p>
+<p>这种活才是自动化的主场。把 Codex 接进 CI 流水线、挂成定时任务，它就从「你身边那个需要你盯着的助手」，变成「你睡觉时还在仓库里巡逻的那一个」。这一篇就专讲这件事：<strong>两条路——一条把 Codex 塞进 GitHub Actions（CI/CD 那一侧），一条用桌面 App 的 Automations 挂定时后台任务（本机那一侧），各管一摊，配齐了你的仓库就有了一个 24 小时在岗的自动化层。</strong></p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一眼分清「自动化」的两条路——<code>openai/codex-action</code> 进 CI/CD、Automations 在桌面 App 挂定时后台任务，分别管什么</li>
+<li>一份最小可跑的 GitHub Action workflow YAML，每一行在干什么，照着抄就能审你的 PR</li>
+<li><code>codex-action</code> 那几个最该懂的输入（<code>prompt-file</code>、<code>sandbox</code>、<code>safety-strategy</code>、<code>final-message</code>……），全对照官方核对过</li>
+<li>OpenAI key 怎么安全地配进 GitHub，以及一条比「别硬编码」更细的红线</li>
+<li>桌面 App 里 Automations 怎么挂、定时任务的结果去哪看、跑在本机还是 worktree</li>
+<li>一个能照着走、给了预期结果的实战：把一份「定时简报」自动化亲手挂起来</li>
+</ul>
+<blockquote>
+<p>⚠️ 下文凡涉及具体命令、action 输入、配置项、默认值，都以 Codex 官方文档为准（<a href="https://developers.openai.com/codex/github-action">GitHub Action</a> 、<a href="https://developers.openai.com/codex/app/automations">Automations</a> ）；版本号、模型名这类随更新变的东西，看到时以你本地实际显示为准，本篇不写死。</p>
+</blockquote>
+<hr>
+<h2>01 先分清：自动化有两条路，别一上来就混</h2>
+<p>先给结论，这是整篇的地图——<strong>Codex 的自动化分两条路，跑在两个完全不同的地方，解决的也是两类不同的活：</strong></p>
+<ul>
+<li><strong>第一条：GitHub Action（<code>openai/codex-action</code>）。</strong> 跑在 <strong>GitHub 托管的 runner（云端机器）</strong> 上，由仓库事件触发（开 PR、推代码、CI 挂了），属于 <strong>CI/CD（持续集成 / 持续交付，代码进仓库前后那一串自动检查与发布流程）</strong> 这一侧。它干的是「跟团队协作绑死」的活：审 PR、卡质量门、CI 挂了自动修。</li>
+<li><strong>第二条：Automations（自动化任务）。</strong> 跑在 <strong>你自己那台开着 Codex 桌面 App 的机器</strong> 上，由时间触发（定时、按 cron 周期），属于「个人后台」这一侧。它干的是「跟你个人节奏绑定」的活：每天给你产一份简报、定期巡检某个项目、隔几分钟盯一下某个长任务。</li>
+</ul>
+<p>为什么开篇就要把这俩分清？因为新手最容易犯的错，是<strong>拿一条路去套另一条路的需求</strong>——想让仓库里「谁开 PR 都自动审」，却跑去桌面 App 挂 Automation（结果你电脑一关就没了）；或者想让 Codex「每天提醒我看一下本地这个分支」，却跑去写 GitHub workflow（结果它在云端根本碰不到你本地的东西）。<strong>选错路，活儿根本落不了地。</strong></p>
+<p><strong>类比：保安 vs 管家。</strong> GitHub Action 像你雇给「公司大楼」（仓库）的<strong>保安</strong>——他不住你家，住在大楼的门卫室（GitHub 的 runner），只要大楼里有动静（有人开 PR、CI 报警），他就按值班表上岗处理，全公司的人都受他管。Automations 像你雇给「自己家」（本机项目）的<strong>管家</strong>——他就在你家里干活（你这台机器），你定的是「每天早上九点把昨天的快递清单整理给我」这种私人节奏，你家不开门（电脑不开机）他就歇着。<strong>保安管的是公共大楼的协作流程，管家管的是你私人的定时杂务</strong>——两拨人、两个地方、两类活，别指望保安来你家收快递。</p>
+<p>落到真实场景，这俩各自最对口的活长这样：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>GitHub Action（<code>codex-action</code>）</th>
+<th>Automations（桌面 App）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>跑在哪</strong></td>
+<td>GitHub 托管的 runner（云端）</td>
+<td>你本机开着 Codex App 的那台机器</td>
+</tr>
+<tr>
+<td><strong>谁来触发</strong></td>
+<td>仓库事件（开 PR、推代码、CI 完成）</td>
+<td>时间（定时 / cron 周期）</td>
+</tr>
+<tr>
+<td><strong>要你在场吗</strong></td>
+<td>不用，云端自己跑</td>
+<td>机器得开着、Codex App 得运行</td>
+</tr>
+<tr>
+<td><strong>最对口的活</strong></td>
+<td>审 PR、卡质量门、CI 挂了自动修</td>
+<td>每日简报、定期巡检、盯长任务</td>
+</tr>
+<tr>
+<td><strong>属于哪一侧</strong></td>
+<td>CI/CD（团队协作流程）</td>
+<td>个人后台杂务</td>
+</tr>
+</tbody></table>
+<p>这一篇按「先 GitHub Action（02–05 节）、再 Automations（06 节）、最后动手（07 节）」的顺序走。你心里先立着这张地图，后面每讲一块都能对号入座。</p>
+<blockquote>
+<p>💡 一句话总结：自动化有两条路——<strong>GitHub Action 跑在云端、由仓库事件触发、管团队协作流程</strong>（保安）；<strong>Automations 跑在你本机、由时间触发、管个人定时杂务</strong>（管家）；选路先想清「这活该谁干、在哪干」。</p>
+</blockquote>
+<hr>
+<h2>02 GitHub Action 是什么：把 <code>codex exec</code> 装进流水线的「即装即用包」</h2>
+<p>先把第一条路讲透。结论先行：<strong><code>openai/codex-action</code> 就是 OpenAI 官方做的一个 GitHub Action，它在 CI 任务里替你把 Codex CLI 装好、把跟 OpenAI 通信的代理起好，然后在你指定的权限下跑一条 <code>codex exec</code>。</strong> 你不用自己在 runner 上折腾安装和登录，一个 action 全包了。</p>
+<p>这里得先认一个词：<code>codex exec</code>。它是 Codex 的<strong>非交互模式（non-interactive mode）</strong>——不开那个全屏的交互界面，一句提示词丢进去、跑完吐结果就退出，专为脚本和 CI 设计。<strong>这一篇你只要知道：GitHub Action 的底层，跑的就是 <code>codex exec</code></strong>——action 只是把「装 CLI、配认证、跑 exec」这一串在云端打包好了（下一篇〔28〕会把这条命令本身单独讲透）。</p>
+<p>官方对它的定位写得很直白：</p>
+<blockquote>
+<p>使用 Codex GitHub Action（<code>openai/codex-action@v1</code>）在 CI/CD 任务里运行 Codex、应用补丁、或从 GitHub Actions workflow 里发布审查意见。该 action 会安装 Codex CLI，在你提供 API key 时启动 Responses API 代理，并在你指定的权限下运行 <code>codex exec</code>。</p>
+</blockquote>
+<p><strong>类比：出差用的「即开即用」工具箱。</strong> 你要去客户现场（GitHub 的 runner）干活，可以选择「自己扛一整套工具去现场，到了再一件件组装调试」（手动在 runner 上 <code>npm install</code> 装 Codex、<code>codex login</code> 配认证、再小心翼翼传 key）——也可以直接拎一个<strong>官方配好的即开即用工具箱</strong>（<code>codex-action</code>），到现场打开就是装好的电钻、接好电的插座（CLI 装好、代理起好），你只管说「钻这面墙」（给个 prompt）。<strong>这个工具箱的价值不在多新奇，而在它把「在别人地盘上安全地把环境支起来」这件最容易出错的事替你办了</strong>——尤其那个「安全」，下面第 05 节专讲。</p>
+<p>官方说这个 action 最适合三类活：</p>
+<ul>
+<li><strong>在 PR 或 release 上自动跑 Codex 的反馈</strong>，不用你自己管 CLI</li>
+<li><strong>把变更卡在 Codex 的质量检查上</strong>，当成 CI 流水线的一道门</li>
+<li><strong>跑可重复的 Codex 任务</strong>（代码审查、发版准备、迁移），全写进一个 workflow 文件</li>
+</ul>
+<p>注意一个和你过去理解可能不一样的点：<strong>这套不是靠「评论里 @ 一下」触发的</strong>。它是标准的 GitHub Actions——靠 workflow 文件里写的 <code>on:</code> 事件触发（PR 开了、代码推了、CI 完成了）。如果你用过别家 AI 工具那种「在 PR 里打一句话喊它」的玩法，先把那个预期放一边：<strong>Codex 这条路，是把 AI 焊进你的 CI 流水线，按事件自动跑，不是等你喊。</strong></p>
+<blockquote>
+<p>💡 一句话总结：<code>openai/codex-action</code> 是官方做的「即开即用工具箱」——在 CI 任务里替你装好 Codex CLI、起好代理、跑一条底层的 <code>codex exec</code>；它靠 workflow 的 <code>on:</code> <strong>事件触发</strong>（不是 @ 评论），最适合自动审 PR、卡质量门、跑可重复任务。</p>
+</blockquote>
+<p>把这条路的整体走向画成一张图，你心里就更有数了：</p>
+<p><img src="assets/27-cicd-flow@2x.png" alt="自动化：GitHub Action 触发 codex exec"></p>
+<p>这张图就是这条路的全貌——<strong>左边三类仓库事件（push、Pull Request、定时 cron）任意一个命中，就触发 workflow；workflow 在云端 runner 上按你指定的权限跑那条非交互的 <code>codex exec</code>；跑完吐出对应产出（贴回 PR 的审查评论、提交的代码修改、或一份报告 / 简报）</strong>。整条链路全程不用你在场，记住「谁触发 → 在哪跑 → 吐什么」这三段，后面拆 YAML 就只是给每一段填细节。</p>
+<hr>
+<h2>03 最小 workflow：拆开官方那份「审 PR」的 YAML</h2>
+<p>光说定位太虚，直接上官方那份能跑的 workflow——<strong>它干的是「PR 一开就自动审一遍，把意见贴回 PR」</strong>。我把它拆开，逐块翻译，你照着抄改改就能用。</p>
+<p><strong>类比：给保安排的那张「值班 + 交接」表。</strong> 这份 YAML 其实是两班人接力：<strong>第一班（<code>codex</code> job）是审查保安</strong>，PR 一开他上岗审、把意见写在一张纸条上（<code>final-message</code> 输出）；<strong>第二班（<code>post_feedback</code> job）是跑腿的</strong>，等第一班审完、纸条上确实有字，他才把纸条贴到 PR 评论区。为什么要分两班？下一节讲权限时你会明白——<strong>审查那班手里几乎没权限（只能读），贴评论那班才有写权限</strong>，这是故意的安全设计。</p>
+<h3>先讲清「这套东西到底配在哪、在哪儿跑」</h3>
+<p>很多读者一上来就卡在「我抄了 YAML，怎么没反应」——其实抄 YAML 只是中间一步，前后还有几步「隐含前提」。下面这张 5 步清单把整条链路串清楚，照着对就不会漏：</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>在哪做</th>
+<th>干啥</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1 · 仓库前提</td>
+<td><strong>GitHub</strong></td>
+<td>仓库托管在 GitHub 上、Actions 没被禁（个人仓库默认开）</td>
+</tr>
+<tr>
+<td>2 · 加 Secret</td>
+<td>仓库 → <strong>Settings → Secrets and variables → Actions</strong></td>
+<td>新建 <code>OPENAI_API_KEY</code>，下面 YAML 里 <code>secrets.OPENAI_API_KEY</code> 那处引用读的就是这个</td>
+</tr>
+<tr>
+<td>3 · 提两个文件</td>
+<td><strong>仓库根目录</strong></td>
+<td><code>.github/workflows/codex-review.yml</code> 主 workflow + <code>.github/codex/prompts/review.md</code> 审查指令——<strong>两个都是仓库里的文件、要 commit + push</strong>，不是写到本机 <code>~/.codex</code>，也不是在 GitHub 网页某个设置框里填</td>
+</tr>
+<tr>
+<td>4 · 触发它</td>
+<td><strong>GitHub</strong></td>
+<td>干 YAML 里 <code>on:</code> 指定的事——这份示例是 PR 的 <code>opened</code> / <code>synchronize</code> / <code>reopened</code>，所以<strong>开 PR 或往 PR 推新提交</strong>就触发</td>
+</tr>
+<tr>
+<td>5 · runner 跑起来</td>
+<td><strong>GitHub 云端 runner</strong></td>
+<td>Actions 在云端 runner 上跑 <code>openai/codex-action@v1</code>，它<strong>内部装 Codex CLI 并启动一次 <code>codex exec</code></strong> —— 所以 YAML 里你看不到 <code>codex exec</code> 这条命令，它被 action 封装了</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚠️ <strong>这条路不依赖把仓库托管到 Codex</strong>（那是 Codex Cloud 的事）——只要仓库在 GitHub、Actions 能跑、Secret 配好、两个文件 commit 进去了，YAML 就工作。<strong>GitHub Actions 路线 vs Codex Cloud 路线</strong>是平行的两套，别混。</p>
+</blockquote>
+<p>先看完整示例（在官方示例基础上做了精简，照着抄改改就能用）：</p>
+<pre><code class="language-yaml"># 文件路径：.github/workflows/codex-review.yml
+name: Codex pull request review
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  codex:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      final_message: ${{ steps.run_codex.outputs.final-message }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+          persist-credentials: false
+
+      - name: Run Codex
+        id: run_codex
+        uses: openai/codex-action@v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          prompt-file: .github/codex/prompts/review.md
+          output-file: codex-output.md
+
+  post_feedback:
+    runs-on: ubuntu-latest
+    needs: codex
+    if: needs.codex.outputs.final_message != &#39;&#39;
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Post Codex feedback
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: process.env.CODEX_FINAL_MESSAGE,
+            });
+        env:
+          CODEX_FINAL_MESSAGE: ${{ needs.codex.outputs.final_message }}
+</code></pre>
+<p>别被这一大坨吓到，<strong>真正属于 Codex 的就中间那一小块</strong>，其余都是 GitHub Actions 的标准骨架。逐块翻译：</p>
+<p><strong>第一块 <code>on</code>（什么时候上班）</strong>：<code>pull_request</code> 的 <code>opened</code>（PR 刚开）、<code>synchronize</code>（PR 有新提交）、<code>reopened</code>（PR 被重开）。<strong>也就是说，有人开 PR 或往 PR 里推新代码，这张值班表就被激活。</strong></p>
+<p><strong>第二块 <code>checkout</code>（先把代码取下来）</strong>：官方在「前提」里特意强调——<strong>调用 action 之前必须先 checkout 代码，Codex 才读得到仓库内容</strong>。这里还多了 <code>persist-credentials: false</code>（不在工作区里留 Git 凭据）和 <code>ref: .../merge</code>（取这个 PR 合进目标分支后的样子来审），都是审 PR 的标准做法。（官方原示例在 checkout 之后、<code>Run Codex</code> 之前，还有一步 <code>Pre-fetch base and head refs</code>，预先把 PR 的 base 和 head 分支 fetch 下来；为了让骨架更清爽，这里精简掉了，你照官方文档抄会多看到这一步——多它一步更稳，不影响理解。）</p>
+<p><strong>第三块 <code>Run Codex</code>（核心，就这一步是 Codex）</strong>：</p>
+<pre><code class="language-yaml">- uses: openai/codex-action@v1
+  with:
+    openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+    prompt-file: .github/codex/prompts/review.md
+    output-file: codex-output.md
+</code></pre>
+<p>三行输入：<code>openai-api-key</code> 把 key 传进去（怎么安全配，第 05 节专讲）；<code>prompt-file</code> 指向一个<strong>提交在仓库里的提示词文件</strong>（官方建议放 <code>.github/codex/prompts/</code> 下），里面写「该怎么审」；<code>output-file</code> 把 Codex 最终那条消息也存一份到磁盘，方便后面查或当 artifact 传。</p>
+<p><strong>第四块 <code>outputs</code> + <code>post_feedback</code>（把审查结果贴回 PR）</strong>：<code>codex</code> job 通过 <code>outputs</code> 把 Codex 的最终消息（<code>steps.run_codex.outputs.final-message</code>）抛出来；<code>post_feedback</code> job 用 <code>needs: codex</code> 接住它，<code>if: needs.codex.outputs.final_message != &#39;&#39;</code>（确认真有内容才贴），然后用 GitHub 的脚本把它发成 PR 评论。</p>
+<p>这里有个<strong>最该记住的产出物</strong>：<code>final-message</code>。官方原话：</p>
+<blockquote>
+<p>该 action 通过 <code>final-message</code> 输出把 Codex 的最后一条消息抛出来。把它映射成一个 job 输出（如上所示），或在后续步骤里直接处理。</p>
+</blockquote>
+<p>说白了，<strong><code>final-message</code> 就是 Codex 干完活那张「纸条」</strong>——你拿它去贴 PR 评论、去发 Slack、去当门禁判断，都行。整份 workflow 的数据流就一条线：<strong>Codex 审完 → 结果进 <code>final-message</code> → 下一个 job 接住 → 贴回 PR</strong>。</p>
+<p><img src="assets/27-cicd-action@2x.png" alt="GitHub Action 调 codex exec：PR 触发 → checkout → 跑 codex exec 按 prompt 审 → 非空贴 PR 评论"></p>
+<p>这张图把上面那份 YAML 的来龙去脉理直了：<strong>事件触发 → 取代码 → Codex 审 → 结果走 <code>final-message</code> → 有内容就贴回 PR</strong>，两班人接力，一步不少。</p>
+<p>提示词放文件还是写一行？官方给了两个输入二选一：<code>prompt-file</code>（指向仓库里的 markdown / 文本文件）或 <code>prompt</code>（直接写一行内联文本）。<strong>两个只能给一个</strong>，都给了 action 会报错（第 05 节故障排除会再点）。审查这种「话比较长、还想版本管理」的，用 <code>prompt-file</code> 更顺手。</p>
+<blockquote>
+<p>💡 一句话总结：最小 workflow 就一条数据线——<strong>PR 事件触发 → checkout 取代码 → <code>codex-action</code> 按 <code>prompt-file</code> 审 → 结果进 <code>final-message</code> → 第二个 job 贴回 PR</strong>；真正属于 Codex 的只有中间 <code>Run Codex</code> 那三行输入，其余是 GitHub Actions 标准骨架。</p>
+</blockquote>
+<hr>
+<h2>04 调它怎么跑：那几个最该懂的 action 输入</h2>
+<p>上一节那份是最小骨架。真用起来，你得知道几个旋钮怎么拧——<strong><code>codex-action</code> 的输入，基本就是把 <code>codex exec</code> 的那些选项搬到了 YAML 里</strong>。官方说得明白：「通过设置映射到 <code>codex exec</code> 选项的 action 输入，来微调 Codex 怎么跑。」</p>
+<p>这几个是新手最该先认住的，全对照官方文档核对过：</p>
+<table>
+<thead>
+<tr>
+<th>输入（input）</th>
+<th>干什么</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>prompt</code> / <code>prompt-file</code></td>
+<td>给它的任务（内联一行 / 仓库里的文件）</td>
+<td><strong>二选一</strong>，都给会报错</td>
+</tr>
+<tr>
+<td><code>sandbox</code></td>
+<td>选沙箱模式</td>
+<td><code>workspace-write</code> / <code>read-only</code> / <code>danger-full-access</code></td>
+</tr>
+<tr>
+<td><code>model</code> 和 <code>effort</code></td>
+<td>选模型和推理强度</td>
+<td>留空就用默认，别写死型号</td>
+</tr>
+<tr>
+<td><code>output-file</code></td>
+<td>把最终消息存到磁盘</td>
+<td>方便后续步骤上传或 diff</td>
+</tr>
+<tr>
+<td><code>codex-args</code></td>
+<td>塞额外的 CLI 参数</td>
+<td>JSON 数组（如 <code>[&quot;--ephemeral&quot;]</code>）或 shell 字符串（如 <code>--profile ci</code>）</td>
+</tr>
+<tr>
+<td><code>codex-version</code></td>
+<td>钉死某个 CLI 版本</td>
+<td>留空用最新发布版</td>
+</tr>
+<tr>
+<td><code>codex-home</code></td>
+<td>指向共享的 Codex 主目录</td>
+<td>想跨步骤复用配置 / MCP 时用</td>
+</tr>
+</tbody></table>
+<p>几个值得单独点一句的：</p>
+<p><strong><code>sandbox</code> 是你最该想清楚的一个。</strong> 第 15 篇我们把沙箱三档掰开讲过——<code>read-only</code>（只读）、<code>workspace-write</code>（工作区可写）、<code>danger-full-access</code>（完全访问）。在 CI 里，<strong>官方的指导是「让沙箱模式匹配这次任务真正需要的权限，选能跑通的最窄那档」</strong>：纯审查、不改文件，就 <code>read-only</code>；要它真改代码、提补丁，才给 <code>workspace-write</code>。上一节那份审 PR 的没写 <code>sandbox</code>，因为审查只读就够。</p>
+<p>这里要钉死一个<strong>最容易想当然写错的默认值</strong>：<strong><code>codex exec</code> 默认跑在只读沙箱里</strong>（官方原话「By default, <code>codex exec</code> runs in a read-only sandbox」）。所以如果你的 workflow 是要 Codex <strong>改文件</strong>的（比如 CI 自动修），<strong>必须显式写 <code>sandbox: workspace-write</code></strong>，不然它只读、改不动。别想当然以为「在 CI 里它应该能写吧」——不写就是只读。</p>
+<p><strong><code>codex-args</code> 是个「万能后门」。</strong> 你本地 <code>codex exec</code> 能用的参数，基本都能从这儿透传进去。官方特意点了一个高频用法——<strong>要结构化 JSON 输出时，通过 <code>codex-args</code> 传 <code>--output-schema</code></strong>（让 Codex 的最终回复严格符合一个 JSON Schema，方便后续步骤当数据用）。比如你想让 Codex 产出一份「字段固定的风险报告」喂给下游，就这么传。</p>
+<p><strong><code>model</code> 和 <code>effort</code> 留空就好。</strong> 官方明说「留空用默认」。具体哪个模型、哪个推理强度合适，随版本变得快，<strong>别在 YAML 里写死型号</strong>——真要指定，以你账号里实际可用的为准。</p>
+<p>那这些输入到底映射到 <code>codex exec</code> 的哪些行为？拿 <code>output-file</code> 举个我自己踩过的例子：我第一次配审查 workflow 时，光给了 <code>prompt-file</code> 没给 <code>output-file</code>，结果跑完想回头看 Codex 到底说了啥，只能去 Actions 的日志里翻——又长又乱。<strong>后来加上 <code>output-file: codex-output.md</code>，再配一步 <code>upload-artifact</code>，每次跑完直接下载那个 md 看，干净多了。</strong> 这是官方建议的标准搭配：<code>output-file</code> 落盘 + artifact 上传，想留完整记录就这么干。</p>
+<p>一个和安全相关、但属于「怎么跑」的细节先记着：<code>codex-action</code> 默认会启动一个 <strong>Responses API 代理</strong>来转发你的 OpenAI key（仅在你提供了 <code>openai-api-key</code> 时启动）。官方做这个代理的目的，就是<strong>减少 key 在 runner 上的暴露面</strong>——这也是为什么官方反复推荐「在 GitHub Actions 里用这个 action，别自己装 CLI 再手动传 key」。</p>
+<blockquote>
+<p>💡 一句话总结：action 的输入基本是 <code>codex exec</code> 选项的 YAML 版——<code>sandbox</code> 选权限（<strong>默认只读，要改文件必须显式开 <code>workspace-write</code></strong>）、<code>prompt</code>/<code>prompt-file</code> 二选一、<code>model</code>/<code>effort</code> 留空用默认、<code>codex-args</code> 当后门透传 CLI 参数（如 <code>--output-schema</code>）、<code>output-file</code> 配 artifact 留记录。</p>
+</blockquote>
+<hr>
+<h2>05 密钥与权限：CI 自动化里最不能马虎的一节</h2>
+<p>到这儿你一定注意到了，每份 workflow 里都有这么一行：</p>
+<pre><code class="language-yaml">openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+</code></pre>
+<p><strong>这一节专讲它背后的安全规矩——CI 自动化里，这是最容易翻车、代价也最大的地方。</strong> 它牵涉两件事：key 怎么存、Codex 在 runner 上权限多大。</p>
+<h3>第一条：key 存进 GitHub Secrets，绝不硬编码</h3>
+<p>官方在「前提」里写得很直白：</p>
+<blockquote>
+<p>把你的 OpenAI key 存成一个 GitHub secret（比如 <code>OPENAI_API_KEY</code>），在 workflow 里引用它。</p>
+</blockquote>
+<p>为啥这是红线？<strong>因为 GitHub 仓库——尤其公开仓库——是全世界都能看的。</strong> 你要是图省事，把真实的 key 直接写进 YAML 提交上去，等于<strong>把家门钥匙的照片发到了朋友圈</strong>：扫密钥的爬虫一刻不停，扫到就能拿你的 key 疯狂调 API，账单全算你头上。</p>
+<p><strong>类比：把钥匙锁进保险柜，YAML 里只留个取钥匙的暗号。</strong> GitHub Secrets 就是仓库自带的保险柜——你把真实 key 锁进去，它加密存着、不显示在任何日志或界面里。workflow 里写的 <code v-pre>${{ secrets.OPENAI_API_KEY }}</code> 不是 key 本身，<strong>只是一句「去保险柜把那把叫 OPENAI_API_KEY 的钥匙取出来用」的暗号</strong>。文件可以大大方方提交、公开，因为里面压根没真东西。</p>
+<p>怎么存进保险柜？打开仓库的 <strong>Settings → Secrets and variables → Actions</strong>，点 <strong>New repository secret</strong>，名字填 <code>OPENAI_API_KEY</code>，值填你的真实 key（从你的 OpenAI 账号拿，第 04 篇讲过认证那套），保存。之后 workflow 用 <code v-pre>${{ secrets.OPENAI_API_KEY }}</code> 引用即可。</p>
+<h3>第二条（比「别硬编码」更细的红线）：别把 key 设成 job 级环境变量</h3>
+<p>这条很多人不知道，官方在非交互模式文档里专门加了警告——<strong>比「别硬编码」更进一步</strong>：</p>
+<blockquote>
+<p>不要在那些会 checkout 或运行「仓库自带代码」的 workflow 里，把 <code>OPENAI_API_KEY</code> 或 <code>CODEX_API_KEY</code> 设成 job 级环境变量。构建脚本、测试、依赖的生命周期钩子、或同一个 job 里被污染的 action，都能读到这些环境变量。</p>
+</blockquote>
+<p>翻成人话：<strong>就算你没硬编码、规规矩矩存了 Secrets，但如果你把它在 job 顶上 <code>env:</code> 一挂（全 job 可见），那这个 job 里跑的任何东西——你的测试、<code>npm install</code> 触发的脚本、甚至某个被投毒的第三方 action——都能顺手把你的 key 偷走。</strong> 正确做法是<strong>只把 key 传给 <code>codex-action</code> 这一个步骤</strong>（像示例里那样写在 action 的 <code>with:</code> 下），别往 job 级 <code>env</code> 放。</p>
+<p>这也正是官方反复推荐「<strong>在 GitHub Actions 里就用 <code>codex-action</code>、别自己装 CLI 手动传 key</strong>」的原因——那个 Responses API 代理就是为了把 key 的暴露面压到最小。</p>
+<h3>第三条：管住 Codex 在 runner 上的权限</h3>
+<p>官方有句话得记住：<strong>「在 GitHub 托管的 runner 上，除非你限制它，Codex 的访问权限是很广的。」</strong> 它给了几个旋钮控制暴露面：</p>
+<table>
+<thead>
+<tr>
+<th>输入</th>
+<th>作用</th>
+<th>默认 / 提示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>safety-strategy</code></td>
+<td>跑 Codex 前先丢掉 <code>sudo</code>，保护内存里的密钥</td>
+<td><strong>默认 <code>drop-sudo</code></strong>；Windows 必须设成 <code>unsafe</code></td>
+</tr>
+<tr>
+<td><code>unprivileged-user</code></td>
+<td>配 <code>codex-user</code>，用一个特定低权限账号跑 Codex</td>
+<td>该账号要能读写仓库 checkout</td>
+</tr>
+<tr>
+<td><code>read-only</code></td>
+<td>不让 Codex 改文件 / 用网络</td>
+<td>但它<strong>仍以高权限运行</strong>，别只靠它护密钥</td>
+</tr>
+<tr>
+<td><code>sandbox</code></td>
+<td>在 Codex 内部限制文件系统和网络</td>
+<td>选能跑通的最窄那档</td>
+</tr>
+<tr>
+<td><code>allow-users</code> / <code>allow-bots</code></td>
+<td>限制谁能触发这个 workflow</td>
+<td><strong>默认只有有写权限的人能触发</strong></td>
+</tr>
+</tbody></table>
+<p>几个钉死的点：</p>
+<p><strong><code>safety-strategy</code> 默认就是 <code>drop-sudo</code>，别乱关。</strong> 它在跑 Codex 前把 <code>sudo</code> 拿掉，且<strong>对这个 job 是不可逆的</strong>——这是保护 runner 上密钥的一道墙。<strong>Windows runner 上它跑不了，必须显式设 <code>safety-strategy: unsafe</code></strong>（官方明确写了），但官方同时强调：<strong>多租户 runner 上绝不要让 action 处于 <code>unsafe</code></strong>。</p>
+<p><strong><code>read-only</code> 不等于安全。</strong> 官方特意提醒：<code>read-only</code> 只是不让它改文件、不让它联网，<strong>但它仍以高权限运行</strong>，「别只靠 <code>read-only</code> 来保护密钥」。要护密钥，靠的是 <code>drop-sudo</code> 或低权限用户那套。</p>
+<p><strong><code>allow-users</code> / <code>allow-bots</code> 管「谁能触发」。</strong> 默认只有对仓库有写权限的人能触发这个 action；想放行额外的可信账号（比如某个服务账号），显式列进去。公开仓库尤其要管住这个——别让任意陌生人都能让 Codex 在你仓库上跑。</p>
+<p>再把官方那份<strong>安全清单</strong>的要点收成一张对照表，照着办：</p>
+<table>
+<thead>
+<tr>
+<th>❌ 危险做法</th>
+<th>✅ 安全做法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>把真实 key 写进 YAML 提交</td>
+<td>存进 GitHub Secrets，YAML 只引用</td>
+</tr>
+<tr>
+<td>把 key 设成 job 级 <code>env</code>（全 job 可见）</td>
+<td>只传给 <code>codex-action</code> 那一步</td>
+</tr>
+<tr>
+<td>多租户 runner 上开 <code>safety-strategy: unsafe</code></td>
+<td>保持默认 <code>drop-sudo</code> 或换低权限用户</td>
+</tr>
+<tr>
+<td>让任何人都能触发 workflow</td>
+<td>用可信事件 / 显式审批 / <code>allow-users</code> 收紧</td>
+</tr>
+<tr>
+<td>直接拿 PR 描述、commit 信息当 prompt 喂</td>
+<td><strong>先清洗输入</strong>，警惕藏在 HTML 注释里的提示注入</td>
+</tr>
+</tbody></table>
+<p>最后那条「清洗输入」接的是第 16 篇讲过的<strong>提示注入（prompt injection）</strong>——有人往 PR 描述、commit 信息、issue 正文里藏「写给 AI 看的恶意指令」骗 Codex 执行。官方专门提醒：<strong>把这些来自外部的文本喂给 Codex 前，先审一遍有没有 HTML 注释或隐藏文本。</strong> CI 这套尤其危险，因为这些内容陌生人都能提交。还有一条官方建议很实在：<strong>把 Codex 放在一个 job 的最后一步跑</strong>，免得后面的步骤继承了它可能造成的意外状态改动。</p>
+<blockquote>
+<p>💡 一句话总结：CI 密钥安全三层——<strong>①key 存 Secrets 不硬编码；②别设成 job 级 <code>env</code>、只传给 <code>codex-action</code> 那一步；③用 <code>drop-sudo</code>（默认，别在多租户 runner 关）和 <code>allow-users</code> 管住权限与触发者</strong>；再加「清洗外部输入防注入 + Codex 放 job 末步」，才算把这条路用稳。</p>
+</blockquote>
+<hr>
+<h2>06 另一条路：桌面 App 的 Automations，挂个定时后台任务</h2>
+<p>GitHub Action 那条讲完了。现在掉头看第二条路——<strong>Automations（自动化任务），跑在你本机的 Codex 桌面 App 里，靠时间触发，干个人后台杂务。</strong></p>
+<p>先给结论：<strong>Automations 就是让 Codex 在后台按计划反复跑某个任务，跑完有发现就丢进收件箱、没发现就自动归档。</strong> 官方原话：</p>
+<blockquote>
+<p>在后台自动化处理周期性任务。Codex 把发现加进收件箱（inbox），如果没什么可报告的就自动归档这次任务。</p>
+</blockquote>
+<p><strong>类比：给手机设的「定时提醒 + 自动整理」闹钟。</strong> 你给手机设个闹钟「每天早上九点提醒我吃药」——它到点自己响，你不用每天手动开。但 Automations 比闹钟聪明一档：它不光「到点跑」，还会<strong>自己判断这次有没有值得烦你的事</strong>——有就推到你的收件箱（像闹钟响给你看），没有就悄悄归档（像它发现你今天根本不用吃药，就不打扰你）。<strong>到点自动跑 + 没事不打扰</strong>，这俩加起来才是 Automations 的精髓。</p>
+<h3>它能干嘛：三类真实场景</h3>
+<p>官方给的例子和我自己用下来，最对口的是这三类：</p>
+<ul>
+<li><strong>每天给你产一份「项目动态简报」</strong>：官方示例里有一个特别实用——「看 <code>origin/master</code> 或 <code>origin/main</code> 最近 24 小时的提交，按工作流分组，写成一份给老板看的简报」。我把它挂成每天早上的 Automation，等于每天上班前桌上就摆好一份「昨天大家改了啥」，不用自己翻 commit。</li>
+<li><strong>定期巡检</strong>：比如「每天扫一遍我最近的提交，看有没有引入 bug，有就修」（官方有个配 skill 的完整例子，下面说）。</li>
+<li><strong>盯一个长任务 / 轮询外部状态</strong>：这类用「线程自动化」（thread automation），下面单讲。</li>
+</ul>
+<h3>两种类型：独立任务 vs 线程自动化</h3>
+<p>官方把 Automations 分两种，<strong>搞清差别才不会挂错</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>独立 / 项目自动化（standalone）</th>
+<th>线程自动化（thread automation）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>每次跑</strong></td>
+<td>从头开一个全新的 run</td>
+<td>回到<strong>同一个对话线程</strong>接着跑</td>
+</tr>
+<tr>
+<td><strong>保留上下文吗</strong></td>
+<td>不保留，每次独立</td>
+<td>保留，带着这个线程的上下文</td>
+</tr>
+<tr>
+<td><strong>结果去哪</strong></td>
+<td>作为独立 run 进 Triage 收件箱</td>
+<td>留在那个线程里</td>
+</tr>
+<tr>
+<td><strong>最适合</strong></td>
+<td>每次该独立、或要跨多个项目跑</td>
+<td>同一件事要按节奏反复回来盯</td>
+</tr>
+</tbody></table>
+<p><strong>独立自动化</strong>适合「每天产一份新简报」这种——每次都是干净的一趟，结果各自进收件箱。<strong>线程自动化</strong>是「心跳式」的——比如「盯着这个长命令跑没跑完」「每隔几分钟轮询一下 GitHub 看 PR 状态、有新反馈就处理」，它每次醒来都回到同一个对话、带着之前的来龙去脉。官方提醒：写线程自动化的 prompt 要写得「耐用」——说清<strong>每次醒来该干啥、怎么判断有没有值得报告的事、啥时候该停或问你</strong>。</p>
+<h3>跑在本机还是 worktree</h3>
+<p>对 <strong>Git 仓库</strong>，每个 Automation 可以选跑在<strong>本地项目</strong>还是一个专门的后台 <strong>worktree（工作树，第 26 篇讲过的 Git 多检出机制）</strong>。官方的取舍很清楚：</p>
+<ul>
+<li><strong>worktree 模式</strong>：自动化的改动跟你手头没干完的活<strong>隔离开</strong>，互不干扰——官方的说法是「想隔离自动化改动时用 worktree」。</li>
+<li><strong>本地模式</strong>：直接在你的主检出里改，<strong>可能动到你正在编辑的文件</strong>，想清楚再用——官方的说法是「想让自动化直接在主检出里干活时用本地模式，但要记得它可能改到你正在编辑的文件」。</li>
+<li>非版本控制的项目：直接在项目目录里跑。</li>
+</ul>
+<p>官方只摆权衡、没说哪个是默认，<strong>我个人的建议是：Git 仓库挂自动化，默认就选 worktree</strong>，省得它半夜改了你白天正写一半的文件。不过 worktree 多了占磁盘，官方提醒频繁调度会攒出一堆 worktree，<strong>用不上的 run 及时归档</strong>。</p>
+<h3>怎么创建、权限怎么算</h3>
+<p>最省事的创建方式，官方说了：<strong>直接在一个普通 Codex 对话里让它建</strong>——「描述任务、定好计划频率、说清是挂在当前线程还是开新 run，Codex 会帮你起草自动化的 prompt、选好类型」。你甚至可以让一个 <strong>skill（第 22 篇那套技能）</strong> 来创建自动化，或在自动化里用 <code>$skill-name</code> 显式触发一个技能（官方那个「自动修我自己引入的 bug」的例子，就是先写个 <code>$recent-code-bugfix</code> skill，再挂个 Automation 每天调它）。</p>
+<p>权限这块有两个官方事实得记牢：</p>
+<p><strong>第一，Automations 用你的默认沙箱设置跑。</strong> 如果你默认是 <code>read-only</code>，那些要改文件、要联网的工具调用会失败——官方建议想让它真干活就把默认调到 <code>workspace-write</code>。<strong>反过来，如果你开着 full access，无人值守的后台自动化风险很高</strong>（它可能不问你就改文件、跑命令、联网），官方建议这种情况收回到 <code>workspace-write</code> 并用 rules 精确放行。</p>
+<p><strong>第二，Automations 跑的是 <code>approval_policy = &quot;never&quot;</code>（在你的组织策略允许时）。</strong> 也就是无人值守、不弹审批——这合理，毕竟没人在场点头。但正因如此，<strong>沙箱那道墙就更重要了</strong>：第 15 篇讲过「不问（never）」和「放权」是两码事，后台自动化更得靠沙箱兜底。如果管理员用 <code>requirements.toml</code> 禁掉了 <code>approval_policy = &quot;never&quot;</code>，自动化会退回到你所选模式的审批行为。</p>
+<p>还有一条官方强烈建议、我也踩过坑的——<strong>挂之前先在普通对话里手动跑一遍这个 prompt</strong>：确认它清不清楚、范围对不对、产出的 diff 能不能审。我第一次挂「每日简报」时偷懒没试跑，结果第一版 prompt 写得太泛，它每天给我产一坨没重点的流水账，连改三版才顺。<strong>先手测、再上调度</strong>，能省你好几天的垃圾收件箱。</p>
+<blockquote>
+<p>⚠️ 一个前提别忘：对「项目范围」的自动化，<strong>你那台跑 Codex App 的机器得开着、Codex 得在运行、选中的项目还得在磁盘上</strong>，到点它才跑得起来。这跟 GitHub Action「云端自己跑」是本质区别——管家得在家，才干得了活。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：Automations 是本机定时后台任务——<strong>到点自动跑 + 没事不打扰</strong>（有发现进收件箱、没有就归档）；分独立任务（每次全新）和线程自动化（回同一对话）；Git 仓库可选本地或 worktree，<strong>建议默认选 worktree 隔离</strong>；用默认沙箱 + <code>approval_policy = &quot;never&quot;</code>，所以<strong>挂之前先手测、并靠沙箱兜底</strong>。</p>
+</blockquote>
+<hr>
+<h2>07 动手：把一份「每日简报」自动化亲手挂起来</h2>
+<p>光看不练等于没学。下面带你<strong>真正在桌面 App 里挂一个最小的定时自动化并验证它能跑</strong>。选 Automations 这条来动手，是因为它不用你有管理员权限、也不用 checkout 仓库，对小白门槛最低、最快见效。</p>
+<p><strong>前提：</strong> 你装好了 Codex 桌面 App（第 07 篇讲过）、登录可用、打开了一个<strong>本地项目</strong>（最好是个 Git 仓库，这样能体验 worktree）。本节涉及的界面按钮随版本会变，<strong>以你本地实际显示为准</strong>；命令、字段、默认行为以官方文档为准。</p>
+<p><strong>第一步：先在普通对话里手测 prompt（官方强烈建议的一步）</strong></p>
+<p>打开那个项目，开一个普通对话，把你想自动化的任务先手动丢进去试一次。比如：</p>
+<pre><code class="language-text">看一下这个仓库最近 24 小时的提交，用中文写一份简短简报：
+- 按改动主题分组（不要逐条列 commit）
+- 每组一两句话说清改了啥
+- 如果这 24 小时没有提交，直接说「过去 24 小时没有新提交」
+</code></pre>
+<p><strong>预期</strong>：Codex 读 Git 历史、产出一份分组简报（或者明确告诉你这段时间没提交）。<strong>这一步就是在确认：prompt 清不清楚、产出能不能用。</strong> 觉得啰嗦或跑偏，就当场改 prompt 再试，直到顺手——<strong>改 prompt 的成本，在这一步最低。</strong></p>
+<p><strong>第二步：让 Codex 把它挂成一个定时自动化</strong></p>
+<p>prompt 手测顺了，<strong>最省事的办法是直接让 Codex 建</strong>（官方推荐）。在同一个对话里说：</p>
+<pre><code class="language-text">把刚才这个简报任务挂成一个每天早上 9 点跑的独立自动化，
+跑在 worktree 上，别动我本地的文件。如果没新提交就自动归档、别烦我。
+</code></pre>
+<p><strong>预期</strong>：Codex 会帮你起草这个自动化的 prompt、选好类型（独立自动化）、把调度设成每天 9 点，并确认跑在 worktree。<strong>它可能让你确认几个细节（频率、范围），点确认即可。</strong> 你也可以在 App 侧边栏的 <strong>automations 面板</strong>里手动新建，效果一样。</p>
+<p>想要别的节奏？官方支持自定义 <strong>cron 语法</strong>——比如「每周一早上九点」之类。需要精确周期时，在创建时选自定义调度、填 cron 表达式即可。</p>
+<p><strong>第三步：在 automations 面板确认它挂上了</strong></p>
+<p>去 Codex App 侧边栏的 <strong>automations 面板</strong>看一眼。</p>
+<p><strong>预期</strong>：列表里出现你刚挂的这个自动化，显示它的调度（每天 9 点）、类型（独立 / standalone）、跑在哪（worktree）。<strong>看到它在列表里 = 值班表排上了。</strong></p>
+<p><strong>第四步：先手动触发一次，别干等到明早</strong></p>
+<p>不用真等到明天九点来验证。在面板里找到这个自动化，<strong>手动触发一次 run</strong>（官方文档建议「开始排期后，先 review 头几次输出」，手动跑就是最快的 review）。</p>
+<p><strong>预期</strong>：</p>
+<ul>
+<li>它在后台跑起来（你能在面板看到这次 run 的状态）。</li>
+<li>跑完，<strong>如果有提交</strong>，这次 run 带着那份简报出现在 <strong>Triage（收件箱）</strong> 里；<strong>如果这 24 小时没提交</strong>，按你写的 prompt 它会自动归档、不进收件箱。</li>
+<li><strong>看到收件箱里那份简报（或它正确地归档了）= 整条链路通了。</strong></li>
+</ul>
+<p><strong>第五步：审一眼，再决定留不留</strong></p>
+<p>打开收件箱里那份简报，<strong>读一遍</strong>：分组对不对、有没有漏、措辞顺不顺。觉得哪不对，回去<strong>调那个自动化的 prompt</strong>（官方说「review 头几次输出，按需调 prompt 或频率」）。觉得这个任务以后用不上了，<strong>归档掉</strong>——尤其它跑在 worktree 上，官方提醒用不上的 run 及时归档，免得攒一堆 worktree 占磁盘。</p>
+<p>跑通这五步，你就把「<strong>先手测 prompt → 让 Codex 挂成定时自动化 → 面板确认 → 手动触发验证 → 审完决定去留</strong>」这条完整链路亲手走了一遍。以后挂任何后台任务，本质都是这套流程，无非换换 prompt 和调度。</p>
+<blockquote>
+<p>💡 一句话总结：动手就五步——<strong>先在普通对话手测 prompt、让 Codex 挂成每天 9 点的独立自动化（跑 worktree）、在面板确认、手动触发一次别干等、审完再决定留不留</strong>；跑通这条链路，比记十条配置都顶用。</p>
+</blockquote>
+<hr>
+<h2>08 小结</h2>
+<p>这一篇把 Codex 的自动化两条路都捋了一遍——<strong>一条把它焊进 CI/CD（GitHub Action），一条让它在你本机当定时管家（Automations），配齐了，你的仓库就有了一个你不在时还在干活的自动化层。</strong></p>
+<p>把核心要点串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你要做的事</th>
+<th>用哪条路</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>理解两条路</td>
+<td>Action（云端） vs Automations（本机）</td>
+<td>事件触发管协作 / 时间触发管杂务，<strong>别套错</strong></td>
+</tr>
+<tr>
+<td>在 CI 里跑 Codex</td>
+<td><code>openai/codex-action@v1</code></td>
+<td>底层跑 <code>codex exec</code>，<strong>事件触发</strong>不是 @ 评论</td>
+</tr>
+<tr>
+<td>看懂 / 改 workflow</td>
+<td><code>.github/workflows/</code> 的 YAML</td>
+<td>数据线：事件 → checkout → 审 → <code>final-message</code> → 贴回</td>
+</tr>
+<tr>
+<td>调它怎么跑</td>
+<td>action 的输入</td>
+<td><code>sandbox</code> <strong>默认只读、要改文件得显式开 write</strong>；<code>codex-args</code> 当后门</td>
+</tr>
+<tr>
+<td>保护密钥</td>
+<td>GitHub Secrets + 权限旋钮</td>
+<td>不硬编码、<strong>别设 job 级 <code>env</code></strong>、<code>drop-sudo</code> 别关</td>
+</tr>
+<tr>
+<td>挂定时后台任务</td>
+<td>桌面 App 的 Automations</td>
+<td>到点跑 + 没事不打扰；Git 仓库建议默认跑 worktree</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 一眼分清「GitHub Action 走 CI/CD」和「Automations 走本机定时」这两条路该用哪条；看懂并改一份最小的 <code>codex-action</code> workflow、知道 <code>sandbox</code> 默认只读这个坑；把 OpenAI key 安全地锁进 Secrets 还不踩「job 级 <code>env</code>」那条暗线；并在桌面 App 里亲手挂起一个定时自动化、验证它进收件箱。<strong>这套自动化能力，是你让 Codex 从『你身边的结对搭子』升级成『团队里和你私人后台都 24 小时在岗的一员』的那一步。</strong></p>
+<p>配好自动化之后，就再没必要为「PR 没人审」「简报没人写」这种规律杂务亲自上阵了——<strong>保安和管家都到位了，你睡你的。</strong></p>
+<hr>
+<p>下一篇 <strong>〔<a href="28-noninteractive.html">28 非交互模式 codex exec</a> 〕</strong>——这一篇我们反复提到，GitHub Action 也好、Automations 也好，<strong>底层跑的都是同一条命令 <code>codex exec</code></strong>。换句话说，自动化这套能力的「发动机」，就是这条「一句话丢进去、跑完吐结果就退出」的非交互命令。Action 和 Automations 只是它最现成的两个封装。下一篇就掀开盖子直接讲它：<strong>进度为什么走 stderr、结果为什么走 stdout？<code>--json</code> 怎么吐机器可读的事件流？怎么用管道把它接进 <code>git</code>、<code>gh</code>、Slack？</strong> 想想看：Action 帮你把「触发」和「跑」都封装好了，可一旦你想自己写脚本、自己定「输入从哪来、输出往哪送」，是不是就得往下挖到 <code>codex exec</code> 这一层了？</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/26-git-github.html"><span class="mono">← 上一篇 · 26</span><b>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</b></a>
+  <a class="pg nx" href="/library/codex/28-noninteractive.html"><span class="mono">下一篇 · 28 →</span><b>非交互模式 codex exec：把它塞进脚本和 CI 里跑</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

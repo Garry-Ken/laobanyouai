@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>07 桌面 App 全景 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 07 篇:桌面 App 全景。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/07-desktop-app.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class="cur"><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class="cur"><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 07 篇</p>
+      <h1>桌面 App 全景</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="06-first-task.html">06 跑通第一个任务</a> 让你发出了第一条指令、看着 Codex 真把活干完。这一篇正式进它官方<strong>最主推的入口</strong>——桌面 App，把界面分区、能干的事、关键设置和快捷键一次性铺平。下一篇 <a href="08-cli.html">08 命令行 CLI 上手</a> 再回终端，把另一条线补齐。</p>
+</blockquote>
+<p>OpenAI 把 Codex 拆成四个入口，但官网首页的下载大按钮、文档里 <code>app</code> 那一整棵目录、连发布会演示都围着同一个东西转——<strong>桌面 App</strong>。不是 CLI、不是网页版，是这个独立窗口。</p>
+<p>这不是随口一说。我数了下官方 <code>app</code> 目录下的子页面：features、commands、settings、review、worktrees、automations、browser、computer-use、local-environments、chrome-extension……<strong>十几个页面专门讲桌面 App，CLI 的文档体量连它一半都不到</strong>。官方把宝压在了哪，一目了然。</p>
+<p>可吊诡的是，很多人第一反应是「桌面 App？那不就是给不会命令行的人的简化版吗，我直接上 CLI」。<strong>说句实话，这判断放 Codex 身上是错的</strong>——Codex 的桌面 App 不是 CLI 的阉割版，它把并行、Worktree 隔离、可视化审阅、内置浏览器、自动化全塞进了一个窗口，反而是功能最满的那个面孔。</p>
+<p>这一篇就带你把这个窗口逛一圈：哪块区域干嘛、怎么并行不打架、改完怎么一眼看清、哪些快捷键最值得记。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一张桌面 App 界面分区图，左边栏 / 中间对话区 / 右边面板各管什么，一眼对上号</li>
+<li>三种运行模式（Local / Worktree / Cloud）到底差在哪，什么活该选哪个</li>
+<li>可视化审阅面板怎么用——逐行批注、按块接受 / 回滚、提交推送 PR 全在窗口里</li>
+<li>内置终端、Actions 快捷按钮、Automations 自动化这些「CLI 给不了」的爽点</li>
+<li>一份最该背的快捷键 + 斜杠命令对照表，外加一个能照抄的上手流程</li>
+</ul>
+<blockquote>
+<p>⚠️ 下文凡涉及具体快捷键、设置项、默认行为，都以 Codex <a href="https://developers.openai.com/codex/app">官方文档</a> 为准；快捷键官方文档目前<strong>只给了 macOS 的标注</strong>，Windows 上的键位以你本机 <strong>Settings &gt; Keyboard Shortcuts</strong> 里显示的为准，下面会专门提醒。</p>
+</blockquote>
+<hr>
+<h2>01 先认门：桌面 App 是个什么定位</h2>
+<p>很多人装好桌面 App，对着满屏的栏、按钮、图标发懵，根本不知道从哪下手。先别急着点，<strong>先搞清它的定位</strong>，后面每块区域你才知道该往哪归。</p>
+<p>先给结论：<strong>Codex 桌面 App 是一个「为并行而生」的代码工作台</strong>。官方原话叫它 &quot;a focused desktop experience for working on Codex threads in parallel&quot;——一个专注于「并行跑多个 Codex 线程（thread）」的桌面体验。这里的<strong>线程（thread）</strong>，你可以理解成一次独立的对话任务，第 06 篇你发的那条指令，背后就是一个线程。</p>
+<p><strong>类比：一个带很多工位的开放式工作间。</strong>（这里「工位」指每个独立的 Codex 任务线程，不是你实际坐的位置。）CLI 像你一个人坐在一张桌子前埋头干，干完一件再下一件；桌面 App 则像你当了个小组长，眼前一排工位，每个工位坐一个 Codex 在干不同的活——这边在修 bug、那边在补测试、角落那个在跑长任务——你站在中间扫一眼就知道谁干到哪了，谁卡住了喊你拍板。<strong>「同时盯住一排活、随时切过去插手」才是桌面 App 的本命</strong>。</p>
+<p>它跟 CLI、IDE 扩展跑的是<strong>同一个 Codex</strong>，共享同一份 <code>AGENTS.md</code>（第 02 篇讲过的项目入职手册）、同一套 MCP 配置、同一批 Skills——这点官方反复强调。所以它不是「另一个弱化工具」，而是<strong>同一个 Codex 换了个最适合并行和可视化的外壳</strong>。</p>
+<p>几个你真会用到桌面 App 的场景：</p>
+<ul>
+<li><strong>手头三四个互不相干的小需求</strong>，想同时铺开跑，又怕它们改同一份文件打架。</li>
+<li><strong>接手一个陌生前端项目</strong>，想边让 Codex 改、边用内置浏览器看页面效果。</li>
+<li><strong>每天早上想要一份「昨天代码库改了啥」的简报</strong>，让它定时自动生成。</li>
+</ul>
+<p>这三件事 CLI 要么做不了、要么得自己搭一堆脚手架，桌面 App 是开箱即用。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：桌面 App 不是 CLI 的简化版，<strong>它是同一个 Codex 套了个「为并行 + 可视化」打造的工作台外壳</strong>，官方主推的就是它。</p>
+</blockquote>
+<hr>
+<h2>02 装它：两个平台，外加一条 Linux 的坏消息</h2>
+<p>先把最扫兴的一条放最前面：<strong>Linux 目前没有桌面 App</strong>。</p>
+<p>这不是你漏装了什么，是官方还没出——Linux 用户官网挂了个<a href="https://openai.com/form/codex-app/">填表等通知</a> 的页面，在那之前<strong>老老实实用 CLI</strong>（下一篇就讲）。所以下面只说 macOS 和 Windows。</p>
+<p>安装本身第 03 篇已经手把手带过了，这里只把和桌面 App 强相关的几条拎出来再钉一遍：</p>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>怎么拿</th>
+<th>容易栽的坑</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>macOS（Apple Silicon）</strong></td>
+<td>到官网桌面 App 下载页（按钮直达）下默认包</td>
+<td>下错芯片版本装不上</td>
+</tr>
+<tr>
+<td><strong>macOS（Intel 芯片）</strong></td>
+<td>同页选 <strong>Intel build</strong></td>
+<td>别下成 Apple Silicon 的</td>
+</tr>
+<tr>
+<td><strong>Windows</strong></td>
+<td>经 Microsoft Store 分发；命令行可 <code>winget install Codex -s msstore</code></td>
+<td>沙箱相关配置见第 03 篇</td>
+</tr>
+<tr>
+<td><strong>Linux</strong></td>
+<td>暂无，<a href="https://openai.com/form/codex-app/">填表等通知</a></td>
+<td>先用 CLI 顶上</td>
+</tr>
+</tbody></table>
+<p>装好打开 App，登录这一步有个<strong>新手最容易忽略的隐性门槛</strong>，必须单独说：</p>
+<p><strong>桌面 App 用 ChatGPT 账号登录功能最全；用 OpenAI API key 登录，部分功能会受限或不可用。</strong> 官方原话是 &quot;some functionality might not be available&quot;。具体哪些功能在 API key 下用不了，<strong>变化较快，一律以官方计费 / 功能可用性页面为准</strong>——但你记住一个原则：<strong>想把桌面 App 的本事吃满，就用 ChatGPT 账号登</strong>。这也呼应第 04 篇讲的：Codex 跟着 ChatGPT 套餐走，Plus / Pro / Business / Edu / Enterprise 都含 Codex 用量。</p>
+<p>我自己 2026 年三月第一次装桌面 App 时图省事，顺手贴了个 API key 登进去，结果点某个云端相关的功能一直灰着，还以为是版本 bug，折腾了十几分钟才反应过来是登录方式的锅。<strong>退出来换 ChatGPT 账号重登，灰的地方立马亮了。</strong> 这坑我替你踩过了。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：桌面 App <strong>只有 Mac / Windows，Linux 还在排队</strong>；Mac 注意分清 Intel / Apple Silicon 包，登录优先用 <strong>ChatGPT 账号</strong>——API key 会让部分功能掉线。</p>
+</blockquote>
+<hr>
+<h2>03 界面分区：左边栏 / 中间区 / 右边面板各管什么</h2>
+<p>打开桌面 App，画面大致分三竖条：<strong>左边栏管「去哪」、中间管「干活和对话」、右边面板管「看结果」</strong>。把这三块对上号，你就不会再对着满屏按钮发懵了。</p>
+<p>先上一张分区示意图，看不到图也不影响，记住下面的拆解就行：</p>
+<p><img src="assets/07-three-pane@2x.png" alt="Codex 桌面 App 三栏布局：左导航 → 中对话执行 → 右看结果（Diff / 终端 / 预览）"></p>
+<p>这张图想说的是：<strong>你从左边栏挑「在哪个项目、开哪个线程」→ 在中间跟 Codex 对话、下指令 → 在右边面板审阅它干出来的结果</strong>，工作流是从左到右流动的。下面逐块拆。</p>
+<h3>左边栏：你的「导航总台」</h3>
+<p>左边栏从上到下，是你管理一切的入口（名称以你本地实际显示为准，官方界面在持续微调）：</p>
+<ul>
+<li><strong>新线程</strong>：开一个全新任务。这是你用得最勤的按钮。</li>
+<li><strong>搜索</strong>：翻历史对话、项目记录。大项目里相当于全局搜索。</li>
+<li><strong>插件（Plugins）</strong>：给 Codex 加外部能力，比如浏览器、GitHub。</li>
+<li><strong>自动化（Automations）</strong>：让 Codex 定时自动跑任务（第 05 节细说）。</li>
+<li><strong>项目（Projects）</strong>：你绑定的代码仓库 / 文件夹列表，多项目在这切。</li>
+<li><strong>普通对话（Chats）</strong>：不绑项目的纯聊天，适合查个东西、做点调研。</li>
+</ul>
+<p>这里有个<strong>新手最容易混的点</strong>，单独拎出来：<strong>项目（Project）不等于普通对话（Chat）</strong>。</p>
+<p><strong>类比：项目是「带工牌的正式工」，普通对话是「门口问路的访客」。</strong> 项目绑定到你电脑上一个具体文件夹，Codex 进去能读文件、改代码、跑命令——它有「工牌」，能进车间动手。普通对话则不挂任何项目，官方说它用的是 Codex 自己管的一个 <code>threads</code> 目录（默认 <code>~/.codex/threads</code> ），适合研究、规划、调插件这类<strong>不需要碰你代码仓库</strong>的事——就像门口问路的访客，聊得欢但进不了车间。</p>
+<p>真实场景对照：</p>
+<ul>
+<li>想让 Codex <strong>改你 <code>~/code/my-app</code> 里的登录逻辑</strong> → 用项目。</li>
+<li>想问它「Rust 的所有权到底咋回事」<strong>纯查资料</strong> → 用普通对话，不用挂项目。</li>
+</ul>
+<h3>中间区：对话和下指令的主战场</h3>
+<p>中间这一大块主工作区是核心：上半是 Codex 的对话流（它读了啥、改了啥、跑了啥命令一路滚下来），底部是输入框。输入框这一排藏着几个关键开关，发指令前先扫一眼：</p>
+<ul>
+<li><strong>模式选择</strong>：Local / Worktree / Cloud，决定这个线程在哪跑（第 04 节专讲）。</li>
+<li><strong>模型选择</strong>：切当前用哪个模型，会话中途也能换。</li>
+<li><strong>权限选择</strong>：就是第 02 篇讲的审批策略，控制 Codex 动手前问不问你。</li>
+</ul>
+<h3>右边面板：看 Codex 干了啥</h3>
+<p>右边面板默认可能收着，<strong>点右上角那个面板图标能把它展开</strong>。它是「结果展示区」，最常用的三样：</p>
+<ul>
+<li><strong>Diff 审阅</strong>：Codex 改了哪些文件、具体改在哪几行（第 03 节的重头戏）。</li>
+<li><strong>内置终端</strong>：和 Codex 共享同一个工作目录的终端（第 05 节讲）。</li>
+<li><strong>预览</strong>：网页、文件、图片、来源（Sources）这类，点了就在这显示。</li>
+</ul>
+<p>把上面三块拼到一个窗口里，大致就是下面这个样子：</p>
+<p><img src="assets/07-five-zones@2x.png" alt="桌面 App 五区布局（示意，真机以官方为准）"></p>
+<p>这张图把桌面 App 的窗口拆成六块标了出来——顶部状态栏（项目 / 模式 / 模型 / Actions ）、左侧项目与线程列表、中间对话区、右上 Diff 审查面板、右下内置终端、底部状态栏（分支 / token 用量 / 连接状态 ），底部那行箭头点的就是「左挑去哪 → 中间下指令 → 右边看结果」这条主线。<strong>这是示意图，真实界面以官方 / 真机为准</strong>——官方布局在持续微调，区域位置和名称可能和你本机略有出入，对上「每块管什么」即可。</p>
+<p>示意图讲清了「每区职责」，再看一眼真机长啥样，对照着就更踏实：</p>
+<p><img src="assets/07-app-real.png" alt="Codex 桌面 App 真实界面"></p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：界面就三竖条——<strong>左边栏挑去哪、中间跟 Codex 对话下指令、右边面板看它干出来的结果</strong>；记牢「项目能动代码、普通对话只闲聊」这条区分，少走一半弯路。</p>
+</blockquote>
+<hr>
+<h2>04 三种运行模式：Local / Worktree / Cloud 怎么选</h2>
+<p>发第一条消息前，输入框下方让你选一个<strong>运行模式</strong>。这是桌面 App 里最该一次搞懂的设定——选错了，要么改动污染了你的主分支，要么活儿跑去了你够不着的地方。</p>
+<p>官方给的三种模式：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>在哪跑</th>
+<th>改动落在哪</th>
+<th>啥时候用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Local</strong></td>
+<td>你本机，当前项目目录</td>
+<td><strong>直接改你的工作目录</strong></td>
+<td>日常开发、想立刻看到结果</td>
+</tr>
+<tr>
+<td><strong>Worktree</strong></td>
+<td>你本机，独立 Git worktree</td>
+<td>隔离的副本里，不碰主目录</td>
+<td>想试个新想法、或多个任务并行不打架</td>
+</tr>
+<tr>
+<td><strong>Cloud</strong></td>
+<td>OpenAI 云端隔离环境</td>
+<td>云上沙箱，结果以 PR / 报告回来</td>
+<td>长任务挂后台、不占本机</td>
+</tr>
+</tbody></table>
+<p>官方特意点了一句关键的：<strong>Local 和 Worktree 都跑在你自己电脑上</strong>，只有 Cloud 是远程的。别被「Worktree 听着很高级」吓到，它本质还是在你本机干活，只是换了个隔离的文件夹。</p>
+<p>重点说 <strong>Worktree</strong>，因为它是桌面 App「并行不打架」的命根子。</p>
+<p><strong>类比：给同一份蓝图复印好几套，各画各的。</strong> 你和几个 Codex 都在改同一个项目（同一份蓝图），如果都挤在 Local 这一份原件上画，笔触必然互相覆盖。Worktree 的做法是——<strong>给每个任务复印一套完整的蓝图副本</strong>（一个 Git worktree，底层就是 <code>git worktree</code>），各画各的，谁也别想动到别人那张；等某张画好了，再决定要不要并回原件。<strong>在合并之前，一个线程的改动绝不会污染另一个</strong>。</p>
+<p>第 02 篇讲沙箱时我提过一次踩坑，这里再补一个跟 Worktree 直接相关的真实教训：我四月有次在 Local 模式下同时开了两个线程改同一个仓库，一个在重构数据层、一个在改路由，结果两边都动了同一个配置文件，第二个线程一提交把第一个的改动盖了一半，我对着 <code>git diff</code> 懵了好一会儿才反应过来。<strong>后来凡是「同一项目并行」，我一律开 Worktree，再没出过这种互相覆盖的事。</strong></p>
+<p>几个关于 Worktree 必须知道的官方事实，免得你踩坑：</p>
+<ul>
+<li><strong>Worktree 只能用在 Git 仓库里</strong>——底层就是 <code>git worktree</code>，没 Git 玩不转。项目不是 Git 仓库，审阅面板会提示你先建一个。</li>
+<li><strong>Worktree 只继承 Git 里的文件</strong>——<code>.gitignore</code> 里的东西（比如 <code>.env</code> 、<code>node_modules</code>）<strong>不会</strong>跟着进去。所以新 worktree 里常常缺依赖，得靠「设置脚本」补上（第 05 节讲 Local Environments 时细说）。</li>
+<li><strong>存哪</strong>：Codex 把 worktree 建在 <code>$CODEX_HOME/worktrees</code> 下（<code>CODEX_HOME</code> 默认 <code>~/.codex</code> ），而且默认处于 &quot;detached HEAD&quot; 状态，不会污染你的分支。</li>
+<li><strong>Handoff（交接）</strong>：想把一个线程在 Local 和 Worktree 之间挪，用线程头部的 <strong>Hand off</strong>，Codex 自己处理底层 Git 操作。比如在 worktree 后台跑完，想拿回主目录用熟悉的 IDE 看，就 Handoff 到 Local。</li>
+<li><strong>会自动清理</strong>：官方默认只保留最近 <strong>15</strong> 个 Codex 托管的 worktree，旧的会自动删（删前存快照，能恢复）。这个上限和自动删除能在设置里改。</li>
+</ul>
+<blockquote>
+<p>注意：上面这些数字和默认值（比如「保留 15 个」）官方在持续调整，看到时<strong>以你本地设置面板显示的为准</strong>。</p>
+</blockquote>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：<strong>Local 直接改主目录、Worktree 给每个任务一份隔离副本、Cloud 把活外包到云上</strong>；想在同一项目里并行又不打架，闭眼选 Worktree——但记牢它只继承 Git 里的文件。</p>
+</blockquote>
+<hr>
+<h2>05 那些「CLI 给不了」的爽点</h2>
+<p>桌面 App 真正拉开和 CLI 差距的，是下面这几样<strong>图形界面才玩得转</strong>的东西。一个个说。</p>
+<h3>可视化审阅面板：改对没改对，一眼看清</h3>
+<p>这是图形界面相对纯终端<strong>最直观的提升</strong>。CLI 里 Codex 改完代码，diff 是一片绿加红的文本流；桌面 App 把它变成了<strong>能点、能逐行批注、能按块接受或回滚</strong>的审阅面板（Review pane）。</p>
+<p><strong>类比：从「读邮件全文」升级到「在文档里改批注」。</strong> CLI 看 diff 像收到一封纯文本邮件，你只能从头读到尾、想反馈得另起一段打字描述「第几行那个变量名改一下」；审阅面板像在 Word / 飞书文档里开了批注模式——<strong>你直接戳在那一行上写意见</strong>，精准太多。</p>
+<p>审阅面板的关键能力（全部来自官方）：</p>
+<ul>
+<li><strong>默认看「未提交的改动」</strong>：它反映的是你整个 Git 仓库的状态，不只是 Codex 改的——你自己手改的、其它未提交的，都会显示。</li>
+<li><strong>能切看的范围</strong>：除了「未提交」，还能切到 <strong>All branch changes</strong>（跟基线分支比）和 <strong>Last turn changes</strong>（只看 Codex 最近这一轮改了啥）。本地还能在 <strong>Unstaged / Staged</strong>（未暂存 / 已暂存）之间切。</li>
+<li><strong>逐行内联批注</strong>：把鼠标悬到 diff 某一行，点冒出来的 <strong>+</strong> 按钮，写下反馈提交。批完再给线程发一句话（比如「按内联批注改，范围保持最小」），Codex 就照着改。</li>
+<li><strong>按粒度暂存 / 回滚</strong>：整份 diff、单个文件、单个 hunk（代码块）三种粒度，都能 stage（暂存）、unstage 或 revert（丢弃）。看中哪块留哪块，不想要的一键回滚。</li>
+</ul>
+<blockquote>
+<p><strong>审完还能直接发出去</strong>：本地和 worktree 的任务，看完 diff 满意了，直接在 App 里 commit、push、建 Pull Request，不用切终端。</p>
+</blockquote>
+<blockquote>
+<p>提醒：审阅面板<strong>只对 Git 仓库里的项目生效</strong>。不是 Git 仓库的话，它会先提示你建一个。要在 App 里处理 GitHub 上的 PR 评论，机器上得装好并登录 <a href="https://cli.github.com/">GitHub CLI（<code>gh</code>）</a> ——跑一句 <code>gh auth login</code> 授权，否则 PR 上下文可能加载不出来。</p>
+</blockquote>
+<p>我自己用下来，<strong>逐行批注这一下是真香</strong>。以前在 CLI 里想让它改某处，得费劲描述「就是那个处理超时的函数里、大概第二三十行那个魔法数字」，它还经常找错地方；现在直接点在那行上写「这数字抽成常量」，一发一个准。</p>
+<h3>内置终端：和 Codex 共享同一个环境</h3>
+<p>每个线程都自带一个<strong>内置终端（integrated terminal）</strong>，作用域就是当前项目或 worktree。<strong>点右上角的终端图标，或按 macOS 的 <code>Cmd + J</code> 打开</strong>（Windows 键位见第 06 节，以本机设置为准）。</p>
+<p>它最妙的一点：<strong>这个终端开在线程的工作目录里，跟 Codex 共享同一个环境</strong>。你在里头跑 <code>git status</code> 或 <code>npm test</code>，看到的就是 Codex 正在改的那一份文件，不会出现「它改了但我终端里是旧的」这种错位。更进一步——<strong>Codex 能读这个终端的输出</strong>，所以它能瞄一眼你跑的开发服务器状态、回头看一眼刚才那次构建为啥挂了。</p>
+<blockquote>
+<p>一个容易踩的快捷键坑（官方专门写了）：<code>Cmd + K</code> 在桌面 App 里是<strong>打开命令菜单</strong>，不是清空终端。想清终端用 <code>Ctrl + L</code>。</p>
+</blockquote>
+<h3>Actions：把常用命令变成顶部按钮</h3>
+<p>老敲同一串命令（<code>npm run dev</code> 、跑测试、格式化）？桌面 App 让你把它存成 <strong>Action（操作）</strong>，变成窗口顶部一个<strong>一键按钮</strong>。</p>
+<p><strong>类比：把常点的外卖存成「再来一单」。</strong> 每次重新搜店、选菜、下单太烦，存个「再来一单」点一下就行。Actions 就是给项目常用命令存的「再来一单」——点一下，它在内置终端里跑起来。</p>
+<p>Actions 配在哪？跟 Worktree 的「设置脚本」一起，都属于 <strong>Local Environments（本地环境）</strong>，配置存在项目根目录的 <code>.codex</code> 文件夹里，能提交进 Git 全队共享。设置脚本是「新建 worktree 时自动跑」的（专治上一节说的「worktree 缺依赖」），Actions 是「你手动点着跑」的，两者搭配，worktree 一建好依赖就齐、常用命令一键就到。</p>
+<h3>Automations：让它定时自动干活</h3>
+<p><strong>Automations（自动化）</strong> 让 Codex 按时间表自动跑任务——定时、每天、每周都行。</p>
+<p><strong>类比：给 Codex 设个闹钟 + 待办。</strong> 闹钟一响（到点了），它自己起来把你预先交代的待办干掉，干完把结果放你收件箱。</p>
+<p>官方给的几个实用例子：</p>
+<ul>
+<li><strong>每日代码库简报</strong>：分析最近提交，生成一份「昨天改了啥」的摘要。</li>
+<li><strong>遥测错误监控</strong>：定期检查 telemetry 里的报错，试着自动修。</li>
+<li><strong>线程自动化（thread automation）</strong>：让某个线程定时「醒来」继续长期任务，保留上下文——适合需要反复回到同一个对话往下推的活。</li>
+</ul>
+<blockquote>
+<p>前提：Automations 要正常跑，得 <strong>App 开着、对应项目在磁盘上可用</strong>。</p>
+</blockquote>
+<p>我四月给一个个人项目设过一条「每天上午把昨天的 commit 总结成中文日报」的 Automation，挂了两周，每天早上打开 App 就躺着一份现成简报——<strong>这种「人没动、活已经干了」的体验，是 CLI 给不了的</strong>。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：审阅面板（逐行批注 + 按块回滚 + 直接开 PR）、共享环境的内置终端、一键 Actions、定时 Automations——<strong>这四样是桌面 App 甩开 CLI 的核心，全靠图形界面才玩得转</strong>。</p>
+</blockquote>
+<hr>
+<h2>06 快捷键与斜杠命令：最该背的那几个</h2>
+<p>桌面 App 的快捷键不少，但你不用全记。先说一条<strong>重要前提</strong>：</p>
+<blockquote>
+<p>官方快捷键文档目前<strong>只标了 macOS 键位</strong>。Windows 上对应的键以你本机 <strong>Settings &gt; Keyboard Shortcuts</strong> 面板里显示的为准——那里能搜命令名、也能改键位，拿不准就去那查，别照搬 Mac 的 <code>Cmd</code> 硬套。</p>
+</blockquote>
+<p>下面这些是我用下来<strong>回报率最高</strong>的 macOS 快捷键（全部来自官方 commands 文档）：</p>
+<table>
+<thead>
+<tr>
+<th>macOS 快捷键</th>
+<th>干什么</th>
+<th>为什么值得记</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Cmd + Shift + P</code> 或 <code>Cmd + K</code></td>
+<td>打开命令菜单</td>
+<td>啥都能从这搜着干，记不住别的就记这个</td>
+</tr>
+<tr>
+<td><code>Cmd + N</code> 或 <code>Cmd + Shift + O</code></td>
+<td>新建线程</td>
+<td>并行的起点，用得最勤</td>
+</tr>
+<tr>
+<td><code>Cmd + J</code></td>
+<td>切换内置终端</td>
+<td>跑命令验证改动，高频</td>
+</tr>
+<tr>
+<td><code>Cmd + B</code></td>
+<td>切换左边栏</td>
+<td>想要更大对话区时收起它</td>
+</tr>
+<tr>
+<td><code>Cmd + Option + B</code></td>
+<td>切换 Diff 审阅面板</td>
+<td>审改动一开一关</td>
+</tr>
+<tr>
+<td><code>Cmd + G</code></td>
+<td>搜历史线程</td>
+<td>翻旧任务全靠它</td>
+</tr>
+<tr>
+<td><code>Cmd + F</code></td>
+<td>在当前线程里查找</td>
+<td>注意：只搜当前线程，不跨线程</td>
+</tr>
+<tr>
+<td><code>Cmd + ,</code></td>
+<td>打开设置</td>
+<td>改外观、Git、MCP 全在这</td>
+</tr>
+<tr>
+<td><code>Ctrl + L</code></td>
+<td>清空终端</td>
+<td>别误用 <code>Cmd + K</code>（那是命令菜单）</td>
+</tr>
+<tr>
+<td><code>Ctrl + M</code></td>
+<td>语音输入</td>
+<td>按住说话，转成文字</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>一个细节：搜历史线程（<code>Cmd + G</code>）和「在当前线程里查找」（<code>Cmd + F</code>）是两码事——前者跨所有线程翻旧对话，后者只在你打开的这一个线程里找文字。别用混了。</p>
+</blockquote>
+<p>再说<strong>斜杠命令（slash command）</strong>。在输入框打 <code>/</code> 会冒出一个列表，这是不离开对话框就能控制 Codex 的快捷开关。官方目前列的这几个：</p>
+<table>
+<thead>
+<tr>
+<th>斜杠命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/status</code></td>
+<td>看当前线程 ID、上下文用量、限额情况</td>
+</tr>
+<tr>
+<td><code>/review</code></td>
+<td>开代码审查模式，审未提交改动或跟基线分支比</td>
+</tr>
+<tr>
+<td><code>/plan</code></td>
+<td>切换计划模式（开/关），做多步规划</td>
+</tr>
+<tr>
+<td><code>/goal</code></td>
+<td>设一个 Codex 要持续达成的目标（先用 <code>/plan</code> 把它捋清楚再设）</td>
+</tr>
+<tr>
+<td><code>/mcp</code></td>
+<td>看已连接的 MCP server 状态</td>
+</tr>
+<tr>
+<td><code>/feedback</code></td>
+<td>提反馈（可附带日志）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>补充：在输入框打 <code>$</code> 能显式调用 Skills；启用的 Skills 也会出现在斜杠命令列表里。<code>/goal</code> 如果列表里没有，可能要在 <code>config.toml</code> 里开 <code>features.goals = true</code> 或跑 <code>codex features enable goals</code>（以官方为准）。</p>
+</blockquote>
+<p>我自己最常按的是 <strong><code>/status</code></strong>——长任务跑一会儿，敲一下就知道上下文烧了多少、限额还剩多少，比闷头猜强。第 04 篇讲计费时说过 Codex 限额是按 token 烧的，<code>/status</code> 就是你随时盯油表的那个仪表。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：记不住一堆键就先记 <code>Cmd + K</code>（命令菜单啥都能搜）和 <code>Cmd + N</code>（新建线程）；斜杠命令里 <strong><code>/status</code></strong> 看用量、<strong><code>/review</code></strong> 开审查最值钱；<strong>Windows 键位一律看本机设置面板</strong>，别照搬 Mac。</p>
+</blockquote>
+<hr>
+<h2>07 动手：从打开到跑通第一个并行任务</h2>
+<p>光看不练假把式。下面走一遍<strong>桌面 App 独有</strong>的最小流程——开两个并行线程、用 Worktree 隔离、再用审阅面板看改动，每步都给你能自验的预期结果。</p>
+<blockquote>
+<p>前提：你已按第 03 篇装好桌面 App、用 <strong>ChatGPT 账号</strong>登录了。<strong>练手挑一个你熟的小项目，且它得是个 Git 仓库</strong>（Worktree 和审阅面板都依赖 Git）。</p>
+</blockquote>
+<h3>第一步：加项目、选 Worktree 模式</h3>
+<p>左边栏点新建线程 / 加项目，<strong>选一个 Git 仓库文件夹</strong>。在底部输入框下方，<strong>模式选 <code>Worktree</code></strong>（不是 Local）。</p>
+<p>✅ 自验：能看到模式切到了 Worktree、底下让你选一个起始分支（基于 <code>main</code> 或当前分支都行）。<strong>若提示「需要 Git 仓库」</strong> → 你选的文件夹没初始化 Git，先 <code>git init</code> 或换个仓库。</p>
+<h3>第二步：发第一条指令</h3>
+<p>输入框里下个具体的小任务，比如：</p>
+<pre><code class="language-text">找一处 TODO 注释，把它实现掉
+</code></pre>
+<p>或者：</p>
+<pre><code class="language-text">给这个项目的 README 补一段「如何本地运行」的说明
+</code></pre>
+<p>按回车发送。<strong>预期</strong>：Codex 基于你选的分支建一个 Git worktree，在那份隔离副本里开干——你的主工作目录这会儿一动不动。</p>
+<h3>第三步：再开一个并行线程</h3>
+<p>不等第一个跑完，左边栏<strong>再点一次新建线程</strong>，同样选 Worktree 模式，下另一个不相干的任务，比如：</p>
+<pre><code class="language-text">把项目里所有 console.log 调试输出清理掉
+</code></pre>
+<p>✅ <strong>预期结果</strong>：左边栏现在列着<strong>两个线程</strong>，各自在<strong>独立的 worktree</strong> 里跑，互不干扰。这就是桌面 App 的命根子——<strong>两个任务同改一个项目，却谁也污染不了谁</strong>。你可以来回点着切，看各自进度。</p>
+<h3>第四步：用审阅面板看改动</h3>
+<p>挑一个跑完的线程，<strong>打开右边的 Diff 审阅面板</strong>（macOS <code>Cmd + Option + B</code> ，Windows 看本机键位）。你会看到改了哪些文件、具体改在哪几行。</p>
+<p>试试这几个动作自验：</p>
+<ul>
+<li><strong>悬到某一行 → 点 <code>+</code></strong>：弹出批注框，写句反馈（比如「这里加个注释」），提交后给线程发一句「按内联批注改」，看 Codex 是否照改。</li>
+<li><strong>按 hunk 暂存 / 回滚</strong>：看中的块 stage，不想要的块 revert。</li>
+</ul>
+<p>✅ <strong>预期结果</strong>：你<strong>点暂存 / 提交之前，Codex 的改动都还在 worktree 副本里待审</strong>——满意了再 commit / push，不满意逐块回滚。这种「改完先摆给你审、你点头才落地」的节奏，正是桌面 App 让人放心的地方。</p>
+<h3>第五步（可选）：把线程交接回 Local</h3>
+<p>某个 worktree 线程改得满意、想拿回主目录用熟悉的 IDE 接着弄，点线程头部的 <strong>Hand off</strong> 交接到 <strong>Local</strong>，Codex 自己处理底层 Git 操作。</p>
+<p>✅ <strong>预期</strong>：线程和代码一起挪进了 Local，你能在常用 IDE 里打开继续。<strong>注意</strong>：<code>.gitignore</code> 里的文件不会跟着交接过去（Handoff 走的是 Git 操作）。</p>
+<p>到这步，你已经把桌面 App 最核心的一条链路跑通了：<strong>多线程并行 → Worktree 隔离 → 可视化审阅 → 交接落地</strong>。这套是 CLI 给不了的体验，第一次同时看着两个 Codex 在两份副本里干活、却互不打架，那种「这才是工作台」的实感挺明显的。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：开 Worktree 并行线程 → 等跑完 → 审阅面板逐行批注或按块回滚 → 满意再 commit，这条链路跑一遍，桌面 App 的核心体验就装进肌肉记忆了。</p>
+</blockquote>
+<hr>
+<h2>08 小结</h2>
+<p>这一篇把 Codex 官方最主推的入口——桌面 App——逛了一整圈，核心就这几条：</p>
+<ul>
+<li><strong>它的定位</strong>：不是 CLI 的简化版，而是<strong>同一个 Codex 套了个「为并行 + 可视化」打造的工作台外壳</strong>，共享 <code>AGENTS.md</code>、MCP、Skills。</li>
+<li><strong>装它</strong>：只有 Mac / Windows（Linux 排队中），登录优先用 <strong>ChatGPT 账号</strong>，API key 会让部分功能掉线。</li>
+<li><strong>界面三竖条</strong>：左边栏挑去哪、中间跟 Codex 对话下指令、右边面板看结果；<strong>项目能动代码、普通对话只闲聊</strong>。</li>
+<li><strong>三种模式</strong>：Local 直改主目录、<strong>Worktree 给每个任务一份隔离副本</strong>（并行不打架的命根子，只继承 Git 里的文件）、Cloud 外包到云。</li>
+<li><strong>CLI 给不了的爽点</strong>：可视化审阅（逐行批注 + 按块回滚 + 直接开 PR）、共享环境的内置终端、一键 Actions、定时 Automations。</li>
+<li><strong>快捷键 / 斜杠命令</strong>：记牢 <code>Cmd + K</code>、<code>Cmd + N</code>、<code>/status</code>、<code>/review</code>；<strong>Windows 键位一律看本机设置面板</strong>。</li>
+</ul>
+<p>你现在应该能：在 Mac / Windows 上独立用起桌面 App、看懂界面每块区域、开多个并行线程且明白它们靠 Worktree 隔离、用审阅面板逐行批注并按块接受 Codex 的改动。<strong>把并行这套跑顺，同时推几个需求就不再手忙脚乱了。</strong></p>
+<hr>
+<p>下一篇 <strong><a href="08-cli.html">08 命令行 CLI 上手</a></strong>——桌面 App 这么香，那 CLI 还学不学？答案是：<strong>要脚本化、要进服务器、要塞进 CI 流水线，桌面 App 干不了这些，CLI 才是正解</strong>。下一篇带你回到终端，把 <code>codex</code> 这条命令、交互界面、和自动化场景一次讲透——两条线都拿下，你才算把 Codex 真正用全。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/06-first-task.html"><span class="mono">← 上一篇 · 06</span><b>跑通第一个任务</b></a>
+  <a class="pg nx" href="/library/codex/08-cli.html"><span class="mono">下一篇 · 08 →</span><b>命令行 CLI 上手</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

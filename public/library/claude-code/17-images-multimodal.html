@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>17 图片与多模态：贴张截图，它就懂了 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 17 篇:图片与多模态：贴张截图，它就懂了。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/17-images-multimodal.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class="cur"><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class="cur"><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 17 篇</p>
+      <h1>图片与多模态：贴张截图，它就懂了</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="16-common-workflows.html">16 常见工作流</a> 把读代码、修 bug、写测试这些日常套路过了一遍。这一篇加一个新维度——<strong>不光能跟它打字，还能直接给它看图</strong>：报错截图、设计稿、架构图，丢进去它就懂。</p>
+</blockquote>
+<p>比如要把一张设计师给的页面截图还原成网页。搁以前，咱们得对着图一个像素一个像素量——这块间距多少、字号几号、按钮圆角几度，光抠数值就得磨一上午。</p>
+<p>这时候只要<strong>把那张 PNG 直接拖进 Claude Code 的窗口，敲一句「照着这张设计稿生成对应的 CSS」</strong>。</p>
+<p>几分钟后，它吐出来一整段 CSS——布局、配色、圆角、阴影全对上了，贴进项目里，浏览器一刷新，<strong>和设计稿几乎一模一样</strong>。效率差距一下就出来了：给它看比跟它讲快得多。</p>
+<p>说白了，<strong>一图胜千言这句话，在 Claude Code 这儿是字面意义上成立的</strong>。今天就把「怎么喂图 + 喂图能干嘛」讲透。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>三种把图片塞进 Claude Code 的方法，照着做就行（含一个 Mac 用户必踩的快捷键坑）</li>
+<li>图片的三大正经用途：贴报错截图、还原设计稿、读图表 / 架构图</li>
+<li>一个判断标准：<strong>什么时候该上图、什么时候打字就够</strong></li>
+<li>多图怎么用、Claude 怎么引用图片、怎么一键点开它说的那张</li>
+</ul>
+<hr>
+<h2>01 为什么要给它看图，而不是只打字</h2>
+<p>先说结论：<strong>当一件事「描述起来比截图还费劲」的时候，就该上图了</strong>。</p>
+<p>这是官方文档里白纸黑字的判断标准——<strong>「当文本描述不清楚或繁琐时使用图像」</strong>。</p>
+<p><strong>类比：一图胜千言。</strong> 你跟朋友形容一个红绿报错弹窗长啥样，说半天「左上角有个红叉，下面一行小字，右边还有个按钮……」对方还是云里雾里；但你截个图甩过去，他「哦」一声就全明白了。给 Claude 看图，是同一个道理——<strong>省下你组织语言的力气，也省下它猜的力气</strong>。</p>
+<p>哪些场景特别适合上图？用下来主要是这三类：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>打字描述有多累</th>
+<th>上图有多省</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>页面错位 / 样式不对</strong></td>
+<td>「这个 div 往右偏了大概二十几像素，还跟下面那块重叠了」</td>
+<td>截个图，它一眼看到错位</td>
+</tr>
+<tr>
+<td><strong>报错弹窗 / 控制台红字</strong></td>
+<td>把一长串堆栈手敲或复制对齐</td>
+<td>截图甩进去，连上下文一起给了</td>
+</tr>
+<tr>
+<td><strong>还原设计稿 / 仿一个组件</strong></td>
+<td>「主色是个偏紫的蓝，圆角不大不小……」</td>
+<td>给图，让它自己量</td>
+</tr>
+</tbody></table>
+<p>这里有个关键区别得拎清楚：<strong>Claude Code 看的是「图里的内容」，不是帮你截图</strong>。截图这一步还得你自己来（系统自带的截图工具就行），它负责的是「看懂你给的图」。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：判断标准就一句——<strong>描述起来比截图还累，就上图</strong>；官方原话叫「文本不清楚或繁琐时用图像」。</p>
+</blockquote>
+<hr>
+<h2>02 三种喂图方式：拖、贴、给路径</h2>
+<p>怎么把图塞进去？官方文档给了三种方法，<strong>任选一种，效果一样</strong>。我按「上手难度从低到高」排一下。</p>
+<p><img src="assets/17-three-ways-add-image@2x.png" alt="三种给 Claude 喂图的方式"></p>
+<p>这张图把三条加图路径并到一处：<strong>拖拽进窗口、复制后 <code>ctrl+v</code> 粘贴（Mac 也是 <code>ctrl+v</code>）、或直接给文件路径</strong>——三种方式殊途同归，都是把图喂给 Claude 让它「看着干活」。</p>
+<h3>方法一：直接拖进窗口（最直觉）</h3>
+<p>把图片文件从访达 / 文件管理器里<strong>拖</strong>进正在运行 Claude Code 的终端窗口，松手，它就进去了。</p>
+<p>这是最不用动脑的方式——<strong>跟你往微信聊天框拖文件发图一个感觉</strong>。新手一般先从这个上手，零学习成本。</p>
+<h3>方法二：复制图片，ctrl+v 粘贴（最高频，但有个坑）</h3>
+<p>很多时候图根本没存成文件——你刚截了个屏，或者从网页上右键「复制图片」，这时候直接粘贴最爽。</p>
+<p>但这里有<strong>全篇最大的一个坑</strong>，官方文档专门强调了：</p>
+<blockquote>
+<p>复制图像并使用 ctrl+v 将其粘贴到 CLI 中（不要使用 cmd+v）。</p>
+</blockquote>
+<p><strong>注意：Mac 上粘贴图片也用 <code>ctrl+v</code>，不是你习惯的 <code>cmd+v</code>。</strong></p>
+<p>这点反直觉到什么程度？Mac 用户复制粘贴文字十年了都是 <code>cmd+v</code>，肌肉记忆根深蒂固。第一次贴截图，很容易习惯性按 <code>cmd+v</code>，结果<strong>终端里冒出来一长串乱码路径，图根本没进去</strong>，还以为是不支持。翻一翻文档就明白了——<strong>很多终端里 <code>cmd+v</code> 粘的是文件路径文本，只有 <code>ctrl+v</code> 才稳稳把图片本身喂给 Claude</strong>。</p>
+<p>（补一句：个别终端比如 iTerm2 也认 <code>cmd+v</code> 粘图，但各终端行为不一致，<strong><code>ctrl+v</code> 是哪儿都好使的那条路，记它就不踩坑</strong>。）</p>
+<p>记死这一条：</p>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>粘贴图片用</th>
+<th>别用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Mac</strong></td>
+<td><code>ctrl+v</code></td>
+<td>❌ <code>cmd+v</code>（多数终端会粘成路径文本）</td>
+</tr>
+<tr>
+<td><strong>Windows / Linux</strong></td>
+<td><code>ctrl+v</code>（WSL 中若终端拦截 ctrl+v，改用 <code>alt+v</code>）</td>
+<td>——</td>
+</tr>
+</tbody></table>
+<p>一个小细节：粘贴成功后，输入框里会出现一个 <code>[Image #1]</code> 的占位标记（官方叫「芯片（chip）」），表示图已经挂上了，你可以在这条提示里接着打字。</p>
+<h3>方法三：直接给图片路径（最适合脚本 / 已存好的图）</h3>
+<p>如果图已经存成文件了，路径你也知道，那最干脆的办法是<strong>在提示里直接把路径打出来</strong>，让它自己去读：</p>
+<pre><code class="language-text">Analyze this image: /path/to/your/image.png
+</code></pre>
+<p>把 <code>/path/to/your/image.png</code> 换成你那张图的真实路径就行（相对路径、绝对路径都认）。这种方式不依赖鼠标拖拽，<strong>写在脚本里、或者图片藏在项目某个目录深处时，最好用</strong>。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：拖进窗口 / <code>ctrl+v</code> 粘贴 / 直接给路径，三选一；<strong>Mac 用户死记 <code>ctrl+v</code>，别按 <code>cmd+v</code></strong>。</p>
+</blockquote>
+<hr>
+<h2>03 用途一：贴报错和 UI 截图，给它「现场」</h2>
+<p>第一个最实用的场景——<strong>把出问题的截图甩给它，让它看着现场断案</strong>。</p>
+<p>为什么这招好用？因为很多报错和样式问题，<strong>文字根本传达不全</strong>。一个报错弹窗里有图标、有颜色、有排版，你手敲只能描述个大概；UI 错位更是如此，差几个像素肉眼能看出来，嘴说不清。</p>
+<p><strong>类比：去医院别光靠嘴描述「这儿疼」，拍张片子给医生。</strong> 你说「肚子右下角隐隐作痛」，医生只能猜；一张 CT 片摆上去，问题在哪一目了然。截图就是给 Claude 的那张「片子」。</p>
+<p>具体怎么做？把截图喂进去（三种方法任选），然后配一句话点出你的诉求。官方给的示范提示就很到位：</p>
+<pre><code class="language-text">Here&#39;s a screenshot of the error. What&#39;s causing it?
+</code></pre>
+<p>或者，UI 上的问题：</p>
+<pre><code class="language-text">Describe the UI elements in this screenshot
+</code></pre>
+<p>比如调一个 React 页面，有个按钮死活偏右，CSS 翻来覆去看不出毛病。这时候<strong>直接截了张错位的图丢进去</strong>，配一句「这个按钮为什么往右挤了」，Claude 一看就说「你父容器有个 <code>padding-right</code>，加上按钮自己的 <code>margin</code>，叠一块了」——<strong>一句话点破，对着改一行就好了</strong>。要是靠打字描述这个错位，怕是得来回拉扯好几轮。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：报错和 UI 问题，<strong>截图就是「现场照片」</strong>——给它看比给它讲，断案快得多。</p>
+</blockquote>
+<hr>
+<h2>04 用途二：还原设计稿，截图直接出代码</h2>
+<p>这就是开头那个「效率差距一下拉开」的场景，单独拎出来讲——<strong>给它一张设计稿，让它吐出能跑的代码</strong>。</p>
+<p>为什么这招最惊艳？因为它把「设计→代码」这段最磨人的体力活给省了。<strong>对着图量数值、调间距、试配色</strong>，原本是前端最枯燥的一环，现在丢给它先出个八九不离十的版本，你再微调。</p>
+<p><strong>类比：拿张照片让裁缝照着做衣服。</strong> 你不用把每条尺寸都报给裁缝，把样衣照片往他面前一放，他自己就能量出版型、用料、走线。设计稿截图之于 Claude，就是那张「样衣照片」。</p>
+<p>官方给的示范提示，记住这两句就够开工：</p>
+<pre><code class="language-text">照着这张设计稿生成对应的 CSS
+</code></pre>
+<pre><code class="language-text">What HTML structure would recreate this component?
+</code></pre>
+<p>第一句让它<strong>照着设计稿生成 CSS</strong>，第二句让它<strong>推断出能复刻这个组件的 HTML 结构</strong>。两句连用，一个静态组件的骨架就出来了。</p>
+<p>说句实话，得有个合理预期：<strong>它不是像素级复刻，是给你一个高完成度的起点</strong>。像开头那段 CSS，整体布局和配色全对，但有两个地方的内边距差了几像素，手动调一下就行。可这已经省了至少一小时——<strong>从零写 CSS，和改它给的八成稿，完全是两个工作量</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>还原设计稿</th>
+<th>❌ 纯手写</th>
+<th>✅ 截图喂给它</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>量数值</td>
+<td>自己一个个抠像素</td>
+<td>它照着图估</td>
+</tr>
+<tr>
+<td>出骨架</td>
+<td>从空文件敲起</td>
+<td>直接给一版能跑的</td>
+</tr>
+<tr>
+<td>你的活</td>
+<td>全程从零</td>
+<td>改最后那一两成</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：设计稿截图 +「照着这张设计稿生成对应的 CSS」，<strong>它给你八成稿，你补最后两成</strong>，省下的全是体力活。</p>
+</blockquote>
+<hr>
+<h2>05 用途三：读图表和架构图，让它「看懂结构」</h2>
+<p>第三个用途，<strong>图表、数据库 schema、架构图——这些「结构性」的图，它也能看懂</strong>。</p>
+<p>为什么单列一类？因为前两类（报错、设计稿）图里是「界面」，这类图里是「关系」——谁连谁、数据怎么流、模块怎么分层。<strong>这种关系用文字串起来特别绕，用图一目了然，正好是 Claude 的菜</strong>。</p>
+<p><strong>类比：给新同事讲系统，白板上画个框图比讲半天管用。</strong> 你跟新人口述「用户服务调订单服务，订单服务又依赖库存和支付……」，他听得云里雾里；白板上几个框一连，箭头一画，他立马懂了。把这张框图截给 Claude，效果一样。</p>
+<p>官方给的示范提示，覆盖了「读」和「改」两个方向：</p>
+<pre><code class="language-text">This is our current database schema. How should we modify it for the new feature?
+</code></pre>
+<pre><code class="language-text">Are there any problematic elements in this diagram?
+</code></pre>
+<p>第一句是<strong>拿着现有的数据库结构图，问它新功能该怎么改表</strong>；第二句是<strong>让它审一审这张图里有没有不合理的地方</strong>。</p>
+<p>一个很常见的用法：接手一个陌生项目，对方甩来一张架构图 PNG，<strong>直接喂给 Claude，让它先讲讲这套系统大概怎么跑</strong>。它能从图里读出模块和调用关系，给你一段概览——<strong>比自己对着图干瞪眼快多了</strong>，相当于有人先带你把图捋了一遍。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：图表、schema、架构图这类「讲关系」的图，<strong>喂给它当背景</strong>，让它读懂结构再帮你改或审。</p>
+</blockquote>
+<hr>
+<h2>06 多图、引用、一键点开：几个好用的小操作</h2>
+<p>最后补几个让你用得更顺的细节，都是官方文档里提到的。</p>
+<h3>一次可以喂多张图</h3>
+<p>不用一张张来——<strong>同一条提示里可以塞多张图</strong>。比如「这是旧设计稿、这是新设计稿，告诉我改了哪些地方」，两张一起给，让它对比。设计稿改版时常这么干，省得来回切换描述。</p>
+<h3>Claude 怎么引用图片：<code>[Image #1]</code></h3>
+<p>当 Claude 在回复里提到你给的某张图时，它会用 <strong><code>[Image #1]</code>、<code>[Image #2]</code></strong> 这样的编号来指代——第几张图就是几号。多图的时候，这个编号让你一眼对上「它说的是哪张」。</p>
+<h3>一键点开它说的那张图</h3>
+<p>它回复里出现的 <code>[Image #N]</code> 是<strong>可以点开的</strong>，按官方说法：</p>
+<blockquote>
+<p>当 Claude 引用图像时（例如 <code>[Image #1]</code>），<code>Cmd+Click</code>（Mac）或 <code>Ctrl+Click</code>（Windows/Linux）链接以在默认查看器中打开图像。</p>
+</blockquote>
+<p>也就是说，想确认它指的到底是哪张，<strong>Mac 上 <code>Cmd+Click</code>、Windows/Linux 上 <code>Ctrl+Click</code></strong> 那个编号，系统默认看图工具就帮你把图打开了。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>Mac</th>
+<th>Windows / Linux</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>粘贴图片</strong></td>
+<td><code>ctrl+v</code></td>
+<td><code>ctrl+v</code></td>
+</tr>
+<tr>
+<td><strong>点开 <code>[Image #N]</code></strong></td>
+<td><code>Cmd+Click</code></td>
+<td><code>Ctrl+Click</code></td>
+</tr>
+</tbody></table>
+<p>注意这俩快捷键的「分工」是反的：<strong>粘贴图片用 <code>ctrl</code>，点开图片链接 Mac 上却用 <code>Cmd</code></strong>。别记混了。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：一条提示能塞多张图，Claude 用 <code>[Image #N]</code> 指代，<strong>点那个编号（Mac 是 <code>Cmd+Click</code>）就能把图打开</strong>核对。</p>
+</blockquote>
+<hr>
+<h2>07 动手：拖一张图让它读，三步跑通</h2>
+<p>光说不练假把式。下面用一张你电脑上随便一张图，三步跑通「喂图 → 它读懂」的完整流程。<strong>不需要任何项目，桌面上有张图就行</strong>。</p>
+<p><strong>第一步：随便找一张图，记住它的位置</strong></p>
+<p>截个屏，或者随便找张已有的 PNG / JPG。Mac 截屏默认存桌面，文件名形如 <code>截屏2026-06-10 下午3.20.15.png</code>。把它拖到一个好打的路径，比如直接放桌面就行。</p>
+<p><strong>第二步：在任意目录启动 Claude Code</strong></p>
+<pre><code class="language-bash">claude
+</code></pre>
+<p><strong>预期</strong>：出现欢迎屏幕，底部有输入框。（读图不挑目录，随便在哪启动都行。）</p>
+<p><strong>第三步：把图喂进去，让它描述</strong></p>
+<p>三种方式任选，新手推荐<strong>直接拖</strong>：把那张图从桌面拖进终端窗口，松手，输入框里会出现 <code>[Image #1]</code> 标记。然后接着打字：</p>
+<pre><code class="language-text">这张图里是什么？用中文描述一下你看到的内容
+</code></pre>
+<p>回车。</p>
+<p><strong>预期</strong>：Claude 读取这张图，用中文告诉你图里有啥——是张截图就说界面元素，是张照片就描述画面内容。<strong>看到它准确说出了图里的东西 = 喂图成功，全流程跑通</strong>。</p>
+<p><strong>⚠️ Mac 用户想试「复制粘贴」那条路</strong>：先在预览 / 浏览器里<strong>复制图片</strong>，回到终端按 <strong><code>ctrl+v</code></strong>（不是 <code>cmd+v</code>）。要是按完冒出来一串文件路径文本而不是 <code>[Image #N]</code> 标记，八成是手贱按成 <code>cmd+v</code> 了，删掉重来。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：拖进去 / <code>ctrl+v</code> / 给路径，三步喂图，看到 Claude 准确描述图里内容即为跑通。</p>
+</blockquote>
+<hr>
+<h2>08 小结</h2>
+<p>这一篇你学会了给 Claude Code 开「视觉」这一路——<strong>从只能打字，到能直接给它看图</strong>。</p>
+<p>把要点串一遍：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>怎么喂</strong></td>
+<td>拖进窗口 / <code>ctrl+v</code> 粘贴 / 给路径，三选一</td>
+</tr>
+<tr>
+<td><strong>最大的坑</strong></td>
+<td>Mac 粘贴图用 <code>ctrl+v</code>，<strong>别按 <code>cmd+v</code></strong></td>
+</tr>
+<tr>
+<td><strong>三大用途</strong></td>
+<td>报错 / UI 截图给现场、还原设计稿出代码、读图表 / 架构图懂结构</td>
+</tr>
+<tr>
+<td><strong>何时上图</strong></td>
+<td>文字描述比截图还累的时候</td>
+</tr>
+<tr>
+<td><strong>多图与引用</strong></td>
+<td>一条提示塞多张，Claude 用 <code>[Image #N]</code> 指代，点编号可打开</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 把任意一张截图、设计稿或架构图喂给 Claude Code，让它看着图帮你断报错、出代码、捋结构；并且记住了 Mac 上那个最反直觉的 <code>ctrl+v</code>。<strong>这套「给它看」的能力，会让你之后描述问题的成本直线下降</strong>——很多以前要打半天字的需求，现在一张图加一句话就解决了。</p>
+<hr>
+<p>下一篇 <strong>18「CLAUDE.md 使用指南」</strong>——前面咱们一直在喂图、喂需求，但每次都得重复交代项目背景。有没有办法让 Claude <strong>一进项目就自动知道这是个啥、该守哪些规矩</strong>？下一篇就讲那个给它的「入职手册」——<code>CLAUDE.md</code>，配好了它就再也不用你反复念叨了。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/16-common-workflows.html"><span class="mono">← 上一篇 · 16</span><b>四个最常用的活儿：探索代码库、修 bug、重构、写测试</b></a>
+  <a class="pg nx" href="/library/claude-code/18-claude-md-guide.html"><span class="mono">下一篇 · 18 →</span><b>CLAUDE.md 使用指南：把项目规矩写进它的记忆</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

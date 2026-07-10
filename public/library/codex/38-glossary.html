@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>38 术语表 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 38 篇:术语表。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/38-glossary.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class="cur"><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class="cur"><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 38 篇</p>
+      <h1>术语表</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇〔<a href="37-faq.html">37 常见问题排查</a> 〕帮你把跑 Codex 时最容易撞上的报错、卡壳、奇怪行为一个个排掉了。这一篇换个用法——它不是拿来从头读的，是拿来<strong>随时翻</strong>的：把全书出现过的术语收成一本随身词典，哪个词当时没记牢，回头查一下就行。下一篇〔<a href="39-enterprise.html">39 企业管理与治理</a> 〕再讲团队和公司层面怎么把 Codex 管起来。</p>
+</blockquote>
+<p>兄弟们，咱们这套教程走到这儿，已经甩出去一卡车术语了。</p>
+<p>代理循环、沙箱、审批、推理强度、<code>service_tier</code>、MCP、子代理、Skill、Hook……我自己第一次系统学这类工具时，最劝退的就是这个——<strong>不是哪个概念有多难，是名词太多、还互相串门</strong>，看到第十个的时候，前面五个已经糊成一团了。</p>
+<p>说句实话，被术语劝退是新手的通病，跟笨不笨没关系。这玩意儿的解法也简单：<strong>别背，要查。</strong> 真用到哪个词，回来翻一眼，看完接着干活——查个三五回，它自己就长脑子里了。</p>
+<p>这一篇就是给你准备的那本随身词典。按主题分了组，每个词一句大白话解释，再补一句「在 Codex 里到底指啥」或一个类比。不用从头读，<strong>Ctrl+F 搜你卡住的那个词，看完就走。</strong></p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一份按主题分组的 Codex 术语词典，每个词都是小白能看懂的大白话</li>
+<li>基础概念（代理循环、上下文窗口、token）一次说清，它们是其它所有概念的地基</li>
+<li>Codex 专有的那批词（<code>AGENTS.md</code>、<code>codex exec</code>、沙箱、审批、推理强度、<code>service_tier</code>、Chronicle）集中查</li>
+<li>扩展能力五件套（MCP、子代理、Skill、Hook、Plugin）一句话区分，不再混</li>
+<li>模型体系（<code>gpt-5.5</code> 这一串）的定位区分、「研究预览」什么意思、哪两个已弃用别再用</li>
+</ul>
+<blockquote>
+<p>⚠️ 本篇的命令、配置键、默认行为以 Codex <a href="https://developers.openai.com/codex">官方文档</a> 为准；模型名、套餐范围这类会随版本变的东西，看到时一律以你本地 <code>/model</code> 面板、<code>codex --help</code> 实际显示为准，别背名字。</p>
+</blockquote>
+<hr>
+<h2>01 基础概念：所有术语的地基</h2>
+<p>这一组是「物种级」的概念——不光 Codex，几乎所有 AI 编程工具都绕不开。先把这三个吃透，后面的词才好挂上去。</p>
+<p><strong>代理（Agent，又叫智能体）</strong></p>
+<p>一句话：<strong>能自己拆任务、调工具、看结果、再决定下一步的 AI，不是一问一答的聊天框。</strong></p>
+<p>在 Codex 里指什么：Codex 就是 OpenAI 的「编程代理」，它能自己读代码、改文件、跑命令、跑测试，全程你看着就行。这跟你平时用的聊天机器人是两个物种——聊天框只会回你一段文字，代理会把整件事干完。</p>
+<p><strong>代理循环（Agentic Loop）</strong></p>
+<p>一句话：<strong>代理干活的基本节奏——想 → 做 → 看，一轮不行再来一轮。</strong></p>
+<p><strong>类比：修水管的师傅。</strong> 他不是看一眼就报价走人——先「想」（哪儿漏了），再「做」（拧一下、换个垫片），然后「看」（开水试试还漏不漏），不行就回头再拧。Codex 干活就是这个循环：读文件、改代码、跑检查，验证没过就再来一轮，直到搞定。这套机制和 Claude Code 一模一样，换了个壳。</p>
+<p><strong>上下文窗口（Context Window）</strong></p>
+<p>一句话：<strong>模型一次能「同时看到」的信息总量，有上限，塞满了早先的内容就会被挤掉。</strong></p>
+<p><strong>类比：一张办公桌的桌面。</strong> 桌子就这么大，你能摊开的文件有限。新文件铺上来，最早那几张就被推到边上、甚至掉地上——模型「忘了」前面说过啥，多半就是这么回事。所以聊太久、塞太多无关内容，它反而会变笨。这也是子代理存在的理由：把吵闹的中间产物搬出主桌面。</p>
+<p><strong>token</strong></p>
+<p>一句话：<strong>模型处理文本的最小计价单位，大致是「一个词或半个词」，你的输入输出都按它计数。</strong></p>
+<p>在 Codex 里指什么：两件事跟它直接挂钩——<strong>额度和钱</strong>。订阅套餐按 token 用量给你额度，API key 直接按 token 烧钱；旗舰模型的单价是轻量模型的好几倍。上下文窗口的「大小」也是用 token 量来衡量的。</p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>一句话记住</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>代理</td>
+<td>会自己动手的 AI，不只是回你话</td>
+</tr>
+<tr>
+<td>代理循环</td>
+<td>想 → 做 → 看，不行再来一轮</td>
+</tr>
+<tr>
+<td>上下文窗口</td>
+<td>它一次能看到的信息总量，有上限</td>
+</tr>
+<tr>
+<td>token</td>
+<td>计量文本的最小单位，关乎额度和钱</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：这四个是地基——代理会自己干活、循环是它的节奏、上下文窗口是它的桌面大小、token 是计价的尺子。</p>
+</blockquote>
+<hr>
+<h2>02 Codex 专有概念：这套工具的独门词</h2>
+<p>这一组是 Codex 自己的料，也是新手最容易「时灵时不灵」的来源。搞懂它们，你就不会再觉得 Codex 行为飘忽了。</p>
+<p><strong><code>AGENTS.md</code>（项目说明书）</strong></p>
+<p>一句话：<strong>放进项目里的一个 markdown 文件，写下你这个项目的规矩，Codex 每次开工前先读。</strong></p>
+<p><strong>类比：贴在工位上的便利贴。</strong> 你不会每天追着同事念「咱们用 pnpm 不用 npm」，写张便利贴贴那儿，他自己看。<code>AGENTS.md</code> 就是给 Codex 的便利贴：构建怎么跑、测试怎么跑、命名怎么取，写一次，它每次先读。它能放全局（<code>~/.codex/AGENTS.md</code>）也能放项目根目录，离工作目录越近的越优先（它约等于 Claude Code 的 <code>CLAUDE.md</code> 换了个名）。</p>
+<p><strong><code>codex exec</code>（非交互命令）</strong></p>
+<p>一句话：<strong>不进交互界面、直接「给一句话、拿一个结果」的运行方式，专门给脚本和自动化用。</strong></p>
+<p><strong>类比：自动售货机。</strong> 普通交互模式像跟柜员聊天——你问一句它答一句，来回好几轮。<code>codex exec</code> 像投币买水：投钱、按键、出货，一步到位、不寒暄。写进 CI、定时任务、批处理脚本里的，基本都是它。</p>
+<p><strong>沙箱（Sandbox）</strong></p>
+<p>一句话：<strong>给 Codex 画的一道边界，圈内的事它自己干，要出圈得先问你。</strong></p>
+<p><strong>类比：游乐场的护栏。</strong> 护栏里的滑梯随便玩，不用你盯；想翻出去跑到马路上，就得拦一下。沙箱管两样东西——<strong>它能改哪些文件、能不能联网</strong>。常见三档：<code>read-only</code>（只读，啥都不许动）、<code>workspace-write</code>（工作区可写，日常默认，只能改你启动 Codex 那个目录里的东西、默认不许联网）、<code>danger-full-access</code>（完全访问，名字带 danger 不是吓你的，慎用）。</p>
+<p><strong>审批（Approval，审批策略）</strong></p>
+<p>一句话：<strong>Codex 要「出圈」时，停不停下来问你——这是和沙箱并排的另一个旋钮。</strong></p>
+<p><strong>类比：门口保安的脾气。</strong> 沙箱是那道门，审批是保安松还是紧。<code>untrusted</code> 只拦陌生命令，<code>on-request</code> 默认在圈里干、要出圈才问你（最常用的平衡档），<code>never</code> 闷头干不打扰你。记住：<strong>沙箱管「能不能」，审批管「问不问」，两个维度别混。</strong></p>
+<p><strong>推理强度（Reasoning Effort，配置键 <code>model_reasoning_effort</code>）</strong></p>
+<p>一句话：<strong>让模型「动手前想多久」的旋钮，想得越久通常越准、但越慢。</strong></p>
+<p><strong>类比：考试时给的答题时间。</strong> 同一个学霸，让他扫一眼就答、跟让他打草稿反复验算再答，质量天差地别，但后者明显更慢。五档：<code>minimal</code>（几乎不想，秒答）、<code>low</code>、<code>medium</code>、<code>high</code>、<code>xhigh</code>（顶格，看模型支不支持）。结果不满意先别急着换模型——往上提一档常常就解决了；嫌慢就降一档。</p>
+<p><strong>推理摘要（配置键 <code>model_reasoning_summary</code>）</strong></p>
+<p>一句话：<strong>你想看多少它的「思考过程」。</strong></p>
+<p>在 Codex 里指什么：取值 <code>auto</code> / <code>concise</code> / <code>detailed</code> / <code>none</code>。想看它怎么一步步想的，调 <code>detailed</code>；觉得刷屏碍事，调 <code>none</code> 直接关。纯体验开关，跟结果质量无关。</p>
+<p><strong>服务层级（<code>service_tier</code>）</strong></p>
+<p>一句话：<strong>给你的请求排个优先级——是优先省钱还是优先快。</strong></p>
+<p><strong>类比：快递的标快和特快。</strong> <code>fast</code>（快速）官方明确是「加 credit 把模型提速 1.5x」，像特快加钱保时效；<code>flex</code>（弹性）更偏常规档、不额外加速。赶时间且不在乎那点 credit 消耗，可以试 <code>fast</code>，否则默认就好。</p>
+<p><strong><code>config.toml</code>（配置文件）</strong></p>
+<p>一句话：<strong>Codex 的总配置文件，放在 <code>~/.codex/config.toml</code>，TOML 格式。</strong></p>
+<p>在 Codex 里指什么：上面这些旋钮——默认模型、推理强度、沙箱模式、审批策略、MCP server——想让它每次启动都生效，就写进这个文件。临时改用斜杠命令，永久改写这里。</p>
+<p><strong>Chronicle / 记忆（Memory）</strong></p>
+<p>一句话：<strong>让 Codex 记住你早先聊过的偏好和项目惯例，省得每次重新交代。</strong></p>
+<p>在 Codex 里指什么：<strong>记忆默认是关的</strong>，要在设置里或 <code>config.toml</code> 的 <code>[features]</code> 段写 <code>memories = true</code> 才开，且有地区限制、存在本地。<strong>Chronicle 是实验性的研究预览</strong>，更进一步——用你屏幕上的内容帮它理解你最近在忙啥，目前只对 ChatGPT Pro、且只在 macOS 上可用。一句忠告：真正必须每次生效的规矩，写进 <code>AGENTS.md</code>，别指望记忆兜底。</p>
+<p>我自己刚上手 Codex 那会儿，最先被绊住的就是沙箱——让它批量重命名文件，桌面上那两个纹丝没动，我还以为它挑食，翻文档才知道是 <code>workspace-write</code> 把它们圈在了我项目目录之外。<strong>这一组里最该先记牢的就是沙箱和审批这对兄弟</strong>，它俩解释了 Codex 八成的「为啥它不肯动」。</p>
+<blockquote>
+<p>💡 一句话总结：Codex 专有词里，沙箱 + 审批管权限、<code>AGENTS.md</code> 管规矩、推理强度管「想多久」、<code>codex exec</code> 管自动化，全写进 <code>config.toml</code> 永久生效。</p>
+</blockquote>
+<hr>
+<h2>03 扩展能力：把 Codex 的本事接出去</h2>
+<p>基础和专有概念是 Codex 的「本体」，这一组是给它「加装备」的——五个词长得有点像，最容易混，我用一句话各自钉死。</p>
+<p><strong>MCP（Model Context Protocol，模型上下文协议）</strong></p>
+<p>一句话：<strong>一套统一标准，让 Codex 能接上各种外部工具——数据库、设计稿、浏览器、第三方服务。</strong></p>
+<p><strong>类比：USB 接口。</strong> Codex 默认只够得着本地文件和命令，够不着你的 Figma、最新文档、线上数据库。MCP 就是那个统一接口：<strong>接一次，一堆外部工具就全摆到它面前。</strong> 不用为每个工具单独写对接代码，这正是「标准」的价值。</p>
+<p><strong>子代理（Subagent）</strong></p>
+<p>一句话：<strong>主对话临时派出去、并行干专项活的小代理，各干各的、只把摘要汇总回来。</strong></p>
+<p><strong>类比：分头办事的几个跑腿。</strong> 你（主线）要把一次改动从安全、性能、测试三个角度都审一遍，犯不着自己顺着查三趟——派三个跑腿同时出门，回来各递一份摘要。关键点：<strong>Codex 绝不自动拆活，得你在话里明说「开几个 agent 并行、等齐、回汇总」它才动</strong>。它的核心价值是把吵闹的中间产物搬出你的主桌面（还记得上下文窗口吗）。</p>
+<p><strong>技能（Skill，Agent Skills）</strong></p>
+<p>一句话：<strong>把一套固定步骤打包成一身本事，写一次，之后 Codex 随手就能照着做。</strong></p>
+<p><strong>类比：菜谱卡。</strong> 「总结未提交的改动并标出风险」这种你反复要它做的活，与其每次重打一遍指令，不如写成一张菜谱卡（<code>SKILL.md</code>），里头写清 <code>name</code>、<code>description</code> 和步骤。之后点名就能调，或者它根据你的话自动匹配。手机上的「快捷指令」也是这个味儿。</p>
+<p><strong>钩子（Hook）</strong></p>
+<p>一句话：<strong>挂在 Codex 干活生命周期某个时机上的自动脚本，事件一发生它必然触发。</strong></p>
+<p><strong>类比：自动感应灯。</strong> 它不关心你是谁、要去哪，只要「有人经过」这个事件发生，灯就必然亮。Hook 就是这样——在「调工具前」「调工具后」「答完话」「会话开场」这些时机，自动跑你指定的脚本。它和 <code>AGENTS.md</code> 的差别在于：手册是「请求」，Hook 是「必然兑现的保证」。</p>
+<p><strong>插件（Plugin）</strong></p>
+<p>一句话：<strong>把若干 Skill、MCP server、集成打成一个套装盒，一次装齐、整体管、整体撤。</strong></p>
+<p><strong>类比：装修的「整套样板间」。</strong> 散件买，你得逐个找货号、对尺寸、自己拼；打成套装，一个订单到手就是样板间那样。单条工作流自用，写个 Skill 就行；<strong>要跨项目复用、团队共享、统一发版本，才值得打成插件</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>一句话区分</th>
+<th>你什么时候碰它</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MCP</td>
+<td>接外部工具的统一接口</td>
+<td>想让它连数据库 / 设计稿 / 浏览器</td>
+</tr>
+<tr>
+<td>子代理</td>
+<td>并行干专项活、回汇总</td>
+<td>一件事要从多个角度同时审</td>
+</tr>
+<tr>
+<td>Skill</td>
+<td>把固定步骤打包成一招</td>
+<td>同一套流程你反复要它做</td>
+</tr>
+<tr>
+<td>Hook</td>
+<td>特定时机自动触发的脚本</td>
+<td>想强制「每次都自动跑某件事」</td>
+</tr>
+<tr>
+<td>Plugin</td>
+<td>一堆能力打成套装一键装</td>
+<td>要团队共享、统一管理一整套配置</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：MCP 接工具、子代理分活、Skill 打包流程、Hook 卡时机、Plugin 装整套——五个词，记住「各自解决什么问题」就不会混。</p>
+</blockquote>
+<hr>
+<h2>04 模型相关：派谁去干活</h2>
+<p>最后这组关乎「敲下回车那一刻，背后是哪个模型在帮你」。模型名会随版本变，这里讲的是定位和概念，具体有哪些一律看你本地 <code>/model</code> 面板。</p>
+<p><strong><code>gpt-5.5</code>（旗舰、默认）</strong></p>
+<p>一句话：<strong>当前推荐的旗舰模型，最强也最贵，不设置就默认用它。</strong></p>
+<p>在 Codex 里指什么：复杂编程、跨模块重构、难缠 bug、研究类工作流，派它准没错。多数情况这就够用，你从没设过就是它。</p>
+<p><strong><code>gpt-5.4-mini</code>（轻量、快而省）</strong></p>
+<p>一句话：<strong>轻量模型，跑得快、花得少，适合又多又简单的活儿，也常给子代理用。</strong></p>
+<p>在 Codex 里指什么：改小 bug、调格式、补注释、批量清理这类「体力活」，派它比派旗舰省钱省时间。</p>
+<p><strong><code>gpt-5.4</code>（正式版，区别于 mini）</strong></p>
+<p>一句话：<strong>介于旗舰和 mini 之间的正式模型，也在用、没被淘汰，和 <code>gpt-5.4-mini</code> 是一组，别把两者搞混。</strong></p>
+<p>在 Codex 里指什么：「名字一样但没有 mini」——它比 mini 更强，但比 <code>gpt-5.5</code> 旗舰省钱省时间；要平衡质量和成本时可以考虑它。<code>gpt-5.4-mini</code> 是它的轻量档，两者不是同一个模型。</p>
+<p><strong><code>gpt-5.3-codex-spark</code>（即时型，研究预览）</strong></p>
+<p>一句话：<strong>为「秒回」优化的即时型模型，适合连珠炮式的高频迭代。</strong></p>
+<p>在 Codex 里指什么：它是研究预览，目前只对 ChatGPT Pro 开放，<strong>没看到它很正常，不是你装错了</strong>。需要它问一句你秒答一句的现场结对时才用得上。</p>
+<p><strong>研究预览（Research Preview）</strong></p>
+<p>一句话：<strong>官方放出来给小范围用户先试的「提前体验版」，功能可能随时变、范围常受限。</strong></p>
+<p>在 Codex 里指什么：像 <code>gpt-5.3-codex-spark</code>、Chronicle 这些标着「研究预览」的东西，共同点是——<strong>可能只对某套餐 / 某平台开放、随版本说没就没</strong>。看到这四个字，就当它是「尝鲜功能，别拿来扛生产」。</p>
+<p><strong>已弃用模型（Deprecated）</strong></p>
+<p>一句话：<strong>官方已经标为淘汰、不再推荐的旧模型，别再写进配置。</strong></p>
+<p>在 Codex 里指什么：<code>gpt-5.2</code> 和 <code>gpt-5.3-codex</code> 在 ChatGPT 登录方式下已被官方标为弃用。<strong>如果你的脚本、<code>config.toml</code> 或 <code>codex exec --model</code> 里还写着它们，趁早换成最新的。</strong> 我自己上个月就栽过——一个半年前写的自动化脚本里硬编码了老模型名，跑起来直接报模型不可用，翻了半天才想起是这茬。</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>定位</th>
+<th>最适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>gpt-5.5</code></td>
+<td>旗舰、默认</td>
+<td>复杂编程、重构、难缠 bug、研究</td>
+</tr>
+<tr>
+<td><code>gpt-5.4</code></td>
+<td>正式版（中间档）</td>
+<td>平衡质量与成本</td>
+</tr>
+<tr>
+<td><code>gpt-5.4-mini</code></td>
+<td>轻量、快省</td>
+<td>简单批量活、给子代理用</td>
+</tr>
+<tr>
+<td><code>gpt-5.3-codex-spark</code></td>
+<td>即时型（研究预览）</td>
+<td>高频实时迭代，求秒回</td>
+</tr>
+<tr>
+<td><code>gpt-5.2</code> / <code>gpt-5.3-codex</code></td>
+<td>已弃用</td>
+<td>别再用，换成最新的</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：旗舰 <code>gpt-5.5</code> 啃硬活、<code>gpt-5.4</code> 中间档、<code>gpt-5.4-mini</code> 跑快省、<code>gpt-5.3-codex-spark</code> 求秒回；「研究预览」=尝鲜版，弃用的两个名字别再写进配置。</p>
+</blockquote>
+<hr>
+<h2>05 怎么用好这本词典</h2>
+<p>词典这东西，放着不用就是摆设。给你三个我自己实测有效的用法：</p>
+<p><strong>第一，读其它篇卡住时，回这儿搜词、看完就走。</strong> 别在术语上死磕，这一篇就是给你随时打断、随时回查的——这正是它和其它篇的区别：其它篇从头读，这篇 Ctrl+F 着用。</p>
+<p><strong>第二，把「最容易混的几对」单独记牢。</strong> 我自己最初栽过跟头的就那么几对，列出来你照着核对：</p>
+<table>
+<thead>
+<tr>
+<th>容易混的一对</th>
+<th>怎么区分</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>沙箱 vs 审批</td>
+<td>沙箱管「能不能」，审批管「问不问」</td>
+</tr>
+<tr>
+<td>推理强度 vs 模型</td>
+<td>强度是「想多久」，模型是「派哪个人」</td>
+</tr>
+<tr>
+<td><code>AGENTS.md</code> vs 记忆</td>
+<td>手册是必然生效的规矩，记忆是概率性的回忆</td>
+</tr>
+<tr>
+<td>Skill vs Plugin</td>
+<td>Skill 是一招，Plugin 是一堆招打的套装</td>
+</tr>
+<tr>
+<td>子代理 vs Hook</td>
+<td>子代理你开口才拆，Hook 到点必触发</td>
+</tr>
+</tbody></table>
+<p><strong>第三，动手验一遍最快记牢。</strong> 拿你最常忘的那个概念，去对应章节跑一遍它的动手环节——比如对沙箱没感觉，就回〔<a href="02-core-concepts.html">02 核心概念</a> 〕跑那个「只读模式下建文件被拦」的小实验。我带过几个完全不懂命令行的朋友入门 Codex，<strong>凡是亲手跑过一遍沙箱拦截的，没一个再问我「它为啥不肯改文件」</strong>——亲眼见一次，顶看十遍解释。</p>
+<blockquote>
+<p>💡 一句话总结：这本词典是用来「随时查」的——卡住就搜词、混淆的几对单独记、最不熟的那个概念回去动手跑一遍。</p>
+</blockquote>
+<hr>
+<h2>小结</h2>
+<p>这一篇把全书的术语收成了一本随身词典，分四组钉死：</p>
+<ul>
+<li><strong>基础概念</strong>：代理、代理循环、上下文窗口、token——所有概念的地基。</li>
+<li><strong>Codex 专有</strong>：<code>AGENTS.md</code>、<code>codex exec</code>、沙箱、审批、推理强度、<code>service_tier</code>、Chronicle——这工具的独门词，也是「时灵时不灵」的来源。</li>
+<li><strong>扩展能力</strong>：MCP、子代理、Skill、Hook、Plugin——五件套各解决一个问题，记「干啥用的」不混。</li>
+<li><strong>模型相关</strong>：<code>gpt-5.5</code> 这一串的定位、研究预览是啥、哪两个已弃用。</li>
+</ul>
+<p><strong>你现在应该能</strong>：再看到任何一篇里冒出的术语，知道回这儿哪一组找；把最容易混的几对一眼分清；碰到没感觉的概念，知道回对应章节动手验一遍。</p>
+<p>说到底，<strong>术语从来不是用来背的，是用着用着就刻进肌肉的</strong>。这本词典的作用，就是在它还没刻进去之前，给你一个随时能查的兜底。</p>
+<hr>
+<p>下一篇〔<a href="39-enterprise.html">39 企业管理与治理</a> 〕，咱们把镜头从「一个人怎么用 Codex」拉到「一家公司怎么把 Codex 管起来」：权限怎么统一发、合规怎么兜底、几十上百号人用同一套工具怎么不乱套。留个小思考——你回头看这一篇里的沙箱和审批，<strong>当只有你一个人用时它们是「自己给自己设的安全带」，那当一个团队几十人共用时，这条安全带该由谁来系、能不能让人随手解开？</strong> 这正是下一篇要解的题。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/37-faq.html"><span class="mono">← 上一篇 · 37</span><b>常见问题排查：装不上、登不了、不肯改文件，挨个拆</b></a>
+  <a class="pg nx" href="/library/codex/39-enterprise.html"><span class="mono">下一篇 · 39 →</span><b>企业管理与治理：一个人玩和一家公司用，是两件事</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

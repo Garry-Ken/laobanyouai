@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>41 并行任务：让几个 Claude 同时开工，而不是排队 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 41 篇:并行任务：让几个 Claude 同时开工，而不是排队。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/41-parallel-tasks.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class="cur"><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class="cur"><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 41 篇</p>
+      <h1>并行任务：让几个 Claude 同时开工，而不是排队</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="40-chrome.html">40 Chrome：让它操作浏览器</a> 教你把 Claude 的手伸进浏览器，自动点页面、填表单。这一篇换个维度——<strong>不是让一个 Claude 多干一件事，而是让好几个任务同时开工</strong>。git worktree 隔离、后台多会话、headless 批量跑，三套手段一次说清，外加最关键的那条：<strong>什么时候并行真省事，什么时候纯添乱</strong>。</p>
+</blockquote>
+<p>说出来有点丢人，但我自己第一次想「并行干活」时，干的就是这么一件蠢事：开了两个终端，都 <code>cd</code> 到同一个项目目录，一个让 Claude 改前端登录页，另一个让它顺手修一个后端的 bug。</p>
+<p>心里还美滋滋地想：「这不双倍效率嘛。」</p>
+<p>结果呢——两边都在改 <code>package.json</code>，一边刚写进去的依赖，被另一边的改动<strong>直接覆盖回滚</strong>了；<code>git status</code> 一看，工作区乱成一锅粥，谁改的哪行根本分不清。我那天花了比「老老实实一件件干」多得多的时间，才把两边的改动手动捋开，越捋越火大。<strong>就是那回我才明白：并行不是「多开几个窗口」这么简单，核心是「别让它们踩到同一块地」。</strong></p>
+<p>其实 Claude Code 早就备好了正经的并行工具——<code>--worktree</code> 给每个会话一份隔离的代码副本，<code>--bg</code> 把任务甩到后台批量跑，<code>claude agents</code> 给你一块总控台盯着它们。这一篇，咱们把上面那个坑连根填平，再带你把这几套手段亲手跑一遍。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一句话讲清「为什么要并行」，以及并行的两个前提：任务互相独立、不抢同一份文件</li>
+<li>官方四种并行方式（子代理 / 代理视图 / 代理团队 / 动态工作流）一张表分清，知道该挑哪个</li>
+<li>用 <code>--worktree</code> 给每个会话一份隔离副本，再不互相覆盖——附 <code>.worktreeinclude</code>、清理这些坑点</li>
+<li>用 <code>claude agents</code> 和 <code>--bg</code> 把任务甩到后台、一块屏幕盯进度，只在需要时介入</li>
+<li>用 <code>claude -p</code>（无头模式，headless）把任务写进脚本批量跑，配 <code>--bare</code> 启动更快</li>
+<li>那条最重要的判断线：什么时候值得并行、什么时候反而把自己绕进去</li>
+</ul>
+<hr>
+<h2>01 先想清楚：并行到底解决什么问题，前提是什么</h2>
+<p>先给结论：<strong>并行解决的是「几件互不相干的活，不想排队一件件等」；但它能成立，全靠一个前提——这几件活别抢同一份文件</strong>。</p>
+<p>回想前面四十篇，咱们基本都在「一个会话」里折腾——开一个 Claude，给指令，它一步步干。这模式九成的活儿够用。但有两种时候你会嫌它慢。</p>
+<p><strong>一是任务天然就能拆开、互不依赖。</strong> 比如「改前端样式」「修后端一个 bug」「补一批单元测试」，三件事八竿子打不着，却只能排队：改完前端才轮到后端。<strong>明明能同时干，却被逼着串行。</strong></p>
+<p><strong>二是任务大到一个会话扛不动。</strong> 比如「把整个代码库里某个旧 API 全换成新的」，涉及几十上百个文件，一个会话从头改到尾，上下文（context，可理解成它的「工作记忆」，详见第 19 篇）早塞满了，越往后越「忘事」。</p>
+<p><strong>类比：超市结账。</strong> 一条收银通道，十个人拎着购物车排长龙，第十个人得干等前面九个全结完——这就是串行。聪明的超市会<strong>多开几个收银口</strong>，十个人分到三四条队里同时结，总时间立刻砍下来。并行干活就是「多开收银口」：<strong>几件独立的活，分给几个 Claude 同时结账，而不是挤在一条队里。</strong></p>
+<p>但收银口能多开有个隐含前提：<strong>每条队是独立的，互不干扰</strong>。要是三个收银员共用同一个钱箱、同时往里塞钱找零，立刻乱套——这正是开头那个坑。所以并行的铁律就一条：</p>
+<p><strong>任务接触相同的文件吗？使用 worktrees 隔离工作。</strong></p>
+<p>落到你会遇到的真实场景，能并行的活儿长这样：</p>
+<ul>
+<li><strong>「这三个互不相干的模块，各修各的 bug」</strong>——分三个会话同时修，互不打扰</li>
+<li><strong>「把 <code>utils/</code> 整个目录里没人用的死代码扫出来」</strong>——派个子代理去翻，主对话不被一堆文件灌满（详见第 23 篇）</li>
+<li><strong>「同一份脚本，对 30 个文件各跑一遍同样的改动」</strong>——写成 headless 批量任务，机器自己跑完</li>
+</ul>
+<blockquote>
+<p>💡 一句话总结：并行是为了让<strong>互相独立的活儿不用排队</strong>（像超市多开收银口），但它成立的铁律只有一条——<strong>别让它们抢同一份文件</strong>，否则越并行越乱。</p>
+</blockquote>
+<hr>
+<h2>02 官方四种并行方式：先认门，别一上来就挑花眼</h2>
+<p>Claude Code 的并行不止一招。官方专门有一页《并行运行代理》把它们摆在一起比，<strong>核心区别就一个问题：谁来协调这些活儿？</strong> 是 Claude 在一个对话里派活收活，是你甩出去回头再看，还是 Claude 当工头统筹一队。</p>
+<p>先把四种方式一张表认清，<strong>这一节是地图，下面几节才是逐个深挖</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>它是什么</th>
+<th>谁协调</th>
+<th>什么时候用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>子代理（Subagent）</strong></td>
+<td>一个会话内派出去的工作者，在自己上下文里干完返回摘要</td>
+<td>Claude 在对话里派活收活</td>
+<td>辅助任务会用一堆搜索结果 / 日志把主对话灌满，而你不会再翻这些过程</td>
+</tr>
+<tr>
+<td><strong>代理视图（Agent view）</strong></td>
+<td>一块屏幕，调度并监控多个后台会话，<code>claude agents</code> 打开（研究预览）</td>
+<td>你甩出任务、回头检查</td>
+<td>你有几个独立任务，想交出去、一眼扫状态、只在需要时介入</td>
+</tr>
+<tr>
+<td><strong>代理团队（Agent teams）</strong></td>
+<td>多个会话协调干活，共享任务列表、互发消息，有个 leader 统筹（实验性，默认关）</td>
+<td>Claude 当工头统筹一队</td>
+<td>你想让 Claude 把项目拆成几块、分派、还让工人们保持同步（详见第 29 篇）</td>
+</tr>
+<tr>
+<td><strong>动态工作流（Workflows）</strong></td>
+<td>一段脚本，跑一大批子代理并交叉验证结果（研究预览）</td>
+<td>脚本而非 Claude 逐轮判断</td>
+<td>活儿大到几个子代理协调不过来，或要结果互相验证：全库审计、500 个文件迁移</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚠️ <strong>实验性标注</strong>：上表里<strong>代理视图（agent view）和动态工作流（workflows）是研究预览版、代理团队（agent teams）是实验性默认关闭</strong>——界面、快捷键、行为后续都可能变。照做前先 <code>claude --version</code> 对一下版本。子代理则是稳定功能。</p>
+</blockquote>
+<p>这表你不用背，记住一句就行：<strong>「谁协调」是分水岭</strong>——Claude 在对话里顺手派 → 子代理；你撒手甩后台 → 代理视图；Claude 当工头带队 → 代理团队；脚本死板地批量跑 → 动态工作流。</p>
+<p>还有两个东西<strong>它们本身不是「并行方式」，而是给并行打配合的工具</strong>，这一篇重点讲前一个：</p>
+<ul>
+<li><strong>Worktrees</strong>：给每个会话一份单独的 git 副本，<strong>让并行会话永远不会改到同一份文件</strong>。这是开头那个坑的正解，第 03 节专讲。</li>
+<li><strong><code>/batch</code></strong>：一个 skill，让 Claude 把一个大改动拆成 5 到 30 个 worktree 隔离的子代理，每个开一个 PR。它是「子代理 + worktree」的打包用法，不是单独一种协调风格。</li>
+</ul>
+<p>子代理（第 23 篇）和代理团队（第 29 篇）前面都专门讲透了，<strong>这一篇不重复</strong>——本篇聚焦那块还没碰过的：<strong>worktree 隔离、后台多会话、headless 批量</strong>。</p>
+<blockquote>
+<p>💡 一句话总结：并行有四种正经方式，<strong>「谁协调」是区分关键</strong>；worktree 和 <code>/batch</code> 是给并行打配合的工具，不算单独方式；本篇专攻前面没讲过的 worktree、后台会话、headless 三块。</p>
+</blockquote>
+<hr>
+<h2>03 用 worktree 隔离：给每个会话一份「自己的副本」</h2>
+<p>这一节是开头那个坑的正解，<strong>也是整篇最该吃透的一块</strong>。</p>
+<p>先说那个坑到底坑在哪：两个会话 <code>cd</code> 进<strong>同一个目录</strong>，等于俩人在<strong>同一张图纸</strong>上同时涂改，后写的盖住先写的，天经地义会乱。git worktree（工作树，git 的一项原生能力）就是来根治这个的。</p>
+<p><strong>类比：把同一张图纸复印几份，几个人各改各的副本。</strong> 设计图只有一张原稿，三个人要同时在上面标注，挤在一张纸上必然涂乱。正确做法是<strong>复印三份</strong>——每人拿一份副本随便改，改完再合并。git worktree 干的就是这事：<strong>它从同一个仓库历史里，给你拉出几个独立的工作目录，各有各的文件和分支，但共享同一套提交历史和远程</strong>。一个会话在它的副本里怎么改，都碰不到另一个会话的副本。</p>
+<p>官方把这个值钱的点讲得很清楚：</p>
+<blockquote>
+<p>在自己的 worktree 中运行每个 Claude Code 会话意味着一个会话中的编辑永远不会触及另一个会话中的文件，因此您可以让 Claude 在一个终端中构建功能，同时在第二个终端中修复错误。</p>
+</blockquote>
+<h3>一行命令开一个隔离会话</h3>
+<p>最省事的用法：启动时加 <code>--worktree</code>（或简写 <code>-w</code>），后面跟个名字。Claude 会<strong>自动创建一个隔离的 worktree 并在里头开工</strong>。默认这个 worktree 放在你仓库根目录下的 <code>.claude/worktrees/&lt;名字&gt;/</code>，分支名叫 <code>worktree-&lt;名字&gt;</code>：</p>
+<pre><code class="language-bash">claude --worktree feature-auth
+</code></pre>
+<p>想再开第二个独立会话？<strong>另一个终端、换个名字</strong>，跑同样的命令：</p>
+<pre><code class="language-bash">claude --worktree bugfix-123
+</code></pre>
+<p>这下两个会话各在自己的副本里，一个搭功能、一个修 bug，<strong>谁也碰不到谁的文件</strong>——开头那个「互相覆盖」的惨剧从根上没了。名字懒得起？省略它，Claude 自动生成一个像 <code>bright-running-fox</code> 这样的：</p>
+<pre><code class="language-bash">claude --worktree
+</code></pre>
+<p>会话里也能临时让它进 worktree——直接说一句「在 worktree 中工作」，它会用 <code>EnterWorktree</code> 工具给你建一个。</p>
+<blockquote>
+<p>第一次在某个目录用 <code>--worktree</code> 之前，得先在该目录里跑一次普通的 <code>claude</code>，<strong>接受那个工作区信任对话框</strong>。没接受过信任，<code>--worktree</code> 会直接报错让你先去跑一次 <code>claude</code>——连 <code>-p</code> 模式也一样。</p>
+</blockquote>
+<h3>三个新手必踩的坑点</h3>
+<p><strong>坑点一：<code>.claude/worktrees/</code> 要进 <code>.gitignore</code>。</strong> 不然这些 worktree 的内容会在你主目录里显示成一堆「未跟踪文件」，看着碜得慌。官方专门提醒了这条。</p>
+<p><strong>坑点二：worktree 是干净的新副本，你的 <code>.env</code> 不在里面。</strong> worktree 是个全新检出，主仓库里那些<strong>没被 git 跟踪的文件</strong>（像 <code>.env</code>、<code>.env.local</code>）默认不会跟过去——结果新会话一跑就缺环境变量。解法是在项目根放一个 <code>.worktreeinclude</code> 文件，<strong>列出要自动复制进每个 worktree 的本地文件</strong>，语法和 <code>.gitignore</code> 一样：</p>
+<pre><code class="language-text">.env
+.env.local
+config/secrets.json
+</code></pre>
+<p>这个坑我亲自栽过：兴冲冲 <code>-w</code> 开了个会话准备改后端，结果 Claude 跑起来一直报连不上数据库，我对着报错排查了半天，甚至怀疑是数据库挂了——最后才反应过来，<code>.env</code> 压根没复制进 worktree，连接串它根本读不到。后来在每个项目根都顺手放上 <code>.worktreeinclude</code>，就再没犯过这毛病。</p>
+<p><strong>坑点三：退出时记得「保留还是删除」。</strong> 官方的清理规则很实在：</p>
+<ul>
+<li><strong>没改任何东西</strong>（无未提交改动、无未跟踪文件、无新提交）：worktree 和它的分支会<strong>自动删除</strong>；但如果会话事先命了名（<code>--name</code>），Claude 会弹提示让你决定保留还是删除。</li>
+<li><strong>改了东西</strong>：Claude 会<strong>问你「保留还是删除」</strong>——保留就留着目录和分支，以后能回来接着干；删除就连同未提交的改动一起丢掉。</li>
+<li><strong>非交互（<code>-p</code>）跑出来的 worktree 不自动清理</strong>，因为没有退出提示，得自己 <code>git worktree remove</code> 删。</li>
+</ul>
+<h3>不想让 Claude 自动建，也能手动来</h3>
+<p>要完全掌控 worktree 放哪、用哪个分支，直接用 git 自己建也行（git 工作流第 43 篇会专门讲）：</p>
+<pre><code class="language-bash"># 在新分支上建一个 worktree
+git worktree add ../project-feature-a -b feature-a
+
+# 进去启动 Claude
+cd ../project-feature-a &amp;&amp; claude
+
+# 列出所有 worktree
+git worktree list
+
+# 干完删掉
+git worktree remove ../project-feature-a
+</code></pre>
+<p>官方提醒一句<strong>很容易忘</strong>的：每个新 worktree 都是独立检出，<strong>记得在里头重新装依赖、配虚拟环境</strong>——别指望它继承主目录装好的 <code>node_modules</code>。</p>
+<blockquote>
+<p>💡 一句话总结：worktree 给每个会话<strong>一份独立的代码副本</strong>（像复印图纸各改各的），<code>claude --worktree &lt;名字&gt;</code> 一行开一个隔离会话；记牢三坑——<code>.claude/worktrees/</code> 进 <code>.gitignore</code>、<code>.env</code> 靠 <code>.worktreeinclude</code> 复制、退出时选「保留 / 删除」。</p>
+</blockquote>
+<hr>
+<h2>04 多会话并行：后台甩任务 + 一块总控台盯着</h2>
+<p>worktree 解决了「文件不打架」，但还有个问题：<strong>开了三五个会话，难道得开三五个终端来回切、一个个盯？</strong> 太累了。这就轮到「代理视图（agent view）」上场。</p>
+<p><strong>类比：机场塔台的航班动态板。</strong> 塔台不会派一个人盯一架飞机——一块大屏上，所有航班的状态一目了然：哪架在滑行、哪架等指令、哪架已落地。调度员<strong>平时扫一眼总览，只在某架要他拍板时才接管对讲</strong>。<code>claude agents</code> 给你的就是这么块塔台屏：<strong>所有后台会话排成行，状态一眼扫清，谁需要你才介入。</strong></p>
+<blockquote>
+<p>⚠️ <strong>研究预览</strong>：agent view 是官方标注的研究预览功能，需要较新版本的 Claude Code，界面和快捷键后续可能变。先 <code>claude --version</code> 对一下版本。</p>
+</blockquote>
+<h3>把任务甩到后台</h3>
+<p>后台会话的精髓是：<strong>它不绑在你的终端上</strong>——你关掉这块屏、关掉 shell、甚至另开一个交互会话，它<strong>照样在跑</strong>。有几种甩法。</p>
+<p><strong>第一种，从 shell 直接甩</strong>，加 <code>--bg</code>：</p>
+<pre><code class="language-bash">claude --bg &quot;调查一下 SettingsChangeDetector 这个不稳定的测试为啥老挂&quot;
+</code></pre>
+<p>甩出去后，Claude 会打印这个会话的短 ID 和管理它的命令，大概长这样：</p>
+<pre><code class="language-text">backgrounded · 7c5dcf5d
+  claude agents             list sessions
+  claude attach 7c5dcf5d    open in this terminal
+  claude logs 7c5dcf5d      show recent output
+  claude stop 7c5dcf5d      stop this session
+</code></pre>
+<p><strong>第二种，从正在聊的会话里甩</strong>：敲 <code>/bg</code>（<code>/background</code> 的简写），把当前对话挪到后台。</p>
+<h3>用 <code>claude agents</code> 这块塔台屏管它们</h3>
+<p>打开总控台：</p>
+<pre><code class="language-bash">claude agents
+</code></pre>
+<p>它会占满整个终端，把所有后台会话<strong>按状态分组列出来</strong>——「需要输入」「正在工作」「已完成」各归一拨。每行开头一个图标，颜色和动画告诉你这个会话啥状态：</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>图标</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>工作中</td>
+<td>动画闪动</td>
+<td>正在跑工具或生成回复</td>
+</tr>
+<tr>
+<td>需要输入</td>
+<td>黄色</td>
+<td>在等你回答或批权限</td>
+</tr>
+<tr>
+<td>已完成</td>
+<td>绿色</td>
+<td>任务成功干完</td>
+</tr>
+<tr>
+<td>失败</td>
+<td>红色</td>
+<td>出错结束了</td>
+</tr>
+</tbody></table>
+<p>塔台屏的核心操作就三个，<strong>新手记住这仨足够</strong>：</p>
+<ul>
+<li><strong><code>Space</code>（窥视）</strong>：选中一行按空格，弹出小面板看它最近的输出、或它正卡在哪个问题上——<strong>多数时候不用进完整对话，瞄一眼就够</strong>。</li>
+<li><strong>回复</strong>：在窥视面板里直接打字回它，按 <code>Enter</code> 发出去，<strong>不用离开总控台</strong>。</li>
+<li><strong><code>Enter</code> / <code>→</code>（附加）</strong>：想钻进某个会话好好聊，按回车「附加」进去，它就变成一个完整的交互会话；在空输入框按 <code>←</code> 又退回总控台。</li>
+</ul>
+<p>这里有个<strong>藏得很深但极关键</strong>的细节，正好把上一节的 worktree 串起来：<strong>每个后台会话在改文件前，Claude 会自动把它挪进 <code>.claude/worktrees/</code> 下的隔离 worktree</strong>。也就是说——<strong>你用代理视图并行甩任务，文件隔离是自动帮你做好的</strong>，不用像第 03 节那样手动 <code>-w</code>。官方文档确认：代理视图在分派每个会话时，会自动为它创建独立的 worktree。</p>
+<p>举个常见的并行组合：同时甩出三个后台会话——一个修 flaky 测试、一个审一个 PR、一个补文档。<strong>你该干嘛干嘛，每隔一阵 <code>claude agents</code> 扫一眼</strong>——谁变绿了去验收，谁标黄了去拍板。比开三个终端来回切省心太多了。</p>
+<blockquote>
+<p>⚠️ <strong>一个会消耗你额度的事实</strong>：后台会话和交互会话一样吃你的订阅用量。<strong>并行跑十个，额度消耗速度大约是跑一个的十倍</strong>。别看后台跑得欢就无脑开一堆。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：<code>--bg</code> 把任务甩到后台、<code>/bg</code> 把当前会话甩后台，<code>claude agents</code> 给你一块塔台屏（像机场航班板）——<code>Space</code> 窥视、直接回复、<code>Enter</code> 附加；后台会话的文件隔离是<strong>自动用 worktree</strong> 做好的，但并行越多越费额度。</p>
+</blockquote>
+<hr>
+<h2>05 Headless 批量：写进脚本里，让它无人值守地跑</h2>
+<p>前面两套是「你坐在终端前盯着」。但有一类活儿你压根不想盯——<strong>同一个套路，对一批东西各跑一遍</strong>；或者把 Claude 塞进 CI、塞进脚本，<strong>让它像个命令行工具一样被自动调用</strong>。这就是无头模式（headless，即不开交互界面、跑完就退出的运行方式）。</p>
+<p><strong>类比：把指令写成纸条投进自助机，跑完吐结果。</strong> 你不会守着自动售货机看它出货——投币、按键、东西掉出来，全程不用你盯。headless 就是这种「无人值守」：<strong>你把提示和参数一次性写清，塞给 <code>claude -p</code>，它跑完把结果吐出来</strong>，你拿去用就行。</p>
+<p>核心就一个标志：<code>-p</code>（或 <code>--print</code>）。加上它，<code>claude</code> 就<strong>非交互地跑一次然后退出</strong>：</p>
+<pre><code class="language-bash">claude -p &quot;找出 auth.py 里的 bug 并修掉&quot; --allowedTools &quot;Read,Edit,Bash&quot;
+</code></pre>
+<p>这里 <code>--allowedTools</code> 是<strong>预先批准</strong>它能用哪些工具——因为没人在旁边点「同意」，你得提前告诉它「这几样工具随便用，别停下来问」（权限模式详见第 20、35 篇）。</p>
+<h3>三个让它真正好用的配套</h3>
+<p><strong>配套一：管道喂数据。</strong> headless 会读标准输入（stdin），所以你能像用任何命令行工具一样，<strong>把数据用管道喂进去</strong>。比如把构建报错丢给它解释，结果写进文件：</p>
+<pre><code class="language-bash">cat build-error.txt | claude -p &quot;简明扼要说清这个构建错误的根因&quot; &gt; output.txt
+</code></pre>
+<p>排查构建挂掉时，就这么一行甩过去——比复制报错粘进会话快多了。</p>
+<p><strong>配套二：<code>--bare</code> 让启动更快。</strong> 默认 <code>claude -p</code> 会加载和交互会话一样的全套上下文（hooks、skills、plugins、MCP、CLAUDE.md 全读一遍），脚本里跑就嫌慢、还可能被队友 <code>~/.claude</code> 里的配置干扰。加 <code>--bare</code> <strong>跳过这些自动发现</strong>，启动快、结果还在每台机器上一致：</p>
+<pre><code class="language-bash">claude --bare -p &quot;总结这个文件&quot; --allowedTools &quot;Read&quot;
+</code></pre>
+<p>官方明确说了：</p>
+<blockquote>
+<p><code>--bare</code> 是脚本和 SDK 调用的推荐模式，将在未来版本中成为 <code>-p</code> 的默认值。</p>
+</blockquote>
+<p><strong>配套三：<code>--output-format json</code> 拿结构化结果。</strong> 脚本要解析 Claude 的输出，纯文本不好处理。加 <code>--output-format json</code>，它会返回<strong>带元数据的结构化 JSON</strong>（结果、会话 ID，还有 <code>total_cost_usd</code> 这次花了多少钱），配 <code>jq</code> 一提取就能用：</p>
+<pre><code class="language-bash">claude -p &quot;总结这个项目&quot; --output-format json | jq -r &#39;.result&#39;
+</code></pre>
+<h3>把 headless 拼成「批量」</h3>
+<p>单条 <code>-p</code> 还不算批量。<strong>真正的批量是拿 shell 循环把它套起来</strong>——对一批文件各跑一遍同样的活。比如给某个目录下每个 <code>.py</code> 文件都生成一句话说明：</p>
+<pre><code class="language-bash">for f in src/*.py; do
+  claude --bare -p &quot;用一句话说明 $f 是干什么的&quot; --allowedTools &quot;Read&quot;
+done
+</code></pre>
+<p>这就是「无人值守批量」的雏形：<strong>循环、<code>-p</code>、<code>--bare</code>，三件套</strong>。当然，如果这批活儿大到几十上百个文件、还想互相验证结果，那就该上第 02 节提的<strong>动态工作流或 <code>/batch</code></strong> 了——它们本质就是把这种批量正经工程化。</p>
+<blockquote>
+<p>⚠️ <strong>一个要留意的计费变化</strong>：官方文档注明，从 2026 年 6 月 15 日起，订阅套餐下的 Agent SDK 和 <code>claude -p</code> 用量会从一份<strong>独立的月度 Agent SDK 额度</strong>里扣，跟你的交互用量分开算。脚本批量跑之前，心里有个数（计费细节见第 06 篇）。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：headless 用 <code>claude -p</code> <strong>非交互跑一次就退出</strong>（像投自助机不用盯），配 <code>--allowedTools</code> 预批工具、<code>--bare</code> 加速、<code>--output-format json</code> 拿结构化结果；拿 shell <code>for</code> 循环套起来就是「批量」雏形。</p>
+</blockquote>
+<hr>
+<h2>06 最关键的一节：什么时候别并行</h2>
+<p>讲了三套并行手段，但<strong>这一节比前面都重要</strong>——因为太多人一学会并行就上头，啥都想拆，结果<strong>越并行越乱、越并行越贵</strong>。</p>
+<p>先把判断线立起来。<strong>值得并行，得同时满足两条</strong>：任务<strong>互相独立</strong>（A 不依赖 B 的结果）、<strong>不抢同一份文件</strong>（或者用 worktree 隔开了）。少一条，并行就是给自己挖坑。</p>
+<p>并排看一眼，什么该并行、什么老实串行：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>该不该并行</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>三个互不相干的模块各修各的 bug</td>
+<td>✅ 并行</td>
+<td>独立、不抢文件，典型该并行</td>
+</tr>
+<tr>
+<td>同一套改动批量跑 30 个文件</td>
+<td>✅ 并行（headless / <code>/batch</code>）</td>
+<td>互不依赖，机器代跑最省事</td>
+</tr>
+<tr>
+<td>「先重构 A，<strong>再基于新 A</strong> 改 B」</td>
+<td>❌ 串行</td>
+<td>B 依赖 A 的结果，并行只会拿到旧 A</td>
+</tr>
+<tr>
+<td>两个会话都要改 <code>package.json</code></td>
+<td>❌ 串行（或务必 worktree 隔离）</td>
+<td>抢同一份文件，正是开头那个坑</td>
+</tr>
+<tr>
+<td>一个小改动，五分钟能干完</td>
+<td>❌ 串行</td>
+<td>拆开的协调成本比省下的时间还多</td>
+</tr>
+<tr>
+<td>任务之间要频繁互通中间结果</td>
+<td>⚠️ 看情况</td>
+<td>沟通成本高，不如一个会话顺着干</td>
+</tr>
+</tbody></table>
+<p>下面三条土规矩，是踩出来的经验，送给你。</p>
+<p><strong>第一，有先后依赖的活儿，死活别并行。</strong> 「重构完核心模块，再让其他模块适配新接口」这种，后一步<strong>就得等前一步</strong>——硬并行，后面那个会照着<strong>旧版本</strong>改，跑完发现全得返工。这么干一次，就白白浪费两个会话的额度。</p>
+<p><strong>第二，小活儿别拆。</strong> 五分钟能改完的东西，你光是「想清楚怎么拆、开几个会话、回头怎么合并」就不止五分钟。<strong>拆活儿本身有成本</strong>，小活儿拆了纯亏。</p>
+<p><strong>第三，并行越多越烧额度。</strong> 第 04 节那条得再强调一遍：<strong>并行十个会话，额度大约按十倍速度烧</strong>。一个稳妥的习惯是——<strong>手动并行控制在三五个以内</strong>，真要大批量（几十上百）就交给 <code>/batch</code> 或动态工作流去工程化，而不是手动开一屏会话。</p>
+<p>说白了，并行是把<strong>双刃剑</strong>：对的场景上它，效率翻几倍；错的场景上它，<strong>比串行还慢还贵还乱</strong>。判断「该不该并行」，永远比「怎么并行」更值钱。</p>
+<blockquote>
+<p>💡 一句话总结：值得并行的铁律是 <strong>「独立 + 不抢文件」</strong>，少一条就别拆；有先后依赖的活儿、五分钟的小活儿别并行；并行越多越烧额度，<strong>控制在三五个以内</strong>，大批量交给 <code>/batch</code>。</p>
+</blockquote>
+<hr>
+<h2>07 动手：亲手跑一遍 worktree 隔离 + 后台甩任务</h2>
+<p>光看不练假把式。下面这套<strong>全程基于一个 git 仓库</strong>，没仓库的先随便建一个练手。命令真实可跑，每步都给了预期输出，你照着走一遍，这几套手段就有肌肉记忆了。</p>
+<blockquote>
+<p>用到 git 仓库；后台会话部分需要较新版本的 Claude Code（agent view 是研究预览），先 <code>claude --version</code> 看一眼。下面命令不依赖魔法上网。</p>
+</blockquote>
+<p><strong>第一步：进一个 git 项目，先接受信任对话框</strong></p>
+<pre><code class="language-bash">cd 你的某个git项目
+claude
+</code></pre>
+<p>进去后随便问一句（比如「这个项目是干嘛的」）再退出。<strong>这一步是为了接受工作区信任</strong>——没接受过，下一步 <code>--worktree</code> 会直接报错。</p>
+<p><strong>第二步：用 <code>--worktree</code> 开一个隔离会话</strong></p>
+<pre><code class="language-bash">claude --worktree test-parallel
+</code></pre>
+<p><strong>预期</strong>：Claude 在 <code>.claude/worktrees/test-parallel/</code> 下建好一个隔离 worktree 并在里头启动。你在这个会话里改任何文件，<strong>都只动这份副本</strong>，主目录纹丝不动。退出时如果改过东西，它会问你「保留还是删除」——练手就选删除。</p>
+<p><strong>第三步：确认 worktree 真建出来了</strong>（另开一个终端，回到主项目目录）</p>
+<pre><code class="language-bash">git worktree list
+</code></pre>
+<p><strong>预期</strong>：列表里除了主检出，<strong>多出一行</strong>指向 <code>.../.claude/worktrees/test-parallel</code>，带自己的分支。看到这行 = 隔离副本确实建好了。</p>
+<p><strong>第四步：把一个任务甩到后台</strong></p>
+<pre><code class="language-bash">claude --bg &quot;列出这个项目所有 markdown 文件的标题&quot;
+</code></pre>
+<p><strong>预期</strong>：终端打印一行 <code>backgrounded · &lt;短ID&gt;</code>，后面跟着 <code>claude attach</code> / <code>claude logs</code> / <code>claude stop</code> 几条管理命令。<strong>看到这串 = 任务已甩进后台在跑</strong>，你的终端立刻就能干别的。</p>
+<p><strong>第五步：打开塔台屏盯它</strong></p>
+<pre><code class="language-bash">claude agents
+</code></pre>
+<p><strong>预期</strong>：整个终端被代理视图占满，刚甩的那个会话<strong>作为一行出现</strong>，旁边标着状态（工作中 / 已完成）。选中它按 <code>Space</code> <strong>窥视</strong>输出，按 <code>Esc</code> 关面板，再按 <code>Esc</code> 退出代理视图。看到这块分组列表 = 你已经能用一块屏管多个后台会话了。</p>
+<p><strong>第六步：清理</strong></p>
+<pre><code class="language-bash"># 停掉刚才那个后台会话（短ID 换成第四步打印的）
+claude stop &lt;短ID&gt;
+
+# 删掉练手的 worktree（在主项目目录）
+git worktree remove .claude/worktrees/test-parallel
+</code></pre>
+<p><strong>预期</strong>：<code>claude stop</code> 打印停止确认；<code>git worktree remove</code> 之后再跑一次 <code>git worktree list</code>，那行 <code>test-parallel</code> 已经没了。<strong>清干净 = 一条完整链路走通</strong>。</p>
+<p>跑通这六步，你就把「开隔离会话 → 确认副本 → 甩后台 → 塔台盯 → 清理」这条并行主链亲手走了一遍。<strong>以后真要并行干活，本质都是这套，无非换任务、加几个会话。</strong></p>
+<blockquote>
+<p>💡 一句话总结：动手链路就六步——<code>claude</code>（接受信任）→ <code>--worktree</code> 开隔离会话 → <code>git worktree list</code> 确认 → <code>--bg</code> 甩后台 → <code>claude agents</code> 盯 → <code>stop</code> + <code>git worktree remove</code> 清理；走通一遍比记十条命令都管用。</p>
+</blockquote>
+<hr>
+<h2>08 小结</h2>
+<p>这一篇把「让几个 Claude 同时开工」这件事，从「为什么并行」一路讲到「什么时候别并行」，中间塞了三套能上手的手段。</p>
+<p>把核心要点串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你想干的事</th>
+<th>用什么</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>搞清并行解决啥</td>
+<td>「独立 + 不抢文件」两前提</td>
+<td>像超市多开收银口，但每条队得独立</td>
+</tr>
+<tr>
+<td>认清并行有哪几种</td>
+<td>四种方式一张表</td>
+<td>「谁协调」是分水岭；agent view / workflows 是研究预览，teams 实验性</td>
+</tr>
+<tr>
+<td>让会话不互相覆盖文件</td>
+<td><code>--worktree</code> / git worktree</td>
+<td>给每个会话一份独立副本，记牢 <code>.gitignore</code>、<code>.worktreeinclude</code>、清理三坑</td>
+</tr>
+<tr>
+<td>后台甩任务、一屏盯进度</td>
+<td><code>--bg</code> + <code>claude agents</code></td>
+<td>后台会话不绑终端，文件隔离自动用 worktree；<code>Space</code> 窥视、<code>Enter</code> 附加</td>
+</tr>
+<tr>
+<td>把任务写进脚本批量跑</td>
+<td><code>claude -p</code>（headless）</td>
+<td>配 <code>--allowedTools</code> 预批、<code>--bare</code> 加速、<code>--output-format json</code> 拿结构化结果</td>
+</tr>
+<tr>
+<td>判断该不该并行</td>
+<td>「独立 + 不抢文件」铁律</td>
+<td>有依赖、小活儿别拆；并行越多越烧额度，控制在三五个内</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 看明白并行到底解决什么、铁律是「独立且不抢文件」；分清官方四种并行方式该挑哪个；用 <code>--worktree</code> 给会话开隔离副本，再不重蹈开头那个「互相覆盖」的覆辙；用 <code>--bg</code> 和 <code>claude agents</code> 把任务甩后台、一屏盯着；用 <code>claude -p</code> 把活儿写进脚本批量跑；最重要的是——<strong>拿到一个任务，先冷静判断「这玩意儿值不值得并行」，而不是一上头就拆</strong>。</p>
+<p>回头看开头那个「俩终端同改一个目录」的蠢事，<strong>根子就是不懂隔离、也没想清依赖</strong>。现在你手里有 worktree 这把隔离的钥匙、也有那条判断线，<strong>能比一头扎进去的人少走一大圈弯路。</strong></p>
+<hr>
+<p>下一篇 <strong>42「环境变量」</strong>——这一篇里你已经撞见好几个环境变量了：<code>--bare</code> 背后那个 <code>CLAUDE_CODE_SIMPLE</code>、关掉后台任务的 <code>CLAUDE_CODE_DISABLE_BACKGROUND_TASKS</code>、改配置目录的 <code>CLAUDE_CONFIG_DIR</code>……它们像一排藏在背后的「拨动开关」，不显眼，却能悄悄改掉 Claude Code 的行为。下一篇就把这排开关一个个翻出来，告诉你哪个管什么、哪个值得你动。想想看：<strong>同样一条命令，在你机器上和在 CI 里跑出来的行为可能不一样——差别往往就藏在这几个环境变量里。</strong></p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/40-chrome.html"><span class="mono">← 上一篇 · 40</span><b>Chrome：让它操作浏览器</b></a>
+  <a class="pg nx" href="/library/claude-code/42-env-vars.html"><span class="mono">下一篇 · 42 →</span><b>环境变量：藏在背后那排「总开关」</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>34 CLI 参考手册：命令与全部标志 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 34 篇:CLI 参考手册：命令与全部标志。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/34-cli-reference.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class="cur"><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class="cur"><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 34 篇</p>
+      <h1>CLI 参考手册：命令与全部标志</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="33-hooks.html">33 钩子（Hooks）</a> 教你在固定事件上自动扣扳机、给 Claude 装上护栏。这一篇回到最朴素的地方——<strong>你在终端敲的那一行 <code>claude</code>，到底能跟多少花样</strong>。命令、标志、管道、退出码，一篇查完，配一张随时能翻的对照表。</p>
+</blockquote>
+<p>「你这 <code>claude</code> 后面还能跟参数？我一直就光秃秃敲一个 <code>claude</code> 进去啊。」</p>
+<p>「能啊，多了去了。让脚本跑个 <code>claude -p &#39;总结这个 PR&#39;</code>，结果直接吐到文件里，根本没进交互界面。」</p>
+<p>「等下——<code>-p</code> 是啥？<code>claude --help</code> 翻了半天没看全。」</p>
+<p>这段对话挺常见。很多人用 Claude Code 小半年，<strong>一直只会光敲一个 <code>claude</code> 进交互模式</strong>，根本不知道这命令背后还挂着几十个标志。这也怪不得谁——官方文档自己都写了一句话：<code>claude --help</code> <strong>不会列出每个标志</strong>。你光靠 <code>--help</code> 摸，注定漏一大片。</p>
+<p>说白了，前面三十几篇咱们一直在「交互模式」里转：进去、聊天、它干活。<strong>但 <code>claude</code> 本质是个命令行工具</strong>，命令行工具的玩法远不止「打开一个界面」——它能接管道、能塞进脚本、能按退出码判断成败。今天这一篇就是那张「说明书」：把 <code>claude</code> 的命令、标志、管道用法、退出码一次摊开，<strong>以后想查哪条直接翻表</strong>。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li><code>claude</code> 的核心命令清单：启动、带初始提示、管道、继续 / 恢复会话、更新、登录，各干啥</li>
+<li>最常用的一批标志（<code>-p</code> / <code>--model</code> / <code>-c</code> / <code>--resume</code> / <code>--permission-mode</code> / <code>--add-dir</code> 等）逐个讲清，配一张完整对照表</li>
+<li>headless（无头）与管道用法：怎么把 Claude 塞进脚本、当 linter、接 <code>jq</code> 处理输出</li>
+<li>退出码怎么读：脚本里怎么靠它判断「成了还是没成」</li>
+<li>一套能照着走完的 headless 完整链路：裸调用、管道喂料、结构化输出、退出码判断</li>
+</ul>
+<hr>
+<h2>01 先分清两个词：命令 vs 标志</h2>
+<p>动手翻表之前，先把两个最容易混的词钉死。<strong>你在终端敲的一整行，拆开看就两样东西：命令（command）和标志（flag）。</strong></p>
+<p><strong>类比：寄快递填单子。</strong> <code>claude</code> 是「寄件」这个动作本身；后面跟的 <code>update</code>、<code>mcp</code> 这种是<strong>子动作</strong>（命令），告诉系统你今天不是寄普通件、是要「更新」或「配 MCP」；再后面那些 <code>-p</code>、<code>--model</code> 是单子上的<strong>勾选框</strong>（标志），微调这趟怎么寄——加急吗？保价吗？用哪个模型送？动作选一个，勾选框可以勾一堆。</p>
+<p>落到具体：</p>
+<pre><code class="language-bash">claude update
+claude -p &quot;解释这个函数&quot; --model sonnet
+</code></pre>
+<ul>
+<li>第一行：<code>claude</code> 是程序，<code>update</code> 是<strong>命令</strong>（一个子动作，跑完就退出）。</li>
+<li>第二行：<code>claude</code> 后面没跟命令，直接进会话逻辑；<code>-p</code> 和 <code>--model</code> 都是<strong>标志</strong>，<code>-p</code> 后面的 <code>&quot;解释这个函数&quot;</code> 是这趟的初始提示。</li>
+</ul>
+<p>这俩为啥要分清？<strong>因为它们在文档里是分两张表列的，查的时候你得知道自己要查哪张。</strong> 想知道「怎么更新 / 怎么登录 / 怎么配 MCP」——查命令表；想知道「怎么换模型 / 怎么不进交互直接出结果 / 怎么让它先别问权限」——查标志表。</p>
+<p>还有个贴心细节值得先记：<strong>敲错命令它会提示你</strong>。官方原文说得很清楚——</p>
+<blockquote>
+<p>如果您输入错误的子命令，Claude Code 会建议最接近的匹配项并退出而不启动会话。例如，<code>claude udpate</code> 会打印 <code>Did you mean claude update?</code>。</p>
+</blockquote>
+<p>手快打错 <code>claude udpate</code> 是常事，每次它都老老实实问你「是不是想敲 <code>claude update</code>」，<strong>不会傻乎乎拿错字去启动一个会话</strong>。这点小体贴，省了不少「咦怎么没反应」的困惑。</p>
+<blockquote>
+<p>💡 一句话总结：一行命令拆两样——<strong>命令是子动作（<code>update</code>、<code>mcp</code>，跑完退出），标志是勾选框（<code>-p</code>、<code>--model</code>，微调这趟怎么跑）</strong>；查文档先想清自己要查哪张表。</p>
+</blockquote>
+<hr>
+<h2>02 核心命令：启动会话的那几种姿势</h2>
+<p>先看命令。日常你真正会敲的就那么几条，我按「用途」分三组讲，每组配官方给的标准写法。</p>
+<h3>第一组：启动会话（最常用）</h3>
+<p>这组是你 90% 时间在用的：</p>
+<pre><code class="language-bash"># 1. 光秃秃启动，进交互模式
+claude
+
+# 2. 带一句初始提示启动（进去后它先回答这句）
+claude &quot;解释这个项目&quot;
+
+# 3. 不进交互、直接出结果就退出（headless / 打印模式）
+claude -p &quot;解释这个函数&quot;
+</code></pre>
+<p>前两条你早就熟了。<strong>第三条 <code>claude -p</code> 是这篇要重点讲的「另一种活法」</strong>——它不打开那个聊天界面，直接把答案打印到终端然后退出，<strong>专门给脚本和管道用</strong>。第 04 节细讲。</p>
+<h3>第二组：接着上次聊（别让它失忆）</h3>
+<p>还记得第 19 篇说过的吗——<strong>每开一个新会话，Claude 就是个「失忆的新实习生」</strong>，上回聊到哪它全忘了。这两条命令就是治失忆的：</p>
+<pre><code class="language-bash"># 继续「当前目录」最近的那次对话
+claude -c
+# （--continue 是它的全称，-c 是简写）
+
+# 按 ID 或名字恢复「某一次特定」的对话
+claude -r &quot;auth-refactor&quot; &quot;把这个 PR 收尾&quot;
+# （--resume 是全称，-r 是简写）
+</code></pre>
+<p><strong>两者的区别就一个词：「最近」还是「指定」。</strong></p>
+<ul>
+<li><code>-c</code>（<code>--continue</code>）：只认「<strong>当前目录里最近</strong>那一次」，不用你记 ID，最省事。</li>
+<li><code>-r</code>（<code>--resume</code>）：<strong>点名要哪一次</strong>——给会话 ID 或你之前用 <code>--name</code> 起的名字；不给的话，会弹一个交互式列表让你挑。</li>
+</ul>
+<p><strong>类比：跟同事接着聊。</strong> <code>-c</code> 是「咱接着刚才那事说」——默认就是最近那档子事，不用解释是哪件；<code>-r</code> 是「上周三那个关于登录重构的事儿，咱继续」——你得明确点出是哪一桩，对方才翻得到那段记忆。</p>
+<p>一个顺手的习惯：<strong>手头就一条线在推进时用 <code>-c</code>，省得记名字</strong>；同时开了好几摊活儿（这个查 bug、那个写测试），才用 <code>-r</code> 点名恢复——前提是启动时用 <code>--name</code>（简写 <code>-n</code>）给每摊起了名，不然一堆 UUID 也认不出哪个是哪个。一套完整流程长这样：</p>
+<pre><code class="language-bash"># 启动时起个好认的名字
+claude -n &quot;login-refactor&quot;
+
+# 几天后回来，按名字直接恢复这一摊
+claude -r &quot;login-refactor&quot;
+</code></pre>
+<p>官方对 <code>--name</code> 的说明很直白——它设置的显示名会出现在 <code>/resume</code> 列表和终端标题里，<strong>之后就能用 <code>claude --resume &lt;名字&gt;</code> 恢复</strong>。同时推三四个任务时，全靠这个名字认人，比对着一串 <code>550e8400-...</code> 的 UUID 强太多了。</p>
+<p>还有个组合值得单独点一下：<strong><code>-c</code> 和 <code>-p</code> 能叠用</strong>。<code>claude -c -p &quot;查一下有没有类型错误&quot;</code> 的意思是「<strong>接着最近那次对话，但这次走 headless、出结果就退</strong>」——它带着上次的上下文，却不进交互界面。脚本里想「分几步推进同一个任务、每步自动跑」时，这个组合特别顺手（第 04 节那个连续 <code>--continue</code> 的例子就是这么串的）。</p>
+<h3>第三组：维护与账户</h3>
+<p>剩下这组不常敲，但你得知道它们在：</p>
+<pre><code class="language-bash"># 更新到最新版
+claude update
+
+# 安装 / 重装本机二进制（可指定版本：2.1.118 / stable / latest）
+claude install stable
+
+# 登录 Anthropic 账户
+claude auth login
+
+# 查登录状态（已登录退出码 0，未登录退出码 1）
+claude auth status
+</code></pre>
+<p><code>claude install</code> 那个能跟版本号的细节，关键时刻很救命：官方说它<strong>接受 <code>2.1.118</code> 这种具体版本号，也接受 <code>stable</code>、<code>latest</code></strong>。设想这样一种情况——某个新版本更新后某个行为变了不合用，用 <code>claude install 2.1.x</code> <strong>回退钉死在上一个稳定版</strong>，等问题修了再放开，比干等着舒服多了。</p>
+<p><code>claude auth status</code> 那句「<strong>已登录退出码 0、未登录退出码 1</strong>」先记着，第 05 节讲退出码时还会回来用它——这是脚本里判断「当前到底登没登录」的标准招。</p>
+<blockquote>
+<p>这几条都需要联网。国内访问 Anthropic 账户体系（登录、更新拉包）如果不通，先开「魔法上网」再敲。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：命令分三组记——<strong>启动会话（<code>claude</code> / <code>claude &quot;提示&quot;</code> / <code>claude -p</code>）、接着上次聊（<code>-c</code> 认最近、<code>-r</code> 点名恢复）、维护账户（<code>update</code> / <code>install</code> / <code>auth</code>）</strong>；<code>-c</code> 和 <code>-r</code> 是治「会话失忆」的两味药。</p>
+</blockquote>
+<hr>
+<h2>03 最常用的一批标志：逐个讲清</h2>
+<p>命令认完了，重头戏是标志。<strong>标志几十个，但你日常真正高频用的就七八个</strong>——我先把这几个讲透，再给你整张表兜底（第 06 节附完整对照表，那是用来「查」的，这节是用来「懂」的）。</p>
+<h3><code>-p</code> / <code>--print</code>：不进交互，直接出结果</h3>
+<p>最重要的一个，没有之一。<strong>加上 <code>-p</code>，Claude 就不打开聊天界面了——它读你的提示、干活、把结果打印出来、退出，整个过程没有人盯着。</strong></p>
+<pre><code class="language-bash">claude -p &quot;这个项目的 auth 模块是干啥的&quot;
+</code></pre>
+<p>它是 headless（无头，指没有交互界面、纯命令行跑）模式的开关，也是后面所有「塞进脚本」「接管道」玩法的地基。第 04 节专门展开。</p>
+<h3><code>--model</code>：这趟用哪个模型</h3>
+<p>临时指定这一趟会话用哪个模型，<strong>覆盖掉你设置里的默认模型</strong>：</p>
+<pre><code class="language-bash">claude --model sonnet
+claude --model opus
+claude --model claude-sonnet-4-6   # 也可以写完整名字
+</code></pre>
+<p>可以用别名（<code>sonnet</code>、<code>opus</code> 指向各自最新款），也可以写完整模型名。模型怎么选、各档什么定位，第 05 篇讲过，这里只管「怎么在命令行临时切」。</p>
+<h3><code>--permission-mode</code>：这趟从哪种权限模式开</h3>
+<p>直接决定「Claude 这趟动手前问不问你」。还记得第 20 篇那根「权限缰绳」吗——这个标志就是在启动那一刻把缰绳松紧定好：</p>
+<pre><code class="language-bash">claude --permission-mode plan
+</code></pre>
+<p>官方给的可选值有这几个：</p>
+<blockquote>
+<p>接受 <code>default</code>、<code>acceptEdits</code>、<code>plan</code>、<code>auto</code>、<code>dontAsk</code> 或 <code>bypassPermissions</code>。覆盖设置文件中的 <code>defaultMode</code>。</p>
+</blockquote>
+<p>简单说：<code>plan</code>（只规划不动手）、<code>acceptEdits</code>（自动批准改文件）、<code>bypassPermissions</code>（全放行、慎用）这几个最常用。<strong>这些模式各自啥脾气，下一篇（第 35 篇）专门拆</strong>，这里你只要知道「用这个标志能在启动时一步到位选好模式」。</p>
+<h3><code>--dangerously-skip-permissions</code>：那个名字带 dangerous 的开关</h3>
+<p>这个标志单拎出来说，<strong>因为新手最爱问、也最容易乱用</strong>。它的作用就是跳过所有权限提示——官方说得明明白白，它<strong>等同于 <code>--permission-mode bypassPermissions</code></strong>：</p>
+<pre><code class="language-bash">claude --dangerously-skip-permissions
+</code></pre>
+<p>加上它，Claude 改文件、跑命令一律不再停下来问你，闷头干到底。<strong>名字里直接写了 <code>dangerously</code>（危险地），就是 Anthropic 在提醒你掂量</strong>。第 20、21 篇反复强调过那根「权限缰绳」——这个开关相当于<strong>把缰绳整个撒手</strong>。</p>
+<p>这里有条该守住的红线：<strong>只在「明确隔离、坏了也无所谓」的环境里用它</strong>——比如一次性的容器、玩具仓库、CI 里的临时沙箱。<strong>在你真正的项目目录、尤其碰得到生产数据的地方，碰都别碰</strong>。headless 批处理想少点权限提示，优先用 <code>--allowedTools</code> 精确放行几个工具，或者用 <code>--permission-mode acceptEdits</code> 只放开「改文件」——比一刀切全放行安全得多。</p>
+<h3><code>--add-dir</code>：让它多看一个目录</h3>
+<p>默认 Claude 只能读 / 改你启动时所在的那个目录。<code>--add-dir</code> 给它<strong>额外开几个目录的访问权</strong>：</p>
+<pre><code class="language-bash">claude --add-dir ../apps ../lib
+</code></pre>
+<p>典型场景：你的项目和它依赖的另一个库分在两个文件夹，想让 Claude 同时能动两边。<strong>注意官方的一句提醒</strong>——</p>
+<blockquote>
+<p>授予文件访问权限；大多数 <code>.claude/</code> 配置不会从这些目录中发现。</p>
+</blockquote>
+<p>也就是说：<code>--add-dir</code> 只给「<strong>读写文件</strong>」的权限，<strong>不会</strong>顺带把那个目录里的 CLAUDE.md、Skill 这些配置也加载进来。别指望加个目录就把人家那套配置也继承了。</p>
+<h3><code>--output-format</code>：结果按什么格式吐</h3>
+<p>只在 <code>-p</code> 打印模式下有意义，控制结果长什么样：</p>
+<pre><code class="language-bash">claude -p &quot;总结这个项目&quot; --output-format json
+</code></pre>
+<p>三个选项：<code>text</code>（默认，纯文本）、<code>json</code>（带会话 ID、成本等元数据的结构化结果）、<code>stream-json</code>（一行一个 JSON 事件，实时流式）。<strong>脚本里想拿到「这趟花了多少钱」「会话 ID 是啥」，就得用 <code>json</code></strong>——第 04 节会演示拿它喂 <code>jq</code>。</p>
+<h3><code>--allowedTools</code> / <code>--disallowedTools</code>：白名单 / 黑名单</h3>
+<p>预先放行（或拒绝）某些工具，免得 headless 跑到一半卡在权限提示上（没人盯着的脚本一卡就废了）：</p>
+<pre><code class="language-bash">claude -p &quot;跑测试并修掉失败&quot; --allowedTools &quot;Bash,Read,Edit&quot;
+</code></pre>
+<p><code>--allowedTools</code> 列出的工具<strong>无需提示直接放行</strong>；<code>--disallowedTools</code> 反过来拒绝。它俩用的是权限规则语法（详见第 20 篇），比如 <code>&quot;Bash(git diff *)&quot;</code> 只放行 <code>git diff</code> 开头的命令。</p>
+<p>注意和 <code>--tools</code> 的区别——<code>--tools</code> 直接从模型上下文里删掉某个工具、让它完全用不了；<code>--allowedTools</code> 只是跳过权限提示，工具本身还在。</p>
+<h3>几个 headless 专用的「保险丝」</h3>
+<p>这几个只在 <code>-p</code> 模式下生效，但很实用，专门防脚本失控：</p>
+<pre><code class="language-bash"># 限制最多跑几轮，超了报错退出（默认无限制）
+claude -p --max-turns 3 &quot;查询&quot;
+
+# API 花费一旦超过这个金额就停（单位美元）
+claude -p --max-budget-usd 5.00 &quot;查询&quot;
+</code></pre>
+<p><strong><code>--max-turns</code> 这里藏着一个小坑</strong>：写自动化脚本时忘了加它，万一某次 Claude 陷进反复试错的循环，turn 数蹭蹭涨、费用也跟着涨，脚本没人盯就白白烧钱。稳妥的做法是固定给批量脚本都加上 <code>--max-turns</code>，<strong>相当于给它定个「最多折腾几个回合」的硬上限</strong>，超了就报错退出，反而踏实。</p>
+<blockquote>
+<p>💡 一句话总结：高频标志记这几个——<strong><code>-p</code> 出结果不进交互、<code>--model</code> 切模型、<code>--permission-mode</code> 定权限松紧、<code>--add-dir</code> 多看目录、<code>--output-format json</code> 拿结构化结果、<code>--allowedTools</code> 预放行工具</strong>；脚本怕失控就加 <code>--max-turns</code> / <code>--max-budget-usd</code> 当保险丝。</p>
+</blockquote>
+<hr>
+<h2>04 headless 与管道：把 Claude 塞进命令行</h2>
+<p>这一节是 <code>claude -p</code> 真正发光的地方。<strong>前面几十篇 Claude 都是「你打开一个窗口跟它聊」，这一节它变成「命令行里一个能接管道的零件」</strong>——可以被别的命令喂数据，也可以把结果吐给下一个命令。</p>
+<p><strong>类比：流水线上的一个工位。</strong> 交互模式像你坐在工作台前一件件手工做；headless 模式则是把 Claude 焊到一条流水线上——<strong>上一道工序（比如 <code>cat</code>、<code>git diff</code>）把料送进来，Claude 加工完，结果直接流到下一道（比如写进文件、喂给 <code>jq</code>）</strong>。你不用守在旁边，整条线自己跑。</p>
+<h3>管道：喂数据进去</h3>
+<p>非交互模式会读 stdin（标准输入），所以你能像对待任何命令行工具一样，<strong>用 <code>|</code> 把数据管道喂给它</strong>：</p>
+<pre><code class="language-bash">cat build-error.txt | claude -p &#39;简明解释这个构建错误的根本原因&#39; &gt; output.txt
+</code></pre>
+<p>这条命令干了三件事：<code>cat</code> 把日志内容吐出来 → 管道喂给 <code>claude -p</code> → 它解释完，<code>&gt;</code> 把结果写进 <code>output.txt</code>。<strong>全程没进任何界面，适合塞进任何自动化流程。</strong></p>
+<blockquote>
+<p>这里有个官方明确的上限值得记：从 v2.1.128 起，<strong>管道喂进去的内容上限是 10MB</strong>，超了 Claude Code 会报清晰错误并以非零状态退出。要处理更大的输入，把内容写进文件、在提示里引用文件路径，别硬管道。</p>
+</blockquote>
+<h3>当项目专属 linter 用</h3>
+<p>把 headless 调用包进脚本，Claude 就成了你项目的「专属审查员」。官方给的这个 <code>package.json</code> 例子很典型——把对 <code>main</code> 的 diff 喂给 Claude，让它挑拼写错误：</p>
+<pre><code class="language-json">{
+  &quot;scripts&quot;: {
+    &quot;lint:claude&quot;: &quot;git diff main | claude -p \&quot;you are a typo linter. for each typo in this diff, report filename:line on one line and the issue on the next. return nothing else.\&quot;&quot;
+  }
+}
+</code></pre>
+<p>之后 <code>npm run lint:claude</code> 就能跑。<strong>管道喂 diff 的好处</strong>：Claude 不需要 Bash 权限去自己读 diff，料是你喂进去的。</p>
+<h3>接 <code>jq</code> 处理结构化输出</h3>
+<p>想在脚本里只取结果文本、或者抓会话 ID，就用 <code>--output-format json</code> 配 <code>jq</code>（一个命令行 JSON 处理工具）：</p>
+<pre><code class="language-bash"># 只取结果文本
+claude -p &quot;总结这个项目&quot; --output-format json | jq -r &#39;.result&#39;
+</code></pre>
+<p><code>json</code> 格式吐出来的是个带元数据的对象——结果文本在 <code>.result</code> 字段，会话 ID 在 <code>.session_id</code>，还有 <code>total_cost_usd</code> 这趟花了多少钱。<strong>脚本要串起多轮对话，靠的就是先抓 <code>session_id</code> 再 <code>--resume</code></strong>：</p>
+<pre><code class="language-bash">session_id=$(claude -p &quot;开始审查&quot; --output-format json | jq -r &#39;.session_id&#39;)
+claude -p &quot;继续那次审查&quot; --resume &quot;$session_id&quot;
+</code></pre>
+<h3>给这趟脚本调用安一个「临时身份」</h3>
+<p>headless 跑批处理时，常常想让 Claude 在这一趟里扮演某个特定角色——比如「你是安全工程师，专挑漏洞」。用 <code>--append-system-prompt</code> 把这条指令<strong>追加到默认系统提示末尾</strong>，官方这个例子把 PR 的 diff 喂给它做安全审查：</p>
+<pre><code class="language-bash">gh pr diff &quot;$1&quot; | claude -p \
+  --append-system-prompt &quot;You are a security engineer. Review for vulnerabilities.&quot; \
+  --output-format json
+</code></pre>
+<p>这里要分清两个标志，<strong>别用错</strong>：<code>--append-system-prompt</code> 是「<strong>在默认提示后面追加</strong>」，Claude 还保留它原本那套编程助手的本事和安全指令，你只是补一条额外要求；<code>--system-prompt</code> 则是「<strong>整个替换掉</strong>」默认提示——连工具用法、安全约束全没了，得你自己对剩下的一切负责。<strong>九成场景你要的是 <code>append</code>（追加），不是 <code>system-prompt</code>（替换）</strong>；只有当 Claude 那套「编程助手」的默认身份压根不适合你的任务时，才用替换。</p>
+<h3><code>--bare</code>：脚本里启动更快</h3>
+<p>还有一个专为脚本生的标志 <code>--bare</code>（裸模式）。官方原话：</p>
+<blockquote>
+<p>最小模式：跳过 hooks、skills、plugins、MCP 服务器、自动内存和 CLAUDE.md 的自动发现，以便脚本化调用启动更快。</p>
+</blockquote>
+<p>说白了，<strong>普通 <code>claude -p</code> 会把交互会话那一整套上下文（你的 CLAUDE.md、装的 Skill、配的 MCP）全加载一遍</strong>；<code>--bare</code> 把这些全跳过，只留 Bash、读文件、改文件三样基本能力，<strong>启动快、且在每台机器上结果一致</strong>（不会被某人 <code>~/.claude</code> 里的私货影响）。CI 和脚本里特别有用。官方文档也明确说了：<code>--bare</code> 将在未来版本中成为 <code>-p</code> 的默认值，现在就养成这个习惯挺值当的。</p>
+<p>交互模式和 headless 模式的差别，并排看最清楚：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>交互模式（<code>claude</code>）</th>
+<th>headless 模式（<code>claude -p</code>）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有没有聊天界面</td>
+<td>✅ 有，你来回打字</td>
+<td>❌ 没有，出结果就退</td>
+</tr>
+<tr>
+<td>有无人值守</td>
+<td>✅ 你坐在前面</td>
+<td>❌ 无人，脚本自动跑</td>
+</tr>
+<tr>
+<td>能接管道吗</td>
+<td>❌ 不能</td>
+<td>✅ 能，读 stdin、可重定向</td>
+</tr>
+<tr>
+<td>权限怎么办</td>
+<td>动手前停下来问你</td>
+<td>靠 <code>--allowedTools</code> / <code>--permission-mode</code> 预先定好</td>
+</tr>
+<tr>
+<td>典型场景</td>
+<td>日常开发、对话式干活</td>
+<td>CI、批处理、当 linter、塞进脚本</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：<code>claude -p</code> 把 Claude 变成命令行里能接管道的零件——<strong><code>cat ... | claude -p ... &gt; out.txt</code> 串流水线、<code>--output-format json</code> 配 <code>jq</code> 抓字段、<code>--bare</code> 让脚本启动更快更干净</strong>；没人盯的活儿，权限一定要用标志预先放好。</p>
+</blockquote>
+<hr>
+<h2>05 退出码：脚本怎么知道「成了还是没成」</h2>
+<p>这一节短，但写脚本的人<strong>绕不开</strong>。</p>
+<p><strong>类比：考试的「及格 / 不及格」一个数字。</strong> 命令行世界里，每条命令跑完都会留下一个「退出码（exit code）」——一个数字，<strong><code>0</code> 代表成功，非 <code>0</code> 代表出了某种问题</strong>。它不是给你看的，是给「上一层脚本」看的：脚本靠这个数字判断「这步成了没，要不要继续往下走」。</p>
+<p>你在终端可以这样查刚跑完那条命令的退出码：</p>
+<pre><code class="language-bash">claude auth status
+echo $?
+</code></pre>
+<p><code>echo $?</code> 打印的就是上一条命令的退出码（<code>$?</code> 是 shell 里存「上条命令退出码」的变量）。</p>
+<p>官方文档里明确给了退出码的命令，挑几条你用得上的：</p>
+<table>
+<thead>
+<tr>
+<th>命令 / 情况</th>
+<th>退出码</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>claude auth status</code> 已登录</td>
+<td><code>0</code></td>
+<td>当前已登录</td>
+</tr>
+<tr>
+<td><code>claude auth status</code> 未登录</td>
+<td><code>1</code></td>
+<td>当前未登录</td>
+</tr>
+<tr>
+<td><code>claude -p --max-turns N</code> 达到上限</td>
+<td>非 <code>0</code>（报错）</td>
+<td>超了轮数限制，以错误退出</td>
+</tr>
+<tr>
+<td>管道 stdin 超过 10MB</td>
+<td>非 <code>0</code></td>
+<td>输入太大，报清晰错误并非零退出</td>
+</tr>
+<tr>
+<td><code>claude daemon status</code> supervisor 没在跑</td>
+<td><code>1</code></td>
+<td>后台会话管理进程未运行</td>
+</tr>
+</tbody></table>
+<p><strong>这玩意儿实际怎么用？</strong> 比如 CI 里想「先确认登录了，没登录就直接让流水线失败」，就靠 <code>claude auth status</code> 的退出码：</p>
+<pre><code class="language-bash"># 没登录（退出码非 0）就报错退出，不往下跑
+claude auth status || { echo &quot;未登录，终止&quot;; exit 1; }
+</code></pre>
+<p><code>||</code> 的意思是「<strong>前面那条要是失败了（退出码非 0），就执行后面这段</strong>」。在一个每天定时跑的脚本里就可以这么干——开头先 <code>claude auth status</code> 探一下，<strong>令牌要是过期了，脚本立刻停在这儿报警，而不是傻乎乎往下跑到一半才发现没登录</strong>，白白浪费半天。</p>
+<blockquote>
+<p>记住这条朴素的约定就够了：<strong><code>0</code> = 成功往下走，非 <code>0</code> = 出事了该停</strong>。Claude Code 各个命令都遵守它，你写脚本判断成败时认准这个数字。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：退出码是「给脚本看的成绩单」——<strong><code>0</code> 成功、非 <code>0</code> 出问题</strong>；<code>claude auth status</code> 用 <code>0</code>/<code>1</code> 报登没登录，<code>--max-turns</code> 超限和管道超 10MB 都以非零退出，脚本里靠 <code>$?</code> 或 <code>||</code> 接住它。</p>
+</blockquote>
+<hr>
+<h2>06 标志全表：用来「查」的那一页</h2>
+<p>前面讲透了高频的，这一节是兜底——<strong>把官方文档里你日常碰得到的标志整理成一张表，专门拿来「查」</strong>。标志几十个，没必要背，存着随时翻就行。</p>
+<blockquote>
+<p>提醒一句官方原话：<strong><code>claude --help</code> 不会列出每个标志</strong>，所以某个标志在 <code>--help</code> 里没出现，不代表它不能用——以官方 CLI 参考文档为准。</p>
+</blockquote>
+<p>我按「干啥用的」分类列，方便你按需求找：</p>
+<p><strong>启动与会话</strong></p>
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>简写</th>
+<th>干啥</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--print</code></td>
+<td><code>-p</code></td>
+<td>不进交互、打印结果就退出（headless 地基）</td>
+</tr>
+<tr>
+<td><code>--continue</code></td>
+<td><code>-c</code></td>
+<td>继续当前目录最近的对话</td>
+</tr>
+<tr>
+<td><code>--resume</code></td>
+<td><code>-r</code></td>
+<td>按 ID / 名字恢复特定会话，或弹列表选</td>
+</tr>
+<tr>
+<td><code>--name</code></td>
+<td><code>-n</code></td>
+<td>给会话起显示名，方便之后 <code>--resume &lt;名字&gt;</code></td>
+</tr>
+<tr>
+<td><code>--fork-session</code></td>
+<td>—</td>
+<td>恢复时新建会话 ID，不复用原来的（配 <code>-r</code>/<code>-c</code>）</td>
+</tr>
+<tr>
+<td><code>--session-id</code></td>
+<td>—</td>
+<td>指定一个会话 ID（必须是合法 UUID）</td>
+</tr>
+</tbody></table>
+<p><strong>模型与权限</strong></p>
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>干啥</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--model</code></td>
+<td>这趟用哪个模型（别名 <code>sonnet</code>/<code>opus</code> 或完整名），覆盖默认</td>
+</tr>
+<tr>
+<td><code>--fallback-model</code></td>
+<td>默认模型过载 / 不可用时自动回退到指定模型（<code>-p</code> 和后台会话生效，交互被忽略）</td>
+</tr>
+<tr>
+<td><code>--permission-mode</code></td>
+<td>从哪种权限模式开（<code>default</code>/<code>acceptEdits</code>/<code>plan</code>/<code>auto</code>/<code>dontAsk</code>/<code>bypassPermissions</code>）</td>
+</tr>
+<tr>
+<td><code>--allowedTools</code></td>
+<td>无需提示直接放行的工具</td>
+</tr>
+<tr>
+<td><code>--disallowedTools</code></td>
+<td>拒绝规则</td>
+</tr>
+<tr>
+<td><code>--dangerously-skip-permissions</code></td>
+<td>跳过所有权限提示（等同 <code>--permission-mode bypassPermissions</code>，慎用）</td>
+</tr>
+</tbody></table>
+<p><strong>目录与配置</strong></p>
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>干啥</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--add-dir</code></td>
+<td>额外给几个目录的读写权（只给文件访问，不加载那里的配置）</td>
+</tr>
+<tr>
+<td><code>--settings</code></td>
+<td>指定 settings JSON 文件或内联 JSON，覆盖本会话同名键</td>
+</tr>
+<tr>
+<td><code>--setting-sources</code></td>
+<td>加载哪些设置源（<code>user</code>/<code>project</code>/<code>local</code>）</td>
+</tr>
+<tr>
+<td><code>--mcp-config</code></td>
+<td>从 JSON 文件 / 字符串加载 MCP server</td>
+</tr>
+<tr>
+<td><code>--bare</code></td>
+<td>最小模式：跳过 hooks/skills/plugins/MCP/内存/CLAUDE.md 自动发现，启动更快</td>
+</tr>
+</tbody></table>
+<p><strong>headless 输出与控制（多数仅 <code>-p</code> 生效）</strong></p>
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>干啥</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--output-format</code></td>
+<td>输出格式：<code>text</code>（默认）/ <code>json</code> / <code>stream-json</code></td>
+</tr>
+<tr>
+<td><code>--input-format</code></td>
+<td>输入格式：<code>text</code> / <code>stream-json</code></td>
+</tr>
+<tr>
+<td><code>--max-turns</code></td>
+<td>限制最多几轮，超了报错退出（默认无限制）</td>
+</tr>
+<tr>
+<td><code>--max-budget-usd</code></td>
+<td>API 花费超过这个美元数就停</td>
+</tr>
+<tr>
+<td><code>--verbose</code></td>
+<td>详细日志，显示完整逐轮输出</td>
+</tr>
+<tr>
+<td><code>--append-system-prompt</code></td>
+<td>在默认系统提示末尾追加自定义文本</td>
+</tr>
+<tr>
+<td><code>--system-prompt</code></td>
+<td>用自定义文本替换整个默认系统提示</td>
+</tr>
+</tbody></table>
+<p><strong>杂项</strong></p>
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>简写</th>
+<th>干啥</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--version</code></td>
+<td><code>-v</code></td>
+<td>输出版本号</td>
+</tr>
+<tr>
+<td><code>--ide</code></td>
+<td>—</td>
+<td>启动时若恰好有一个可用 IDE 就自动连接</td>
+</tr>
+<tr>
+<td><code>--debug</code></td>
+<td>—</td>
+<td>开调试模式，可按类别过滤（如 <code>&quot;api,mcp&quot;</code>）</td>
+</tr>
+</tbody></table>
+<p>这张表覆盖了你前期会用到的绝大多数标志。<strong>真要查全集（还有几十个偏门的，比如后台会话、agent team、remote control 相关），去翻官方 CLI 参考页</strong>——它才是那本「全集说明书」，本节是「常用速查」。</p>
+<blockquote>
+<p>💡 一句话总结：标志按「启动会话 / 模型权限 / 目录配置 / headless 输出 / 杂项」分类查最快；<strong><code>--help</code> 不全，以官方 CLI 参考为准</strong>；这张表管常用，偏门的去官方全集翻。</p>
+</blockquote>
+<hr>
+<h2>07 动手：把 <code>claude -p</code> 接进命令行管道</h2>
+<p>光看表不算会，得真把 headless 跑一遍。下面这套<strong>全在终端里完成，不进任何交互界面</strong>——亲手体会「Claude 当命令行零件」是什么感觉。用最小示例，不依赖你已有的复杂项目。</p>
+<blockquote>
+<p>这几步需要联网，且会消耗一点额度（每次 <code>-p</code> 调用都是一次真实请求）。国内若 API 不通，先开「魔法上网」。</p>
+</blockquote>
+<p><strong>第一步：最朴素的一次 <code>-p</code> 调用</strong></p>
+<p>随便找个目录，在终端敲（不是在 <code>claude</code> 会话里）：</p>
+<pre><code class="language-bash">claude -p &quot;用一句话说明 git rebase 和 git merge 的核心区别&quot;
+</code></pre>
+<p><strong>预期</strong>：终端<strong>直接打印出一句回答然后退出</strong>，全程没有那个聊天界面弹出来。看到结果一闪而过、提示符又回来了 = headless 模式跑通了。</p>
+<p><strong>第二步：把它接进管道，喂数据进去</strong></p>
+<p>造一个小文件当「输入料」，管道喂给 Claude：</p>
+<pre><code class="language-bash">printf &#39;def add(a, b):\n    return a - b\n&#39; &gt; buggy.py
+cat buggy.py | claude -p &quot;这段代码有个 bug，一句话指出来&quot;
+</code></pre>
+<p><strong>预期</strong>：Claude 读到管道喂进去的代码，回一句类似「函数名是 <code>add</code> 但实际做的是减法（<code>a - b</code>）」。<strong>看到它能就「你喂进去的内容」作答 = 管道通了</strong>——它根本没用工具去读文件，料是 <code>cat</code> 送进它嘴里的。</p>
+<p><strong>第三步：要结构化输出，接 <code>jq</code> 取字段</strong></p>
+<pre><code class="language-bash">claude -p &quot;用一句话介绍 Python 是什么语言&quot; --output-format json
+</code></pre>
+<p><strong>预期</strong>：这次吐出来的不是纯文本，而是<strong>一大坨 JSON</strong>，里面有 <code>result</code>（结果文本）、<code>session_id</code>、<code>total_cost_usd</code> 等字段。如果你机器上装了 <code>jq</code>，再试这条只取结果：</p>
+<pre><code class="language-bash">claude -p &quot;用一句话介绍 Python&quot; --output-format json | jq -r &#39;.result&#39;
+</code></pre>
+<p><strong>预期</strong>：这回只打印出那句干净的结果文本，外层 JSON 被 <code>jq</code> 剥掉了。<strong>这就是脚本里「只要那句答案、不要一堆元数据」的标准拿法。</strong></p>
+<p><strong>第四步：用退出码判断成败</strong></p>
+<pre><code class="language-bash">claude auth status
+echo $?
+</code></pre>
+<p><strong>预期</strong>：如果你已登录，<code>echo $?</code> 打印 <code>0</code>；没登录则打印 <code>1</code>。<strong>这个数字就是脚本判断「该不该往下走」的依据</strong>——第 05 节那条 <code>claude auth status || ...</code> 就是接住它。</p>
+<p>跑通这四步，你就把「<strong>单次调用 → 管道喂料 → 结构化输出接 <code>jq</code> → 退出码判断</strong>」这条 headless 完整链路亲手走了一遍。<strong>以后想把 Claude 塞进任何脚本、CI、定时任务，本质都是这套零件的排列组合。</strong></p>
+<blockquote>
+<p>💡 一句话总结：动手四步把 headless 走通——<strong>裸 <code>-p</code> 出结果、管道 <code>cat | claude -p</code> 喂料、<code>--output-format json | jq</code> 取字段、<code>auth status</code> + <code>$?</code> 判成败</strong>；这四块拼起来就是一切自动化的地基。</p>
+</blockquote>
+<hr>
+<h2>08 小结</h2>
+<p>这一篇把你天天敲的那行 <code>claude</code> 彻底摊开了——<strong>从「只会光敲一个 <code>claude</code> 进界面」，升级到「命令、标志、管道、退出码全门儿清」</strong>。</p>
+<p>把核心串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你想干啥</th>
+<th>用什么</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>分清命令和标志</td>
+<td>命令是子动作、标志是勾选框</td>
+<td><code>update</code>/<code>mcp</code> 是命令，<code>-p</code>/<code>--model</code> 是标志</td>
+</tr>
+<tr>
+<td>启动 / 续聊</td>
+<td><code>claude</code> / <code>-c</code> / <code>-r</code></td>
+<td><code>-c</code> 认最近、<code>-r</code> 点名恢复，治会话失忆</td>
+</tr>
+<tr>
+<td>不进交互直接出结果</td>
+<td><code>-p</code>（<code>--print</code>）</td>
+<td>headless 地基，给脚本和管道用</td>
+</tr>
+<tr>
+<td>临时切模型 / 定权限</td>
+<td><code>--model</code> / <code>--permission-mode</code></td>
+<td>覆盖默认设置，只管这一趟</td>
+</tr>
+<tr>
+<td>把它塞进命令行</td>
+<td>管道 + <code>--output-format json</code> + <code>jq</code></td>
+<td><code>cat ... | claude -p ... | jq</code> 串流水线</td>
+</tr>
+<tr>
+<td>脚本判断成败</td>
+<td>退出码</td>
+<td><code>0</code> 成功、非 <code>0</code> 出事，靠 <code>$?</code> 或 <code>||</code> 接住</td>
+</tr>
+<tr>
+<td>查某个标志</td>
+<td>第 06 节速查表 / 官方全集</td>
+<td><code>--help</code> 不全，以官方 CLI 参考为准</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 看着任意一行 <code>claude xxx --yyy</code> 都拆得清「哪个是命令、哪个是标志、各干啥」；想续上之前的对话知道该用 <code>-c</code> 还是 <code>-r</code>；要把 Claude 塞进脚本时，会用 <code>-p</code> 配管道和 <code>--output-format json</code>，还会拿退出码判断这步成没成；遇到没见过的标志，知道去哪张表查、也知道 <code>--help</code> 靠不住得翻官方全集。<strong>这套命令行功夫，是你把 Claude Code 从「一个聊天窗口」真正变成「开发工作流里一个可编排零件」的分水岭。</strong></p>
+<p>开头那位光敲 <code>claude</code> 的人，学会 <code>-p</code> 加管道之后，就能把每天手动跑的几个检查全写进脚本——<strong>那感觉，像是突然把 Claude 从「副驾」请到了「流水线」上</strong>。这一篇就是想让你也有这一刻。</p>
+<hr>
+<p>下一篇 <strong>35「控制与模式」</strong>——这一篇里我反复提到 <code>--permission-mode</code> 能选 <code>plan</code>、<code>acceptEdits</code>、<code>bypassPermissions</code> 这几档，但<strong>每一档具体是什么脾气、动手前问你几次、什么场景该切到哪档，我一直按下没展开</strong>。下一篇就专门把这几种模式掰开揉碎，连同会话里怎么用快捷键随手切换一起讲透。想想看：同样让 Claude 改一堆文件，<strong>「每改一个文件问你一次」和「闷头改完再给你看」，效率和安全感能差出十条街</strong>——这中间的拿捏，下一篇见。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/33-hooks.html"><span class="mono">← 上一篇 · 33</span><b>钩子（Hooks）：在固定时机自动扣扳机</b></a>
+  <a class="pg nx" href="/library/claude-code/35-modes-and-control.html"><span class="mono">下一篇 · 35 →</span><b>控制与模式：开会话时手里那块「调音台」</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

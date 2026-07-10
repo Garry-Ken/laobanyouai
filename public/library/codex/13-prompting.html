@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>13 提示词（Prompt）写法：把话说到 Codex 心坎里 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 13 篇:提示词（Prompt）写法：把话说到 Codex 心坎里。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/13-prompting.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class="cur"><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class="cur"><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 13 篇</p>
+      <h1>提示词（Prompt）写法：把话说到 Codex 心坎里</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="12-slash-commands.html">12 · 斜杠命令与快捷键</a> 教你在会话里把手指放对地方——<code>/</code> 切模式、清上下文、看状态，键位都熟了。这一篇换个层面：手知道往哪按了，<strong>嘴还得知道怎么说</strong>。同一个需求，话说得到不到位，Codex 干出来的活儿天差地别。</p>
+</blockquote>
+<p>都说「AI 编程工具强不强，看的是模型」——这话我得抬杠。</p>
+<p>说句不太中听的实话：同一个 GPT-5、同一个仓库，<strong>会提需求的人三句话搞定，不会提的人来回返工五轮还一肚子火</strong>。模型早就够强了，多数时候卡你的不是它的脑子，是你递给它的那句话。你把一句信息量约等于零的「修一下这个 bug」甩过去，它只能脑补——哪个文件、什么报错、改成啥样，全靠猜。猜错了，你盯着满屏 diff 嘀咕「这 AI 不行啊」，可<strong>不行的真不是它</strong>。</p>
+<p>我去年就栽过这么一跤。一个 Node 服务报 500，我啪地一句「登录接口挂了，修一下」回车，连日志都没贴。Codex 翻了半天，挑了个它以为的 bug，改了三个文件，<strong>没一个是真正的病根</strong>——真正的错在一个我没提的环境变量上，它压根不知道有这茬。那次我才彻底想明白：<strong>Codex 的天花板，很大程度是被我自己的提问方式锁死的</strong>。</p>
+<p>所以这一篇不教你背模板，教你想明白一件事——<strong>Codex 到底需要知道什么，才不跑偏</strong>。把这个想透了，提示词自然就会写了。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一张「烂提问 vs 好提问」对照表，照着改，返工率立降</li>
+<li>一套写需求的「四件套」框架：目标、范围、约束、验证——缺哪件 Codex 就在哪件上脑补</li>
+<li>大任务怎么拆成 Codex 啃得动、你审得过来的小步</li>
+<li>用 <code>/goal</code>（目标模式）把验收标准钉成「不达标不收工」的官方玩法（需提前开 <code>features.goals</code>，05 节有详细步骤）</li>
+<li>一个可照做的「同一需求两种说法」实验，亲眼看出差距</li>
+</ul>
+<blockquote>
+<p>⚠️ 下文凡涉及具体命令、参数、默认行为，都以 Codex <a href="https://developers.openai.com/codex/prompting">官方文档</a> 为准；模型名、界面文案这类会随版本变的东西，看到时以你本地实际显示为准，本篇不写死。</p>
+</blockquote>
+<hr>
+<h2>01 烂提问到底烂在哪</h2>
+<p>把开头那次翻车摊开看。「登录接口挂了，修一下」这句话，<strong>站在 Codex 的角度，信息缺得离谱</strong>：</p>
+<ul>
+<li>哪个登录接口？它得满项目翻。</li>
+<li>怎么个挂法？报什么错、什么条件下复现？它一概不知。</li>
+<li>期望的正确行为是啥？它只能按「一般来说登录应该怎样」脑补。</li>
+</ul>
+<p><a href="06-first-task.html">06 · 跑通第一个任务</a> 里讲过，Codex 干活是个<strong>代理循环（agent loop）</strong>——调模型、读文件、改文件、跑命令，「想 → 做 → 看」转圈。官方原话是它「在一个循环里跑终端命令，改代码、跑检查、尝试验证自己的工作」。但这个循环再聪明，<strong>第一步「想」喂进去的是垃圾，后面整圈都在错误方向上空转</strong>。</p>
+<p><strong>类比：给外卖填地址。</strong> 你下单只写「送到那个小区」，骑手只能挨栋楼瞎转，多半送错还得打你电话。换成「XX 小区 8 栋 2 单元 1503，门口有个绿色鞋柜」，他闭着眼都能送到。<strong>地址越精确，骑手越不绕路；你越是甩一句模糊的，他越得猜，猜错的概率越大。</strong> Codex 提需求一模一样——你给的「地址」精度，直接决定它绕不绕路。</p>
+<p>来看官方文档反复强调的对照思路，我整理成一张表（左列烂、右列好）：</p>
+<div class="first-col-nowrap"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>❌ 烂提问</th>
+<th>✅ 好提问</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>修 bug</strong></td>
+<td>「登录接口挂了，修一下」</td>
+<td>「用户报告会话超时后调 <code>POST /api/login</code> 返回 500。先写个能复现的失败测试，定位 <code>src/auth/</code> 里的 token 刷新逻辑，再修，最后跑测试确认转绿」</td>
+</tr>
+<tr>
+<td><strong>写测试</strong></td>
+<td>「给 <code>parser.py</code> 加测试」</td>
+<td>「给 <code>parser.py</code> 的 <code>parse_date</code> 写测试，覆盖空字符串、非法格式两个边界，别用 mock，跑 <code>pytest</code> 确认通过」</td>
+</tr>
+<tr>
+<td><strong>加功能</strong></td>
+<td>「加个导出功能」</td>
+<td>「先看 <code>report.py</code> 里现有的 <code>export_csv</code> 怎么写的，照同样模式加个 <code>export_json</code>，除了已装的库别引新依赖」</td>
+</tr>
+<tr>
+<td><strong>读代码</strong></td>
+<td>「这模块怎么写成这样」</td>
+<td>「翻一下 <code>transform</code> 模块的 git 历史，总结它的接口是怎么一步步演变成现在这样的」</td>
+</tr>
+</tbody></table>
+</div><p>看出门道没？<strong>好提问全在干一件事：把 Codex 本来要靠猜的东西，提前喂给它。</strong> 它不用猜，自然不跑偏。</p>
+<blockquote>
+<p>💡 一句话总结：烂提问烂在「信息缺口全靠 Codex 脑补」，<strong>好提问就是把它要猜的，你提前说清楚</strong>。</p>
+</blockquote>
+<hr>
+<h2>02 写需求的「四件套」：目标 / 范围 / 约束 / 验证</h2>
+<p>上一节说「把要猜的提前喂给它」，可到底该喂哪些？别凭感觉，记一个框架就够——<strong>目标、范围、约束、验证，四件套</strong>。这是我把无数次返工总结成的一张检查表：每次提需求前在脑子里过一遍，<strong>缺哪件，Codex 就会在哪件上替你做主</strong>。</p>
+<p><strong>类比：给装修工长交代活儿的「交底单」。</strong> 靠谱的工长开工前会跟你确认四件事——这次到底要弄成啥效果（目标）、动哪几个房间别的别碰（范围）、有啥讲究比如承重墙不能拆（约束）、完工怎么验收（验证）。四件齐了他照着干、还能自己收尾；缺一件，他就得自作主张猜一个，多半不合你意。<strong>给 Codex 提需求，就是给它递这张交底单。</strong></p>
+<p>拆开看这四件分别是什么、缺了会怎样：</p>
+<table>
+<thead>
+<tr>
+<th>要件</th>
+<th>回答的问题</th>
+<th>怎么给</th>
+<th>缺了会怎样</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>目标（Goal）</strong></td>
+<td>要做成什么</td>
+<td>「让空列表返回 0」「导出改成 JSON 格式」</td>
+<td>它猜你想要啥，方向全凭运气</td>
+</tr>
+<tr>
+<td><strong>范围（Scope）</strong></td>
+<td>动哪、不动哪</td>
+<td>点名文件 / 函数：「只改 <code>stats.py</code> 的 <code>average</code>」</td>
+<td>它满项目大海捞针，顺手动别的</td>
+</tr>
+<tr>
+<td><strong>约束（Constraint）</strong></td>
+<td>有啥不能碰的讲究</td>
+<td>「别引新库」「保持向后兼容」「别动 <code>migrations/</code>」</td>
+<td>它按自己偏好来，回头未必合你心意</td>
+</tr>
+<tr>
+<td><strong>验证（Verification）</strong></td>
+<td>怎么算成功</td>
+<td>「写俩测试用例跑一遍」「构建退出码为 0」</td>
+<td>它「感觉差不多了」就收工，漏洞你来逮</td>
+</tr>
+</tbody></table>
+<p>这四件里，<strong>「验证」是新手最容易漏、却最该补的一件</strong>——官方专门点了它：</p>
+<blockquote>
+<p>Codex 在能够验证自己工作的时候，产出质量更高。把复现问题的步骤、验证功能的方式、要跑的 lint 和预提交检查都带上。</p>
+</blockquote>
+<p>为啥验证这么关键？因为<strong>没有可跑的检查，「看起来完成」就是 Codex 唯一的收工信号</strong>。你不给标准，它凭「感觉」就停手，真正兜底验收的人变成你，每个漏洞都得你亲自盯。可一旦你给它一个能跑出「通过 / 失败」的检查——一组测试用例、一条 lint 命令、一个构建退出码——<strong>这个循环就自己闭合了</strong>：它干完 → 跑检查 → 看结果 → 没过接着改，根本不用你守着。</p>
+<p>我自己写需求现在基本是「四件套连珠炮」。上个月给一个 Python 项目加邮箱校验，我是这么说的：</p>
+<pre><code class="language-text">在 src/validators.py 里加一个 validate_email 函数（目标）。
+只动这个文件，别碰别的（范围）。
+用标准库 re 实现，别引第三方库（约束）。
+写完补三个测试：user@example.com 为真、invalid 为假、user@.com 为假，
+跑 pytest 确认全过（验证）。
+</code></pre>
+<p>四件齐活，Codex 一遍命中——定位文件、写函数、补那三个测试、真去跑、把绿色结果摆给我看。<strong>它没有任何一步需要猜，因为我把「做成啥、改哪、用啥、怎么算成功」全说死了。</strong></p>
+<blockquote>
+<p>💡 一句话总结：提需求前在脑子里过一遍「目标 / 范围 / 约束 / 验证」四件套，<strong>缺哪件 Codex 就在哪件上替你做主</strong>；其中「验证」最该补——给它能跑出通过 / 失败的检查，循环就自己闭合。</p>
+</blockquote>
+<hr>
+<h2>03 范围与约束：能「贴」的绝不用「说」</h2>
+<p>四件套里，「范围」和「约束」常常不用长篇描述，<strong>直接把料贴到它嘴边就行</strong>——这一节单拎出来讲怎么贴，因为这是实操里最省事的一招。</p>
+<p>核心就一句：<strong>凡是能「贴」的，绝不用「说」。</strong> Codex 读原始材料，永远比读你对材料的二手转述准。</p>
+<p><strong>第一，把相关文件直接放进上下文。</strong> 官方在《Prompting》里明说：提交需求时，<strong>带上 Codex 能用的上下文，比如相关文件和图片的引用</strong>。最直接的就是在需求里点名文件路径：</p>
+<pre><code class="language-text">参考 src/types/user.ts 里的类型定义，给 UserService 补上类型注解
+</code></pre>
+<p>这比「项目里有个 user 类型文件，你去找找」靠谱一万倍。<strong>IDE 扩展（IDE extension）这块有个白送的福利</strong>：官方文档写得很清楚——IDE 扩展会<strong>自动把你当前打开的文件列表、以及选中的文本范围，当成上下文带进去</strong>。换句话说，在 VS Code 里你光标选中哪几行，Codex 就知道你说的是那几行，不用你再描述。</p>
+<p><strong>类比：USB 插盘 vs 报个大概位置让它自己找。</strong> 点名文件、IDE 自动带上下文，就像把一块「资料 U 盘」直接插进 Codex 的工作台——插上即用，它要的资料一秒到位；你只甩一句「资料大概在三楼某个柜子，你自己找一下」，它还得满档案室翻，翻错了更耽误事。（<a href="02-core-concepts.html">02 核心概念</a> 里 MCP 那个 USB 接口比喻是讲「插外部能力」，这里是「插资料」，一个意思的两种用法。）</p>
+<p><strong>第二，报错直接整段贴，别概括。</strong> 这条值得练成肌肉记忆——遇到 traceback，别概括「它报了个空指针」，把完整堆栈原样糊进去：</p>
+<pre><code class="language-text">运行测试时报了这个错，帮我定位原因：
+TypeError: Cannot read properties of null (reading &#39;userId&#39;)
+    at getUserProfile (src/services/user.ts:42:18)
+    at async ProfileController.getProfile (src/controllers/profile.ts:15:20)
+</code></pre>
+<p>为啥要整段贴？因为堆栈里<strong>文件名、行号、调用链全有</strong>，Codex 顺着 <code>user.ts:42</code> 就能精准定位。你概括一遍，等于把这些关键坐标全删了，它又得从头猜。</p>
+<p><strong>第三，UI / 视觉问题直接给图。</strong> Codex 支持图片输入——界面里直接粘贴或拖拽图片到对话区；CLI 里也能带图（具体命令行参数以<a href="https://developers.openai.com/codex/prompting">官方文档</a>为准）。设计稿、报错截图、架构图，<strong>给图永远比用文字描述「按钮往左挪一点」精确</strong>。</p>
+<p>把「该给的料」和「怎么给」对一下：</p>
+<table>
+<thead>
+<tr>
+<th>你想给的料</th>
+<th>❌ 用嘴描述</th>
+<th>✅ 直接喂</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>某个文件的内容</td>
+<td>「项目里有个处理认证的文件」</td>
+<td>需求里点名 <code>src/auth/session.ts</code></td>
+</tr>
+<tr>
+<td>当前在看的代码</td>
+<td>「就那块逻辑」</td>
+<td>IDE 里选中它，扩展自动带进上下文</td>
+</tr>
+<tr>
+<td>一段报错</td>
+<td>「它报了个 undefined 的错」</td>
+<td>把完整 traceback 原样贴进去</td>
+</tr>
+<tr>
+<td>一个 UI 问题</td>
+<td>「按钮位置不对」</td>
+<td>直接粘截图 / 设计稿</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：范围和约束多数时候不用长篇描述——点名文件、IDE 选中、整段贴报错、粘截图，<strong>能「贴」的绝不用「说」</strong>，Codex 读原始材料永远比读你的转述准。</p>
+</blockquote>
+<hr>
+<h2>04 大任务怎么拆：让 Codex 啃得动、你审得过来</h2>
+<p>四件套搞定了「一个需求怎么说清」。但有些活儿天生就大——「实现完整的用户认证系统」「把整个项目从 JavaScript 迁到 TypeScript」——这种你一句话糊过去，<strong>Codex 会一口吞下去，然后在某个你看不见的角落里跑偏，等你发现已经改了一坨</strong>。</p>
+<p>官方对这种活儿的态度很明确：</p>
+<blockquote>
+<p>Codex 在你把复杂工作拆成更小、更聚焦的步骤时，处理得更好。小任务对 Codex 更好测、对你更好审。要是不确定怎么拆，直接让 Codex 给你提个方案（plan）。</p>
+</blockquote>
+<p>这话有两层意思，都得记牢。<strong>第一层：拆小不只是为了 Codex，也是为了你</strong>——小步子它好跑测试、你好审 diff；一步几十行的改动，你扫一眼就知道对不对，一步几百行横跨八个文件，你根本审不过来（开头我那次翻车就是没审过来瞎点同意）。<strong>第二层：不会拆？别硬拆，让 Codex 先出方案</strong>——这正好接上 <a href="06-first-task.html">06</a> 里那句「大活先让它出方案，别一上来就让它埋头改」。</p>
+<p><strong>类比：吃一头牛不能整吞。</strong> 再大的胃口也得切成一块块下嘴——一刀一块，嚼烂咽下，坏了哪块当场吐得出；整头吞下去，噎着了你都不知道卡在哪。大任务拆成小步，就是把那头牛切块——<strong>每块都小到「出问题一眼看得见」，才安全</strong>。</p>
+<p>怎么拆？给你一套能照搬的「认证系统」拆法，体会下颗粒度：</p>
+<pre><code class="language-text">大任务：实现完整的用户认证系统
+
+拆成小步，一步一交付：
+步骤 1：设计认证的数据结构（用户表 + token 表），先给方案我确认
+步骤 2：实现注册功能（密码 bcrypt 加密），补测试跑通
+步骤 3：实现登录功能（签发 JWT），补测试跑通
+步骤 4：实现 token 校验中间件，补测试跑通
+步骤 5：实现登出功能，补测试跑通
+</code></pre>
+<p>注意这套拆法的两个讲究：<strong>一是每步都自带「验证」</strong>（补测试跑通）——这就是第 02 节四件套的「验证」落到每个小步上；<strong>二是步骤 1 先出方案再动手</strong>——结构这种牵一发动全身的东西，方向错了后面全白搭，先让它出图纸你审一眼，改两笔的成本远低于墙都砌好再返工。</p>
+<p>不会拆的时候，Codex 自带两个帮你拆的档位，<a href="07-desktop-app.html">07</a> 里提过，这里说清它俩的分工：</p>
+<ul>
+<li><strong><code>/plan</code>（计划模式）</strong>：让 Codex 先探索、提方案，<strong>先出执行计划、再进入实现</strong>。适合「我也吃不准这活儿该怎么动」的时候——先让它把步骤捋出来，你看着顺了再放行。</li>
+<li><strong>直接一句「先别改」</strong>：不想切模式，普通对话里加一句限定也行——「先告诉我要动哪些文件、改动思路，这一步先别改任何代码」。</li>
+</ul>
+<p>什么活儿该拆、该上 <code>/plan</code>，什么活儿别折腾？给个判断：</p>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>怎么处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>改错别字、加一行日志、重命名变量</td>
+<td>直接干，<strong>一句话能说清 diff 长啥样的，别拆别规划</strong></td>
+</tr>
+<tr>
+<td>给单个函数加校验、补一个测试</td>
+<td>单个需求 + 四件套，一步到位</td>
+</tr>
+<tr>
+<td>跨多文件、你不熟的代码、牵一发动全身</td>
+<td>先 <code>/plan</code> 出方案，你审完再分步放行</td>
+</tr>
+<tr>
+<td>「实现整个 XX 系统」「整体迁移 / 重构」</td>
+<td>拆成 5~8 个自带验证的小步，逐步跑</td>
+</tr>
+</tbody></table>
+<p>最实用的土办法就一句：<strong>「能不能一句话说清这次改完长啥样？」能，直接干；卡壳了，说明这活儿够复杂，先拆、先让它列计划。</strong> 改个错别字也走 <code>/plan</code>，纯属给自己加戏。</p>
+<blockquote>
+<p>💡 一句话总结：大任务别整吞——拆成「每步自带验证、小到一眼能审」的小块；<strong>不会拆就让 Codex 用 <code>/plan</code> 先出方案</strong>；反过来，一句话能说清 diff 的小活，直接干，别规划。</p>
+</blockquote>
+<hr>
+<h2>05 把验收标准钉死：<code>/goal</code> 目标模式</h2>
+<p>第 02 节说「验证」最该补，但普通提问里写的验证，有个局限：<strong>它只管「这一轮」</strong>——Codex 这轮跑一下检查，没过它可能就把控制权还给你了，等你再催。要是想让它 <strong>「不达标不撒手、自己一轮轮改到达标为止」</strong>，Codex 有个专门的档——<strong>目标模式（Goal mode）</strong>。</p>
+<p>先讲它跟普通提问差在哪。普通提问里写验收标准，是「跑一下看看」；<code>/goal</code> 是把标准<strong>钉成整个任务的目标</strong>。官方说得很直白：</p>
+<blockquote>
+<p>设目标时，目标文本同时充当起始提示和完成标准。Codex 用它决定下一步做什么、以及任务是不是完成了。</p>
+</blockquote>
+<p>换句话说，你给的那句目标，既是「干什么」也是「干到什么程度算完」——Codex 每跑完一段就拿它对照一次，<strong>没达成就接着干，达成了才停</strong>。适合那种「步骤多、得有个清晰的完成定义、它能边干边核对」的长活。</p>
+<p>怎么用？在会话里敲 <code>/goal</code>，后面跟上你的目标。<strong>关键是目标得写成「Codex 自己能判断成没成」的样子</strong>——官方的要求是：好目标要含<strong>具体的产出、可量化的指标、或可测的标准</strong>。给两个官方示例感受下：</p>
+<pre><code class="language-text">/goal 把这个代码库从 JavaScript 迁到 TypeScript，要求在 strict 模式下编译通过，且不出现显式的 any 类型
+</code></pre>
+<pre><code class="language-text">/goal 把首页的可交互时间（TTI）降到 1 秒以内
+</code></pre>
+<p>看出来没？「strict 模式编译通过、没有 any」「TTI 低于 1 秒」——<strong>这些都是能跑出明确「是 / 否」的标准</strong>。反过来，你写「代码质量很高」「体验更好」这种没法客观判定的，目标模式就没法帮你收尾，它判不了到底成没成。</p>
+<p>几个用 <code>/goal</code> 的实操细节，别踩坑：</p>
+<ul>
+<li><strong><code>/goal</code> 列表里不出现？</strong> 它要先开个功能开关。官方给的办法：在 <code>~/.codex/config.toml</code> 里写 <code>[features]</code> 段下 <code>goals = true</code>，或者直接跑 <code>codex features enable goals</code>（也可以让 Codex 帮你跑）。</li>
+</ul>
+<pre><code class="language-toml"># ~/.codex/config.toml
+[features]
+goals = true
+</code></pre>
+<ul>
+<li><strong>不会一上来就定目标？</strong> 官方建议：目标一开始不好定的话，<strong>先用 <code>/plan</code> 让 Codex 帮你把它捋清楚</strong>，再转成目标；你甚至可以让它反过来「采访」你，帮你拟一个带清晰成功标准的目标。</li>
+<li><strong>目标跑起来之后还能转向。</strong> 不是设了就锁死——你可以中途发消息追加约束（「换成用这个库」「别走那条路」）；想看进度又不想打断主线，用<strong>侧边对话</strong>（side chat）让它给你汇报一下。开启方式很简单：输入 <code>/side</code> 加上你想问的话（比如 <code>/side 现在做到哪一步了？</code>），Codex 会开一段独立于主线的临时对话，问完回车返回主线，主任务照跑不误；<code>/btw</code> 是它的等价别名，两个随便用哪个。</li>
+<li><strong>长活怕断线？</strong> 官方提醒：要长时间跑的目标，<strong>断网前先暂停</strong>，缓过来再恢复或编辑。</li>
+</ul>
+<p>把普通提问的验证和 <code>/goal</code> 摆一起，什么时候用哪个一目了然：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>普通提问里写验证</th>
+<th><code>/goal</code> 目标模式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>管多久</td>
+<td>就这一轮，跑完可能还你控制权</td>
+<td>整个任务，<strong>没达标不撒手</strong></td>
+</tr>
+<tr>
+<td>适合</td>
+<td>单个需求、一两步的活</td>
+<td>步骤多、要清晰完成定义的长活</td>
+</tr>
+<tr>
+<td>标准怎么写</td>
+<td>「写俩测试跑一遍」</td>
+<td>写成可量化、可测的「是 / 否」</td>
+</tr>
+<tr>
+<td>要不要开开关</td>
+<td>不用</td>
+<td>要 <code>features.goals = true</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：想让 Codex「不达标不收工、自己一轮轮改到达标」，用 <code>/goal</code> 目标模式——<strong>目标得写成它自己能判「是 / 否」的可量化标准</strong>；不会定目标先 <code>/plan</code> 捋，记得先开 <code>features.goals</code>。</p>
+</blockquote>
+<hr>
+<h2>06 动手：同一个需求，两种说法见真章</h2>
+<p>光听道理不解渴，咱们做个<strong>能亲眼看出差距</strong>的小实验。准备一个三行的玩具文件就行，不依赖你任何现成项目。</p>
+<blockquote>
+<p>平台差异先说清：建文件的命令 <code>mkdir</code> 在 <strong>Mac / Linux</strong> 直接用；<strong>Windows</strong> 下 <code>mkdir</code> / <code>cd</code> 照敲，<code>stats.py</code> 用记事本新建贴入那两行存好即可。</p>
+</blockquote>
+<p><strong>第一步：建个有「坑」的玩具文件</strong>（Mac / Linux）</p>
+<pre><code class="language-bash">mkdir prompt-demo
+cd prompt-demo
+echo &#39;def average(nums):
+    return sum(nums) / len(nums)&#39; &gt; stats.py
+</code></pre>
+<p><strong>这个函数有个坑</strong>：传进来空列表 <code>[]</code> 时，<code>len(nums)</code> 是 0，会触发「除以零」崩溃。我们就拿它当试验田。</p>
+<p><strong>第二步：在项目目录里启动 Codex</strong></p>
+<pre><code class="language-bash">codex
+</code></pre>
+<p><strong>预期</strong>：出现 Codex 的交互界面，底部是输入框和光标。（没启动起来或提示登录，回 <a href="03-install.html">03 安装与登录</a>。）</p>
+<blockquote>
+<p>⚠️ 一定要在 <code>prompt-demo</code> 目录里启动 <code>codex</code>，别在桌面或主目录裸启——Codex 把你当前所在目录当工作区，你在哪启动就读哪儿。</p>
+</blockquote>
+<p><strong>第三步：先用「烂提问」，感受它怎么脑补</strong></p>
+<pre><code class="language-text">@stats.py 帮我改改这个函数
+</code></pre>
+<p><strong>预期</strong>：Codex 大概率会「猜」你想干啥——也许加类型注解、也许加文档字符串，<strong>但它不知道你真正在意的是那个空列表崩溃</strong>，方向全凭运气。这就是缺了「目标 / 验证」的代价：<strong>它在替你做决定。</strong></p>
+<p><strong>第四步：换「好提问」——四件套全上</strong></p>
+<pre><code class="language-text">@stats.py 里的 average 函数有个 bug：传入空列表时会因为除以零而崩溃。
+期望行为是空列表返回 0（目标）。
+只改这个函数，别动别的（范围）；用纯 Python 实现，别引库（约束）。
+帮我修，并补一个测试：average([]) 应返回 0、average([2, 4]) 应返回 3，
+写完跑一遍确认通过（验证）。
+</code></pre>
+<p><strong>预期</strong>：这一次 Codex 的动作链条清清楚楚——定位空列表分支 → 加上判空返回 0 → 写出你点名的两个测试用例 → 真的去跑测试 → 把通过结果摆给你看。<strong>它不再猜你要啥，因为「做成啥、改哪、用啥、怎么算成功」你全说死了。</strong></p>
+<p><strong>第五步：退出，看改动落没落地</strong></p>
+<p>退出 Codex（退出键以界面提示为准），回终端看文件：</p>
+<pre><code class="language-bash">cat stats.py
+</code></pre>
+<p>（Windows PowerShell 用 <code>type stats.py</code>）</p>
+<p><strong>预期</strong>：<code>stats.py</code> 里出现了对空列表的判断（类似 <code>if not nums: return 0</code>）。<strong>和你第四步要求的对得上 = 你已经摸到「把话说清」的手感了。</strong></p>
+<p>把两次提问并排放一起，差距一目了然：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>第三步 ❌ 烂提问</th>
+<th>第四步 ✅ 好提问</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>目标</td>
+<td>没说，它发挥</td>
+<td>空列表返回 0，写死了</td>
+</tr>
+<tr>
+<td>范围</td>
+<td>没说，满文件猜</td>
+<td>点名 <code>average</code> 函数</td>
+</tr>
+<tr>
+<td>约束</td>
+<td>没说，随它引库</td>
+<td>纯 Python、别引库</td>
+</tr>
+<tr>
+<td>验证</td>
+<td>没标准，「感觉」完了就停</td>
+<td>两个测试用例 + 跑一遍</td>
+</tr>
+<tr>
+<td>你的体验</td>
+<td>盯着 diff 纳闷「这不是我要的」</td>
+<td>它按你的剧本演，一遍过</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：同一个文件、同一个 bug，烂提问让 Codex 替你做决定，好提问把「目标 / 范围 / 约束 / 验证」全说死——<strong>亲手跑一遍这两步，差距比看十遍道理都直观</strong>。</p>
+</blockquote>
+<hr>
+<h2>07 一张图收口：从需求到落地</h2>
+<p>把这一篇的逻辑用一张图串起来——一条需求从你嘴里出来，到 Codex 把活干完，走的就是这一圈：</p>
+<p><img src="assets/13-prompting-flow@2x.png" alt="提示词四件套：大活 /plan 出方案、小活直接四件套 → 都汇入代理循环 → 看有没有可跑验证 → 都要审 diff 落地"></p>
+<p>这张图最该盯住两个岔口：<strong>一个是「大不大」</strong>——大活先拆、先 <code>/plan</code>，别整吞；<strong>一个是「有没有可跑的验证」</strong>——给了它能跑出通过 / 失败的检查，循环就自己闭合，没给它就只能凭感觉停手、把验收的活儿甩回给你。这两个岔口走对了，你和 Codex 的协作就顺了。</p>
+<blockquote>
+<p>💡 一句话总结：一条需求的正路是「大活先拆 / <code>/plan</code> → 四件套说清 → 给可跑的验证让循环闭合 → 审 diff 落地」；<strong>卡你的从来不是模型不够强，是这几步有没有走到位</strong>。</p>
+</blockquote>
+<hr>
+<h2>08 小结</h2>
+<p>这一篇就讲了一件事：<strong>怎么把一句话需求，说到 Codex 能精准接住。</strong></p>
+<p>收个口，背不下来就记这张表：</p>
+<div class="first-col-nowrap"><table>
+<thead>
+<tr>
+<th>招式</th>
+<th>一句话</th>
+<th>怎么落地</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>四件套</strong></td>
+<td>目标 / 范围 / 约束 / 验证，缺哪件它在哪件上脑补</td>
+<td>「改 <code>average</code>（范围），空列表返 0（目标），别引库（约束），补俩测试跑通（验证）」</td>
+</tr>
+<tr>
+<td><strong>能贴别说</strong></td>
+<td>范围约束直接喂料</td>
+<td>点名文件、IDE 选中、整段贴报错、粘截图</td>
+</tr>
+<tr>
+<td><strong>大活先拆</strong></td>
+<td>别整吞，切成自带验证的小块</td>
+<td>不会拆就 <code>/plan</code> 出方案，审完再分步放行</td>
+</tr>
+<tr>
+<td><strong>钉死标准</strong></td>
+<td>让它不达标不撒手</td>
+<td><code>/goal</code> + 可量化的「是 / 否」目标（先开 <code>features.goals</code>）</td>
+</tr>
+</tbody></table>
+</div><p><strong>你现在应该能：</strong> 把一句模糊的「帮我改改」翻译成 Codex 真正接得住的需求——目标、范围、约束、验证四件套说清，能贴的料直接喂，复杂的先拆 / 先 <code>/plan</code>，狠的上 <code>/goal</code> 钉死标准。<strong>这套说话法则，是你之后用 Codex 一切操作的「内功」</strong>——功能再花哨，喂进去的提问烂，出来的活儿也好不了。</p>
+<blockquote>
+<p>反过来想一个问题留给你：既然「把话说清」这么重要，那有些规矩（比如「这个项目永远别引新库」「测试一律放 <code>tests/</code> 目录」）你每次都得在提问里重说一遍吗？有没有办法让 Codex「记住」，省得天天复读？（提示：<a href="11-agents-md.html">11 · AGENTS.md</a> 其实埋了答案。）</p>
+</blockquote>
+<hr>
+<p>下一篇 <strong><a href="14-workflows.html">14 · 常见工作流</a></strong>——这一篇教的是「怎么把一句话说清」的通用法则，下一篇就把它落到几类最高频的具体活儿上：探索陌生代码库、修 bug、重构、写测试……每一类给你一套能照搬的标准打法。法则有了，该看招式了。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/12-slash-commands.html"><span class="mono">← 上一篇 · 12</span><b>斜杠命令与快捷键：会话里的「快捷操作面板」</b></a>
+  <a class="pg nx" href="/library/codex/14-workflows.html"><span class="mono">下一篇 · 14 →</span><b>四类日常工作流：探索、修 bug、重构、写测试</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

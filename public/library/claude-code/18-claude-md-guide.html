@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>18 CLAUDE.md 使用指南：把项目规矩写进它的记忆 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 18 篇:CLAUDE.md 使用指南：把项目规矩写进它的记忆。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/18-claude-md-guide.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class="cur"><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class="cur"><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 18 篇</p>
+      <h1>CLAUDE.md 使用指南：把项目规矩写进它的记忆</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="17-images-multimodal.html">17 图片与多模态</a> 让你学会把截图、报错图直接喂给 Claude。这一篇换个方向——把项目的「规矩」一次性写进它的记忆，让它每次开工都自动遵守，不用你天天复读。</p>
+</blockquote>
+<p>都说 CLAUDE.md 写得越详细越好，但说句实话，<strong>最没用的 CLAUDE.md，恰恰是那种写了三百行、Claude 一条都没听的</strong>。</p>
+<p>设想一份接手项目里前任留下的 CLAUDE.md，洋洋洒洒：公司背景、产品愿景、团队介绍、技术选型的来龙去脉……翻到第二屏才看到一句有用的「用 pnpm 不用 npm」。结果呢？Claude 照样动不动给你 <code>npm install</code>。</p>
+<p><strong>问题不在它不听话，在那条规矩被埋在两百行废话里，注意力早被稀释没了。</strong></p>
+<p>CLAUDE.md（Claude 的项目记忆文件）这东西，写好了是神器，写砸了是负担——它每次会话都占你的上下文窗口，写得越臃肿，留给真正干活的空间越小。今天咱们就把这件事掰开：它分几层、该写什么、不该写什么、怎么引用别的文件、怎么维护精简。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>CLAUDE.md 三个层级（用户级 / 项目级 / 子目录级）各管什么、加载顺序怎么排</li>
+<li>一张「该写 vs 不该写」的清单，避开 90% 新手往里塞废话的坑</li>
+<li>用 <code>@</code> 语法引用其他文件的正确姿势，以及它对上下文的真实代价</li>
+<li>会话里临时补一条记忆的官方做法，加一套「好 vs 烂」对照表当模板</li>
+</ul>
+<blockquote>
+<p>ℹ️ 本篇只聚焦 CLAUDE.md 这一个文件怎么写好、怎么维护。<code>/init</code> 一键生成的玩法在 <a href="12-project-init.html">12「项目初始化」</a> 讲过了，更广的自动记忆（auto-memory）机制留给 <a href="25-memory.html">25「记忆系统」</a> 专门聊。</p>
+</blockquote>
+<hr>
+<h2>01 先搞懂：CLAUDE.md 到底是什么</h2>
+<p>先给结论：<strong>CLAUDE.md 是你写给 Claude 的一份「持久指令」，每次开会话它都先读一遍，当成项目背景装进脑子。</strong></p>
+<p>为什么需要它？因为每个 Claude Code 会话都从<strong>一张白纸</strong>开始——上次你苦口婆心交代的「用 pnpm、别碰 legacy 目录、测试这么跑」，这次它一概不记得。没有 CLAUDE.md，你就得每次重新解释一遍，烦不烦？</p>
+<p><strong>类比：给新员工的入职手册。</strong> 新人第一天来，你不会站他旁边全天候口述规矩。你给他一份手册：项目是干嘛的、代码怎么提交、哪几个雷区别踩。他自己看一遍就上手了。CLAUDE.md 就是 Claude 的入职手册——<strong>而且是每天上班前都会重读一遍的那种</strong>。</p>
+<p>但这里有个关键认知，官方文档说得很直白：</p>
+<blockquote>
+<p>CLAUDE.md 内容作为用户消息在系统提示之后传递，而不是系统提示本身的一部分。Claude 读取它并尝试遵循它，但没有严格遵守的保证。</p>
+</blockquote>
+<p>翻译成人话：<strong>CLAUDE.md 是「强烈建议」，不是「铁律」。</strong> 它塑造 Claude 的行为，但不是硬性强制层。所以你写得越具体、越简洁，它遵守得越稳。指望靠它 100% 卡住某个危险操作？那是 Hook（钩子）的活儿，不是 CLAUDE.md 的活儿——这俩的分工后面篇章会讲。</p>
+<p>什么时候该往里加内容？官方给了几个特别实在的信号：</p>
+<ul>
+<li><strong>Claude 第二次犯同一个错</strong> —— 说明这条得写进去固化下来</li>
+<li>你这次会话又敲了一遍<strong>上次会话敲过的那句更正</strong></li>
+<li>代码审查时发现，它应该早就知道这个代码库的某个约定</li>
+<li>新队友需要同样的背景才能快速上手</li>
+</ul>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：CLAUDE.md 是 Claude 每次开工必读的入职手册，<strong>「强烈建议」级而非「铁律」级，写得越具体越管用</strong>。</p>
+</blockquote>
+<hr>
+<h2>02 三个层级：谁管全局，谁管单项目</h2>
+<p>CLAUDE.md 不止一份，它能放在好几个地方，<strong>作用范围从大到小</strong>。新手最容易在这儿犯迷糊，咱们一次理清。</p>
+<p>按官方文档，常用的是这三层（外加一个本地变体）：</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>放哪儿</th>
+<th>管多大范围</th>
+<th>进不进 git</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>用户级</strong></td>
+<td><code>~/.claude/CLAUDE.md</code></td>
+<td>你这台机器上<strong>所有项目</strong></td>
+<td>不进，纯个人偏好</td>
+</tr>
+<tr>
+<td><strong>项目级</strong></td>
+<td><code>./CLAUDE.md</code> 或 <code>./.claude/CLAUDE.md</code></td>
+<td><strong>当前这个项目</strong></td>
+<td>✅ 进，团队共享</td>
+</tr>
+<tr>
+<td><strong>子目录级</strong></td>
+<td><code>任意子目录/CLAUDE.md</code></td>
+<td>Claude 读到那个目录的文件时才加载</td>
+<td>✅ 进，适合多模块仓库</td>
+</tr>
+<tr>
+<td><strong>本地级</strong>（变体）</td>
+<td><code>./CLAUDE.local.md</code></td>
+<td>当前项目，<strong>只你自己</strong></td>
+<td>❌ 加进 <code>.gitignore</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>还有一层「托管策略层」，由 IT 管理员部署到系统目录（macOS 为 <code>/Library/Application Support/ClaudeCode/CLAUDE.md</code>），在用户级之前加载、不可被个人排除。个人用户通常碰不到，本篇略去；企业场景可查官方文档。</p>
+</blockquote>
+<p><strong>怎么分工？记一句话：个人习惯放用户级，团队规矩放项目级。</strong></p>
+<ul>
+<li><strong>用户级</strong>（<code>~/.claude/CLAUDE.md</code>）：放跨项目通用的个人偏好。比如「回复用中文」「改代码前先说思路别直接上手」「提交信息用英文」。这些跟具体项目无关，是「你这个人」的习惯，所以对所有项目生效、不进任何项目的 git。</li>
+<li><strong>项目级</strong>（<code>./CLAUDE.md</code>）：放这个项目专属、且<strong>全队都该守</strong>的规矩。技术栈、构建命令、目录约定、禁改清单。它跟着代码进版本控制，新同事 clone 下来就自带这套规范。</li>
+<li><strong>子目录级</strong>：大仓库才用得上。比如前端目录放一份前端专属的，后端目录放一份后端专属的。<strong>它平时不加载，只有当 Claude 真去读那个目录里的文件时，才顺手把那份 CLAUDE.md 带进来</strong>——省上下文。</li>
+</ul>
+<p><strong>类比还是入职手册：</strong> 用户级 = 你个人的工作习惯本（换公司也带着）；项目级 = 这家公司发的员工手册（离职就还回去）；子目录级 = 某个部门内部的额外细则（只有调到那个部门才发给你）。</p>
+<p>举个常见的用户级配置：在 <code>~/.claude/CLAUDE.md</code> 里放一句「<strong>遇到多种实现方案时，列出选项让我选，而不是默默替我决定</strong>」。这条对你每个项目都成立，所以放用户级最省事——<strong>一次配上之后，再不用在某个新项目里重新交代这句话</strong>。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：个人习惯写用户级（<code>~/.claude/CLAUDE.md</code>），团队规矩写项目级（<code>./CLAUDE.md</code> 进 git），大仓库再用子目录级按模块拆。</p>
+</blockquote>
+<hr>
+<h2>03 加载顺序：项目级为什么「后说话更管用」</h2>
+<p>上一节列了三层，那它们同时存在时，谁说了算？这是另一个高频误区，得讲准。</p>
+<p><strong>官方的规则：从最广的范围到最具体的范围依次加载，越靠近你启动目录的指令，越晚被读到。</strong></p>
+<p>具体怎么排？Claude Code 从你<strong>当前所在的目录</strong>一路往上走，沿途每一层有 CLAUDE.md 就收进来，最后拼成一整块上下文。顺序大致是：</p>
+<pre><code class="language-text">用户级 ~/.claude/CLAUDE.md
+        ↓（先读）
+（目录树里更靠上的）父目录 CLAUDE.md
+        ↓
+项目根 ./CLAUDE.md
+        ↓（后读，离你最近）
+子目录 CLAUDE.md（只有 Claude 读那个目录的文件时才加进来）
+</code></pre>
+<p>注意两个要点，都来自官方文档：</p>
+<p><strong>第一，所有找到的文件是「拼接」不是「覆盖」。</strong> 它们全都进上下文，不是后面的把前面的顶掉。所以用户级和项目级<strong>同时生效</strong>，不存在「设了项目级，用户级就失效」。</p>
+<p><strong>第二，更靠近工作目录的指令「最后被读到」。</strong> 当两条规矩打架时——比如用户级说「字符串用单引号」、项目级说「用双引号」——离得近的项目级因为后说话，通常更占优。说白了，<strong>项目规矩能盖过你的个人习惯，这正是团队协作想要的效果</strong>。</p>
+<p><img src="assets/18-claude-md-layers@2x.png" alt="CLAUDE.md 三层级加载：拼接不覆盖"></p>
+<p>这张图把三层从上到下叠在一起：<strong>用户级（管所有项目、最先读）、项目级（当前项目、进 git）、子目录级（离代码最近、冲突时占优）</strong>；右侧箭头标出「从上往下」的加载顺序，底部那条铁律点明——三层是拼接、不是覆盖，越靠近代码的越晚读、说了算。</p>
+<p>这里还得纠一个常见的错误说法。网上不少教程把优先级写成「项目本地 → 项目根 → 子目录 → 全局」，<strong>这跟官方描述的加载方向是反的</strong>。很容易被这种说法带偏，但翻官方文档就清楚了：官方明确说是「从最广泛的范围到最具体的范围」加载，项目指令出现在用户指令<strong>之后</strong>。以官方为准，别记反了。</p>
+<p>还有个贴心细节：<strong>项目根的 CLAUDE.md 在 <code>/compact</code>（压缩对话）之后会自动从磁盘重新读回来</strong>，不会丢。但子目录里那些嵌套的 CLAUDE.md 不会自动重注入，得等 Claude 下次读那个目录的文件才回来。所以重要规矩尽量放项目根，别埋太深。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：多层 CLAUDE.md 是拼接不是覆盖，<strong>越靠近工作目录的越晚读、冲突时越占优</strong>，所以项目规矩能盖过个人习惯——别把官方的加载方向记反了。</p>
+</blockquote>
+<hr>
+<h2>04 该写什么 vs 不该写什么</h2>
+<p>这一节是全篇的命门。<strong>CLAUDE.md 写不好，九成是栽在「该写的没写清，不该写的塞一堆」。</strong></p>
+<p>先说该写的——官方一句话点透：<strong>写「Claude 应该在每个会话中都保持的事实」。</strong> 翻成清单就是这五类：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>具体写什么</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>项目概述</strong></td>
+<td>一句话说清这是个啥项目</td>
+<td>「基于 FastAPI 的订单管理后端」</td>
+</tr>
+<tr>
+<td><strong>技术栈</strong></td>
+<td>语言、框架、数据库、关键工具</td>
+<td>「Python 3.11 / PostgreSQL / pytest」</td>
+</tr>
+<tr>
+<td><strong>常用命令</strong></td>
+<td>测试、构建、检查怎么跑</td>
+<td><code>uv run pytest</code>、<code>uv run ruff check .</code></td>
+</tr>
+<tr>
+<td><strong>代码约定</strong></td>
+<td>风格、命名、必须遵守的写法</td>
+<td>「函数必须有类型注解」「字符串用双引号」</td>
+</tr>
+<tr>
+<td><strong>明确的「不要做」</strong></td>
+<td>雷区、禁改文件、必须先问的操作</td>
+<td>「禁改 <code>migrations/</code> 已有文件」</td>
+</tr>
+</tbody></table>
+<p>其中<strong>常用命令是被参考最频繁的</strong>——Claude 跑测试、构建前会先来这儿翻命令，省得它瞎猜或者用错。<strong>禁止清单则是防它「聪明但闯祸」的护栏</strong>：哪些目录是遗留代码只读不改、哪个文件改之前必须先告诉你、哪些密钥文件禁止输出内容。</p>
+<p>再说<strong>不该写的</strong>，这才是新手翻车重灾区：</p>
+<ul>
+<li>❌ <strong>长篇大论的背景</strong>：公司介绍、产品愿景、技术选型的历史渊源——Claude 写代码用不上，纯占上下文。</li>
+<li>❌ <strong>过时信息</strong>：换了包管理器却没更新 CLAUDE.md，里面还写着 npm，结果误导它。</li>
+<li>❌ <strong>看代码就知道的东西</strong>：别去复述目录结构里每个文件干啥、别把 ESLint 配置已经定义的代码风格再抄一遍。<strong>Claude 自己会读代码，复述等于白占空间。</strong></li>
+</ul>
+<p>官方对这事的态度很明确，专门给了大小红线：</p>
+<blockquote>
+<p>每个 CLAUDE.md 文件目标在 200 行以下。较长的文件消耗更多上下文并降低遵守度。</p>
+</blockquote>
+<p>为什么 200 行这么要紧？因为 <strong>CLAUDE.md 跟你的对话抢同一个上下文窗口</strong>。你塞进去三百行废话，等于一开局就占掉一大块工作台，留给真正任务的空间反而缩水——而且重要规矩淹在废话里，注意力被稀释，遵守度不升反降。这就是开头那个「三百行没人听」的病根。</p>
+<p>有个好用的土办法：<strong>写每一条之前先自问一句「这条 Claude 看代码能不能自己推出来？能，就删」。</strong> 就靠这一刀，能把一份接手项目的 CLAUDE.md 从三百多行砍到八十行，留下的全是它推不出来的硬约束——砍完之后，它用错包管理器的次数肉眼可见地降下去。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：写「每个会话都该记住的事实」（概述 / 技术栈 / 命令 / 约定 / 禁区），<strong>删一切 Claude 看代码能自己推出来的东西</strong>，全文压在 200 行以内。</p>
+</blockquote>
+<hr>
+<h2>05 引用其他文件：<code>@</code> 语法与它的代价</h2>
+<p>有时候你项目里已经有现成的规范文档了——一份 API 设计指南、一份数据库约定。<strong>没必要把内容复制进 CLAUDE.md，用 <code>@</code> 语法引用就行。</strong></p>
+<p>写法很简单，在 CLAUDE.md 里任意位置写 <code>@</code> 加路径：</p>
+<pre><code class="language-text">有关项目概述，请参阅 @README，可用命令见 @package.json。
+
+# 其他指令
+- git 工作流 @docs/git-instructions.md
+</code></pre>
+<p>Claude 读 CLAUDE.md 时，会<strong>把这些引用的文件内容展开、一起加载进上下文</strong>。几个官方明确的细节，记牢了别踩坑：</p>
+<ul>
+<li><strong>相对路径相对于「包含引用的那个文件」解析</strong>，不是相对于你的工作目录。这点容易搞错。</li>
+<li>绝对路径也行；引用的文件还能<strong>再引用别的文件，最多递归四跳</strong>。</li>
+<li>第一次遇到项目外的引用，Claude Code 会<strong>弹个批准框列出这些文件</strong>让你确认；你拒了，这个引用就一直禁用，框也不再弹。</li>
+</ul>
+<p>但这里有个<strong>最关键的认知</strong>，官方反复强调，也是最容易踩的坑：</p>
+<blockquote>
+<p>导入的文件在启动时展开并加载到上下文中。分割到 <code>@path</code> 导入有助于组织，但不会减少上下文，因为导入的文件在启动时加载。</p>
+</blockquote>
+<p><strong>说白了：<code>@</code> 引用是「整理」，不是「省钱」。</strong> 很多人以为把内容拆到外部文件、CLAUDE.md 本体变短了，上下文就省了——<strong>错。</strong> 被引用的文件照样在开局全量加载进窗口，该占的上下文一点没少。设想把一份五百行的规范拆出去用 <code>@</code> 引，以为瘦身了，结果 <code>/context</code>（查看上下文占用）一看，该吃的 token 一个没落下。</p>
+<p>所以原则是：<strong><code>@</code> 引用用来让结构更清爽、便于人类维护，但要省上下文，得靠「精简内容」或「路径范围规则」，不是靠拆文件。</strong> 引用的单个文件也别太大，太大照样拖累。</p>
+<p>顺带提一个相关的：如果你有些<strong>纯个人、不想进 git 的项目偏好</strong>（比如你本地的沙箱 URL、爱用的测试数据），别写进 <code>./CLAUDE.md</code>，写进 <code>./CLAUDE.local.md</code>，再把它加进 <code>.gitignore</code>。它跟 <code>CLAUDE.md</code> 一起加载、处理方式完全一样，只是不会被提交、不影响队友。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：<code>@路径</code> 把外部文档引进来是为了「结构清爽」，<strong>但被引用的内容照样全量进上下文、不省 token</strong>；想省得真删内容；私人偏好放 <code>CLAUDE.local.md</code> 并 gitignore。</p>
+</blockquote>
+<hr>
+<h2>06 维护：会话里随手补、定期精简</h2>
+<p>CLAUDE.md 不是写完一次就供起来的，它得跟着项目长。这节讲两个维护动作：<strong>怎么随手补一条、怎么定期瘦身。</strong></p>
+<h3>会话里临时想补一条怎么办</h3>
+<p>经常是这样：聊着聊着你纠正了 Claude 一句，心想「这条以后每次都该守，得记下来」。最省事的官方做法——<strong>直接在对话里跟它说</strong>：</p>
+<pre><code class="language-text">把「数据库操作必须走 Service 层，别在路由里直接写 SQL」这条加进 CLAUDE.md
+</code></pre>
+<p>Claude 会帮你把这条写进 CLAUDE.md 文件。你也可以随时敲 <code>/memory</code> 命令，它会列出当前会话加载的所有 CLAUDE.md、CLAUDE.local.md 和规则文件，<strong>点一下就在编辑器里打开</strong>，手动改也行。<strong>想让 Claude 自己决定怎么措辞就用第一种；想精确控制措辞就用 <code>/memory</code> 自己编辑。</strong></p>
+<blockquote>
+<p>ℹ️ 一个版本差异提醒：早期 Claude Code 里，在输入框用 <code>#</code> 开头打一句话能快速追加记忆。新版本里这套交互已经变了——<strong>以官方现在的做法为准：要么直接让 Claude「加进 CLAUDE.md」，要么用 <code>/memory</code> 自己编辑</strong>。你敲一句「记住 xxx」，Claude 默认多半存进它自己的自动记忆（auto-memory，那是 <a href="25-memory.html">25「记忆系统」</a> 的话题）；想明确进 CLAUDE.md，就把「加进 CLAUDE.md」这句话说全。</p>
+</blockquote>
+<h3>定期精简，删掉过时和打架的</h3>
+<p>官方点名的一个隐患：<strong>两条规矩互相矛盾时，Claude 可能随便挑一条听。</strong> 所以得定期回头审视，把过时的、冲突的清掉。该触发精简的时机：</p>
+<ul>
+<li>换了包管理器 / 构建工具（旧命令必须删，留着就是误导）</li>
+<li>加了或去了重要依赖</li>
+<li>定了新的编程约定（顺手检查跟老规矩冲不冲突）</li>
+<li>发现 CLAUDE.md 又悄悄涨过 200 行</li>
+</ul>
+<p>判断一条规矩好不好，就看它<strong>像不像「规则」而非「散文」</strong>。官方给的对照特别实用，我整理成表：</p>
+<table>
+<thead>
+<tr>
+<th>❌ 模糊散文（没用）</th>
+<th>✅ 具体规则（管用）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>代码应该比较整洁</td>
+<td>函数不超过 50 行，超了必须拆</td>
+</tr>
+<tr>
+<td>尽量写测试</td>
+<td>每个新增函数都必须有对应单元测试</td>
+</tr>
+<tr>
+<td>注意安全</td>
+<td>用户输入必须先过 <code>sanitize()</code> 再进数据库查询</td>
+</tr>
+<tr>
+<td>legacy 目录不太重要</td>
+<td>禁止修改 <code>legacy/</code> 目录下任何文件</td>
+</tr>
+<tr>
+<td>用 pnpm 比较好</td>
+<td>依赖管理只用 pnpm，禁用 npm 和 yarn</td>
+</tr>
+</tbody></table>
+<p><strong>左边那种话等于没说</strong>——「整洁」「尽量」「注意」全是主观词，Claude 没法验证、自然没法稳定执行。右边每一条都<strong>具体到能验证</strong>：50 行、必须有测试、必须过某函数。官方的原话就是「编写具体到足以验证的指令」。</p>
+<p>写 CLAUDE.md 不妨养成一个硬习惯：<strong>每条规矩写完，自己当裁判判一下「这条能不能用一眼看出有没有违反」</strong>。判不了的，就是写虚了，回去改具体。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：随手补一条就让 Claude「加进 CLAUDE.md」或用 <code>/memory</code> 编辑；定期删过时和打架的规矩；<strong>好规矩长得像「能一眼验证的规则」，不是「整洁、尽量」这种散文</strong>。</p>
+</blockquote>
+<hr>
+<h2>07 动手：给玩具项目配一份合格的 CLAUDE.md</h2>
+<p>光说不练没用。下面用一个最小项目，走一遍「建文件 → 写规矩 → 验证加载」的完整流程。跟着敲，五分钟搞定。</p>
+<p><strong>第一步：建个玩具项目并初始化 git</strong>（Mac / Linux）</p>
+<pre><code class="language-bash">mkdir claude-md-demo
+cd claude-md-demo
+git init
+echo &#39;def add(a, b):
+    return a + b&#39; &gt; main.py
+</code></pre>
+<p><strong>预期</strong>：<code>claude-md-demo</code> 目录里有一个 <code>main.py</code> 和一个 <code>.git</code> 目录。git 初始化是为了让这份 CLAUDE.md 能进版本控制（团队共享的前提）。</p>
+<p><strong>第二步：手写一份精简的项目级 CLAUDE.md</strong></p>
+<p>用你顺手的编辑器，在项目根目录新建 <code>CLAUDE.md</code>，贴入下面这份（<strong>注意它一共没几行——这就是好 CLAUDE.md 该有的样子</strong>）：</p>
+<pre><code class="language-markdown"># add-demo — 一个演示用的最小 Python 项目
+
+只有一个 `add` 函数，用来演示 CLAUDE.md 怎么写。
+
+## 常用命令
+- `python -m pytest` —— 运行测试
+
+## 编程约定
+- 所有函数必须有类型注解
+- 字符串一律用双引号
+
+## 注意事项
+- 不要修改 `main.py` 里 `add` 的函数签名，只能在内部加逻辑
+</code></pre>
+<p><strong>预期</strong>：项目根目录下出现 <code>CLAUDE.md</code>，内容就是上面这几节。<strong>全文不到 15 行——记住这个篇幅感，真实项目也别失控膨胀。</strong></p>
+<p><strong>第三步：启动 Claude，验证它真读到了</strong></p>
+<p>在项目目录里启动：</p>
+<pre><code class="language-bash">claude
+</code></pre>
+<p>启动后，敲这个命令确认加载情况：</p>
+<pre><code class="language-text">/memory
+</code></pre>
+<p><strong>预期</strong>：列表里能看到你刚写的 <code>./CLAUDE.md</code>。<strong>只要它在列表里，就说明 Claude 这次会话确实把它装进上下文了。</strong> 这一步是官方推荐的排查手段——要是某条规矩没被遵守，第一件事就是 <code>/memory</code> 看文件到底加载了没。</p>
+<p><strong>第四步：让它干一件「踩约定」的活，看它守不守规矩</strong></p>
+<p>退出 <code>/memory</code> 回到输入框，敲：</p>
+<pre><code class="language-text">给 add 函数加上类型注解
+</code></pre>
+<p><strong>预期</strong>：Claude 给出的 diff 里，类型注解用的是项目约定的写法，而且<strong>不会去动函数签名以外它被禁止改的部分</strong>。如果它老老实实按你 CLAUDE.md 里「函数必须有类型注解」来改——<strong>恭喜，这份入职手册生效了</strong>。</p>
+<blockquote>
+<p>⚠️ 万一发现它没按 CLAUDE.md 来：先 <code>/memory</code> 确认文件加载了；再检查那条规矩是不是写得太模糊（「整洁」这种）；最后看有没有两条规矩在打架。这三步是官方给的标准排查顺序，照着走基本能定位。</p>
+</blockquote>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：走一遍「建文件 → 写不到 15 行的精简规矩 → <code>/memory</code> 确认加载 → 让它干活验证守不守规矩」，<strong>没生效就按 <code>/memory</code> → 查模糊 → 查冲突这套官方顺序排查</strong>。</p>
+</blockquote>
+<hr>
+<h2>08 小结</h2>
+<p>这一篇你把 CLAUDE.md 这个「Claude 的项目记忆」从头到尾摸清了：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>关键结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>是什么</td>
+<td>每次会话必读的入职手册，<strong>「强烈建议」级，非铁律</strong></td>
+</tr>
+<tr>
+<td>分几层</td>
+<td>用户级（个人）/ 项目级（团队进 git）/ 子目录级（按需）</td>
+</tr>
+<tr>
+<td>加载顺序</td>
+<td>拼接不覆盖，<strong>越近越晚读、冲突时占优</strong></td>
+</tr>
+<tr>
+<td>写什么</td>
+<td>概述 / 技术栈 / 命令 / 约定 / 禁区，<strong>删一切代码能自证的</strong></td>
+</tr>
+<tr>
+<td><code>@</code> 引用</td>
+<td>整理结构用，<strong>不省上下文</strong>（照样全量加载）</td>
+</tr>
+<tr>
+<td>维护</td>
+<td>让 Claude「加进 CLAUDE.md」或 <code>/memory</code> 编辑；定期删过时冲突；<strong>像规则别像散文</strong></td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 判断一条信息该不该进 CLAUDE.md、放哪一层；写出具体到能验证的规矩而不是空话；用 <code>@</code> 引用外部文档同时清楚它的上下文代价；项目跑久了知道怎么随手补、定期瘦身。<strong>一句话——你能写出一份 Claude 真愿意听、而不是写了三百行没人理的 CLAUDE.md 了。</strong></p>
+<hr>
+<p>下一篇 <strong>19「上下文管理」</strong>——这篇里反复提到「CLAUDE.md 会占上下文窗口」「<code>@</code> 引用照样全量加载」，那这个上下文窗口到底是什么、满了会怎样、<code>/context</code> 和 <code>/compact</code> 又怎么用？下一篇就专门把这块工作台讲透。留个小思考：你觉得一份 CLAUDE.md 占掉的 token，和你一整段对话比，哪个更耗？</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/17-images-multimodal.html"><span class="mono">← 上一篇 · 17</span><b>图片与多模态：贴张截图，它就懂了</b></a>
+  <a class="pg nx" href="/library/claude-code/19-context-management.html"><span class="mono">下一篇 · 19 →</span><b>上下文管理：别让它「失忆」也别烧爆 token</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

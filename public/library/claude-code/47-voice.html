@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>47 Voice 语音模式：把提示词说出来，而不是打出来 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 47 篇:Voice 语音模式：把提示词说出来，而不是打出来。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/47-voice.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class="cur"><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class="cur"><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 47 篇</p>
+      <h1>Voice 语音模式：把提示词说出来，而不是打出来</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="46-dev-config.html">46 开发配置</a> 把 Claude Code 当成「被开发的对象」那一套环境怎么搭讲清了。这一篇回到最日常的一个动作——<strong>怎么把提示词说出来，让它实时转成文字</strong>。<code>/voice</code> 一开，你按住空格说话，话就落进输入框；还能跟手打混着来。听着挺玄，其实开起来就一行命令，<strong>但有几条「能不能用」的硬门槛，不先看清你大概率会卡在第一步</strong>。</p>
+</blockquote>
+<p>⚠️ <strong>实验性功能，可能随版本变化。</strong> 本篇命令、参数、版本号均以官方文档为准，但语音听写仍在迭代，你看到时具体行为可能已有调整，以你本机 <code>/voice</code> 的实际提示为准。</p>
+<p>都说「能动嘴就别动手」效率高，但说句实话，<strong>对程序员这个群体，语音输入长期是个伪需求</strong>——我们打字本来就快，满屏的变量名、函数名、<code>snake_case</code>，你拿嘴念给语音引擎听，它十有八九给你转成一堆同音错字，改起来比打字还累。用某主流输入法的语音功能写技术笔记，「<code>useEffect</code>」常被它听成「U se if act」，碰上几次也就关了再不开。</p>
+<p>所以一开始听说 Claude Code 出了语音听写，很容易<strong>带着偏见去试</strong>——预判它又是个花架子。结果两点能改观这种看法：一是它<strong>专门针对编程词汇调过</strong>，<code>regex</code>、<code>OAuth</code>、<code>JSON</code>、<code>localhost</code> 这些它认得；二是它把你<strong>当前项目名和 git 分支名自动喂进去当识别提示</strong>，所以你念自己项目里那些「黑话」，命中率比通用输入法高一截。</p>
+<p>这就不一样了。<strong>它不是要替代你打代码，而是替代你「打那一长段需求描述」</strong>——你瘫在椅子上把「重构一下 auth 中间件，改用新的 token 校验 helper」说出来，比一个字一个字戳进去，是真省事。这一篇就带你把它开起来、用顺，顺带把那几条「为啥我开不了」的坑挨个填平。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一句话讲明白语音听写是什么、它转写发生在哪（不在你本地）</li>
+<li>一条最关键的「能不能用」红线——<strong>只认 Claude.ai 账户登录</strong>，用 API key 的根本开不了</li>
+<li>平台支持情况一张表（Mac / Windows / Linux / WSL / 远程 / VS Code）说清</li>
+<li>两种录音模式（按住 vs 点击）分别怎么用、各自适合什么场景</li>
+<li>怎么把它设成开机默认、怎么改听写语言、怎么换触发键</li>
+<li>一个能照着跑、给了预期输出的实战：从开启到说出第一句提示</li>
+</ul>
+<hr>
+<h2>01 先搞懂：语音听写到底是个啥，转写在哪发生</h2>
+<p>先给结论：<strong>语音听写就是「你说话，它实时转成文字，落进提示词输入框」</strong>——不是让你跟 Claude「对话聊天」，是把你<strong>敲键盘这个动作</strong>换成了<strong>说话</strong>。</p>
+<p><strong>类比：会议上的实时字幕。</strong> 你开线上会，打开实时字幕，你一边说，屏幕下方一边把你的话转成文字滚出来——你没在「跟字幕对话」，字幕只是<strong>把你的语音誊成文本</strong>。Claude Code 的语音听写就是这个角色：你按住键说话，话变成字进了输入框，<strong>之后这段文字怎么用，跟你手打进去的完全一样</strong>——你可以继续手打补几个字，再回车发给 Claude。</p>
+<p>官方对它的描述很直白：</p>
+<blockquote>
+<p>在 Claude Code CLI 中说出你的提示词，而不是输入它们。你的语音会实时转录到提示词输入中，所以你可以在同一条消息中混合使用语音和输入。</p>
+</blockquote>
+<p>注意这句里藏着一个很贴心的设计——<strong>「混合使用语音和输入」</strong>。转写出来的文字插在你光标的位置，光标停在插入文本的末尾，所以你完全可以<strong>说一半、手打一半</strong>：用嘴说出那段啰嗦的需求描述，再用手补上一个精确的文件名或函数名。这是它比纯语音输入法好用的地方之一。</p>
+<p>接下来这点<strong>至关重要，直接决定了下面一整节的「能不能用」</strong>：你的语音<strong>不在本地处理</strong>。官方写得很清楚：</p>
+<blockquote>
+<p>语音听写将你录制的音频流传输到 Anthropic 的服务器进行转录。音频不在本地处理。</p>
+</blockquote>
+<p>也就是说，你说的话会被<strong>传到 Anthropic 的服务器</strong>转成文字再传回来。这一条引出三个连带结论，你现在先记住，下一节展开：第一，<strong>它必须联网</strong>；第二，<strong>它必须用 Claude.ai 账户认证</strong>（服务器要知道你是谁）；第三，<strong>它在没有麦克风的远程环境里用不了</strong>（音频得从你本机采）。</p>
+<p>最后给一个挺容易被忽略的好消息：<strong>转写不花钱、不占额度</strong>。官方明确——</p>
+<blockquote>
+<p>转录不消耗 Claude 消息或令牌，也不计入 <code>/usage</code> 中显示的限制。</p>
+</blockquote>
+<p>换句话说，你说多少话、转多少字，都<strong>不吃你的订阅额度</strong>（订阅与计费见第 06 篇）。这点盯着 <code>/usage</code> 就能验出来——开着语音连说带转写忙活半天，额度数字纹丝不动。所以<strong>别有「多用几次会不会很烧」的心理负担</strong>，它跟你发给 Claude 的消息是两码事。</p>
+<blockquote>
+<p>💡 一句话总结：语音听写 = <strong>把「打字」换成「说话」</strong>，转出来的文字跟手打的一样用，还能跟手打混着来；它的音频<strong>传到 Anthropic 服务器转写、不在本地</strong>，但<strong>转写本身不花钱、不占 <code>/usage</code> 额度</strong>。</p>
+</blockquote>
+<hr>
+<h2>02 第一条红线：只认 Claude.ai 账户登录，用 API key 的直接开不了</h2>
+<p>这一节最短，但<strong>最该先看</strong>——很多人卡在第一步，就卡在这。</p>
+<p>上一节说了，转写要把音频传到 Anthropic 服务器，服务器得认得你。<strong>于是语音听写有一条硬门槛：你必须用 Claude.ai 账户登录。</strong> 官方把不支持的情况一条条点了名：</p>
+<blockquote>
+<p>语音转文本服务仅在你使用 Claude.ai 账户进行身份验证时可用，当 Claude Code 配置为直接使用 Anthropic API 密钥、Amazon Bedrock、Google Vertex AI 或 Microsoft Foundry 时不可用。当你的组织启用了 HIPAA 合规性时，语音听写也不可用。</p>
+</blockquote>
+<p>翻成人话——<strong>回想第 04 / 05 篇你怎么接入的 Claude Code</strong>：</p>
+<ul>
+<li>如果你走的是<strong>订阅登录</strong>（Pro / Max 那种 Claude.ai 账户），✅ 能用语音。</li>
+<li>如果你填的是 <strong>Anthropic API key</strong>，或接的是 <strong>Bedrock / Vertex / Foundry</strong>，❌ 语音直接用不了。</li>
+<li>组织开了 <strong>HIPAA 合规</strong>，❌ 也用不了。</li>
+</ul>
+<p>这不是 bug，是<strong>设计如此</strong>——语音转写这个服务挂在 Claude.ai 账户体系下，API key 那条路根本不通这个能力。</p>
+<p>那怎么判断自己是哪种？<strong>最直接的办法是直接试</strong>：开 <code>/voice</code>，如果你用的是 API key，它会甩你一句明确的报错：</p>
+<blockquote>
+<p><code>Voice mode requires a Claude.ai account</code></p>
+</blockquote>
+<p>看到这句，别折腾麦克风权限了，<strong>根因就是认证方式不对</strong>。官方给的解法也干脆：运行 <code>/login</code>，改用 Claude.ai 账户登录。常年挂着公司 API key 的机器，第一次在上面敲 <code>/voice</code> 就会吃这个报错，很容易误以为是麦克风坏了去查半天——<strong>其实是账户类型压根不支持</strong>。这一条值得比踩坑早知道五分钟。</p>
+<table>
+<thead>
+<tr>
+<th>你的接入方式（见第 04、05 篇）</th>
+<th>能用语音听写吗</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Claude.ai 账户登录（Pro / Max 订阅）</td>
+<td>✅ 能</td>
+</tr>
+<tr>
+<td>Anthropic API key</td>
+<td>❌ 报 <code>requires a Claude.ai account</code></td>
+</tr>
+<tr>
+<td>Amazon Bedrock / Google Vertex / Microsoft Foundry</td>
+<td>❌ 不支持</td>
+</tr>
+<tr>
+<td>组织启用了 HIPAA 合规</td>
+<td>❌ 不支持</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：语音听写<strong>只认 Claude.ai 账户登录</strong>——用 API key、Bedrock、Vertex、Foundry 或开了 HIPAA 的，一律开不了，报错就是那句 <code>requires a Claude.ai account</code>，解法是 <code>/login</code> 换登录方式。</p>
+</blockquote>
+<hr>
+<h2>03 第二条门槛：得有本地麦克风，平台支持一张表说清</h2>
+<p>账户这关过了，第二关是<strong>硬件和环境</strong>：转写虽然在云上，但<strong>音频得从你这台机器的麦克风采集</strong>。这一条决定了它在哪些环境能用、哪些环境天生用不了。</p>
+<p><strong>类比：你得真有一支话筒插在面前。</strong> 实时字幕再智能，也得先有麦克风把你的声音收进来——你坐在一台没接麦克风的服务器前对着空气说话，再好的转写引擎也是巧妇难为无米之炊。语音听写同理：<strong>它需要本地麦克风访问权限</strong>，所以凡是「你人不在那台机器跟前」的环境，基本都用不了。</p>
+<p>官方把这条说得很清楚：</p>
+<blockquote>
+<p>语音听写还需要本地麦克风访问权限，因此在远程环境中不起作用，例如网络上的 Claude Code 或 SSH 会话。</p>
+</blockquote>
+<p>把各平台和环境整理成一张表，你对号入座：</p>
+<table>
+<thead>
+<tr>
+<th>平台 / 环境</th>
+<th>支持情况</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>macOS</strong></td>
+<td>✅ 内置原生模块</td>
+<td>首次 <code>/voice</code> 触发系统麦克风权限提示</td>
+</tr>
+<tr>
+<td><strong>Windows</strong></td>
+<td>✅ 内置原生模块</td>
+<td>设置里给终端开麦克风权限</td>
+</tr>
+<tr>
+<td><strong>Linux</strong></td>
+<td>✅ 原生模块，失败回退到 <code>arecord</code> / <code>rec</code></td>
+<td>都没有时 <code>/voice</code> 会打印安装命令</td>
+</tr>
+<tr>
+<td><strong>WSL</strong></td>
+<td>⚠️ 需要 WSLg</td>
+<td>WSL2（Win10/11 商店版）自带 WSLg；WSL1 没有，得在原生 Windows 跑</td>
+</tr>
+<tr>
+<td><strong>SSH 会话</strong></td>
+<td>❌</td>
+<td>麦克风在你本地，会话在远端</td>
+</tr>
+<tr>
+<td><strong>网络版 Claude Code</strong></td>
+<td>❌</td>
+<td>远程环境，没本地麦克风（见第 11 篇）</td>
+</tr>
+<tr>
+<td><strong>VS Code 扩展</strong></td>
+<td>✅（同样要 Claude.ai 账户）</td>
+<td>但 VS Code Remote（SSH / Dev Containers / Codespaces）❌</td>
+</tr>
+</tbody></table>
+<p>几个新手最容易栽的点，单独拎出来说：</p>
+<p><strong>远程一律不行，原因是同一个。</strong> 不管是 SSH、网络版 Claude Code（第 11 篇讲过的浏览器里那个），还是 VS Code 连着远程主机——<strong>只要「干活的进程在远端、麦克风在你本地」，语音就用不了</strong>。官方专门点了 VS Code 扩展这一条：</p>
+<blockquote>
+<p>它在 VS Code Remote 会话中不可用，包括 SSH、Dev Containers 和 Codespaces，因为麦克风在你的本地机器上，而扩展在远程主机上运行。</p>
+</blockquote>
+<p><strong>WSL 是个特例，得有 WSLg。</strong> WSLg 是微软给 WSL2 配的那套「能跑图形和音频」的组件，Win10/11 上从应用商店装的 WSL2 自带。<strong>如果你还在用 WSL1，没有 WSLg，语音用不了</strong>——官方建议直接在原生 Windows 里跑 Claude Code。</p>
+<p><strong>Linux 上没装录音工具时它会教你装。</strong> Linux 优先用内置原生模块，加载不了会回退到 ALSA 的 <code>arecord</code> 或 SoX 的 <code>rec</code>；<strong>两个都没有，<code>/voice</code> 会直接打印出你那个发行版的安装命令</strong>（比如 <code>sudo apt-get install sox</code>），照着敲就行，不用你自己瞎找。</p>
+<blockquote>
+<p>💡 一句话总结：语音转写在云上，但<strong>音频要从本地麦克风采</strong>——所以 Mac/Win/Linux 本机能用，<strong>SSH、网络版、VS Code Remote 这类「人不在机器跟前」的远程环境一律不行</strong>；WSL 得有 WSLg，Linux 缺录音工具时 <code>/voice</code> 会教你装。</p>
+</blockquote>
+<hr>
+<h2>04 两种录音模式：按住说，还是点一下说</h2>
+<p>门槛都过了，正式开起来。<code>/voice</code> 一开，你要先认识它的<strong>两种录音模式</strong>——这俩决定了你「怎么开始、怎么停、说完要不要自己回车」。</p>
+<p><strong>类比：对讲机 vs 录音笔。</strong> 对讲机是<strong>按住才说话</strong>，松手就停、对面就收到——这是「按住模式」；录音笔是<strong>按一下开始录、再按一下停</strong>，中间你不用一直摁着——这是「点击模式」。两种交互习惯，按你顺手的来。</p>
+<p>先看两种模式的核心区别：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>怎么触发</th>
+<th>怎么停</th>
+<th>说完发送</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>按住（hold）</strong> 默认</td>
+<td>按住 <code>Space</code></td>
+<td>松开 <code>Space</code></td>
+<td>默认松手后等你按 <code>Enter</code>（可配自动发）</td>
+<td>想精确控制录哪一段、边说边停</td>
+</tr>
+<tr>
+<td><strong>点击（tap）</strong></td>
+<td>点一下 <code>Space</code> 开始</td>
+<td>再点一下 <code>Space</code></td>
+<td>转写 ≥3 个词自动发送</td>
+<td>想「说完即走」、不愿一直摁着键</td>
+</tr>
+</tbody></table>
+<h3>按住模式（默认）：像对讲机，按住才录</h3>
+<p>按住模式就是<strong>按键通话</strong>：按住 <code>Space</code> 开始录，松开停。这是<strong>默认模式</strong>，开了 <code>/voice</code> 不指定模式就是它。</p>
+<p>这里有个细节你最好提前知道，<strong>否则第一次用会懵</strong>：按住模式有个<strong>短暂的「预热」</strong>。Claude Code 靠监测终端的「按键重复」事件来判断你是不是在按住，所以刚按下去会有一小下延迟，页脚显示 <code>keep holding…</code>，等录制真正激活才切成实时波形。官方解释：</p>
+<blockquote>
+<p>前几个按键重复字符在预热期间输入到输入中，当录制激活时会自动删除。单个 <code>Space</code> 点击仍然会输入一个空格，因为按住检测仅在快速重复时触发。</p>
+</blockquote>
+<p>翻成人话两点：一，<strong>预热那一下蹦出来的几个字符，录制激活后会自动删掉</strong>，别慌；二，<strong>你单点一下 <code>Space</code> 还是正常打出一个空格</strong>——只有「按住不放」才触发录音，所以它不会干扰你正常敲空格。</p>
+<p>说话时，<strong>你的话会实时出现在输入框里</strong>（转写最终确定前是暗的），松开 <code>Space</code> 文字就定下来，插在你光标处。想接着说就再按住一次追加。看官方这个例子，特别直观：</p>
+<pre><code class="language-text">&gt; refactor the auth middleware to ▮
+  # 按住 Space，说出 &quot;use the new token validation helper&quot;
+&gt; refactor the auth middleware to use the new token validation helper▮
+</code></pre>
+<p>默认松手后<strong>它不会自动发</strong>，等你按 <code>Enter</code>——给你留了手打补充和检查的余地。如果你嫌每次还要回车麻烦，可以在设置里开 <code>autoSubmit</code>（下一节讲），<strong>松手就自动发，前提是转写至少有三个词</strong>。</p>
+<h3>点击模式：像录音笔，点一下开、再点一下走</h3>
+<p>点击模式用<strong>单键切换</strong>：点一下 <code>Space</code> 开始，说，再点一下 <code>Space</code>——<strong>停止并自动发送</strong>。<strong>没有预热</strong>，你也不用一直摁着键。</p>
+<p>用 <code>/voice tap</code> 开启它。要注意点击模式有个<strong>版本门槛比按住模式高</strong>——官方注明：</p>
+<blockquote>
+<p>语音听写需要 Claude Code v2.1.69 或更高版本。点击模式需要 v2.1.116 或更高版本。</p>
+</blockquote>
+<p>所以<strong>如果你 <code>/voice tap</code> 不好使，先 <code>claude --version</code> 看看版本够不够</strong>。</p>
+<p>点击模式有两个防呆设计，挺贴心：</p>
+<ul>
+<li><strong>第一次点击只在输入框为空时才开始录音</strong>——所以你撰写消息时正常敲空格不会误触发录音。</li>
+<li><strong>转写不足三个词的，插入但不发送</strong>——防止你手滑点一下、蹦出个单字就被发出去。</li>
+</ul>
+<p>另外它会<strong>自动停</strong>：15 秒没声音，或者总共录满两分钟，自动停止。</p>
+<p>两种都用一阵下来，<strong>不少人会稳定在点击模式</strong>：按住模式那个预热的小延迟，对急性子有点别扭，老觉得「都开始说了它还没录」；点击模式点一下就走、说完再点一下自动发，<strong>更符合「想到一句说一句」的节奏</strong>。但要论「精确控制录哪一小段、边想边停」，按住模式更跟手——<strong>你试两天就知道自己是哪一派</strong>。</p>
+<blockquote>
+<p>💡 一句话总结：两种模式——<strong>按住</strong>（默认，对讲机式）按住 <code>Space</code> 录、松手定稿、默认要你回车；<strong>点击</strong>（录音笔式，需 v2.1.116+）点一下开、再点一下停并自动发（≥3 词）；急性子选点击，要精控选按住。</p>
+</blockquote>
+<hr>
+<h2>05 三个调校：设成默认、改听写语言、换触发键</h2>
+<p>模式会用了，再把三个常用调校交给你——<strong>这三件事配一次，长期顺手</strong>。</p>
+<h3>让它开机就在：写进设置，别每次手敲 /voice</h3>
+<p><code>/voice</code> 开启的状态<strong>会在会话之间持续</strong>，但如果你想<strong>一上来就是开的</strong>、连第一次 <code>/voice</code> 都省掉，直接写进你的用户设置文件（settings.json 的用户级 / 项目级区别见第 31 篇）：</p>
+<pre><code class="language-json">{
+  &quot;voice&quot;: {
+    &quot;enabled&quot;: true,
+    &quot;mode&quot;: &quot;tap&quot;
+  }
+}
+</code></pre>
+<p><code>enabled</code> 控制开不开，<code>mode</code> 填 <code>hold</code> 或 <code>tap</code> 定默认模式。</p>
+<p>前一节提到的「松手自动发」也在这个 <code>voice</code> 对象里配——加一行 <code>autoSubmit</code>：</p>
+<pre><code class="language-json">{
+  &quot;voice&quot;: {
+    &quot;enabled&quot;: true,
+    &quot;mode&quot;: &quot;hold&quot;,
+    &quot;autoSubmit&quot;: true
+  }
+}
+</code></pre>
+<p>开了 <code>autoSubmit</code>，<strong>按住模式松手后只要转写 ≥3 个词就自动发</strong>，不用再按 <code>Enter</code>。</p>
+<h3>改听写语言：默认是英语，说中文要先设</h3>
+<p>这条<strong>对咱们中文用户尤其关键</strong>。语音听写<strong>默认用英语</strong>——你要是直接对它说中文，大概率转出一坨乱码。官方说得很明白：听写用的是<strong>和控制 Claude 回复语言同一个 <code>language</code> 设置</strong>，这个设置为空时听写就回退英语。</p>
+<p>它<strong>支持的听写语言是固定的一张表</strong>，<strong>目前没有中文</strong>（截至本文，支持列表为捷克、丹麦、荷兰、英、法、德、希腊、印地、印尼、意、日、韩、挪威、波兰、葡、俄、西、瑞典、土、乌克兰这些）；如果你同时有日语或韩语的需求，日语 <code>ja</code>、韩语 <code>ko</code> 倒是在列。<strong>所以如果你主要说中文，得有个心理预期：现版本它对中文的听写支持还没覆盖到</strong>——这点务必以你本机 <code>/voice</code> 启用时的实际提示为准，不在支持列表里它会警告你并回退英语。</p>
+<p>设置语言在 <code>/config</code> 里改，或直接写设置，填语言名或 BCP 47 代码都行：</p>
+<pre><code class="language-json">{
+  &quot;language&quot;: &quot;japanese&quot;
+}
+</code></pre>
+<p>官方还补了一条：<strong>如果你的 <code>language</code> 不在支持列表里，<code>/voice</code> 启用时会警告你，并把听写回退成英语</strong>——但这<strong>只影响听写</strong>，Claude 的文字回复语言不受这个回退影响。</p>
+<h3>换触发键：不想用空格，绑别的</h3>
+<p>默认触发键是 <code>Space</code>（按住和点击共用这一个键）。想换，在 <code>~/.claude/keybindings.json</code> 里把 <code>voice:pushToTalk</code> 绑到别的键（快捷键体系见第 14 篇）：</p>
+<pre><code class="language-json">{
+  &quot;bindings&quot;: [
+    {
+      &quot;context&quot;: &quot;Chat&quot;,
+      &quot;bindings&quot;: {
+        &quot;meta+k&quot;: &quot;voice:pushToTalk&quot;,
+        &quot;space&quot;: null
+      }
+    }
+  ]
+}
+</code></pre>
+<p>这里有个<strong>按住模式专属的坑</strong>，官方专门提醒了：</p>
+<blockquote>
+<p>在按住模式中，避免绑定裸字母键如 <code>v</code>，因为按住检测依赖于按键重复，字母在预热期间输入到提示词中。</p>
+</blockquote>
+<p>翻成人话：<strong>按住模式别绑单个字母键</strong>（比如光一个 <code>v</code>）——因为它靠「按键重复」检测按住，预热期间那个字母会被打进输入框。<strong>想绕开预热，绑一个修饰符组合（比如 <code>meta+k</code>）最香</strong>，组合键第一次按下就开始录、没有预热那一下延迟。点击模式没预热，绑啥键基本都行。</p>
+<blockquote>
+<p>💡 一句话总结：三件长期受用的调校——<strong><code>voice.enabled/mode</code> 写进设置让它开机就在</strong>（加 <code>autoSubmit</code> 松手自动发）；<strong>听写默认英语、要靠 <code>language</code> 设置改，但支持列表里目前没中文</strong>（日韩在）；<strong>换触发键改 <code>voice:pushToTalk</code>，按住模式别绑裸字母、优先修饰符组合</strong>。</p>
+</blockquote>
+<hr>
+<h2>06 动手：从开启到说出第一句提示</h2>
+<p>光看不练假把式。下面带你<strong>最小流程</strong>跑一遍——前提你已经是 <strong>Claude.ai 账户登录</strong>（第 02 节那条红线），且在<strong>本机</strong>（不是 SSH / 网络版）。全程不依赖你已有的任何复杂项目，随便进一个目录开 <code>claude</code> 就行。</p>
+<p><strong>第零步：确认版本够</strong>（在终端）</p>
+<pre><code class="language-bash">claude --version
+</code></pre>
+<p><strong>预期</strong>：版本号 <strong>≥ 2.1.69</strong>（想用点击模式则 <strong>≥ 2.1.116</strong>）。低了先升级，否则 <code>/voice</code> 不认。</p>
+<p><strong>第一步：进会话，开启语音</strong></p>
+<pre><code class="language-text">/voice
+</code></pre>
+<p><strong>预期</strong>：第一次开会触发<strong>麦克风权限检查</strong>——macOS 上会弹系统权限提示，<strong>点允许</strong>。然后页脚打印类似：</p>
+<pre><code class="language-text">Voice mode enabled (hold). Hold Space to record. Dictation language: en (/config to change).
+</code></pre>
+<p><strong>看到 <code>Voice mode enabled</code> = 开成功了</strong>。括号里 <code>hold</code> 是当前模式，<code>Dictation language: en</code> 告诉你现在听写按英语处理。</p>
+<blockquote>
+<p>如果这里直接报 <code>Voice mode requires a Claude.ai account</code>——回第 02 节，你是用 API key 登录的，先 <code>/login</code> 换 Claude.ai 账户。</p>
+</blockquote>
+<p><strong>第二步：留意输入框页脚的提示</strong></p>
+<p>提示词为空时，输入框页脚会显示一行 <code>hold Space to speak</code> 这样的提示——<strong>这是在告诉你「现在按住空格就能说话」</strong>。</p>
+<p><strong>第三步：按住空格，说一句英文提示</strong></p>
+<p>按住 <code>Space</code> 不放，对着麦克风清楚地说一句<strong>英文</strong>（默认英语，先别说中文）。比如：</p>
+<pre><code class="language-text"># 按住 Space，说出： list all files in the current directory
+</code></pre>
+<p><strong>预期</strong>：你说话时，<strong>文字实时出现在输入框里</strong>（定稿前是暗的）；按住的头一下页脚显示 <code>keep holding…</code>（预热），随即切成实时波形。松开 <code>Space</code>，文字定稿，变成：</p>
+<pre><code class="language-text">&gt; list all files in the current directory▮
+</code></pre>
+<p><strong>看到你说的话变成了输入框里的文字 = 听写真的跑通了</strong>。这时它<strong>默认不自动发</strong>，停在那儿等你。</p>
+<p><strong>第四步：（可选）手打补一句，再发</strong></p>
+<p>把光标留在末尾，<strong>手打</strong>补几个字——验证一下「语音 + 手打混用」：</p>
+<pre><code class="language-text">&gt; list all files in the current directory and show their sizes▮
+</code></pre>
+<p><strong>预期</strong>：手打的部分无缝接在语音转写后面。按 <code>Enter</code> 发出去，Claude 正常响应。<strong>这一步证明了第 01 节说的——转写出来的文字跟手打的完全一样用。</strong></p>
+<p><strong>第五步：试试点击模式</strong>（需 v2.1.116+）</p>
+<pre><code class="language-text">/voice tap
+</code></pre>
+<p>清空输入框，<strong>点一下</strong> <code>Space</code>（不用按住），说一句 ≥3 个词的英文，<strong>再点一下</strong> <code>Space</code>。</p>
+<p><strong>预期</strong>：第二次点击后，转写文字插入并<strong>自动发送</strong>（满三个词）。<strong>没有预热那一下延迟</strong>——对比一下你就知道两种模式的手感差别了。</p>
+<p><strong>第六步：关掉</strong>（可选）</p>
+<pre><code class="language-text">/voice off
+</code></pre>
+<p><strong>预期</strong>：页脚提示语音已禁用，页脚那行 <code>hold Space to speak</code> 消失，<code>Space</code> 恢复成正常空格键。</p>
+<p>跑通这几步，你就把「<strong>确认版本 → 开启授权 → 按住说话 → 语音手打混用 → 切点击模式 → 关掉</strong>」这条完整链路亲手走了一遍。<strong>以后无非是配进 settings 让它常驻、按需换语言或触发键——核心交互就这些。</strong></p>
+<blockquote>
+<p>💡 一句话总结：动手就六步——<strong><code>--version</code> 确认版本 → <code>/voice</code> 开启并授权麦克风 → 按住 <code>Space</code> 说英文看它转成文字 → 手打补一句验证混用 → <code>/voice tap</code> 试点击模式 → <code>/voice off</code> 关掉</strong>；亲手跑通，比记一堆参数都管用。</p>
+</blockquote>
+<hr>
+<h2>07 小结</h2>
+<p>这一篇把 Claude Code 的语音听写从头讲到尾——<strong>核心就一句：把「打那一长段需求」从手打换成说话，转出来的字跟手打一样用。</strong></p>
+<p>把要点串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你关心的事</th>
+<th>结论</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>它是什么</td>
+<td>实时语音转文字，落进输入框</td>
+<td>转写在 Anthropic 服务器、不在本地；不占 <code>/usage</code> 额度</td>
+</tr>
+<tr>
+<td>我能不能用（认证）</td>
+<td><strong>只认 Claude.ai 账户</strong></td>
+<td>API key / Bedrock / Vertex / Foundry / HIPAA 都不行</td>
+</tr>
+<tr>
+<td>我能不能用（环境）</td>
+<td>本机能、远程不能</td>
+<td>要本地麦克风；SSH、网络版、VS Code Remote 一律不行</td>
+</tr>
+<tr>
+<td>怎么开、怎么录</td>
+<td><code>/voice</code>，两种模式</td>
+<td>按住（默认，有预热）/ 点击（需 v2.1.116+，说完自动发）</td>
+</tr>
+<tr>
+<td>怎么调顺</td>
+<td>写进设置 + 改语言 + 换键</td>
+<td>默认英语、支持列表暂无中文；触发键改 <code>voice:pushToTalk</code></td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 一句话说清语音听写是什么、它的音频去了哪（云上、不花额度）；先看准那条「<strong>只认 Claude.ai 账户</strong>」的红线，别再对着麦克风权限白查半天；分清哪些平台和环境能用（本机能、远程不能）；开起 <code>/voice</code> 并在按住 / 点击两种模式间挑顺手的；还会把它写进 settings 设成默认、按需改听写语言和触发键，并照着动手环节把整条链路亲手跑通。<strong>这套「能动嘴就少动手」的输入方式，是你在描述长需求时给自己减负的一个小开关——开不开是你的自由，但至少现在你知道它怎么开、什么时候开不了。</strong></p>
+<p>回到开头对语音输入的那点偏见——<strong>它确实替代不了你精准打代码，但替代「瘫着把一大段需求说出来」绰绰有余</strong>。这就够了：工具不必样样全能，<strong>在它擅长的那一格里帮你省下力气，就是好工具</strong>。</p>
+<hr>
+<p>下一篇 <strong>48「综合实战：从零到上线串起所学」</strong>——前面四十七篇，零件一个个递到了你手上：装环境、提需求、配 CLAUDE.md、接 MCP、派 subagent、配 hook、走 git……单看每个你都会了，<strong>但把它们串成一条「从空目录到一个能上线的小项目」的完整流水线，你走过吗？</strong> 下一篇就当一次毕业设计：拉着你从零起一个真实小项目，把这套手艺<strong>串起来跑一遍</strong>，让你亲眼看见这些零件咬合在一起是什么样子。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/46-dev-config.html"><span class="mono">← 上一篇 · 46</span><b>开发配置：把 Claude 干活的「工作环境」调顺</b></a>
+  <a class="pg nx" href="/library/claude-code/48-capstone-project.html"><span class="mono">下一篇 · 48 →</span><b>综合实战：从零到上线，把所学串成一条线</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>09 IDE 扩展（VS Code 等） — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 09 篇:IDE 扩展（VS Code 等）。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/09-ide.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class="cur"><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class="cur"><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 09 篇</p>
+      <h1>IDE 扩展（VS Code 等）</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="08-cli.html">08 命令行 CLI 上手</a> 带你在终端里把 <code>codex</code> 敲熟了。这一篇把 Codex 搬进 VS Code——同一个代理、同一份配置，换成有图形界面、能并排看 diff 的玩法。下一篇 <a href="10-cloud.html">10 云端 Codex Cloud</a> 再把活儿外包到云上跑。</p>
+</blockquote>
+<p>先还原一段我上个月跟同事的真实对话。</p>
+<blockquote>
+<p>同事：「我在 VS Code 里搜 <code>Codex</code>，咋一个官方的都搜不到？跳出来一堆名字带 codex 的小插件。」
+我：「你搜错关键词了，官方扩展不叫 Codex，它的 ID 是 <code>openai.chatgpt</code>。」
+同事：「啥？OpenAI 把 Codex 的扩展叫 ChatGPT？这谁猜得到。」
+我：「就这一个名字，我也卡过五分钟。认 publisher 是 OpenAI 的那条，装就对了。」</p>
+</blockquote>
+<p>说白了，<strong>Codex 的 IDE 扩展第一道坎不在用，在「找对它」</strong>——名字反直觉、Cursor 里默认还藏在折叠的扩展栏里。这篇把这些反直觉的点提前给你标出来，再把图形界面相比 CLI 真正爽的那几样讲透。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>在 VS Code / Cursor / Windsurf 里装上 Codex 扩展的完整步骤，外加「搜不到 / 图标找不到」的排查清单</li>
+<li>编辑器上下文（<code>@file</code>、选中代码自动喂）、三档审批模式（approval mode）、模型与思考深度切换这几个图形界面爽点怎么用</li>
+<li>一张「扩展 vs CLI vs 桌面 App 该用哪个」的对照表，外加扩展独有的斜杠命令和可自定义的快捷键</li>
+</ul>
+<hr>
+<h2>01 先搞清楚：扩展、CLI、桌面 App 是什么关系</h2>
+<p>「我前面已经会用终端里的 <code>codex</code>、桌面 App 也装了，还要不要再来个扩展？」先给结论：<strong>扩展不是第四个新工具，它就是把 Codex CLI 套了一层编辑器界面</strong>。官方说得很直白——IDE 扩展「用的是和 Codex CLI 同一个代理，共享同一份配置」。你在 <code>~/.codex/config.toml</code> 里调好的模型、沙箱、审批策略，扩展全部照单继承；你在 CLI 里登录、写的 <code>AGENTS.md</code>，扩展这边一样认。</p>
+<p><strong>类比：同一辆车，方向盘和遥控器两套操控。</strong> CLI 是你坐进驾驶座握方向盘——直接、全功能、什么挡都能挂；扩展是配套的遥控器，让你不用钻进驾驶座，在编辑器里点几下就把车开起来，还能在大屏上实时看车况（并排 diff）。<strong>发动机、油箱、行车记录是同一套</strong>——你换哪个操控，车还是那辆车。桌面 App（前面 03、07 篇讲过）则是同款车的另一个独立外壳，适合不想碰编辑器、要多任务并排盯的人。</p>
+<p>那到底什么时候用哪个？我用下来的判断，整理成一张表：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>CLI（终端）</th>
+<th>IDE 扩展</th>
+<th>桌面 App</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>平时就泡在 VS Code / Cursor 里写代码</td>
+<td>凑合</td>
+<td>✅ 最顺，代码上下文开箱即喂</td>
+<td>要切窗口</td>
+</tr>
+<tr>
+<td>写脚本、批量自动化、SSH 上服务器干活</td>
+<td>✅ 唯一选择</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>不想碰命令行、要多任务并排盯</td>
+<td>❌ 劝退</td>
+<td>一般</td>
+<td>✅ 最舒服</td>
+</tr>
+<tr>
+<td>看改动 diff、选中某段代码直接问</td>
+<td>文本 diff，将就</td>
+<td>✅ 原生并排 diff</td>
+<td>✅ 可视化</td>
+</tr>
+<tr>
+<td>想用扩展里没有的全部 CLI 能力</td>
+<td>✅ 全</td>
+<td>在内置终端跑 <code>codex</code> 即可</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<p>一句话：<strong>写代码、审改动这类「跟文件打交道」的活，扩展明显更顺手</strong>；要批量跑命令或用扩展面板里没暴露的功能，直接在编辑器的集成终端敲 <code>codex</code>——它和扩展共享同一份配置和登录，无缝切。</p>
+<blockquote>
+<p>💡 一句话总结：扩展、CLI、桌面 App 是同一个 Codex 的三张脸，<strong>共享配置和登录、按手头的活随时切</strong>，不用纠结二选一。</p>
+</blockquote>
+<hr>
+<h2>02 安装：认准 <code>openai.chatgpt</code>，外加 Cursor 的「图标藏起来」坑</h2>
+<h3>支持哪些编辑器、哪些系统</h3>
+<p>官方明确：Codex IDE 扩展支持 <strong>VS Code 及其分支 Cursor、Windsurf</strong>（还有 VS Code Insiders），JetBrains 全家桶（IntelliJ、PyCharm、WebStorm、Rider 等）走的是另一个独立的 <strong>JetBrains 集成</strong>。系统层面 <strong>macOS、Windows、Linux 全支持</strong>；Windows 上既能用原生 Windows 沙箱直接跑，也能在需要 Linux 环境时切到 WSL2（细节见官方 Windows 指南）。</p>
+<blockquote>
+<p>国内提示：装扩展、用 ChatGPT 账号登录、之后让 Codex 干活都要连 OpenAI 服务，<strong>全程需要魔法上网</strong>，和终端版一致。</p>
+</blockquote>
+<h3>三种安装方式</h3>
+<p><strong>方式一：扩展市场搜（最稳，但要搜对名字）</strong></p>
+<p>在编辑器里按 <code>Cmd+Shift+X</code>（Mac）或 <code>Ctrl+Shift+X</code>（Windows / Linux）打开扩展视图。<strong>这里是全篇第一个坑</strong>：很多人顺手搜 <code>Codex</code>，结果跳出一堆第三方小插件，就是不见官方那条。原因是——<strong>官方扩展的 ID 是 <code>openai.chatgpt</code>，发布者（publisher）是 OpenAI</strong>。搜 <code>Codex</code> 或 <code>ChatGPT</code> 都行，但认准发布者是 <strong>OpenAI</strong> 的那条再点安装，别装成仿冒的。
+比如 VS Code 中搜 codex：
+<img src="assets/09-extension-marketplace.png" alt="VS Code 扩展市场搜 codex，认准发布者 OpenAI 的官方扩展"></p>
+<p><strong>方式二：点链接直装</strong></p>
+<p>开着编辑器时，点对应链接会直接跳到安装页：</p>
+<pre><code class="language-text">VS Code   : vscode:extension/openai.chatgpt
+Cursor    : cursor:extension/openai.chatgpt
+Windsurf  : windsurf:extension/openai.chatgpt
+</code></pre>
+<p><strong>方式三：命令行装（最快）</strong></p>
+<p>如果 <code>code</code> / <code>cursor</code> 命令行工具已经装好，一行搞定：</p>
+<pre><code class="language-bash">code --install-extension openai.chatgpt
+</code></pre>
+<p>Cursor 把 <code>code</code> 换成 <code>cursor</code> 即可。<strong>预期输出</strong>类似：</p>
+<pre><code class="language-text">Installing extensions...
+Extension &#39;openai.chatgpt&#39; was successfully installed.
+</code></pre>
+<blockquote>
+<p>⚠️ 上面那行扩展 ID <code>openai.chatgpt</code> 是官方写明的；这条安装命令我对照过官方仓库，ID 一致，可放心用。</p>
+</blockquote>
+<h3>装完图标找不到？分编辑器排查</h3>
+<p>官方说：装完后 <strong>Codex 会出现在编辑器侧边栏，VS Code 里默认在右侧</strong>。但不同编辑器表现不一样，照下面这张表对号入座：</p>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>你用的编辑器</th>
+<th>排查动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>装完没立刻看到 Codex</td>
+<td>VS Code</td>
+<td>官方建议：<strong>重启一下编辑器</strong>，再看右侧栏</td>
+</tr>
+<tr>
+<td>右侧栏空空的 / 找不到入口</td>
+<td>Cursor</td>
+<td>Cursor 的活动栏默认是横排，<strong>折叠项会把 Codex 藏起来</strong>——把它 pin 出来、调一下扩展顺序</td>
+</tr>
+<tr>
+<td>想把 Codex 挪回左边主侧栏</td>
+<td>VS Code</td>
+<td>直接把 Codex 图标<strong>拖回左侧活动栏</strong>即可</td>
+</tr>
+<tr>
+<td>想在 Cursor 里把它挪到右侧</td>
+<td>Cursor</td>
+<td>设置搜 <code>activity bar</code>、把朝向改成 <code>vertical</code>、重启，再拖到右侧，最后把朝向改回 <code>horizontal</code></td>
+</tr>
+</tbody></table>
+<p>我自己在 Cursor 里就栽过第二条：装完在右上角翻了半天没有 Codex，差点以为没装上，后来才发现它被折叠在活动栏的「更多」里——<strong>Cursor 的横排活动栏一挤就把后装的扩展收进折叠菜单</strong>，pin 出来就好了。这个坑 VS Code 用户碰不到，Cursor 用户基本人均踩一次。</p>
+<h3>第一次打开要登录</h3>
+<p>第一次点开 Codex 面板会提示登录，用 <strong>ChatGPT 账号</strong>或 <strong>API Key</strong> 二选一。官方特意说了一句省心的话：<strong>你的 ChatGPT 订阅本身就含 Codex 用量</strong>，所以多数人直接用 ChatGPT 账号登就行，不用额外配 API Key。具体哪档订阅给多少额度，看 04 篇，或以官方计费页为准。</p>
+<blockquote>
+<p>扩展是<strong>自动更新</strong>的；想手动确认版本，去编辑器的扩展页点一下检查更新即可。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：装扩展认准发布者 <strong>OpenAI</strong>、ID 是 <strong><code>openai.chatgpt</code></strong>；VS Code 装完重启就有、默认在右侧，<strong>Cursor 记得把被折叠的图标 pin 出来</strong>。</p>
+</blockquote>
+<hr>
+<h2>03 编辑器上下文：把「你说的是哪段代码」喂准</h2>
+<p>让 Codex 干活最大的浪费，是它「不知道你指的是哪个文件、哪段代码」于是满项目瞎翻。<strong>扩展相比 CLI 最大的便利，就是它能直接借用编辑器里的上下文。</strong> 官方原话：当 Codex 拿到了你打开的文件和选中的代码，<strong>你能写更短的提示，拿到更快、更相关的结果</strong>。</p>
+<p><strong>类比：当面指着图纸说话，而不是打电话描述。</strong> 你跟装修师傅打电话说「客厅那面墙上靠窗那块」，对方还得脑补半天、容易理解错；当面把图纸摊开，手指头往上一戳「这儿」，一秒到位。CLI 像打电话（你得用文字把位置描述清楚），扩展像当面指图纸（选中、<code>@</code> 一下，位置就喂过去了）。</p>
+<p>具体两招：</p>
+<h3>第一招：<code>@file</code> 提及文件</h3>
+<p>在提示框里用 <code>@</code> 跟上文件名，Codex 就会把那份文件当参考。官方给的示范长这样：</p>
+<pre><code class="language-text">用 @example.tsx 当参考，给 app 加一个叫 &quot;Resources&quot; 的新页面，
+内容是 @resources.ts 里定义的资源列表
+</code></pre>
+<p>一句话里 <code>@</code> 了两个文件——一个当样板、一个当数据源，Codex 不用猜你说的是哪俩文件。</p>
+<h3>第二招：选中代码 + Auto Context，自动喂</h3>
+<p>这招比 <code>@</code> 还省事：<strong>直接在编辑器里选中一段代码</strong>，它就进了当前对话的上下文。扩展还有个叫 <strong>Auto Context（自动上下文）</strong> 的开关，开着的时候会<strong>自动把你最近打开的文件、编辑器上下文</strong>带进去——你可以用斜杠命令 <code>/auto-context</code> 随时开关它（斜杠命令清单见第 06 节）。</p>
+<p>除了选中自动喂，官方还提供两个把上下文「钉」进对话的命令，可以在命令面板里跑、也能绑快捷键：</p>
+<table>
+<thead>
+<tr>
+<th>命令 ID</th>
+<th>干啥</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>chatgpt.addToThread</code></td>
+<td>把<strong>选中的那段代码</strong>加进当前对话当上下文</td>
+</tr>
+<tr>
+<td><code>chatgpt.addFileToThread</code></td>
+<td>把<strong>整个文件</strong>加进当前对话当上下文</td>
+</tr>
+</tbody></table>
+<p>我自己排查一个 React 组件的样式 bug 时最爱用第二招：选中那段可疑的 JSX，直接问「这块为什么渲染错位」，不用打一个字去描述它在哪——<strong>它两轮就定位到是父容器的 flex 设置串了</strong>。要是用 CLI，光把那段嵌套结构用文字讲清楚就得敲半天。</p>
+<blockquote>
+<p>⚠️ 想拖图片进提示框当参考？官方提醒：<strong>拖放图片时按住 <code>Shift</code></strong>，否则 VS Code 会拦住扩展的拖放（这点和它处理附件的机制有关）。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：<code>@file</code> 喂文件、选中代码 + Auto Context 自动喂上下文——<strong>把「你说的是哪段」这个最大的猜测成本直接干掉</strong>，提示能写得更短、结果更准。</p>
+</blockquote>
+<hr>
+<h2>04 三档审批模式：让它先聊方案，还是放手让它干</h2>
+<p>这一节是扩展里你最该搞清楚的开关。还记得 02 篇讲的「沙箱 + 审批」吗？在 CLI 里它们是两个维度分开拧；<strong>在扩展里，官方把它简化成了输入框下方一个三档的「审批模式（approval mode）」切换器</strong>，点一下就换，不用碰配置文件。</p>
+<p><img src="assets/09-approval-switcher.png" alt="Codex 扩展输入框下方的三档审批模式切换器"></p>
+<p>官方定义的三档是这样的：</p>
+<table>
+<thead>
+<tr>
+<th>审批模式</th>
+<th>Codex 的行为</th>
+<th>什么时候用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>Agent</code></strong>（默认）</td>
+<td>在工作目录内<strong>自动</strong>读文件、改文件、跑命令；<strong>要出工作目录或要联网，才停下来问你</strong></td>
+<td>日常开发的主力档</td>
+</tr>
+<tr>
+<td><strong><code>Chat</code></strong></td>
+<td>只聊天、只出主意，<strong>动手前先规划</strong>，不直接改</td>
+<td>想先讨论方案、读代码、做审查，别动我东西</td>
+</tr>
+<tr>
+<td><strong><code>Agent (Full Access)</code></strong></td>
+<td>读、改、跑命令、联网<strong>全部免审批</strong></td>
+<td>完全信任的环境，<strong>官方原话「使用前务必谨慎」</strong></td>
+</tr>
+</tbody></table>
+<p><strong>类比：实习生的三种授权级别。</strong> <code>Chat</code> 是「只许你出方案、动手前先报备」；<code>Agent</code> 是「桌面这一摊你随便收拾，但要去别的部门或对外联系，先来问我一声」；<code>Agent (Full Access)</code> 是「全公司随你跑、对外联系也不用报备」——最后这档名字里带 Full Access 不是摆设，官方专门叮嘱了「谨慎」。</p>
+<p>几个你真会遇到的场景：</p>
+<ul>
+<li><strong>接手陌生项目、只想让它先讲讲架构</strong>：切 <code>Chat</code>，它只读不改，给你出方案，你心里有底了再放它动手。</li>
+<li><strong>日常增删改查</strong>：用默认的 <code>Agent</code> 就好——工作区内的活它自己干，要 <code>pip install</code> 联网、要碰工作区外的文件，它会停下来问你。</li>
+<li><strong>跑一个你 100% 确定无害的批处理</strong>：临时切 <code>Agent (Full Access)</code> 省得一路点同意，<strong>但跑完记得切回来</strong>。</li>
+</ul>
+<p>这里我有个真实教训。今年四月我图省事，让 Codex 给一个模块批量补日志时全程挂着接近完全放开的档，它顺手把好几个文件的 import 顺序也「优化」了一遍，我回头花了十几分钟才理清它到底动了哪些地方。<strong>从那以后我立了条规矩：默认就停在 <code>Agent</code>，只有自己百分百确定的活才临时升到 Full Access，干完立刻降回来。</strong> 多文件大改动前，宁可先用 <code>Chat</code> 让它把方案讲一遍，在动手前就框住它，比事后收拾干净得多。</p>
+<blockquote>
+<p>💡 一句话总结：扩展把权限收成输入框下一个三档开关——<strong><code>Chat</code> 只谋不动、<code>Agent</code> 工作区内自动出圈才问（默认）、<code>Agent (Full Access)</code> 全放开（慎用）</strong>；大改动前先 <code>Chat</code> 看方案。</p>
+</blockquote>
+<hr>
+<h2>05 切模型 + 调思考深度：贵的留给硬活</h2>
+<p>扩展把「换大脑」和「调它想多深」也做成了点几下的事，这俩都在<strong>输入框下方的切换器</strong>里。</p>
+<p><strong>先说切模型。</strong> Codex 默认用官方推荐的模型（当前是 GPT 系列，具体型号会随版本变，以你本地切换器里实际显示为准）。点输入框下的模型切换器就能换——<strong>不同模型各有所长</strong>，简单活给轻量模型省额度，复杂活给旗舰模型保质量。</p>
+<p><strong>再说思考深度（reasoning effort，推理强度）</strong>，这是 CLI 篇也提过的概念。官方说它控制「Codex 回你之前先想多久」，在同一个模型切换器里选 <strong><code>low</code> / <code>medium</code> / <code>high</code></strong> 三档：</p>
+<p><strong>类比：考试时给每道题分配的思考时间。</strong> <code>low</code> 像扫一眼就作答的送分题，快但容易毛糙；<code>high</code> 像压轴大题，让它多推几步、想充分，慢但稳。官方给的建议很实在——<strong>从 <code>medium</code> 起步，只有遇到真需要深想的硬骨头再切 <code>high</code></strong>。理由也写明了：拉高思考深度更费 token、还更快吃掉你的速率限制，尤其配高能力模型时。</p>
+<p>我的用法跟官方建议基本一致：<strong>日常 <code>medium</code> 一把过</strong>，又快又省；只有那种要读懂一堆文件、跨模块推理的疑难任务，才临时拉到 <code>high</code>。一刀切全程拉满纯属浪费——你以为是「保险起见」，其实是又慢又烧额度。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>切模型</th>
+<th>调思考深度（effort）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在哪切</td>
+<td>输入框下方切换器</td>
+<td>同一个切换器，每个模型可单独设</td>
+</tr>
+<tr>
+<td>选什么</td>
+<td>轻量 / 旗舰等（以本地显示为准）</td>
+<td><code>low</code> / <code>medium</code> / <code>high</code></td>
+</tr>
+<tr>
+<td>怎么权衡</td>
+<td>简单活省额度、复杂活保质量</td>
+<td>越高越深越慢越费 token</td>
+</tr>
+<tr>
+<td>我的默认</td>
+<td>日常用默认模型</td>
+<td><code>medium</code>，硬活临时拉 <code>high</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：模型和思考深度都在输入框下方点几下就切——<strong>简单活用轻量模型、日常思考深度给 <code>medium</code></strong>，把贵的旗舰模型和 <code>high</code> 留给真正的硬活，别一把梭。</p>
+</blockquote>
+<hr>
+<h2>06 斜杠命令和云端委派：扩展里的两件趁手家伙</h2>
+<h3>扩展专属的斜杠命令</h3>
+<p>在 Codex 聊天框里敲 <code>/</code>，会弹出一串斜杠命令——<strong>注意，这套命令和你在网上老教程里看到的 <code>/explain</code>、<code>/fix</code>、<code>/test</code> 不是一回事</strong>。官方实际提供的是下面这些（控制 Codex 的行为、在本地和云端之间切、查状态）：</p>
+<table>
+<thead>
+<tr>
+<th>斜杠命令</th>
+<th>干啥</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/status</code></td>
+<td>查当前对话的 thread ID、上下文用量、速率限制</td>
+</tr>
+<tr>
+<td><code>/auto-context</code></td>
+<td>开 / 关 Auto Context（自动带上最近文件和编辑器上下文）</td>
+</tr>
+<tr>
+<td><code>/local</code></td>
+<td>切到<strong>本地模式</strong>，任务在你工作区跑</td>
+</tr>
+<tr>
+<td><code>/cloud</code></td>
+<td>切到<strong>云端模式</strong>，任务丢到远程跑（需要云端权限）</td>
+</tr>
+<tr>
+<td><code>/cloud-environment</code></td>
+<td>选用哪个云端环境（仅云端模式下可用）</td>
+</tr>
+<tr>
+<td><code>/review</code></td>
+<td>进入代码审查模式，审未提交的改动或跟某个基准分支对比</td>
+</tr>
+<tr>
+<td><code>/goal</code></td>
+<td>给 Codex 设一个<strong>持续目标</strong>，让它一直朝这个方向干</td>
+</tr>
+<tr>
+<td><code>/feedback</code></td>
+<td>打开反馈对话框，提交反馈（可选附日志）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚠️ 网上不少 Codex 教程列的斜杠命令是 <code>/explain</code>、<code>/fix</code>、<code>/test</code> 这类——<strong>这些在官方文档里查不到</strong>，别照抄。以编辑器里敲 <code>/</code> 实际弹出的为准，上面这张表来自官方斜杠命令页。</p>
+</blockquote>
+<p>补一句：<code>/goal</code> 万一在列表里不出现，是因为它要先开个功能开关——在 <code>~/.codex/config.toml</code> 里写 <code>[features]</code> 段下 <code>goals = true</code>，或者直接让 Codex 帮你跑 <code>codex features enable goals</code>（以官方为准）。</p>
+<h3>把长任务委派到云端（实验性体感，按官方为准）</h3>
+<p>扩展有个很爽的能力：<strong>手头一个又慢又长的活，不用占着你本机，直接丢到 Codex 云端跑，还能在编辑器里盯进度、看结果。</strong> 官方给的步骤是：</p>
+<ol>
+<li>先在 ChatGPT 的 Codex 设置里建好一个<strong>云端环境</strong>。</li>
+<li>在扩展里选好环境，点 <strong>Run in the cloud</strong>。</li>
+</ol>
+<p>它还有个贴心细节：你可以让云端<strong>从 <code>main</code> 起跑</strong>（适合开个全新的点子），也可以<strong>带着你本地的改动起跑</strong>（适合收尾一个进行到一半的活）。更妙的是——<strong>从本地对话发起云端任务时，Codex 会记住这段对话的上下文，能接着你刚才聊的往下干</strong>；云端跑完，你又能把改动拉回本地，应用 diff、测试、收尾。</p>
+<p>我自己的常用搭配：手头小修小补在扩展里当场盯着改，「把整套测试跑一遍再修好所有失败用例」这种又慢又长的活，<code>/cloud</code> 丢上去挂着，接杯咖啡回来收结果。云端这块是 10 篇的主角，这里你只要知道「扩展里一键就能把活外包出去」。</p>
+<blockquote>
+<p>💡 一句话总结：扩展的斜杠命令是 <code>/status</code>、<code>/local</code>、<code>/cloud</code>、<code>/review</code> 这套<strong>官方清单</strong>（不是 <code>/explain</code> <code>/fix</code>），其中 <code>/cloud</code> 能把长任务一键委派到云端跑、还带着上下文——别被老教程的假命令带偏。</p>
+</blockquote>
+<hr>
+<h2>07 动手环节：10 分钟在 VS Code 里跑通全流程</h2>
+<p>下面从零走一遍，每步都给了「你该看到什么」，照着做就能自验装没装对、会不会用。<strong>全程不依赖你已有的复杂项目，新建个空文件夹就行。</strong></p>
+<p><strong>第 0 步：建个最小练手项目，用 VS Code 打开</strong></p>
+<p>在终端跑（Mac / Linux；Windows 用 PowerShell，把 <code>mkdir -p</code> 换成 <code>mkdir</code>）：</p>
+<pre><code class="language-bash">mkdir -p ~/codex-ide-demo &amp;&amp; cd ~/codex-ide-demo
+printf &#39;def greet(name):\n    return &quot;Hello &quot; + name\n\nprint(greet(&quot;world&quot;))\n&#39; &gt; demo.py
+code .
+</code></pre>
+<p><strong>预期</strong>：VS Code 打开这个文件夹，左侧资源管理器里能看到 <code>demo.py</code>。（没装 <code>code</code> 命令行工具就手动打开这个文件夹。）</p>
+<p><strong>第 1 步：打开 Codex 面板并登录</strong></p>
+<p>VS Code 装完扩展后，Codex 默认在<strong>右侧侧边栏</strong>；没看到就按官方说的重启一下编辑器（Cursor 用户记得把折叠的图标 pin 出来）。点开 Codex 面板，首次出现登录提示就用 <strong>ChatGPT 账号</strong>登录、在浏览器完成授权。</p>
+<p><strong>预期</strong>：右侧出现 Codex 对话面板，顶部不再提示未登录，输入框下方能看到模型切换器和审批模式切换器。</p>
+<p><strong>第 2 步：选中代码 + 让它改，看并排 diff</strong></p>
+<p>在 <code>demo.py</code> 里选中 <code>greet</code> 函数那两行（确认审批模式停在默认的 <code>Agent</code>），然后在输入框里打：</p>
+<pre><code class="language-text">帮我把它改成用 f-string，并加上类型注解
+</code></pre>
+<p><strong>预期</strong>：Codex 没反问你「哪个函数」（说明选中上下文喂进去了），直接给出改动——把 <code>return &quot;Hello &quot; + name</code> 改成 <code>return f&quot;Hello {name}&quot;</code>、函数签名补上类型注解，并以并排 diff 的形式让你看清增删。看明白再应用。</p>
+<p><strong>第 3 步：切到 <code>Chat</code> 模式，让它先出方案</strong></p>
+<p>点输入框下方的审批模式切换器，切到 <strong><code>Chat</code></strong>，然后给个稍大的需求：</p>
+<pre><code class="language-text">给这个文件加上命令行参数支持，让用户能从终端传入名字，先说说你打算怎么改
+</code></pre>
+<p><strong>预期</strong>：因为在 <code>Chat</code> 模式，Codex <strong>不直接改文件</strong>，而是先给你讲方案（比如打算引入 <code>argparse</code>、改哪几处）。你觉得 OK，再切回 <code>Agent</code> 让它动手。</p>
+<p><strong>第 4 步：用 <code>/status</code> 看一眼当前状态</strong></p>
+<p>在输入框敲：</p>
+<pre><code class="language-text">/status
+</code></pre>
+<p><strong>预期</strong>：它列出当前对话的 thread ID、上下文用量、速率限制这些信息。跑到这步，<strong>编辑器上下文、并排 diff、审批模式切换、斜杠命令四个核心你就都用过一遍了</strong>。</p>
+<hr>
+<h2>08 顺手收藏：自定义快捷键和「切回 CLI」</h2>
+<h3>给 Codex 命令绑快捷键</h3>
+<p>Codex 的扩展命令默认大多<strong>没绑快捷键</strong>（除了新建对话），但都能自己绑。官方给的两条路：一是点 Codex 聊天框里的设置图标、选 <strong>Keyboard shortcuts</strong>；二是走命令面板自己配——</p>
+<ol>
+<li>打开命令面板（<code>Cmd+Shift+P</code> / <code>Ctrl+Shift+P</code>）。</li>
+<li>跑 <strong>Preferences: Open Keyboard Shortcuts</strong>。</li>
+<li>搜 <code>Codex</code> 或具体命令 ID（比如 <code>chatgpt.newChat</code>），点铅笔图标，敲你想要的组合键。</li>
+</ol>
+<p>可绑的命令（来自官方，平台差异已标）：</p>
+<table>
+<thead>
+<tr>
+<th>命令 ID</th>
+<th>默认快捷键</th>
+<th>干啥</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>chatgpt.newChat</code></td>
+<td>Mac <code>Cmd+N</code> / Win·Linux <code>Ctrl+N</code></td>
+<td>新建一个对话（thread）</td>
+</tr>
+<tr>
+<td><code>chatgpt.openSidebar</code></td>
+<td>无（可自绑）</td>
+<td>打开 Codex 侧边栏面板</td>
+</tr>
+<tr>
+<td><code>chatgpt.newCodexPanel</code></td>
+<td>无（可自绑）</td>
+<td>新建一个 Codex 面板</td>
+</tr>
+<tr>
+<td><code>chatgpt.addToThread</code></td>
+<td>无（可自绑）</td>
+<td>把选中代码加进当前对话</td>
+</tr>
+<tr>
+<td><code>chatgpt.addFileToThread</code></td>
+<td>无（可自绑）</td>
+<td>把整个文件加进当前对话</td>
+</tr>
+<tr>
+<td><code>chatgpt.implementTodo</code></td>
+<td>无（可自绑）</td>
+<td>让 Codex 处理选中的 TODO 注释</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚠️ 网上老教程列的 <code>Cmd+Shift+C</code> 打开面板、<code>Cmd+Shift+E</code> 解释代码这类快捷键，官方命令表里<strong>没有</strong>——别当默认值记，一切以编辑器里的 Keyboard Shortcuts 实际绑定为准。</p>
+</blockquote>
+<h3>几个值得知道的扩展设置</h3>
+<p>扩展自己的设置不多，<strong>真正影响行为的（模型、审批、沙箱）都在共享的 <code>~/.codex/config.toml</code> 里改</strong>（这点官方反复强调，见 02 篇和配置篇）。编辑器里能调的主要是体验项，挑几个常用的：</p>
+<table>
+<thead>
+<tr>
+<th>设置项</th>
+<th>干啥</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>chatgpt.openOnStartup</code></td>
+<td>扩展启动好后自动聚焦 Codex 侧边栏</td>
+</tr>
+<tr>
+<td><code>chatgpt.commentCodeLensEnabled</code></td>
+<td>在 TODO 注释上方显示 CodeLens，点一下就让 Codex 来处理</td>
+</tr>
+<tr>
+<td><code>chatgpt.localeOverride</code></td>
+<td>指定 Codex 界面语言，留空自动检测</td>
+</tr>
+<tr>
+<td><code>chatgpt.runCodexInWindowsSubsystemForLinux</code></td>
+<td><strong>Windows 专属</strong>：可用时在 WSL 里跑 Codex（仓库和工具链在 WSL2 时用它），改这项会重载 VS Code</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Windows 用户单独注意 <code>runCodexInWindowsSubsystemForLinux</code> 这一项：你的代码和工具链如果都在 WSL2 里，开它；否则 Codex 默认能用 Windows 原生沙箱直接跑。改完会自动重载窗口生效（以官方为准）。</p>
+</blockquote>
+<h3>想用回纯 CLI 的味道？</h3>
+<p>太简单了：在编辑器里打开<strong>集成终端</strong>（<code>Cmd+`</code> / <code>Ctrl+`</code>），直接敲 <code>codex</code> 就行——<strong>它和扩展共享同一份配置、同一个登录</strong>，扩展面板里没暴露的 CLI 能力照样能用。图形和命令行，在同一个 VS Code 窗口里随你切。</p>
+<blockquote>
+<p>💡 一句话总结：Codex 命令默认大多没绑键、但都能在 <strong>Keyboard Shortcuts</strong> 里自绑；<strong>行为类设置在 <code>~/.codex/config.toml</code>、体验类设置在编辑器里</strong>；想回 CLI 味，集成终端敲 <code>codex</code> 即可。</p>
+</blockquote>
+<hr>
+<h2>09 小结</h2>
+<p>这一篇把 Codex 从终端搬进了 VS Code，核心就这几件事：</p>
+<ul>
+<li><strong>扩展 ≠ 新工具</strong>：它用的是和 CLI 同一个代理、共享 <code>~/.codex/config.toml</code> 和登录，写代码用扩展、要 CLI 专属能力就切集成终端。</li>
+<li><strong>装好的第一关是「找对它」</strong>：官方扩展 ID 是 <strong><code>openai.chatgpt</code></strong>、发布者是 <strong>OpenAI</strong>；VS Code 装完重启就在右侧，<strong>Cursor 记得把折叠的图标 pin 出来</strong>。</li>
+<li><strong>图形界面三个爽点</strong>：编辑器上下文（<code>@file</code> / 选中代码自动喂）、三档审批模式（<code>Chat</code> / <code>Agent</code> / <code>Agent (Full Access)</code>）、模型与思考深度一键切。</li>
+<li><strong>别被假命令带偏</strong>：斜杠命令认 <code>/status</code> <code>/local</code> <code>/cloud</code> <code>/review</code> 这套官方清单，不是 <code>/explain</code> <code>/fix</code>；快捷键以 Keyboard Shortcuts 实际绑定为准。</li>
+</ul>
+<p>你现在应该能独立装好扩展、用 <code>@</code> 和选中喂准上下文、按任务在三档审批模式间切、用并排 diff 审改动，并知道把长任务一键 <code>/cloud</code> 委派出去。<strong>这套流程跑顺了，日常在编辑器里写代码就能稳定靠它。</strong></p>
+<hr>
+<p>下一篇 <strong>10 云端 Codex Cloud</strong>——这一篇结尾那个 <code>/cloud</code> 你只是浅尝了一下，下一篇正式把它讲透：怎么在浏览器里把任务完全外包给 OpenAI 的云环境、它怎么拉你 GitHub 的仓库关起门来改、改完怎么给你交 diff 甚至直接提 PR。留个问题先想想：手头哪些活是你最想「丢出去挂着、回头收结果」的？</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/08-cli.html"><span class="mono">← 上一篇 · 08</span><b>命令行 CLI 上手</b></a>
+  <a class="pg nx" href="/library/codex/10-cloud.html"><span class="mono">下一篇 · 10 →</span><b>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

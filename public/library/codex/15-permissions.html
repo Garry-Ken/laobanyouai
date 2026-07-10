@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>15 权限、沙箱与审批：放多松、收多紧，自己拧 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 15 篇:权限、沙箱与审批：放多松、收多紧，自己拧。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/15-permissions.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class="cur"><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class="cur"><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 15 篇</p>
+      <h1>权限、沙箱与审批：放多松、收多紧，自己拧</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="14-workflows.html">14 · 常见工作流</a> 把 Codex 揉进了你的日常开发节奏。这一篇换个维度——管的不是「它怎么干活」，而是「它敢动多大」：从一行命令都要问你，到全自动放飞，<strong>沙箱和审批这两个旋钮到底怎么拧、什么场景拧到哪一档，这一篇给你拧明白</strong>。</p>
+</blockquote>
+<p>说个我去年冬天干的蠢事。那会儿我刚把 Codex 配熟，图省事在 <code>~/.codex/config.toml</code> 里把 <code>sandbox_mode</code> 写死成了 <code>danger-full-access</code>，理由是「弹窗烦」。结果某天我在一个<strong>没初始化 Git 的临时目录</strong>里让它「清一下没用的文件」，它真就在我整个主目录里翻了起来——因为完全访问模式下根本没有「工作区」这道圈拦着它。我手忙脚乱按 <code>Esc</code> 打断，那一刻后背是凉的。</p>
+<p>后来复盘，问题不在 Codex，在我：<strong>我把一个该用在隔离容器里的危险配置，写成了全局默认</strong>。它没乱，是我把缰绳松到了不该松的地方。</p>
+<p>第 02 篇我们已经用「儿童乐园围栏」和「门禁 + 保安」把沙箱、审批这俩概念讲透了——<strong>这一篇不重复定义</strong>，只干一件事：手把手教你<strong>怎么设、怎么选</strong>。哪一档配哪一档、命令行临时怎么改、写进配置文件怎么持久化、危险模式的红线划在哪。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>三种沙箱模式（<code>read-only</code> / <code>workspace-write</code> / <code>danger-full-access</code>）和三种审批策略（<code>untrusted</code> / <code>on-request</code> / <code>never</code>）怎么两两组合，一张表对号入座</li>
+<li>命令行用 <code>--sandbox</code> / <code>--ask-for-approval</code> 临时调、<code>config.toml</code> 里写死当默认，两种姿势都给你模板</li>
+<li>Codex 启动时<strong>默认给你哪一档</strong>（跟你这文件夹有没有 Git 有关），以及为什么</li>
+<li><code>workspace-write</code> 模式下网络默认是<strong>关着</strong>的、<code>.git</code> 是<strong>只读保护</strong>的——这些容易踩的默认值</li>
+<li><code>--yolo</code>（完全放开）的红线到底在哪，本机和生产机为什么一律免谈</li>
+</ul>
+<blockquote>
+<p>⚠️ 下文凡涉及具体命令、配置项、默认值，都以 Codex <a href="https://developers.openai.com/codex/agent-approvals-security">官方文档</a> 为准；版本号、模型名这类会随更新变的东西，看到时以你本地实际显示为准。文中提到的「权限配置档（permission profiles）」是官方标注的 <strong>Beta 功能，可能变化</strong>，第 05 节会单独说。</p>
+</blockquote>
+<hr>
+<h2>01 先理清：你要拧的是「两个独立旋钮」</h2>
+<p>先把最容易绕晕的一件事说死：<strong>沙箱和审批不是一个东西的两档，是两个互相独立的旋钮，各管各的。</strong></p>
+<p>第 02 篇打过比方了，这里只补一句<strong>怎么落到配置上</strong>——它俩在 <code>config.toml</code> 里是两个分开的键，命令行里是两个分开的参数：</p>
+<table>
+<thead>
+<tr>
+<th>旋钮</th>
+<th>管什么</th>
+<th>配置键</th>
+<th>命令行参数</th>
+<th>简写</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>沙箱模式（sandbox mode，文件系统与网络访问边界）</strong></td>
+<td>能动多大</td>
+<td><code>sandbox_mode</code></td>
+<td><code>--sandbox</code></td>
+<td><code>-s</code></td>
+</tr>
+<tr>
+<td><strong>审批策略（approval policy，每步操作是否暂停等待人工确认）</strong></td>
+<td>问不问你</td>
+<td><code>approval_policy</code></td>
+<td><code>--ask-for-approval</code></td>
+<td><code>-a</code></td>
+</tr>
+</tbody></table>
+<p>为什么强调「独立」？因为新手最常见的误解是「我开了完全访问，是不是就不弹窗了」——<strong>不是</strong>。完全访问（沙箱旋钮拧到底）和不弹窗（审批旋钮拧到底）是两件事，你完全可以「能动整台机器、但每步都问你」，也可以「只能读、但闷头读不打扰」。这俩组合出来的效果，才是你实际感受到的「松紧」。</p>
+<p><strong>类比：开车的「档位」和「限速」。</strong> 沙箱像你挂的<strong>档位</strong>——挂 P 档（<code>read-only</code>）车根本不动，挂 D 档（<code>workspace-write</code>）能在路上跑，挂越野档（<code>danger-full-access</code>）连沟里都能下；审批像你给自己设的<strong>限速提醒</strong>——可以「超速才响」（<code>on-request</code>）、可以「见个生人就响」（<code>untrusted</code>）、也可以「关掉提醒闷头开」（<code>never</code>）。<strong>档位决定车能去哪，限速决定啥时候提醒你</strong>——两套互不替代。</p>
+<p>几个你真会遇到的场景，帮你建立「这俩分开」的体感：</p>
+<ul>
+<li>你想让它<strong>只读代码、写份分析</strong>：沙箱拧到 <code>read-only</code>，审批随便——反正它也写不了东西，弹不弹窗无所谓。</li>
+<li>你想让它<strong>在项目里放手改、但出了项目得喊你</strong>：沙箱 <code>workspace-write</code> + 审批 <code>on-request</code>，这是日常黄金组合。</li>
+<li>你在<strong>隔离容器里跑批量任务、彻底别烦我</strong>：沙箱 <code>danger-full-access</code> + 审批 <code>never</code>，俩旋钮都拧到底——但<strong>只能在容器里</strong>，下面会反复强调。</li>
+</ul>
+<blockquote>
+<p>💡 一句话总结：沙箱（<code>--sandbox</code>）管「能动多大」、审批（<code>--ask-for-approval</code>）管「问不问你」，<strong>是两个独立旋钮、在配置里也是两个分开的键</strong>；你感受到的松紧，是这俩组合出来的。</p>
+</blockquote>
+<p><img src="assets/15-two-dimensions@2x.png" alt="权限的两个旋钮：沙箱档 × 审批档"></p>
+<p>这张图把两个旋钮摆成了一张二维表：横轴是沙箱模式（从严的 <code>read-only</code> 到松的 <code>danger-full-access</code>），纵轴是审批策略（从最谨慎的 <code>untrusted</code> 到不打扰的 <code>never</code>），每个交叉格就是一种实际松紧——蓝框那格 <code>workspace-write + on-request</code> 是日常黄金组合，右下角红框那格 <code>danger-full-access + never</code>（也就是 <code>--yolo</code>）则只该在隔离容器里碰。</p>
+<hr>
+<h2>02 三种沙箱模式：能动多大，这一档说了算</h2>
+<p>沙箱旋钮一共三档，官方原话定义很干脆，我用「能不能改文件 / 能不能联网 / 配哪种活」三栏给你列清楚——<strong>这是本节最该记住的一张表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>沙箱模式</th>
+<th>能改文件吗</th>
+<th>能联网吗</th>
+<th>最适合的活</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>read-only</code>（只读）</td>
+<td>❌ 不能（要改得先批）</td>
+<td>❌</td>
+<td>审代码、出方案、聊规划，「别动我东西」</td>
+</tr>
+<tr>
+<td><code>workspace-write</code>（工作区可写）</td>
+<td>✅ 仅限工作区内</td>
+<td>❌ <strong>默认关</strong>，得手动开</td>
+<td><strong>日常开发的默认档</strong>，低打扰</td>
+</tr>
+<tr>
+<td><code>danger-full-access</code>（完全访问）</td>
+<td>✅ 整台机器</td>
+<td>✅</td>
+<td>隔离容器 / VM，<strong>名字带 danger 不是吓你的</strong></td>
+</tr>
+</tbody></table>
+<p>几个<strong>最容易想当然写错</strong>的细节，挑出来钉死：</p>
+<p><strong>第一，<code>workspace-write</code> 模式下网络默认是关着的。</strong> 这点反直觉——你以为「能写文件了应该也能联网装依赖了吧」，<strong>不是</strong>。官方写得很明白：默认 <code>workspace-write</code> 把网络访问关着，要联网得自己在配置里开。想开网络，在 <code>config.toml</code> 里加这么一段：</p>
+<pre><code class="language-toml">[sandbox_workspace_write]
+network_access = true
+</code></pre>
+<p>我自己第一次让 Codex 在 <code>workspace-write</code> 下 <code>npm install</code>，它卡住报了一堆网络错，我还以为是代理问题，折腾半天才想起来——<strong>是沙箱默认没给它联网权限</strong>。记住这条，能省你一晚上。</p>
+<p><strong>第二，工作区不只是「当前目录」。</strong> 官方说工作区还<strong>自动包含临时目录</strong>（比如 <code>/tmp</code>）。具体哪些目录在工作区内，进会话敲 <code>/status</code> 一看便知，别瞎猜。预期输出大致长这样：</p>
+<pre><code class="language-text">Sandbox: workspace-write
+Approval: on-request
+Workspace directories:
+  /Users/you/myproject
+  /tmp
+</code></pre>
+<p>看到 <code>Sandbox</code> 和 <code>Approval</code> 两行，就是当前档位；<code>Workspace directories</code> 列出的就是它能写的范围。</p>
+<p><strong>第三，就算开了 <code>workspace-write</code>，有几个目录依然是「只读保护」的。</strong> 这是 Codex 特意设的安全网——在可写的工作区里，下面这些路径仍然碰不得：</p>
+<table>
+<thead>
+<tr>
+<th>受保护路径</th>
+<th>为什么保护</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;工作区&gt;/.git</code></td>
+<td>防止它误改 Git 历史、把你仓库搞乱</td>
+</tr>
+<tr>
+<td><code>&lt;工作区&gt;/.agents</code></td>
+<td>防止它偷偷改自己的代理配置</td>
+</tr>
+<tr>
+<td><code>&lt;工作区&gt;/.codex</code></td>
+<td>同上，Codex 自己的配置目录</td>
+</tr>
+</tbody></table>
+<p>而且这个保护是<strong>递归</strong>的——这些目录底下的所有东西都跟着只读。所以你不用担心「开了可写它就能改我的 <code>.git</code>」，<strong>Codex 默认就把这几个敏感目录锁住了</strong>。</p>
+<p><strong>第四，沙箱不只管 Codex 自己的读写，它派生的命令也一样受限。</strong> 这点第 02 篇提过，这里再强调一遍它的实战意义：哪怕 Codex 调用 <code>git</code>、<code>npm</code>、测试脚本，这些子命令也被关在同一个圈里——所以你不会遇到「主进程被关着、子命令却越狱去改了别的目录」。</p>
+<blockquote>
+<p>💡 一句话总结：三档沙箱里 <code>workspace-write</code> 是日常默认，但记住它<strong>网络默认关、<code>.git</code> / <code>.agents</code> / <code>.codex</code> 强制只读</strong>；想联网得手动开 <code>network_access</code>，想看工作区范围敲 <code>/status</code>。</p>
+</blockquote>
+<hr>
+<h2>03 三种审批策略：问不问你，这一档说了算</h2>
+<p>审批旋钮也是三档。沙箱画好了圈，<strong>圈边上「该不该停下来问你」就归审批管</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>审批策略</th>
+<th>Codex 的行为</th>
+<th>大白话</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>untrusted</code></td>
+<td>只自动跑「已知安全」的只读操作，其余跑之前先问</td>
+<td>防一切陌生命令，最谨慎</td>
+</tr>
+<tr>
+<td><code>on-request</code></td>
+<td>默认在沙箱圈里自己干，<strong>要出圈时才停下来问</strong></td>
+<td>最常用的平衡档</td>
+</tr>
+<tr>
+<td><code>never</code></td>
+<td>不弹审批，闷头干</td>
+<td>自动化常用；权限仍由沙箱决定，配合完全访问才有意义</td>
+</tr>
+</tbody></table>
+<p>这里有个官方细节值得拎出来——<strong><code>untrusted</code> 不是「只读」的意思</strong>。它仍然会<strong>自动执行那些已知安全的读操作</strong>，只是凡是「可能改状态、或触发外部执行」的命令（比如有破坏性的 Git 操作、带 config 覆盖参数的命令）都要你点头。所以 <code>untrusted</code> 的体感是「读它随便读，一旦要动真格就拦」，比 <code>on-request</code> 更碎、更谨慎。</p>
+<p><strong>还有个进阶档位你该知道：<code>never</code> 能和任意沙箱模式搭。</strong> 很多人以为 <code>never</code>（不问）就等于「放飞」，<strong>错</strong>。官方明说 <code>--ask-for-approval never</code> 跟所有 <code>--sandbox</code> 模式都能配——你完全可以 <code>read-only</code> + <code>never</code>，意思是「只让它读、而且读的时候一句都别问我」，这是 CI 里只读分析的标准配法，安全得很。<strong>「不问」和「放权」是两码事</strong>，第 01 节那个「两个独立旋钮」的认知，到这儿又验证一次。</p>
+<p>至于「谁来审批」，默认是弹给你本人（<code>approvals_reviewer = &quot;user&quot;</code>）。官方还提供了一个 <code>auto_review</code>（自动审查）选项——让一个审查 agent 替你先过一遍那些需要审批的请求。这个属于偏进阶、还在演进的能力，<strong>16 · 安全与风险边界</strong>会展开讲它的判断逻辑和风险，这里你只要知道有这么个开关，日常 <code>user</code> 够用。</p>
+<blockquote>
+<p>💡 一句话总结：审批三档里 <code>on-request</code> 是日常默认；<code>untrusted</code> 更碎更谨慎（读随便读、动真格才拦）；<code>never</code> 是「不问」不是「放权」，能跟任意沙箱模式搭，CI 只读分析就常用 <code>read-only</code> + <code>never</code>。</p>
+</blockquote>
+<hr>
+<h2>04 怎么组合：临时调用命令行，写死用 config.toml</h2>
+<p>模式和策略都认全了，落到「怎么设」就两条路：<strong>临时改用命令行参数，永久改写进配置文件。</strong></p>
+<h3>临时改：命令行参数（只管这一次）</h3>
+<p>启动时把两个参数一带，就指定了这一次会话的松紧。官方给的<strong>低风险日常组合</strong>长这样：</p>
+<pre><code class="language-bash">codex --sandbox workspace-write --ask-for-approval on-request
+</code></pre>
+<p>围栏锁着、出圈才问，安全又不烦。简写更短，<code>-s</code> 和 <code>-a</code>：</p>
+<pre><code class="language-bash">codex -s read-only -a on-request &quot;只帮我审一下这段代码，别动手&quot;
+</code></pre>
+<p>进了会话还想换？不用退出，一句斜杠命令当场切：</p>
+<pre><code class="language-text">/permissions
+</code></pre>
+<p>弹出选择器，挑你要的档（<code>Read Only</code> / <code>Auto</code> / <code>Full Access</code> 这类），即时生效。我自己的真实节奏是：<strong>接手陌生项目先 <code>/permissions</code> 切只读</strong>让它通读出方案，看完心里有底了再切 <code>workspace-write</code> 放手——这个习惯救过我好几次，避免它一上来就瞎改我还没看懂的代码。</p>
+<blockquote>
+<p>⚠️ <strong>新版菜单可能不同</strong>：codex-cli <strong>0.142</strong> 起，官方推出 <a href="https://developers.openai.com/codex/permissions">permission profiles</a>（<strong>Beta，may change</strong>）替代旧预设，你的 <code>/permissions</code> 可能变成 <code>Ask for approval</code> / <code>Approval for me</code> / <code>Full access</code> 这类<strong>审批策略</strong>档，不再直接出现 <code>Read Only</code>。要切只读时<strong>改走启动参数 <code>codex --sandbox read-only</code></strong>，或在 <code>~/.codex/config.toml</code> 写 <code>sandbox_mode = &quot;read-only&quot;</code>（官方保留旧 sandbox 模式作兼容路径）。本节后续讲 <code>/permissions</code> 切只读的地方同此说明，不再重复。</p>
+</blockquote>
+<p>下面这张图把「先看沙箱、再看审批」的两道关卡理清楚：</p>
+<p><img src="assets/02-approval-flow@2x.png" alt="沙箱与审批的两层决策：圈内直接做 / 出圈再看审批三档（untrusted 最严 · on-request 默认 · never 最松）"></p>
+<p>这张图在说：<strong>每要做一步，Codex 先问「在不在沙箱圈内」（沙箱说了算），出圈了再看审批三档——<code>untrusted</code> 最严、<code>on-request</code> 默认、<code>never</code> 最松——决定要不要停下来问你（审批说了算）</strong>。两道关卡顺着走，缺一不可。注意图左下那行小字：<code>untrusted</code> 是个例外，它连<strong>圈内的非只读操作</strong>也会先问你，所以审批并不只在「出圈」时才发生。</p>
+<h3>写死：config.toml 当默认（每次启动都生效）</h3>
+<p>每次都敲参数太烦，把常用组合写进配置文件一劳永逸。文件在 <code>~/.codex/config.toml</code>，加这两行：</p>
+<pre><code class="language-toml">approval_policy = &quot;on-request&quot;
+sandbox_mode    = &quot;workspace-write&quot;
+</code></pre>
+<blockquote>
+<p>想要「最谨慎」的兜底配法？官方给的「永远先问」组合是 <code>approval_policy = &quot;untrusted&quot;</code> 配 <code>sandbox_mode = &quot;read-only&quot;</code>，等于每次启动都从最严开始，需要放权时再手动切。生产项目、共享机器适合这么兜底。</p>
+</blockquote>
+<p>如果你有好几套常用组合（比如「日常一套、CI 一套」），别在一个文件里反复改——官方支持<strong>配置预设档（profile）</strong>，把每套存成单独文件，用 <code>--profile</code> 选：</p>
+<pre><code class="language-toml"># ~/.codex/full_auto.config.toml
+approval_policy = &quot;on-request&quot;
+sandbox_mode    = &quot;workspace-write&quot;
+</code></pre>
+<pre><code class="language-toml"># ~/.codex/readonly_quiet.config.toml
+approval_policy = &quot;never&quot;
+sandbox_mode    = &quot;read-only&quot;
+</code></pre>
+<p>用的时候点名即可：</p>
+<pre><code class="language-bash">codex --profile full_auto
+</code></pre>
+<blockquote>
+<p>⚠️ 这里说的 profile（配置预设档）和第 05 节要讲的 permission profile（权限配置档）<strong>是两个不同的东西</strong>，名字像但别混：前者是「把一组配置打包命名」的老办法，后者是更新的、专门描述文件系统 + 网络边界的 Beta 机制。本节这套 <code>sandbox_mode</code> + <code>approval_policy</code> 是<strong>目前的主线配法</strong>，先把它吃透。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：临时改用 <code>-s</code> / <code>-a</code> 或会话里 <code>/permissions</code>，永久改写进 <code>~/.codex/config.toml</code> 的 <code>sandbox_mode</code> + <code>approval_policy</code>；多套常用组合用 <code>--profile</code> 切，<strong>这套是当前主线，先掌握它</strong>。</p>
+</blockquote>
+<hr>
+<h2>05 进阶一档：rules 精确控命令、permission profiles 精细画边界（Beta）</h2>
+<p>第 04 节那套「沙箱模式 + 审批策略」是粗调，定大基调。如果你想精确到「<strong>这一条命令永远允许、那一条永远禁止</strong>」，Codex 还有两件更细的工具。新手第一遍可以略过，等真有需求了再回来。</p>
+<h3>rules：给单条命令定规矩（实验性）</h3>
+<blockquote>
+<p>⚠️ <strong>实验性，可能变化。</strong> rules 是官方标注的实验功能。</p>
+</blockquote>
+<p><strong>Codex 真正用来「精确控单条命令」的机制叫 rules（规则）</strong>，注意它的决策词是 <code>allow</code> / <code>prompt</code> / <code>forbidden</code>，不是某些教程里写的 <code>ask</code> / <code>approve</code> / <code>deny</code>——写法不同，别混。</p>
+<p>它解决的问题是：沙箱是「按圈划」的粗边界，但有时你想要的是「<code>gh pr view</code> 这条命令哪怕出圈也直接放行，不用每次问」「<code>grep</code> 一律禁掉，逼自己用 <code>rg</code>」这种<strong>按命令前缀</strong>的精确控制。这时候扩大整个沙箱太粗暴，写一条 rule 才对症。</p>
+<p>规则写在 <code>~/.codex/rules/</code> 下的 <code>.rules</code> 文件里，语法像 Python（实际是 Starlark）。一条规则长这样：</p>
+<pre><code class="language-python">prefix_rule(
+    pattern = [&quot;gh&quot;, &quot;pr&quot;, &quot;view&quot;],
+    decision = &quot;prompt&quot;,
+    justification = &quot;查看 PR 允许，但要我点头&quot;,
+)
+</code></pre>
+<p><code>decision</code> 三选一，含义和它们的优先级官方写死了——<strong>最严的赢</strong>（<code>forbidden</code> &gt; <code>prompt</code> &gt; <code>allow</code>）：</p>
+<table>
+<thead>
+<tr>
+<th>decision</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>allow</code></td>
+<td>出沙箱直接跑，不问</td>
+</tr>
+<tr>
+<td><code>prompt</code></td>
+<td>每次匹配都先问你</td>
+</tr>
+<tr>
+<td><code>forbidden</code></td>
+<td>直接拦死，不问也不跑</td>
+</tr>
+</tbody></table>
+<p>有个安全设计很贴心：碰到 <code>git add . &amp;&amp; rm -rf /</code> 这种<strong>把多条命令塞进一行</strong>的，Codex 在安全的前提下会把它<strong>拆成单条逐个判</strong>——哪怕你 <code>allow</code> 了 <code>git add</code>，那个 <code>rm -rf /</code> 也会被单独拦下，<strong>不会被夹带过关</strong>。改完规则想验证，用 <code>codex execpolicy check</code> 拿命令试一下它会怎么判，别上来就实战。</p>
+<h3>permission profiles：把文件系统 + 网络边界打包成一个 profile（Beta）</h3>
+<blockquote>
+<p>⚠️ <strong>Beta，可能变化，且和老的沙箱设置「不能混用」。</strong> 这是官方反复强调的——如果你的任何配置文件里出现了 <code>sandbox_mode</code>、或你传了 <code>--sandbox</code>，Codex 就<strong>还是走老的沙箱设置</strong>，不会用 permission profiles。两套二选一，别同时配。</p>
+</blockquote>
+<p>如果你觉得「<code>workspace-write</code> 不够细，我想精确规定哪个目录可写、哪个 <code>.env</code> 必须拦、能访问哪几个域名」，permission profiles（权限配置档）就是干这个的。它把<strong>文件系统规则</strong>和<strong>网络规则</strong>打包成一个命名 profile，用 <code>default_permissions</code> 指定默认用哪个。</p>
+<p>官方内置三个，名字一看就懂（注意都带个冒号前缀）：</p>
+<table>
+<thead>
+<tr>
+<th>内置 profile</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:read-only</code></td>
+<td>保持本地命令只读</td>
+</tr>
+<tr>
+<td><code>:workspace</code></td>
+<td>允许写工作区根目录和系统临时目录</td>
+</tr>
+<tr>
+<td><code>:danger-full-access</code></td>
+<td>拿掉本地沙箱限制，只在确实需要广权限时用</td>
+</tr>
+</tbody></table>
+<p>自定义一个长这样（文件系统精确到「工作区可写、但所有 <code>.env</code> 拦死」）：</p>
+<pre><code class="language-toml">default_permissions = &quot;project-edit&quot;
+
+[permissions.project-edit]
+extends = &quot;:workspace&quot;
+
+[permissions.project-edit.filesystem.&quot;:workspace_roots&quot;]
+&quot;.&quot; = &quot;write&quot;
+&quot;**/*.env&quot; = &quot;deny&quot;
+
+[permissions.project-edit.network]
+enabled = true
+
+[permissions.project-edit.network.domains]
+&quot;api.openai.com&quot; = &quot;allow&quot;
+</code></pre>
+<p>文件系统三种权限 <code>read</code> / <code>write</code> / <code>deny</code>，优先级和 rules 一个路子——<strong><code>deny</code> 最大</strong>（<code>deny</code> &gt; <code>write</code> &gt; <code>read</code>），越具体的路径越优先。这套设计的妙处是：<strong>你可以「工作区整体可写、但单独把 <code>.env</code> 抠出来拦死」</strong>，粗放和精细一条配置里兼顾。网络也是「先白名单」——不写 <code>allow</code> 就一个域名都不放，<code>deny</code> 永远压过 <code>allow</code>。</p>
+<p>我的建议很直接：<strong>新手别碰 profiles，先用第 04 节那套主线配法把日常跑顺。</strong> 等你有了「必须精确锁某个敏感文件 / 某批域名」的真实需求，再来研究它——而且记得它和老沙箱设置不能混用，切过去之前先把 <code>sandbox_mode</code> 从配置里清掉。</p>
+<blockquote>
+<p>💡 一句话总结：rules 按<strong>命令前缀</strong>精确控（<code>allow</code>/<code>prompt</code>/<code>forbidden</code>，最严的赢），permission profiles（Beta）按<strong>路径 + 域名</strong>精细画边界（<code>deny</code> 最大）；两者都是进阶档，<strong>新手先用主线，有刚需再上</strong>，且 profiles 不能和老沙箱设置混配。</p>
+</blockquote>
+<hr>
+<h2>06 启动默认值 + 危险模式红线</h2>
+<p>机制讲完，落到「我到底该选哪档」，先得知道一件事：<strong>Codex 启动时其实已经替你智能选了一档默认值</strong>——而且它选哪档，跟你这文件夹有没有 Git 有关。</p>
+<h3>Codex 默认给你哪一档</h3>
+<p>官方逻辑很聪明：<strong>启动时它先看这文件夹是不是版本控制（有没有 Git），据此推荐不同的默认档</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>你启动 Codex 的文件夹</th>
+<th>默认推荐</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有 Git 管着（version-controlled）</td>
+<td><strong>Auto 档</strong>（<code>workspace-write</code> + <code>on-request</code>）</td>
+</tr>
+<tr>
+<td>没有 Git（non-version-controlled）</td>
+<td><strong><code>read-only</code></strong>（只读）</td>
+</tr>
+</tbody></table>
+<p>这设计戳中要害：<strong>有 Git 兜底，它改砸了你能 <code>git diff</code> 看、能回滚，所以敢放它在工作区写</strong>；没 Git 的目录改了就改了、没法回退，所以默认只读保平安。回头看我开头那个翻车故事——<strong>我恰恰是在「没 Git 的临时目录」里用了完全访问</strong>，等于亲手拆掉了 Codex 给我准备的两层保护，能不出事吗。</p>
+<p>另外有个细节：某些情况下 Codex 会<strong>先以 <code>read-only</code> 起步，直到你明确「信任」这个工作目录</strong>（比如通过初次引导提示、或 <code>/permissions</code>）才放开。看到它一开始畏手畏脚只肯读，别慌，<strong>那是它在等你点头信任这个目录</strong>，不是坏了。</p>
+<p>还有一条和「联网」相关的默认值，顺手记一下——<strong>网页搜索（web search）默认走缓存（<code>cached</code>），不是实时抓取</strong>。官方维护了一份预索引的结果，缓存模式返回的是这份索引，而不是去抓活页面。好处是<strong>降低被「实时页面里藏的提示注入」攻击的风险</strong>。注意一个反直觉点：<strong>如果你开了完全访问（<code>--yolo</code> 那套），网页搜索反而会默认切成实时（live）</strong>。想强制实时用 <code>--search</code>、想彻底关掉设 <code>web_search = &quot;disabled&quot;</code>，但这块的安全考量留到 <strong>16 · 安全与风险边界</strong>细说。</p>
+<h3><code>--yolo</code>：完全放开的红线</h3>
+<p>最后是那道<strong>红线</strong>，也是我开头翻车的主角——完全放开。在 Codex 里它有两种等价写法：</p>
+<ul>
+<li>配置层面：<code>sandbox_mode = &quot;danger-full-access&quot;</code> 配 <code>approval_policy = &quot;never&quot;</code></li>
+<li>命令行一把梭：<code>--dangerously-bypass-approvals-and-sandbox</code>（简短别名 <code>--yolo</code>，you only live once）</li>
+</ul>
+<p><code>--yolo</code> 这名字就差把「别瞎用」写脸上了。它<strong>既拆掉沙箱、又关掉审批</strong>，等于让 Codex 在你整台机器上为所欲为、还一句都不问。该不该开，照这张表对号：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>敢不敢开 <code>--yolo</code> / 完全访问</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>隔离容器 / VM / dev container</td>
+<td>✅ 敢，删的也是一次性环境</td>
+</tr>
+<tr>
+<td>CI 里跑一次性任务（容器内）</td>
+<td>✅ 敢，但环境本身得是隔离的</td>
+</tr>
+<tr>
+<td>自己日常开发的本机</td>
+<td>❌ 不开，宁可慢点也留着审批</td>
+</tr>
+<tr>
+<td>装着公司生产代码、有重要数据的机器</td>
+<td>❌ 绝对不开，这是炸弹</td>
+</tr>
+</tbody></table>
+<p>官方对此态度很明确：完全访问标着 <strong>(not recommended)</strong>（不推荐）。如果你的宿主机本来就跑不了 Linux 沙箱、或公司统一用容器化开发，<strong>正确姿势是用 Docker / dev container 把外层隔离做好，再在容器里跑 <code>--yolo</code></strong>——让容器当那道安全边界，而不是裸着在本机上拆缰绳。官方甚至给了一份现成的安全 devcontainer 示例（带防火墙出站控制），值得参考。</p>
+<p>但官方也补了句冷水，必须转告你：<strong>就算在 devcontainer 里开完全访问，也不是绝对安全</strong>——一个恶意项目能把容器内能拿到的东西（包括你的 Codex 登录凭据）全偷走。所以哪怕在容器里，<strong>也只对可信的代码仓库这么干</strong>，并且像对待任何高权限环境一样盯着它的动作。</p>
+<p>我的血泪结论就一句：<strong>完全访问只在「删了也不心疼、丢了也不要紧」的隔离环境里开，本机和生产机一律免谈。</strong> 弹窗烦不是理由——烦，也比后背发凉强。</p>
+<blockquote>
+<p>💡 一句话总结：Codex 默认按「有没有 Git」给你选档（有 Git → Auto、没 Git → 只读），别拆这层保护；网页搜索默认走缓存防注入；<code>--yolo</code>（完全放开）<strong>只在隔离容器里碰，本机和生产机绝对不开</strong>。</p>
+</blockquote>
+<hr>
+<h2>07 动手：5 分钟把三档松紧亲手切一遍</h2>
+<p>光看记不住。下面带你用一个空目录，<strong>亲眼看到同一个请求在不同档位下，Codex 是「停下来问」还是「直接干」</strong>。全程不依赖任何现成项目。</p>
+<p><strong>第一步：建个空目录，进去启动 Codex。</strong></p>
+<p>Mac / Linux（Windows 用 PowerShell，把 <code>mkdir -p</code> 换成 <code>mkdir</code>）：</p>
+<pre><code class="language-bash">mkdir -p ~/perm-demo &amp;&amp; cd ~/perm-demo
+codex
+</code></pre>
+<blockquote>
+<p>注意：这个目录<strong>没初始化 Git</strong>。按第 06 节讲的默认逻辑，Codex 很可能一进来就给你 <code>read-only</code> 起步——正好，省得我们手动切。</p>
+</blockquote>
+<p><strong>第二步：确认当前档位。</strong></p>
+<p>进会话先看一眼自己现在在哪档：</p>
+<pre><code class="language-text">/status
+</code></pre>
+<p><strong>预期</strong>：能看到当前的沙箱模式、审批策略，以及工作区包含哪些目录。先把这一屏当基准。</p>
+<p><strong>第三步：在只读档下，让它干一件「要写文件」的事。</strong></p>
+<p>确保当前是只读（不是的话敲 <code>/permissions</code> 切到 <code>Read Only</code>），然后丢给它：</p>
+<pre><code class="language-text">帮我新建一个文件 hello.txt，里面写一行 &quot;hello codex&quot;。
+</code></pre>
+<p><strong>预期</strong>：它<strong>不会</strong>默默把文件建好，而是<strong>停下来请求批准</strong>——因为「写文件」突破了 <code>read-only</code> 的边界，按审批策略它必须先问你，大意是：</p>
+<pre><code class="language-text">我需要创建文件 hello.txt，这超出了当前只读模式的权限，是否允许？
+</code></pre>
+<p><strong>看到它停下来问这一下，沙箱 + 审批就联手在你眼前跑了一遍</strong>：沙箱判定「这步要出圈」，审批接着弹出来找你点头。</p>
+<p><strong>第四步：切到工作区可写，对比放行的顺滑。</strong></p>
+<pre><code class="language-text">/permissions
+</code></pre>
+<p>在选择器里切到 <code>Auto</code> / <code>Workspace Write</code> 那一档，再让它建一次 <code>hello.txt</code>。<strong>预期</strong>：这回它<strong>直接建好、不再问你</strong>——因为在工作区里写文件本就在沙箱圈内，无需审批。</p>
+<pre><code class="language-text">已创建 hello.txt
+</code></pre>
+<p><strong>第五步（可选）：感受网络默认是关的。</strong></p>
+<p>还在工作区可写档，让它干件要联网的事：</p>
+<pre><code class="language-text">帮我用 curl 访问一下 https://example.com，把返回内容贴出来。
+</code></pre>
+<p><strong>预期</strong>：因为 <code>workspace-write</code> 默认<strong>网络是关着的</strong>（第 02 节讲过），它要么停下来请求联网批准、要么直接报访问失败——这正好印证「能写文件 ≠ 能联网」。想真放它联网，得回 <code>config.toml</code> 开 <code>network_access</code>，但本练习不必动。</p>
+<p>跑通这几步，你就把「只读拦写、可写放行、网络默认关」这条核心链路<strong>亲手验证了一遍</strong>。以后任何松紧调整，本质都是在这套机制上换档。</p>
+<blockquote>
+<p>💡 一句话总结：建个空目录、<code>/status</code> 看档、只读档让它写文件看它被拦、切可写看它放行、再试联网看它默认够不着——<strong>亲手切一遍这三档，比记十条参数都管用</strong>。</p>
+</blockquote>
+<hr>
+<h2>08 小结</h2>
+<p>这一篇把 Codex 的「权限缰绳」从机制到实战捋了一遍——<strong>它能放多松、收多紧，全在沙箱和审批这两个旋钮的组合里</strong>。</p>
+<p>核心要点串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你要做的事</th>
+<th>用什么</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>调「能动多大」</td>
+<td>沙箱 <code>--sandbox</code></td>
+<td><code>read-only</code> / <code>workspace-write</code> / <code>danger-full-access</code> 三档</td>
+</tr>
+<tr>
+<td>调「问不问你」</td>
+<td>审批 <code>--ask-for-approval</code></td>
+<td><code>untrusted</code> / <code>on-request</code> / <code>never</code>，和沙箱独立</td>
+</tr>
+<tr>
+<td>临时改这一次</td>
+<td>命令行参数 / <code>/permissions</code></td>
+<td>进会话能当场切档</td>
+</tr>
+<tr>
+<td>永久写死默认</td>
+<td><code>config.toml</code></td>
+<td><code>sandbox_mode</code> + <code>approval_policy</code>；多套用 <code>--profile</code></td>
+</tr>
+<tr>
+<td>精确控单条命令 / 路径</td>
+<td>rules / permission profiles</td>
+<td>进阶，新手先用主线，且 profiles 不能和老沙箱混配</td>
+</tr>
+<tr>
+<td>完全放开</td>
+<td><code>--yolo</code></td>
+<td><strong>只在隔离容器里碰</strong>，本机生产机免谈</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 看懂三种沙箱模式和三种审批策略分别配什么活、用 <code>--sandbox</code> / <code>--ask-for-approval</code> 临时调或写进 <code>config.toml</code> 当默认、知道 Codex 默认按「有没有 Git」给你选档、清楚 <code>workspace-write</code> 下网络默认关而 <code>.git</code> 被只读保护，并且把 <code>--yolo</code> 这道红线焊死在「只在隔离环境开」。<strong>这套「松紧自如」的控权能力，是你敢放手让 Codex 干活、又不至于像我那次一样后背发凉的底气。</strong></p>
+<hr>
+<p>下一篇 <strong>16 · 安全与风险边界</strong>——这一篇教你「权限怎么配」，但配置只是工具，更上层的问题是：<strong>到底该不该信任 AI 去碰你的代码和系统？提示注入（prompt injection）是怎么钻空子的？敏感数据怎么防泄露？前面提了一嘴的网页搜索缓存、自动审查，背后的安全账到底怎么算？</strong> 缰绳攥在手里了，下一篇聊聊「什么时候该收、什么时候能放」的判断力。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/14-workflows.html"><span class="mono">← 上一篇 · 14</span><b>四类日常工作流：探索、修 bug、重构、写测试</b></a>
+  <a class="pg nx" href="/library/codex/16-security.html"><span class="mono">下一篇 · 16 →</span><b>安全与风险边界：到底该不该放手让它碰你的代码</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

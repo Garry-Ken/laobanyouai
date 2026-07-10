@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>视觉方案对比 — 老板有AI</title>
+<style>
+  :root {
+    --bg: #17181a; --card: #1f2124; --line: #33363b;
+    --fg: #ececea; --muted: #9a9c9f;
+    --sans: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.75; padding: 3rem 1.5rem 5rem; }
+  .wrap { max-width: 88rem; margin: 0 auto; }
+  h1 { font-size: 1.6rem; font-weight: 700; }
+  .sub { color: var(--muted); margin-top: 0.5rem; font-size: 0.9rem; }
+  .grid { margin-top: 2.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  @media (max-width: 1000px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+  .shot { position: relative; height: 30rem; overflow: hidden; background: #000; }
+  .shot iframe {
+    width: 1360px; height: 3400px; border: 0;
+    transform: scale(0.247); transform-origin: 0 0; pointer-events: none;
+  }
+  .shot::after { content: ""; position: absolute; inset: 0; }
+  .meta { padding: 1.4rem 1.5rem 1.6rem; border-top: 1px solid var(--line); flex: 1; display: flex; flex-direction: column; }
+  .meta .tag { font-size: 0.7rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; }
+  .meta h2 { margin-top: 0.4rem; font-size: 1.15rem; font-weight: 700; }
+  .meta p { margin-top: 0.6rem; font-size: 0.85rem; color: var(--muted); flex: 1; }
+  .meta a {
+    margin-top: 1.2rem; align-self: flex-start; text-decoration: none;
+    background: var(--fg); color: var(--bg); font-size: 0.82rem; font-weight: 600;
+    padding: 0.55rem 1.2rem; border-radius: 6px;
+  }
+  .meta a:hover { opacity: 0.85; }
+  .note { margin-top: 2.5rem; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--line); padding-top: 1.5rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>老板有AI · 视觉方案对比</h1>
+  <p class="sub">点「全屏查看」进入可交互的完整页面。方案 D 为第二轮终稿候选(按 Anthropic 官方 frontend-design 方法论重做)。</p>
+
+  <div class="grid" style="grid-template-columns: 1fr; margin-top: 2rem;">
+    <div class="card" style="border-color: #e2340b;">
+      <div class="shot" style="height: 34rem;"><iframe src="/design/e.html" title="方案E 战役·精工" loading="lazy" tabindex="-1"></iframe></div>
+      <div class="meta">
+        <span class="tag" style="color: #e2340b;">Proposal E · 第三轮终稿候选</span>
+        <h2>战役·精工 — D 的骨架 + 顶级细节密度</h2>
+        <p>对标 2026 顶级 SaaS 站细节:点阵图纸、双层发丝线卡面、kbd 键帽、图标系统、原则跑马灯、噪点暗带、弹性微交互。诊断台升级为载入自动演示的活产品;新增「服务全景 bento」(本月战役/案例解剖含"这一栏不能空"/团队手册/AI情报/诊断),闭环带加 30 天推进轴,页脚描边大字收尾。</p>
+        <a href="/design/e.html">全屏查看 →</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="shot" style="height: 22rem;"><iframe src="/design/d.html" title="方案D 战役" loading="lazy" tabindex="-1"></iframe></div>
+      <div class="meta">
+        <span class="tag">Proposal D · 第二轮(E 的前身)</span>
+        <h2>战役 — 瑞士骨架 × 经营作战台</h2>
+        <p>双轨结构线 + 十字准星、可交互诊断台、闭环电路。E 在此基础上加细节密度。</p>
+        <a href="/design/d.html">全屏查看 →</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="sub" style="margin-top: 3rem;">—— 首轮三案(参考保留)——</p>
+  <div class="grid" style="margin-top: 1.2rem;">
+    <div class="card">
+      <div class="shot"><iframe src="/design/a.html" title="方案A 墨金" loading="lazy" tabindex="-1"></iframe></div>
+      <div class="meta">
+        <span class="tag">Proposal A</span>
+        <h2>墨金 — 私人银行风</h2>
+        <p>深暖墨底 + 鎏金细线 + 衬线大字。罗马数字编目、证书四角、页边金框。传达:贵、稀缺、给成功老板的私密圈子。</p>
+        <a href="/design/a.html">全屏查看 →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="shot"><iframe src="/design/b.html" title="方案B 界格" loading="lazy" tabindex="-1"></iframe></div>
+      <div class="meta">
+        <span class="tag">Proposal B</span>
+        <h2>界格 — 瑞士网格现代主义</h2>
+        <p>纯白重墨 + 瑞士红,裸露网格、超大黑体、等宽字标注、五联表。传达:严谨、系统,方法论是工程不是玄学。</p>
+        <a href="/design/b.html">全屏查看 →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="shot"><iframe src="/design/c.html" title="方案C 纸上" loading="lazy" tabindex="-1"></iframe></div>
+      <div class="meta">
+        <span class="tag">Proposal C</span>
+        <h2>纸上 — 中式商业杂志</h2>
+        <p>暖纸浓墨 + 朱砂印。报头、竖排批注、汉字序号、点线目录、首字下沉、请柬式转化区。传达:有思想的生意人、中式老钱感。</p>
+        <a href="/design/c.html">全屏查看 →</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="note">这些方案页只存在于 design/ 目录,不进生产构建。选定方向后,会把它完整实施到全站四个页面(含深浅色模式与缺失的宋体子集字体),再走构建部署。</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>01 Claude Code 简介 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 01 篇:Claude Code 简介。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/01-what-is-claude-code.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class="cur"><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class="cur"><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 01 篇</p>
+      <h1>Claude Code 简介</h1>
+    </div>
+    <article class="prose">
+<p><em>是什么、能做什么、和 ChatGPT / Copilot / Cursor 到底差在哪</em></p>
+<blockquote>
+<p>📚 <strong>系列导航</strong>：这是「Claude Code 小白教程」的第一篇。从这里出发，咱们一路把它装好、用熟，最后塞进你每天的开发流程。下一篇就动手安装。</p>
+</blockquote>
+<p>兄弟们，今天聊 Claude Code。</p>
+<p>我猜你点进来，大概率是这么个状态：身边总有人念叨「Claude Code 多猛多猛」，X（推特）上隔三差五刷到「一句话让它把项目重构了」的截图，可你打开它的官网，看半天还是没搞懂——<strong>它跟我天天用的 ChatGPT 到底差在哪？跟编辑器里那个自动补全的 Copilot 又差在哪？</strong></p>
+<p>说白了，名字里带个 Code，很容易让人以为它就是「会写代码的聊天框」。但真上手用过你会发现，这个理解差得有点远。</p>
+<p>这一篇不教你装、不教你敲命令（那是下一篇的事）。<strong>这一篇只干一件事：把「Claude Code 到底是个啥」给你彻底讲明白</strong>，让你心里有个整体地图——知道它能干什么、不能干什么、什么场景该用它而不是别的工具。地图有了，后面每一步才不会走迷糊。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一句话能跟人解释清楚「Claude Code 是什么」</li>
+<li>一张「能做 / 不能做」清单，知道它的天花板在哪</li>
+<li>一张对比表，再也不会把它和 ChatGPT / Copilot / Cursor 搞混</li>
+<li>一个判断标准：什么活儿该交给它，什么活儿别指望它</li>
+</ul>
+<hr>
+<h2>01 Claude Code 到底是个啥</h2>
+<p>先给结论：<strong>Claude Code 是 Anthropic 官方出的「命令行版 AI 编程搭档」——它能读你的整个项目、直接改文件、跑命令，而不只是在聊天框里给你回一段代码</strong>。</p>
+<p>Anthropic 就是做出 Claude 这个大模型的公司（你可以把它理解成 ChatGPT 背后那家 OpenAI 的同行竞品）。Claude Code 就是这家公司专门为「写代码」这个场景做的工具。</p>
+<p>这里有个关键区别，新手最容易栽在这：</p>
+<p><strong>类比：顾问 vs 坐你旁边的搭档。</strong> 网页版的 Claude（或者 ChatGPT）像个顾问——你把代码截图、复制粘贴给他，他看一眼给你出主意，但<strong>改代码这事还得你自己回去手动干</strong>。Claude Code 不一样，它像个真坐在你工位旁边的搭档：你的整个项目摊在他面前，他能直接翻文件、动手改、改完还能跑一遍看对不对。</p>
+<p>这个差别，落到实际就是体验上的天壤之别。</p>
+<p>举个例子。用网页版 Claude 改一个 Python 小项目时，流程是这样的：复制报错信息粘进对话框 → 它告诉你可能是哪个文件的问题 → 你切回编辑器找到那个文件 → 复制相关代码再粘回去 → 它给修改建议 → 你再手动抄回编辑器。<strong>一个小 bug 来回切五六次窗口，半小时就这么没了。</strong> 换成 Claude Code，同样的活儿，你就一句「这个报错你帮我查一下根因然后修了」，它自己翻遍相关文件、定位、改完，喝口水的功夫就好了。</p>
+<p>这一下就能体会到「代理（Agent）」这个词的分量——<strong>它不是给你建议，是替你动手</strong>。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：Claude Code = 能读你整个项目、能直接动手改的 AI 编程搭档，不是「会写代码的聊天框」。</p>
+</blockquote>
+<hr>
+<h2>02 它在哪儿运行：不止是个黑乎乎的终端</h2>
+<p>提到「命令行」「终端」，很多新手脑子里立马浮现一个黑乎乎的窗口，瞬间劝退。<strong>别慌，这是个常见误解。</strong></p>
+<p>终端（Terminal，就是你电脑里那个敲命令的窗口）确实是 Claude Code 最核心、功能最全的形态，但<strong>它早就不只活在终端里了</strong>。按官方文档，Claude Code 现在有这么几个「身份」：</p>
+<table>
+<thead>
+<tr>
+<th>你在哪用</th>
+<th>形态</th>
+<th>适合谁 / 什么场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>终端</strong></td>
+<td>功能最全的 CLI（命令行界面）</td>
+<td>想用全部能力、写脚本、做自动化的人</td>
+</tr>
+<tr>
+<td><strong>VS Code / Cursor</strong></td>
+<td>编辑器插件，内联看改动</td>
+<td>平时就在 VS Code 里写代码的人</td>
+</tr>
+<tr>
+<td><strong>JetBrains</strong></td>
+<td>IntelliJ / PyCharm 等插件</td>
+<td>Java / Python 重度用户</td>
+</tr>
+<tr>
+<td><strong>桌面 App</strong></td>
+<td>独立应用，可视化看 diff、并行多会话</td>
+<td>不想碰命令行、喜欢点界面的人</td>
+</tr>
+<tr>
+<td><strong>网页 / 手机</strong></td>
+<td>浏览器或 Claude iOS App 里跑</td>
+<td>临时起个长任务、出门用手机盯进度</td>
+</tr>
+</tbody></table>
+<p>这里有个特别关键、官方反复强调的点，我单独拎出来加粗：</p>
+<p><strong>所有这些形态，底层是同一个 Claude Code 引擎。</strong> 也就是说，你写的 <code>CLAUDE.md</code>（项目说明文件）、你的配置、你接的 MCP（Model Context Protocol）服务——在终端配好了，换到 VS Code、换到手机上照样生效。<strong>配一次，处处能用。</strong></p>
+<p>很多人主力用终端（习惯了，最顺手），但出门在外时可以用网页版起一个「跑测试 + 修失败用例」的长任务，路上打开手机瞄一眼进度。这种「换个地方接着干」的体验，是网页聊天框给不了的。</p>
+<p><strong>友情提示：</strong> 本系列默认从<strong>终端</strong>讲起，因为它功能最全、最能讲透原理。等你摸熟了，再换到 VS Code 或桌面 App 都是水到渠成的事。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：Claude Code 有终端、编辑器插件、桌面 App、网页/手机五种形态，但<strong>底层同一个引擎，配置全平台通用</strong>。</p>
+</blockquote>
+<hr>
+<h2>03 它能干什么：一张「能 / 不能」清单</h2>
+<p>这部分最实在。<strong>先看它能干的活儿</strong>——我按官方文档梳理，挑几类新手最有体感的：</p>
+<ul>
+<li><strong>读懂你的代码</strong>：「这个函数干嘛的？」「这块为啥报错？」它结合整个项目上下文回答，不是孤立看一段。</li>
+<li><strong>跨文件改代码</strong>：「把所有用 <code>var</code> 的地方改成 <code>let</code>」「把这个大函数拆成三个小的」——它真的去改，不是只给建议。</li>
+<li><strong>修 bug</strong>：把报错甩给它，它顺着代码库追根因、定位、动手修。</li>
+<li><strong>干那些你一直拖着的杂活</strong>：给没测试的代码补测试、清 lint 报错、解合并冲突、升级依赖、写 release notes。</li>
+<li><strong>跟 Git 打交道</strong>：暂存改动、写 commit 信息、建分支、开 PR（拉取请求）一条龙。</li>
+<li><strong>连接外部工具</strong>：通过 MCP（一个开放标准，后面有专篇讲）读 Google Drive 的文档、更新 Jira 工单、从 Slack 拉数据。</li>
+</ul>
+<p>光说不够直观，给你一条官方文档里的真实命令感受一下「一句话指挥」是什么样：</p>
+<pre><code class="language-bash">claude &quot;write tests for the auth module, run them, and fix any failures&quot;
+</code></pre>
+<p>翻译过来就是：「给 auth 模块写测试，跑一遍，挂了的你自己修。」——一句话，它把写测试、跑测试、修失败三步全包了。<strong>这就是「代理」和「补全」的本质区别。</strong></p>
+<p><strong>但是</strong>，比「能做什么」更重要的，是认清它<strong>不能</strong>做什么。这点很关键，我也补充一下我的体会：</p>
+<table>
+<thead>
+<tr>
+<th>❌ 不该指望的</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>替你拍板技术决策</td>
+<td>选 A 方案还是 B 方案、值不值得重构——判断和取舍是你的活</td>
+</tr>
+<tr>
+<td>保证代码 100% 没 bug</td>
+<td>它给的是高质量候选，不是绝对正确答案，<strong>必须你来 review</strong></td>
+</tr>
+<tr>
+<td>猜中你没说清的业务逻辑</td>
+<td>你没讲明白的需求，它只能瞎猜</td>
+</tr>
+<tr>
+<td>你完全看不懂的情况下全自动托管项目</td>
+<td>你看不懂，就没法判断它改得对不对，等于盲开</td>
+</tr>
+</tbody></table>
+<p>最容易踩的一个坑，就是第二条。太信它了，让它批量给一个项目加错误处理，它刷刷改了十几个文件，看都没细看就提交了。结果有两处它「自作主张」改了逻辑，上线后才发现。<strong>所以最好立一条铁规矩：它改的每一行，至少扫一遍 diff 再提交。</strong></p>
+<p>用好 Claude Code 的心态基石，就一句话：</p>
+<blockquote>
+<p>让 Claude Code 提供高质量候选方案，而不是绝对正确答案。</p>
+</blockquote>
+<p>说白了就一句话——<strong>人定方向、把关、做判断；AI 负责执行、分析、干重复劳动</strong>。这是它的设计哲学：协作，不是替代。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：它能读项目、改文件、跑命令、干杂活，但拍板和把关永远是你的事——<strong>它是搭档，不是甩手掌柜的接盘侠</strong>。</p>
+</blockquote>
+<hr>
+<h2>04 和 ChatGPT / Copilot / Cursor 到底差在哪</h2>
+<p>这是新手问得最多的问题，咱们一次说清。先上一张总表：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>ChatGPT（网页聊天）</th>
+<th>Copilot / Cursor（编辑器内）</th>
+<th><strong>Claude Code</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>形态</strong></td>
+<td>网页 / App 聊天框</td>
+<td>编辑器里的插件</td>
+<td>命令行 / 插件 / 桌面 / 网页都有</td>
+</tr>
+<tr>
+<td><strong>怎么干活</strong></td>
+<td>你问它答</td>
+<td>你写一半，它补后半</td>
+<td>你下指令，它自己动手干</td>
+</tr>
+<tr>
+<td><strong>看不看得到你项目</strong></td>
+<td>看不到，得手动粘</td>
+<td>看得到当前文件 / 部分上下文</td>
+<td><strong>自动读整个项目</strong></td>
+</tr>
+<tr>
+<td><strong>能不能改文件</strong></td>
+<td>不能，给你建议你自己改</td>
+<td>主要是补全、建议</td>
+<td><strong>能直接改、能跑命令</strong></td>
+</tr>
+<tr>
+<td><strong>最适合</strong></td>
+<td>问概念、查资料、写零散代码</td>
+<td>写代码时实时提速</td>
+<td>真实项目里的理解、重构、修 bug、自动化</td>
+</tr>
+</tbody></table>
+<p>再用三句大白话给你刻进脑子里：</p>
+<ul>
+<li><strong>ChatGPT</strong> 像个<strong>顾问</strong>——啥都能聊两句，但你的项目它两眼一抹黑，干活得你自己来。</li>
+<li><strong>Copilot / Cursor</strong> 像个<strong>智能输入法</strong>——你敲代码它猜你下一句想写啥，帮你打字快一点，主体还是你在写。</li>
+<li><strong>Claude Code</strong> 像个<strong>能独立干活的搭档</strong>——你说清要什么，剩下的翻文件、改代码、跑测试它包圆，干完你来验收。</li>
+</ul>
+<p><strong>注意：</strong> 这里的 Cursor / Copilot 指的是它们最经典的「编辑器内自动补全」定位。它们这两年也在做更「代理化」的功能（比如 Cursor 的 Agent 模式），边界在变模糊。但<strong>作为入门理解，记住上面这三句的核心定位就够了。</strong>（产品功能迭代快，细节以各家官方为准。）</p>
+<p>那 Claude Code 强在哪、弱在哪？实测下来：</p>
+<p><strong>它的强项</strong>——对整个项目的理解能力是真的强，尤其接手一个看不懂的旧项目，让它「先给我讲讲这项目架构」，比自己啃半天文档快得多；大规模重构、跨文件改动也是它的主场。再加上能用 <code>CLAUDE.md</code>、Skill 这些把它「调教」成符合你习惯的样子（后面专篇细讲）。</p>
+<p><strong>它的短板</strong>——不如 Copilot 那样「无感」。Copilot 是你写着写着它就帮你补了，零操作成本；Claude Code 得你主动开口下指令，学习曲线也稍陡一点。<strong>所以它俩不是替代关系，是配合关系</strong>——一种顺手的搭配是写代码时开着 Copilot 补全，遇到「要动一大片」的活儿就切给 Claude Code。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：ChatGPT 是顾问、Copilot 是智能输入法、Claude Code 是能动手的搭档——<strong>别二选一，按活儿派工</strong>。</p>
+</blockquote>
+<hr>
+<h2>05 动手：30 秒确认你的电脑认不认识它</h2>
+<p>说好这篇不教安装，但给你留个<strong>零成本的小动作</strong>，确认下你的环境（装与不装，这条命令都能跑，不会报错搞坏东西）。</p>
+<p>打开你的终端（Mac 用「终端 / Terminal」App，Windows 用 PowerShell），敲这一行回车：</p>
+<pre><code class="language-bash">claude --version
+</code></pre>
+<p><strong>两种预期结果，都正常：</strong></p>
+<ul>
+<li><strong>情况一</strong>：蹦出一串版本号，类似 <code>2.x.x (Claude Code)</code>——恭喜，你之前装过，下一篇可以直接跳到「用起来」。</li>
+<li><strong>情况二</strong>：报错 <code>command not found: claude</code>（Windows 上可能是 <code>&#39;claude&#39; 不是内部或外部命令</code>）——也完全正常，说明还没装，<strong>这正是下一篇要解决的第一件事</strong>。</li>
+</ul>
+<p>提前剧透一下下一篇会用到的安装命令（<strong>现在别急着敲，先混个眼熟</strong>），官方原版是这样的：</p>
+<pre><code class="language-bash"># macOS / Linux / WSL
+curl -fsSL https://claude.ai/install.sh | bash
+
+# Windows PowerShell
+irm https://claude.ai/install.ps1 | iex
+</code></pre>
+<p><img src="assets/01-four-quadrant-compare@2x.png" alt="四象限对比：ChatGPT / Copilot / Cursor / Claude Code"></p>
+<p>这张图想表达的是：把「能不能自动读懂你整个项目」和「能不能直接动手改文件」当成两个轴，四个工具一摆——<strong>只有 Claude Code 稳稳站在「既懂全局又能动手」那个角</strong>，ChatGPT 两样都靠手动，Copilot/Cursor 懂局部、主要靠补全。看不到图也不影响，记住上一节那三句话就够了。</p>
+<blockquote>
+<p>一句提醒：国内用户安装和登录 Claude Code 通常需要「魔法上网」，具体怎么搞、账号怎么登，下一篇专门讲，这里先不展开。</p>
+</blockquote>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：一条 <code>claude --version</code> 就能确认你的电脑认不认识它——报错也别慌，那是下一篇的开场任务。</p>
+</blockquote>
+<hr>
+<h2>06 小结</h2>
+<p>这一篇咱们没敲几行命令，但把最该想明白的事捋清了：</p>
+<ul>
+<li><strong>它是什么</strong>：Anthropic 官方的命令行版 AI 编程搭档，能读整个项目、直接改文件、跑命令——不是「会写代码的聊天框」。</li>
+<li><strong>在哪用</strong>：终端、VS Code/JetBrains 插件、桌面 App、网页/手机，五种形态<strong>同一个引擎、配置通用</strong>。</li>
+<li><strong>能 / 不能</strong>：能读代码、改文件、修 bug、干杂活、连外部工具；但拍板、把关、补业务逻辑这些<strong>永远是你的活</strong>。</li>
+<li><strong>和别人的区别</strong>：ChatGPT 是顾问、Copilot 是智能输入法、它是能独立干活的搭档，<strong>按活儿派工，不必二选一</strong>。</li>
+</ul>
+<p><strong>你现在应该能</strong>：跟同事一句话讲清 Claude Code 是什么，也能判断「这个活儿该不该交给它」。这就是入门最该先有的「地图感」——后面所有功能，都是在这张地图上添砖加瓦。</p>
+<hr>
+<p>下一篇 <strong>02「安装与使用」</strong>：咱们正式动手，把它装到你的电脑上（Mac / Windows / Linux / WSL 分开讲，一步不漏），跑通第一次登录，让 <code>claude</code> 这个命令真正在你终端里活起来。先去把上面那条 <code>claude --version</code> 敲一下，看看你属于「情况一」还是「情况二」——下一篇正好对症下药。</p>
+
+    </article>
+    
+<div class="pager">
+  <span></span>
+  <a class="pg nx" href="/library/claude-code/02-install.html"><span class="mono">下一篇 · 02 →</span><b>安装与使用</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

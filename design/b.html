@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>方案 B · 界格 — 老板有AI</title>
+<style>
+  /* ============ 方案 B「界格」——瑞士网格 / 现代主义海报 ============
+     纯白 + 重墨 + 瑞士红。裸露的网格线、超大黑体、等宽字标注。
+     传达:严谨、系统、方法论是工程而不是玄学。 */
+  :root {
+    --paper: #ffffff;
+    --ink: #111110;
+    --red: #e63312;
+    --gray: #6b6b66;
+    --soft: #f4f4f0;
+    --rule: #111110;
+    --rule-soft: #d9d9d2;
+    --sans: -apple-system, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+    --mono: "SF Mono", "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.8; }
+  ::selection { background: var(--red); color: #fff; }
+
+  .wrap { max-width: 78rem; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+
+  .mono { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; }
+  .mono.red { color: var(--red); }
+  .mono.gray { color: var(--gray); }
+
+  /* ============ 导航:上下双细线 ============ */
+  header { position: sticky; top: 0; z-index: 80; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border-bottom: 1.5px solid var(--rule); }
+  .nav { display: flex; align-items: stretch; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+  .brand .sq { width: 14px; height: 14px; background: var(--red); }
+  .brand b { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.01em; }
+  .brand small { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em; color: var(--gray); }
+  .nav nav { display: flex; align-items: stretch; }
+  .nav nav a {
+    display: flex; align-items: center; padding: 0 1.15rem;
+    color: var(--ink); text-decoration: none; font-size: 0.85rem; font-weight: 500;
+    border-left: 1px solid var(--rule-soft); transition: background 0.15s;
+  }
+  .nav nav a:hover { background: var(--soft); }
+  .nav nav a.on { box-shadow: inset 0 -3px 0 var(--red); }
+  .nav nav a.cta { background: var(--ink); color: #fff; font-weight: 600; padding: 0 1.6rem; }
+  .nav nav a.cta:hover { background: var(--red); }
+  @media (max-width: 860px) { .nav nav a:not(.cta):not(.on) { display: none; } }
+
+  /* ============ Hero:海报式 ============ */
+  .hero { border-bottom: 1.5px solid var(--rule); position: relative; }
+  .hero .grid {
+    display: grid; grid-template-columns: 1fr 16rem;
+    min-height: min(78vh, 46rem);
+  }
+  .hero .main { padding: clamp(3rem, 8vh, 6rem) 0 clamp(2.5rem, 6vh, 4rem); display: flex; flex-direction: column; justify-content: space-between; gap: 3rem; }
+  .hero h1 {
+    font-size: clamp(2.6rem, 6.6vw, 5.4rem); line-height: 1.12; font-weight: 800;
+    letter-spacing: -0.025em; max-width: 18ch; text-wrap: balance;
+  }
+  .hero h1 .hl { color: var(--red); }
+  .hero .kicker { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 2rem; }
+  .hero .kicker .sq { width: 10px; height: 10px; background: var(--red); }
+  .hero .sub { max-width: 32em; color: var(--gray); font-size: 1.02rem; }
+  .actions { display: flex; gap: 0; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    padding: 1.05rem 2.2rem; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: all 0.18s;
+  }
+  .btn.solid { background: var(--ink); color: #fff; }
+  .btn.solid:hover { background: var(--red); }
+  .btn.line { border: 1.5px solid var(--ink); color: var(--ink); margin-left: -1.5px; }
+  .btn.line:hover { background: var(--soft); }
+  .btn .arr { font-family: var(--mono); }
+
+  /* 右侧竖栏:索引 */
+  .hero .side {
+    border-left: 1.5px solid var(--rule); padding: clamp(3rem, 8vh, 6rem) 0 2rem 2rem;
+    display: flex; flex-direction: column; gap: 1.6rem;
+  }
+  .hero .side .item { border-bottom: 1px solid var(--rule-soft); padding-bottom: 1.2rem; }
+  .hero .side .item b { display: block; font-size: 0.92rem; font-weight: 700; margin-top: 0.3rem; }
+  @media (max-width: 980px) {
+    .hero .grid { grid-template-columns: 1fr; }
+    .hero .side { border-left: 0; border-top: 1.5px solid var(--rule); padding-left: 0; flex-direction: row; flex-wrap: wrap; gap: 2rem; padding-block: 1.6rem; }
+    .hero .side .item { border-bottom: 0; padding-bottom: 0; }
+  }
+
+  /* ============ 章节标尺 ============ */
+  .sec-rule { border-bottom: 1.5px solid var(--rule); }
+  .sec-head {
+    display: grid; grid-template-columns: 11rem 1fr; gap: 2rem; align-items: start;
+    padding: clamp(3.5rem, 8vh, 6rem) 0 3rem;
+  }
+  .sec-head h2 { font-size: clamp(1.8rem, 3.6vw, 3rem); line-height: 1.2; font-weight: 800; letter-spacing: -0.02em; max-width: 22ch; text-wrap: balance; }
+  .sec-head .desc { margin-top: 1.2rem; color: var(--gray); max-width: 38em; }
+  @media (max-width: 780px) { .sec-head { grid-template-columns: 1fr; gap: 0.8rem; } }
+
+  /* ============ 五类问题:五联表 ============ */
+  .ptable { display: grid; grid-template-columns: repeat(5, 1fr); border: 1.5px solid var(--rule); border-bottom: none; margin-bottom: clamp(3.5rem, 8vh, 6rem); }
+  .pcell { border-right: 1px solid var(--rule-soft); border-bottom: 1.5px solid var(--rule); padding: 1.6rem 1.4rem 2rem; position: relative; transition: background 0.2s; min-height: 17rem; display: flex; flex-direction: column; }
+  .pcell:last-child { border-right: none; }
+  .pcell:hover { background: var(--soft); }
+  .pcell .idx { font-family: var(--mono); font-size: 2.6rem; font-weight: 500; letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 1.3px var(--ink); line-height: 1; }
+  .pcell:hover .idx { color: var(--red); -webkit-text-stroke: 0; }
+  .pcell h3 { margin-top: 1.1rem; font-size: 1.12rem; font-weight: 800; }
+  .pcell .d1 { margin-top: 0.7rem; font-size: 0.82rem; color: var(--gray); line-height: 1.7; flex: 1; }
+  .pcell .d2 { margin-top: 0.9rem; font-size: 0.76rem; color: var(--ink); line-height: 1.65; border-top: 1px solid var(--rule-soft); padding-top: 0.8rem; }
+  @media (max-width: 1100px) { .ptable { grid-template-columns: repeat(3, 1fr); } .pcell { min-height: auto; } }
+  @media (max-width: 680px) { .ptable { grid-template-columns: 1fr; } .pcell { border-right: none; } }
+
+  .diagnose { display: flex; justify-content: space-between; gap: 2rem; align-items: baseline; flex-wrap: wrap; padding-bottom: clamp(3.5rem, 8vh, 5.5rem); }
+  .diagnose p { max-width: 32em; color: var(--gray); font-size: 0.95rem; }
+  .link-red { color: var(--ink); font-weight: 700; text-decoration: none; font-size: 0.9rem; border-bottom: 2px solid var(--red); padding-bottom: 2px; }
+  .link-red:hover { color: var(--red); }
+
+  /* ============ 六步闭环:编号矩阵 ============ */
+  .loop-band { background: var(--ink); color: #fff; }
+  .loop-band .sec-head h2 { color: #fff; }
+  .loop-band .sec-head .desc { color: #a3a39c; }
+  .loop { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #3a3a36; border-bottom: none; margin-bottom: clamp(3.5rem, 8vh, 6rem); }
+  .loop li { list-style: none; border-right: 1px solid #3a3a36; border-bottom: 1px solid #3a3a36; padding: 1.8rem 1.6rem 2.1rem; }
+  .loop li:nth-child(3n) { border-right: none; }
+  .loop li .n { font-family: var(--mono); font-size: 0.78rem; color: var(--red); letter-spacing: 0.1em; }
+  .loop li .n::after { content: " ///"; color: #4a4a45; }
+  .loop li h3 { margin-top: 0.9rem; font-size: 1.2rem; font-weight: 800; }
+  .loop li p { margin-top: 0.6rem; font-size: 0.85rem; color: #a3a39c; line-height: 1.75; }
+  @media (max-width: 900px) { .loop { grid-template-columns: 1fr 1fr; } .loop li:nth-child(3n) { border-right: 1px solid #3a3a36; } .loop li:nth-child(2n) { border-right: none; } }
+  @media (max-width: 600px) { .loop { grid-template-columns: 1fr; } .loop li { border-right: none !important; } }
+
+  /* ============ 为什么再做一个 ============ */
+  .diff { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 5rem); padding-bottom: clamp(3.5rem, 8vh, 6rem); }
+  .diff h2 { font-size: clamp(1.7rem, 3.2vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.25; text-wrap: balance; }
+  .diff h2 .mark { box-shadow: inset 0 -0.34em 0 rgba(230, 51, 18, 0.22); }
+  .diff-body p { color: #3d3d38; font-size: 0.96rem; }
+  .diff-body p + p { margin-top: 1.4rem; }
+  .diff-body strong { font-weight: 700; color: var(--ink); box-shadow: inset 0 -0.3em 0 rgba(230, 51, 18, 0.18); }
+  @media (max-width: 860px) { .diff { grid-template-columns: 1fr; } }
+
+  /* ============ 手册 / 案例:索引卡 ============ */
+  .twin { display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid var(--rule); margin-bottom: clamp(3.5rem, 8vh, 6rem); }
+  .panel { padding: 2.4rem 2.4rem 2.6rem; display: flex; flex-direction: column; }
+  .panel + .panel { border-left: 1.5px solid var(--rule); }
+  .panel h3 { margin-top: 1rem; font-size: 1.45rem; font-weight: 800; letter-spacing: -0.01em; text-wrap: balance; }
+  .panel p { margin-top: 0.9rem; color: var(--gray); font-size: 0.9rem; flex: 1; }
+  .panel .link-red { margin-top: 1.8rem; align-self: flex-start; }
+  @media (max-width: 780px) { .twin { grid-template-columns: 1fr; } .panel + .panel { border-left: 0; border-top: 1.5px solid var(--rule); } }
+
+  /* ============ 转化区 ============ */
+  .cta-box { border: 1.5px solid var(--rule); display: grid; grid-template-columns: auto 1fr; margin-bottom: clamp(3.5rem, 8vh, 6rem); }
+  .cta-qr { border-right: 1.5px solid var(--rule); padding: 2.2rem; display: grid; place-items: center; background: var(--soft); }
+  .cta-qr img { display: block; width: 180px; height: 180px; object-fit: contain; }
+  .cta-body { padding: 2.4rem 2.6rem; }
+  .cta-body h3 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); font-weight: 800; letter-spacing: -0.01em; }
+  .cta-body .guide { margin-top: 1rem; color: #3d3d38; }
+  .cta-body .note { margin-top: 0.4rem; color: var(--gray); font-size: 0.87rem; }
+  .cta-body .who { margin-top: 1.6rem; display: inline-flex; align-items: center; gap: 0.6rem; background: var(--ink); color: #fff; padding: 0.45rem 1rem; font-size: 0.78rem; }
+  .cta-body .who .sq { width: 8px; height: 8px; background: var(--red); }
+  @media (max-width: 720px) { .cta-box { grid-template-columns: 1fr; } .cta-qr { border-right: 0; border-bottom: 1.5px solid var(--rule); } }
+
+  /* ============ 页脚 ============ */
+  footer { border-top: 1.5px solid var(--rule); }
+  .foot { display: flex; justify-content: space-between; gap: 3rem; flex-wrap: wrap; padding: 3rem 0; }
+  .foot .about { max-width: 22rem; }
+  .foot .about p { margin-top: 0.9rem; color: var(--gray); font-size: 0.85rem; }
+  .foot nav { display: flex; flex-direction: column; gap: 0.6rem; }
+  .foot nav a { color: var(--ink); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
+  .foot nav a:hover { color: var(--red); }
+  .legal { border-top: 1px solid var(--rule-soft); padding: 1.2rem 0 2.4rem; display: flex; justify-content: space-between; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; color: var(--gray); text-transform: uppercase; }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .rise { animation: rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  @media (prefers-reduced-motion: reduce) { .rise { animation: none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/design/b.html"><span class="sq"></span><b>老板有AI</b><small>LAOBANYOUAI.COM</small></a>
+    <nav>
+      <a class="on" href="/design/b.html">首页</a>
+      <a href="/cases.html">案例库</a>
+      <a href="/intel.html">AI 情报</a>
+      <a href="/library/">团队手册</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <div class="hero">
+    <div class="wrap grid">
+      <div class="main rise">
+        <div>
+          <div class="kicker"><span class="sq"></span><span class="mono gray">面向中小企业老板 · 每月一场经营战役</span></div>
+          <h1>让 AI 替你干活，<br />而不是让老板<span class="hl">重新学一门技术</span>。</h1>
+          <p class="sub" style="margin-top: 2rem;">面向中小企业老板的 AI 经营实战社区，每月解决一个真实经营问题。</p>
+        </div>
+        <div class="actions">
+          <a class="btn solid" href="/join.html">加入社区 <span class="arr">→</span></a>
+          <a class="btn line" href="/cases.html">看看案例长什么样</a>
+        </div>
+      </div>
+      <aside class="side">
+        <div class="item"><span class="mono red">Index / 01</span><b>五类经营问题</b></div>
+        <div class="item"><span class="mono red">Index / 02</span><b>六步结果闭环</b></div>
+        <div class="item"><span class="mono red">Index / 03</span><b>30 天一场战役</b></div>
+        <div class="item" style="border-bottom: 0;"><span class="mono red">Index / 04</span><b>用数字收口</b></div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- 五类问题 -->
+  <section class="sec-rule">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono red">Sec.01 — 解决什么</span>
+        <div>
+          <h2>老板的问题只有五类，工具每周都在变</h2>
+          <p class="desc">所以我们不追工具。把生意拆成五类固定问题，每一类都有已经跑通的做法，你只需要挑一个开始。</p>
+        </div>
+      </div>
+      <div class="ptable">
+        <div class="pcell"><span class="idx">01</span><h3>AI 获客</h3><p class="d1">内容选题、短视频脚本、私域承接、销售线索的筛选与分发。</p><p class="d2">把"每天发什么"变成一条可复制的流水线，而不是靠老板灵感。</p></div>
+        <div class="pcell"><span class="idx">02</span><h3>AI 销售</h3><p class="d1">客户画像分析、跟进话术、异议处理、成交复盘。</p><p class="d2">让新人第一个月就能用上老销售的经验，而不是自己踩三年坑。</p></div>
+        <div class="pcell"><span class="idx">03</span><h3>AI 管理</h3><p class="d1">会议纪要、任务拆解、招聘筛选、内部培训、知识库沉淀。</p><p class="d2">把散落在老板脑子里的判断标准，变成团队能直接调用的东西。</p></div>
+        <div class="pcell"><span class="idx">04</span><h3>AI 降本</h3><p class="d1">客服应答、文案生产、数据整理、重复流程的自动化。</p><p class="d2">先算清楚一件事一年花多少人力，再决定要不要让 AI 接手。</p></div>
+        <div class="pcell"><span class="idx">05</span><h3>AI 决策</h3><p class="d1">行业情报、竞品跟踪、经营数据分析、投放与定价判断。</p><p class="d2">决策质量取决于信息密度，AI 最擅长的恰恰是把信息压缩给你。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 六步闭环 -->
+  <section class="loop-band">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono red">Sec.02 — 怎么运转</span>
+        <div>
+          <h2>以结果收口的六步闭环</h2>
+          <p class="desc">课程的终点是听完，这里的终点是一个能被验证的数字。每个月只跑一轮，不贪多。</p>
+        </div>
+      </div>
+      <ol class="loop">
+        <li><span class="n">Step 01</span><h3>经营诊断</h3><p>先看你的生意目前卡在哪一环，而不是先看有什么工具。</p></li>
+        <li><span class="n">Step 02</span><h3>选择问题</h3><p>从五类问题里挑一个，本月只解决它。</p></li>
+        <li><span class="n">Step 03</span><h3>30 天战役</h3><p>一个月一场，有起点、有动作清单、有截止日。</p></li>
+        <li><span class="n">Step 04</span><h3>使用 AI 方案</h3><p>给现成的提示词、工作流和工具组合，不从零摸索。</p></li>
+        <li><span class="n">Step 05</span><h3>记录结果</h3><p>用数字收口：省了多少小时、多了多少线索、降了多少成本。</p></li>
+        <li><span class="n">Step 06</span><h3>沉淀案例</h3><p>跑通的路径写成行业案例，成为下一位老板的起点。</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 为什么再做一个 -->
+  <section class="sec-rule">
+    <div class="wrap">
+      <div class="sec-head" style="padding-bottom: 0;">
+        <span class="mono red">Sec.03 — 为什么再做一个</span>
+        <div></div>
+      </div>
+      <div class="diff" style="padding-top: 2rem;">
+        <h2>市面上不缺 AI 课程，缺的是有人<span class="mark">陪你把一件事做完</span></h2>
+        <div class="diff-body">
+          <p>生财有术这样的社区把「发现项目 → 找高手 → 参加航海 → 跑出结果」这条链路做得很成熟，覆盖的方向也足够宽。但正因为宽，AI 只是其中一个方向，而老板的经营问题往往需要有人盯着看完一整个月。</p>
+          <p>我们把人群收窄到<strong>已经在经营一门生意的中小企业老板</strong>，把交付物收窄到<strong>可被验证的经营结果</strong>——省下的小时数、多出来的线索、降下去的成本。</p>
+          <p>这意味着我们不教你怎么调参数，也不做工具评测。你要的是这个月的获客成本降下来，不是又收藏了三十个提示词。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 手册 + 案例 + 转化 -->
+  <section>
+    <div class="wrap" style="padding-top: clamp(3.5rem, 8vh, 6rem);">
+      <div class="twin">
+        <div class="panel">
+          <span class="mono red">Library — 团队手册</span>
+          <h3>你不用会敲命令，但你的团队得会</h3>
+          <p>我们收录了一套完整的 AI 编程实操手册，共 92 篇，给你的技术负责人看。原作者是 stormzhang，以 MIT 许可开源，我们原样收录并保留署名。</p>
+          <a class="link-red" href="/library/">打开团队手册 →</a>
+        </div>
+        <div class="panel">
+          <span class="mono red">Cases — 案例库</span>
+          <h3>首批案例正在征集</h3>
+          <p>这里以后会放真实的行业案例。在有真实结果之前，我们不会放任何数字——包括看起来很好看的那种。</p>
+          <a class="link-red" href="/cases.html">看看一条案例会包含什么 →</a>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <div class="cta-qr"><img src="/qr/wechat.png" alt="微信二维码" width="180" height="180" /></div>
+        <div class="cta-body">
+          <span class="mono red">Contact — 先诊断,再加入</span>
+          <h3 style="margin-top: 0.9rem;">先聊十分钟，再决定要不要一起做</h3>
+          <p class="guide">微信扫码添加，备注「老板有AI」</p>
+          <p class="note">我会先问你三个问题：做什么生意、现在卡在哪、这个月最想解决什么。</p>
+          <span class="who"><span class="sq"></span>明道 Garry 丨 AI 增长</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="about">
+        <a class="brand" href="/design/b.html"><span class="sq"></span><b>老板有AI</b></a>
+        <p>面向中小企业老板的 AI 经营实战社区，每月解决一个真实经营问题。</p>
+      </div>
+      <nav>
+        <a href="/design/b.html">首页</a>
+        <a href="/cases.html">案例库</a>
+        <a href="/intel.html">AI 情报</a>
+        <a href="/library/">团队手册</a>
+        <a href="/join.html">加入</a>
+      </nav>
+    </div>
+    <div class="legal"><span>© 2026 laobanyouai</span><span>Proposal B / Grid — 界格</span></div>
+  </div>
+</footer>
+</body>
+</html>

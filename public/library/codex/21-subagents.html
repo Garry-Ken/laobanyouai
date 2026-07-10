@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>21 子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 21 篇:子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/21-subagents.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class="cur"><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class="cur"><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 21 篇</p>
+      <h1>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="20-mcp.html">20 · 用 MCP 接外部工具</a> 教你给 Codex 接上外部工具，让它能查文档、连服务。这一篇换个思路——不是给它「加工具」，而是教你把活儿<strong>拆出去并行跑</strong>：子代理（Subagent），一批带独立模型、独立指令、独立权限的专项助手，几个同时干，干完把结论汇总成一份交回来。</p>
+</blockquote>
+<p>兄弟们，今天聊 Codex 里最唬人、也最容易用歪的一个功能——子代理。</p>
+<p>名字一听就高级，「多代理并行」，仿佛你一个人指挥一支小分队。我刚摸到这功能那阵，确实飘了一下，恨不得把每个任务都拆成五六个 agent 一起跑，觉得这才叫「专业玩法」。</p>
+<p><strong>但说句实话：Codex 的子代理跟你在别处见的不太一样，有个反直觉的设定你必须先知道——它默认压根不会自己拆。</strong> 官方写得明明白白：Codex 只在<strong>你明确开口要它拆</strong>的时候才派生子代理。你不喊「开几个 agent 并行」，它就老老实实一个人干到底。这一条，决定了你怎么用它、什么时候用它。</p>
+<p>这一篇我不光教你怎么唤起子代理、怎么写自定义 agent、怎么给不同 agent 挑不同模型，更重要的是帮你想清楚那条线：<strong>什么活值得拆出去并行，什么活拆了纯属给自己添堵又烧钱。</strong></p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>子代理到底是什么——把活儿拆给一批专项 agent 并行跑、再汇总，和「单个 agent 闷头干」差在哪</li>
+<li>它真正解决的两个老毛病：上下文污染（context pollution）和上下文腐烂（context rot），以及那条反共识的线：什么时候<strong>别</strong>拆</li>
+<li>Codex 自带的三种内置 agent（<code>default</code> / <code>worker</code> / <code>explorer</code>）——是「类型」不是「实例上限」，开箱即用、不用配</li>
+<li>怎么写自定义 agent：往 <code>~/.codex/agents/</code> 或 <code>.codex/agents/</code> 丢一个 TOML 文件，必填三个字段是干嘛的</li>
+<li>怎么给不同 agent 选不同模型和「思考强度」，让侦察兵用快模型、审查员用强模型</li>
+<li>手把手实战：写一个只读侦察 agent，派它跑、验证它只回摘要、不越权</li>
+</ul>
+<blockquote>
+<p>⚠️ 下文凡涉及具体命令、配置键、默认值，都以 Codex <a href="https://developers.openai.com/codex/subagents">官方文档</a> 为准；模型名（<code>gpt-5.5</code> 之类）这种随版本变的东西，看到时以你本地实际显示为准，本篇尽量不写死。</p>
+</blockquote>
+<hr>
+<h2>01 先搞懂：子代理到底是什么</h2>
+<p>先给结论：<strong>子代理就是 Codex 临时派生出来的一批专项 agent——它们各自在独立的线程里干活，干完不把过程中翻的一堆原始资料倒回来，由 Codex 统一收成一份结论交给你。</strong></p>
+<p><strong>类比：把一个大案子拆成几路侦探同时查。</strong> 你是探长（主线对话），手上一个复杂案子，比如「把这次改动从安全、性能、测试三个角度审一遍」。这三路互不挡道，你犯不着自己一个人顺着查三趟。于是你派出三路侦探：<strong>一路专盯安全漏洞、一路专盯性能、一路专盯测试缺口，三人同时出门、各查各的</strong>。查完了，他们不会把翻过的几百页卷宗全堆回你桌上，而是各递一份摘要：「安全这块有两处风险，在 X 和 Y」。你最后拿到的，是一份按角度归好类的汇总。</p>
+<p>这批侦探有几样东西是「他们自己的」，跟你这条主线隔开。官方把术语理得很清楚，值得记一下：</p>
+<blockquote>
+<p><strong>Subagent</strong>：Codex 派生出来、用来处理某个具体任务的受托 agent。
+<strong>Agent thread</strong>：某个 agent 的 CLI 线程，你能用 <code>/agent</code> 进去查看、来回切换。</p>
+</blockquote>
+<p>拆开看，一个子代理可以拥有这么几样「独立」的东西：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>主线（你这条对话）</th>
+<th>子代理（派出去的那一路）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>线程 / 上下文</strong></td>
+<td>你和 Codex 一路聊下来的需求、决策、历史</td>
+<td>自己一条独立 agent thread，干的是你交代的那一小块，原始细节都留在它自己线程里</td>
+</tr>
+<tr>
+<td><strong>模型 / 思考强度</strong></td>
+<td>你主会话用的那套</td>
+<td>可以单独指定，比如侦察兵用快模型、审查员用强模型（第 05 节细说）</td>
+</tr>
+<tr>
+<td><strong>指令（人设）</strong></td>
+<td>Codex 的默认行为</td>
+<td>你给它写的专属 <code>developer_instructions</code>，比如「你只负责探路、不准改代码」</td>
+</tr>
+<tr>
+<td><strong>沙箱权限</strong></td>
+<td>你当前会话的沙箱策略</td>
+<td>默认继承你的策略，但能给单个 agent 单独拧，比如强制 <code>read-only</code></td>
+</tr>
+</tbody></table>
+<p>最关键的一点，也是 Codex 子代理的灵魂：<strong>它的价值是「把吵闹的中间产物搬出主线」</strong>。官方原话——让主 agent 专注在需求、决策和最终产出上，把探路、跑测试、翻日志这些会刷一大屏的脏活丢给子代理并行干，子代理<strong>只回摘要、不回原始输出</strong>。</p>
+<p>这一点决定了子代理「擅长什么、不擅长什么」，下一节就靠它来判断。</p>
+<p><img src="assets/21-subagent-isolation@2x.png" alt="子代理：并行分发、各自上下文、只回摘要"></p>
+<p>这张图把子代理的运作方式画成了一条线：主线 agent 把一个大任务拆开、<strong>分发</strong>给几路子代理并行干，每路子代理都待在自己<strong>独立的上下文</strong>里（探路的、跑测试的、翻文档的互不污染），干完<strong>只把一份摘要回传</strong>给主线——那些刷屏的原始细节全留在各自线程里，主线始终清清爽爽。</p>
+<blockquote>
+<p>💡 一句话总结：子代理 = 一批带独立线程、可独立配模型和权限的专项 agent，<strong>各自并行干活、只把摘要汇总回主线</strong>；核心价值是「把吵闹的中间产物搬出你的主对话」。</p>
+</blockquote>
+<hr>
+<h2>02 它解决什么——以及那条反共识的线</h2>
+<p>知道了「是什么」，得搞清「为什么要有它」。官方把子代理要治的病说得特别直白，就俩词，你记住这俩词，这功能你就懂了一半。</p>
+<h3>病一：上下文污染（context pollution）</h3>
+<p><strong>类比：一桌正经文件里混进一摞外卖单。</strong> 你的主对话本来摊着正事——需求、约束、定下来的决策。结果你让它「把整个测试套件跑一遍」，哗啦刷出几百上千行测试日志，全糊在桌上。<strong>有用的那几句「哪几个挂了」，被埋在一摞没用的中间输出底下，你想找都得扒半天。</strong> 这就是上下文污染：噪声把信号盖住了。</p>
+<p>官方定义：</p>
+<blockquote>
+<p><strong>Context pollution（上下文污染）</strong>：有用的信息被吵闹的中间输出埋没。</p>
+</blockquote>
+<p><strong>真实场景</strong>：我去年调一个第三方接口，让 Codex 反复试调、每次刷一屏 JSON 返回。聊到第十几轮，我回头想确认「最初的需求是不是字段 A 必填」，往上翻——全是 JSON，翻了快二十屏才找到那句话。那一刻我就懂了，<strong>会刷大量中间输出的活，根本不该在主线上摊开干</strong>。</p>
+<h3>病二：上下文腐烂（context rot）</h3>
+<p><strong>类比：会议开太久，人就开始走神。</strong> 一场会，前一个钟头大家还紧扣议题；拖到第三个钟头，桌上堆满了跑题的细节、临时岔出去的话头，决策质量肉眼可见地往下掉。模型也一样——对话越填越满、越填越杂，<strong>它的表现会随着「不相关的细节」越积越多而慢慢变差</strong>。</p>
+<p>官方定义：</p>
+<blockquote>
+<p><strong>Context rot（上下文腐烂）</strong>：随着对话被越来越多不那么相关的细节填满，表现逐渐变差。</p>
+</blockquote>
+<p>这俩病的药方是同一个：<strong>把吵闹的活搬出主线，扔给子代理并行干，让它们只把提炼过的摘要交回来。</strong> 官方还举了个极端例子——一份几百万 token 的大文档，Codex 能拆成若干小块、派多个子代理分头啃，每个只把「嚼出来的要点」回传主线。主线始终清清爽爽。</p>
+<h3>反共识的线：哪些活别拆</h3>
+<p>好，病说清了，回到开头那句——<strong>为什么「一上来就拆」是错的？</strong></p>
+<p>因为子代理不是免费的。官方反复强调一条成本：<strong>每个子代理都要自己跑模型、自己调工具，所以子代理工作流比同等的单 agent 跑法更烧 token。</strong> 拆得越多，烧得越多。还有第二条隐性成本——并行写比并行读危险得多：</p>
+<blockquote>
+<p>起步时，把并行 agent 用在<strong>偏读</strong>的任务上，比如探路、跑测试、分流、做摘要。<strong>偏写</strong>的并行工作流要更小心，因为多个 agent 同时改代码会撞车、还会增加协调成本。</p>
+</blockquote>
+<p>我把官方的取舍提炼成一张对照表，这是本节最该带走的东西：</p>
+<table>
+<thead>
+<tr>
+<th>这类活</th>
+<th>该不该拆给子代理</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>探路 / 跑测试 / 翻日志 / 做摘要（偏读、会刷大量输出）</td>
+<td>✅ 值得拆，还能并行</td>
+<td>把噪声搬出主线，正是它的主场</td>
+</tr>
+<tr>
+<td>几块<strong>互不依赖</strong>的调研（认证 / 数据库 / API 各查各的）</td>
+<td>✅ 值得并行</td>
+<td>同时跑，串行三趟变并行一趟</td>
+</tr>
+<tr>
+<td>一句话能说清、改动就在眼前的小修改</td>
+<td>❌ 别拆</td>
+<td>子代理要自己跑模型、烧 token，得不偿失</td>
+</tr>
+<tr>
+<td>几个 agent 同时改同一片代码</td>
+<td>⚠️ 慎用</td>
+<td>偏写并行容易撞车、协调成本高</td>
+</tr>
+<tr>
+<td>步骤间强依赖、必须 A 完了才能 B</td>
+<td>⚠️ 拆了也快不了</td>
+<td>并行的前提是互不依赖</td>
+</tr>
+</tbody></table>
+<p><strong>真实场景</strong>：我有阵子犯轴，连「把这个函数名改清楚」都想喊一句「开个 agent 去改」，图个「显得专业」。结果纯属添堵——派生、跑模型、回传，一圈下来比我直接在主线说「把这名字改了」慢一截，还白烧 token。从那以后我立了条铁规矩：<strong>一句话能说清、改动就在眼前的活，绝不拆。</strong></p>
+<blockquote>
+<p>💡 一句话总结：子代理治的是「上下文污染 + 上下文腐烂」两个病——把吵闹的偏读活搬出主线并行干；但<strong>小修改、强依赖、并行写</strong>这三类别碰，拆得多 ≠ 专业，过度拆只会又慢又贵又撞车。</p>
+</blockquote>
+<p>下面这张图把「拆与不拆」的判断和「拆出去之后怎么跑」串成一条线：</p>
+<p><img src="assets/21-subagent-flow@2x.png" alt="子代理何时拆并行：小改 / 强依赖留主线；任务大且几块独立时拆出 N 个 agent 并行跑、汇总成结论"></p>
+<p>这张图在干什么：先判断「该不该拆」，不该拆就留主线；该拆且你开了口，Codex 才派出几路 agent 并行，等齐所有结果后汇总成一份交回主线——<strong>注意那个「你开口」的岔口，没它 Codex 不会自己拆。</strong></p>
+<hr>
+<h2>03 不用配也能拆：三种内置 agent + 怎么唤起</h2>
+<p>讲完「该不该用」，来真的拆一次。好消息是：<strong>Codex 自带三种内置 agent，开箱即用，你一行配置都不用写。</strong></p>
+<blockquote>
+<p>⚠️ 这里说「三种」不是「三个」，差别很关键：<code>default</code> / <code>worker</code> / <code>explorer</code> 是<strong>三种类型（角色）</strong>，不是「同时只能开三个」。实际派活时，你可以同时 spawn 多个<strong>同类型</strong>的实例——比如让三个 <code>worker</code> 各干一块、两个 <code>explorer</code> 同时探不同模块——总并发上限由第 05 节那个 <code>agents.max_threads</code>（默认 6）管，跟「内置类型有几个」没关系。</p>
+</blockquote>
+<p>官方给的三种内置 agent：</p>
+<table>
+<thead>
+<tr>
+<th>内置 agent</th>
+<th>定位</th>
+<th>适合派去干</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>default</code></td>
+<td>通用兜底 agent</td>
+<td>没特别要求时的默认人选</td>
+</tr>
+<tr>
+<td><code>worker</code></td>
+<td>偏执行：实现、修复</td>
+<td>写代码、改 bug 这类动手的活</td>
+</tr>
+<tr>
+<td><code>explorer</code></td>
+<td>偏只读：啃代码库、探路</td>
+<td>大范围读代码、定位、调研</td>
+</tr>
+</tbody></table>
+<p>光有 agent 还不够，得有人喊它们出门。这里是 Codex 最关键、也最该记牢的一条规矩：<strong>Codex 不会自动拆，必须你在话里明说要并行。</strong> 官方原文：</p>
+<blockquote>
+<p>Codex 不会自动派生子代理，只有在你明确要求子代理或并行 agent 工作时才会用。</p>
+</blockquote>
+<p>所以「唤起」靠的不是什么特殊语法，就是你<strong>把话说清楚</strong>——明说怎么分活、要不要等齐、最后回什么。官方原话给的是「spawn two agents」「delegate this work in parallel」「use one agent per point」这种直白指令。一个写得好的子代理 prompt，官方说该讲明三件事：<strong>怎么分工、要不要等所有 agent 都完事再继续、最后回什么样的摘要。</strong></p>
+<p>照着官方的样子，你可以直接在 Codex 里这么说：</p>
+<pre><code class="language-text">用并行子代理审一下这个分支（当前分支 vs main）。开一个 agent 专盯安全风险、一个专盯测试缺口、一个专盯可维护性。三个都等齐，再按类别把发现汇总，带上文件位置。
+</code></pre>
+<p><strong>类比：你是导演喊「分镜同时拍」。</strong> 不喊就一条线顺着拍；你喊一句「这三场戏三个机位同时开拍，拍完都给我」，剧组才会分头行动。这句「同时开拍 + 都给我」就是你的派生指令——<strong>机位（agent）一直在，等的是你这声令下。</strong></p>
+<p>干起来之后，编排全由 Codex 自己扛——官方说它负责派生新 agent、转达后续指令、等结果、关掉干完的线程；<strong>多个 agent 在跑时，它会等到你要的结果全齐了，再返回一份汇总响应。</strong></p>
+<p><strong>真实场景</strong>：我第一次用这功能审 PR，照着官方那条「spawn one agent per point」的 prompt 把六个审查点一次性甩出去，本来以为要等很久，结果几路并行下来，比我自己一条条问快了一大截，最后拿到的是按六个点归好类的一份汇总。那次我才真正体会到「并行」省的是什么——<strong>省的是你来回等的那几趟串行时间。</strong></p>
+<blockquote>
+<p>⚠️ 可见性有个平台差异得提一句：子代理的活动目前在 <strong>Codex app 和 CLI</strong> 里能看到，<strong>IDE 扩展里的可见性官方标注「即将支持」</strong>。所以想直观看到几个 agent 在跑，现在用 app 或 CLI。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：三种内置 agent（<code>default</code> / <code>worker</code> / <code>explorer</code>，是类型不是实例上限）开箱即用；但 Codex <strong>绝不自动拆</strong>，得你在话里明说「开几个 agent 并行、等齐、回汇总」才动——它会等所有结果齐了再给你一份汇总。</p>
+</blockquote>
+<hr>
+<h2>04 管在跑的 agent：/agent 进去看，或直接喊话指挥</h2>
+<p>几路 agent 同时在跑，你总得有办法看它们干到哪了、甚至临时改主意。Codex 给了两个抓手。</p>
+<h3>抓手一：用 /agent 切换和查看</h3>
+<p>官方给的命令是 <strong><code>/agent</code></strong>（注意是单数，不是 <code>/agents</code>），在 CLI 里用它<strong>在几条活跃 agent 线程之间来回切换、查看某条线程当前在干嘛</strong>。</p>
+<pre><code class="language-text">/agent
+</code></pre>
+<p><strong>注意这跟你印象里别的工具可能不一样</strong>——它不是「运行某个 agent」的命令，而是「进去看 / 切线程」的命令。派生靠你说话，查看才靠 <code>/agent</code>。</p>
+<h3>抓手二：直接喊话指挥</h3>
+<p>更顺手的是直接跟 Codex 说。官方原话：你可以<strong>直接让 Codex 去操控某个在跑的子代理、叫停它、或者关掉已经干完的 agent 线程</strong>。不用记什么子命令，大白话指挥就行，比如「把那个还在跑的探路 agent 停了」。</p>
+<p><strong>类比：你是调度台，对讲机随时插话。</strong> 几辆车在外面跑，你既能切到某个频道听某辆车的实时汇报（<code>/agent</code>），也能直接对着对讲机喊「3 号车别查了，回来」（喊话指挥）。<strong>车在外面自己跑，但方向盘的最终话语权一直在你手里。</strong></p>
+<p>这里还有个审批上的坑，官方专门讲了，值得知道：<strong>在交互式 CLI 里，审批请求可能从一个你没在看的 agent 线程里冒出来。</strong> 比如你正盯着主线，某个后台 agent 撞到要审批的操作，弹窗会标出是哪条线程发的——这时你可以<strong>按 <code>o</code> 先跳进那条线程看看上下文</strong>，再决定批不批、拒不拒、或怎么答。要是在非交互式流程里（比如脚本跑），冒不出新审批的操作会直接失败，并把错误抛回上层工作流。</p>
+<blockquote>
+<p>💡 一句话总结：管在跑的 agent 两招——<code>/agent</code>（单数）进去切线程 / 看进度，或直接喊话让 Codex 停掉、操控、收尾某个 agent；交互式 CLI 里别的线程也可能弹审批，按 <code>o</code> 能跳进去看了再批。</p>
+</blockquote>
+<hr>
+<h2>05 自定义 agent：写一个 TOML 文件，给它配专属模型</h2>
+<p>内置这三种 agent 能应付不少场景，但你要是发现自己老在重复同一类活——每次审查都强调「像 owner 那样审、盯正确性和安全」——那就该把这套固化成一个<strong>自定义 agent</strong>，下次一句话唤起。</p>
+<p><strong>怎么写：往 agent 目录丢一个 TOML（Tom&#39;s Obvious Minimal Language，一种简洁的配置文件格式，比 JSON 更适合人读写）文件，一个文件定义一个 agent。</strong> 官方给的两个位置：</p>
+<table>
+<thead>
+<tr>
+<th>放哪</th>
+<th>谁能用</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>~/.codex/agents/</code></td>
+<td><strong>你的所有项目</strong></td>
+<td>个人通用 agent，到哪都想用的那种</td>
+</tr>
+<tr>
+<td><code>.codex/agents/</code></td>
+<td><strong>仅当前项目</strong></td>
+<td>项目专属 agent，能跟着 git 提交给团队</td>
+</tr>
+</tbody></table>
+<p><strong>类比：给某一路侦探建一份「专属档案」。</strong> 内置那三位是公司随时能调的通用编制；你写的 TOML，是给某个专精方向的侦探单独立的档案——叫什么名、专攻什么、办案守则是什么、给他配什么级别的装备（模型）。<strong>立好档，以后点名就能调。</strong></p>
+<p>一个自定义 agent 文件长这样，<strong>必填只有三个字段</strong>：</p>
+<pre><code class="language-toml">name = &quot;reviewer&quot;
+description = &quot;PR reviewer focused on correctness, security, and missing tests.&quot;
+developer_instructions = &quot;&quot;&quot;
+Review code like an owner.
+Prioritize correctness, security, behavior regressions, and missing test coverage.
+&quot;&quot;&quot;
+</code></pre>
+<p>把字段拎出来说清楚（官方 schema 原样）：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>必填</th>
+<th>干嘛的</th>
+<th>小白要点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name</code></td>
+<td>是</td>
+<td>Codex 派生 / 指代这个 agent 用的名字</td>
+<td><strong>它是身份的唯一真相</strong>，文件名最好跟它一致但以 <code>name</code> 为准</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>是</td>
+<td>给人看的说明：什么场景该用它</td>
+<td>写清楚点，方便你和团队认领</td>
+</tr>
+<tr>
+<td><code>developer_instructions</code></td>
+<td>是</td>
+<td>定义这个 agent 行为的核心指令</td>
+<td>就是它的「人设 + 办案守则」</td>
+</tr>
+<tr>
+<td><code>nickname_candidates</code></td>
+<td>否</td>
+<td>派生时显示用的昵称池</td>
+<td>同一个 agent 开多个实例时，UI 能显示不同昵称区分，<strong>纯展示、不影响身份</strong></td>
+</tr>
+</tbody></table>
+<p>剩下这些可选字段，<strong>你不写就从父会话继承</strong>：<code>model</code>、<code>model_reasoning_effort</code>、<code>sandbox_mode</code>、<code>mcp_servers</code>、<code>skills.config</code>。官方还提了一句——<strong>自定义 agent 文件其实是当成「配置层」加载的，所以你能往里塞其它 <code>config.toml</code> 支持的键。</strong> 另外有个优先级要记住：<strong>如果你的自定义 agent 重名了内置的（比如也叫 <code>explorer</code>），你写的盖过内置的。</strong></p>
+<h3>给不同 agent 选不同模型和思考强度</h3>
+<p>这是自定义 agent 最香的地方——<strong>让每路 agent 用最匹配的脑子</strong>。两个旋钮：</p>
+<ul>
+<li><strong><code>model</code></strong>：用哪个模型。官方思路是「侦察用快的、审查用强的」——偏读、扫大文件、跑并行 worker 这种活，用更快更省的（官方点名 <code>gpt-5.4-mini</code> 这档）；要审查、要啃多步复杂逻辑的，用更强的（官方列了 <code>gpt-5.4</code> / <code>gpt-5.5</code> 两档，<code>gpt-5.5</code> 是 demanding agents 的起点，reviewer 示例用的是 <code>gpt-5.4</code>）。<strong>具体模型名随版本变，以官方为准</strong>，记住这个「侦察用快、攻坚用强」的分配思路就够了。</li>
+<li><strong><code>model_reasoning_effort</code></strong>：思考强度，三档。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>思考强度</th>
+<th>用在</th>
+<th>代价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>high</code></td>
+<td>要追复杂逻辑、查假设、抠边界情况（审查 / 安全类 agent）</td>
+<td>最慢、最烧 token，但复杂活质量更高</td>
+</tr>
+<tr>
+<td><code>medium</code></td>
+<td>大多数 agent 的平衡默认</td>
+<td>折中</td>
+</tr>
+<tr>
+<td><code>low</code></td>
+<td>任务直白、就图个快</td>
+<td>最快</td>
+</tr>
+</tbody></table>
+<p>把它俩落到文件里，给侦察兵配快模型、低思考，给审查员配强模型、高思考：</p>
+<p>注意模型名：官方示例的侦察兵用 <code>gpt-5.3-codex-spark</code>（需 ChatGPT Pro，研究预览），这里改用 <code>gpt-5.4-mini</code>，Pro 用户可换回 <code>gpt-5.3-codex-spark</code>。</p>
+<pre><code class="language-toml"># .codex/agents/explorer.toml —— 只读侦察兵：快、省、不动手
+name = &quot;pr_explorer&quot;
+description = &quot;Read-only codebase explorer for gathering evidence before changes.&quot;
+model = &quot;gpt-5.4-mini&quot;
+model_reasoning_effort = &quot;medium&quot;
+sandbox_mode = &quot;read-only&quot;
+developer_instructions = &quot;&quot;&quot;
+Stay in exploration mode.
+Trace the real execution path, cite files and symbols, and avoid proposing fixes unless asked.
+&quot;&quot;&quot;
+</code></pre>
+<p>注意上面那行 <code>sandbox_mode = &quot;read-only&quot;</code>——<strong>这就是给单个 agent 单独拧权限</strong>。官方说子代理默认继承你当前会话的沙箱策略，但你能在 agent 文件里给某一个单独标成只读，让这路侦察兵<strong>想动手也动不了</strong>。</p>
+<blockquote>
+<p>⚠️ 一个权限上的优先级坑：你在会话里<strong>临时</strong>改的运行时设置（比如 <code>/permissions</code> 调整、<code>--yolo</code>），会被重新套用到派生出的子代理身上——<strong>哪怕那个 agent 文件里写了不一样的默认值</strong>。也就是说你会话里的实时选择，盖过 agent 文件里的静态默认。</p>
+</blockquote>
+<p>还有一类<strong>全局</strong> <code>[agents]</code> 配置，管的是所有子代理的「总闸」，写在你的 <code>config.toml</code> 里（不是单个 agent 文件）：</p>
+<table>
+<thead>
+<tr>
+<th>全局键</th>
+<th>干嘛的</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>agents.max_threads</code></td>
+<td>同时能开几条 agent 线程的上限</td>
+<td>不设时默认 <strong>6</strong></td>
+</tr>
+<tr>
+<td><code>agents.max_depth</code></td>
+<td>agent 嵌套深度（根会话从 0 算）</td>
+<td>默认 <strong>1</strong>：允许直接子代理、但禁止再往下套</td>
+</tr>
+<tr>
+<td><code>agents.job_max_runtime_seconds</code></td>
+<td>CSV 批处理任务里每个 worker 的默认超时</td>
+<td>不设时回退到每个 worker <strong>1800 秒</strong></td>
+</tr>
+</tbody></table>
+<p>官方对 <code>max_depth</code> 有句很实在的提醒：<strong>保持默认 1 就好，除非你真需要递归委派。</strong> 调大它会把「广泛委派」的指令变成层层 fan-out，token、延迟、本机资源消耗全往上窜——<code>max_threads</code> 能卡住并发线程数，但卡不住深层递归带来的成本和不可预测性。</p>
+<blockquote>
+<p>💡 一句话总结：自定义 agent 就是 <code>~/.codex/agents/</code> 或 <code>.codex/agents/</code> 下的一个 TOML，<strong>必填 <code>name</code> / <code>description</code> / <code>developer_instructions</code></strong>；可选字段不写就继承父会话，靠 <code>model</code> + <code>model_reasoning_effort</code> 给侦察兵配快脑、给审查员配强脑，还能 <code>sandbox_mode</code> 单独锁权限。</p>
+</blockquote>
+<hr>
+<h2>06 动手：写一个只读侦察 agent 并让它干活</h2>
+<p>光看不练假把式。下面带你<strong>手写一个最小的自定义 agent，再让它真的跑起来</strong>，亲眼看到「侦察兵探完路、只回结论、不越权」这条链路。全程不依赖复杂环境。</p>
+<p>我们建一个最简单的：一个<strong>只读的「项目侦察兵」</strong>，专门读代码、回报结构和潜在问题，但<strong>一个字都不准改</strong>（靠 <code>sandbox_mode = &quot;read-only&quot;</code> 锁死）。</p>
+<p><strong>第一步：建一个玩具项目和 agent 目录</strong>（Mac / Linux）</p>
+<pre><code class="language-bash">mkdir sub-demo
+cd sub-demo
+mkdir -p .codex/agents
+</code></pre>
+<p><strong>预期</strong>：<code>sub-demo</code> 文件夹里有了 <code>.codex/agents/</code> 这层目录。敲 <code>ls .codex</code> 能看到 <code>agents</code> 在里头。</p>
+<blockquote>
+<p>Windows 用户用 PowerShell：<code>mkdir sub-demo; cd sub-demo; mkdir .codex\agents -Force</code> 。后面 <code>echo</code>、<code>cat</code> 也对应换成 PowerShell 写法。</p>
+</blockquote>
+<p><strong>第二步：手写自定义 agent 文件</strong></p>
+<p>用你顺手的编辑器，新建 <code>sub-demo/.codex/agents/scout.toml</code> ，贴入：</p>
+<pre><code class="language-toml">name = &quot;scout&quot;
+description = &quot;只读的项目侦察兵，读指定文件、回报结构与潜在问题，不动手改。&quot;
+sandbox_mode = &quot;read-only&quot;
+model_reasoning_effort = &quot;low&quot;
+developer_instructions = &quot;&quot;&quot;
+你是一个只读的代码侦察兵，只探路、不改代码。
+被派来时：
+1. 读用户指定的文件
+2. 按可读性、命名、潜在 bug 三类列出问题
+3. 每条给一句改进方向，但绝不修改任何文件
+最后只回一份精炼摘要，别把原始代码整段贴回来。
+&quot;&quot;&quot;
+</code></pre>
+<p>注意这里<strong>没写 <code>model</code> 字段</strong>——按官方默认，它会从你的父会话继承模型。<code>sandbox_mode = &quot;read-only&quot;</code> 把它钉死成只读，<strong>它想写也写不了</strong>；<code>model_reasoning_effort = &quot;low&quot;</code> 让这种轻活跑得快些。</p>
+<p><strong>第三步：造一段「有改进空间」的代码给它侦察</strong></p>
+<pre><code class="language-bash">echo &#39;def f(a, b):
+    return a / b&#39; &gt; calc.py
+</code></pre>
+<p>这个函数名 <code>f</code> 、参数名 <code>a</code> / <code>b</code> 都很烂，还没处理除以 0——正好让侦察兵逮个正着。</p>
+<p><strong>预期</strong>：<code>sub-demo</code> 里有了 <code>calc.py</code> ，内容是上面那两行。</p>
+<p><strong>第四步：启动 Codex，明说让这个 agent 去探</strong></p>
+<pre><code class="language-bash">codex
+</code></pre>
+<p>进去后，<strong>记住第 03 节那条铁规矩——你得明说要用子代理去干</strong>，Codex 不会自己拆：</p>
+<pre><code class="language-text">派 scout 这个子代理去侦察 calc.py，按它的守则只回一份问题摘要，别动文件。
+</code></pre>
+<p><strong>预期</strong>：Codex 会<strong>派生 scout 子代理</strong>（在 app / CLI 里能看到这个 agent 线程在跑，可能带个昵称标签）。它在自己的只读线程里读完 <code>calc.py</code> ，然后<strong>只把一份「侦察摘要」汇总回主线</strong>——大致会指出：函数名 <code>f</code> 和参数 <code>a</code> / <code>b</code> 不达意、缺除数为 0 的处理、建议改成更清楚的命名并加边界判断。<strong>注意它只给方向、没动你的文件</strong>（因为它是 <code>read-only</code>）。想中途看它干到哪了，可以敲 <code>/agent</code> 切进它的线程瞄一眼。</p>
+<p><strong>第五步：验证它真的没改文件</strong></p>
+<p>退出 Codex，回终端看：</p>
+<pre><code class="language-bash">cat calc.py
+</code></pre>
+<p>（Windows PowerShell 用 <code>type calc.py</code>）</p>
+<p><strong>预期</strong>：<code>calc.py</code> <strong>原封不动</strong>，还是那两行——<strong>这就是「锁权限」的威力</strong>：你把它钉成只读，它就算想帮你改也无能为力，只能动嘴。</p>
+<p>跑通这五步，你就把「写 TOML → 明说派生 → 子代理在独立线程干活 → 只回摘要、不越权」这条完整链路亲手验证了一遍。<strong>以后任何自定义 agent，本质都是在这套机制上换指令、调模型、拧权限。</strong></p>
+<blockquote>
+<p>⚠️ 要是 Codex 没派生 scout、而是自己上手读了，多半是你<strong>没把「用子代理」说够明白</strong>——回第 03 节，把「派 XX 子代理去」这种话说死，别让它以为你只是想要个结果。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：写一个 <code>read-only</code> 的侦察 TOML、明说「派 scout 去侦察」让它跑、再 <code>cat</code> 确认文件没被动——<strong>亲手跑通「独立干活 + 锁权限不越界」这条链路，比记十条字段都管用</strong>。</p>
+</blockquote>
+<hr>
+<h2>07 进阶顺一句：批量处理 CSV（实验性）</h2>
+<blockquote>
+<p>⚠️ 这个功能官方标注<strong>实验性，可能随子代理支持演进而变化</strong>——这里只点一下名，让你知道有这么个东西，别当稳定能力依赖。</p>
+</blockquote>
+<p>要是你有<strong>一大堆长得很像的活</strong>——比如「一行一个文件 / 一行一个 PR / 一行一个迁移目标」，挨个审一遍——Codex 有个 <code>spawn_agents_on_csv</code> ：它读一份 CSV，<strong>每行派一个 worker 子代理</strong>，等整批跑完，再把合并结果导出成 CSV。</p>
+<p><strong>类比：流水线分拣。</strong> 一筐包裹（CSV 每行一件），开一排分拣员（每行一个 worker）同时贴标签，全贴完汇总成一张总表。每个 worker 必须<strong>恰好调一次</strong> <code>report_agent_job_result</code> 回报结果，否则那一行在导出的 CSV 里会被标成错误。具体参数和用法以<a href="https://developers.openai.com/codex/subagents">官方文档</a>为准，这里不展开。</p>
+<p>哪些活值得用它、哪些不值得，简单对一张表：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>适不适合 <code>spawn_agents_on_csv</code></th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>批量审几十个 PR、对象结构一致</td>
+<td>✅ 适合</td>
+<td>同一套动作、大量相似对象，并行收益明显</td>
+</tr>
+<tr>
+<td>批量把几十个文件的注释翻译成英文</td>
+<td>✅ 适合</td>
+<td>每行独立、互不依赖，正是 CSV 批处理的主场</td>
+</tr>
+<tr>
+<td>步骤间有顺序依赖（A 完才能 B）</td>
+<td>❌ 不适合</td>
+<td>CSV 各行是并行派出的，无法保证顺序</td>
+</tr>
+<tr>
+<td>只有三四个对象、改动很小</td>
+<td>❌ 不适合</td>
+<td>开实验性批处理的成本比你直接说高，得不偿失</td>
+</tr>
+<tr>
+<td>涉及并行写同一批文件</td>
+<td>⚠️ 慎用</td>
+<td>多 worker 同时动手，撞车风险和第 02 节一样</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：<code>spawn_agents_on_csv</code>（实验性）适合「同一套动作、对着大批量相似对象重复跑」的只读或独立写入场景——步骤有依赖、对象太少、或并行写同一批文件的，用普通子代理或直接在主线干更稳。</p>
+</blockquote>
+<hr>
+<h2>08 小结</h2>
+<p>这一篇我们把 Codex 的「子代理」从「该不该用」一路讲到「怎么唤起、怎么写、怎么验证」——<strong>核心不是教你拆得多花哨，而是帮你建立那条「该并行还是自己干」的判断线，以及记牢 Codex 那个反直觉的设定：不开口它不拆。</strong></p>
+<p>把要点串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你想搞清的事</th>
+<th>答案</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>子代理是什么</td>
+<td>一批带独立线程、可独立配模型 / 权限的专项 agent</td>
+<td>各自并行、只把摘要汇总回主线</td>
+</tr>
+<tr>
+<td>它解决什么</td>
+<td>上下文污染 + 上下文腐烂</td>
+<td>把吵闹的偏读活搬出主线</td>
+</tr>
+<tr>
+<td>什么时候<strong>别</strong>用</td>
+<td>小修改、强依赖、并行写</td>
+<td>拆得多 ≠ 专业，过度拆又慢又贵又撞车</td>
+</tr>
+<tr>
+<td>怎么唤起</td>
+<td><strong>你必须明说</strong>要并行，Codex 绝不自动拆</td>
+<td>说清「怎么分工、要不要等齐、回什么」</td>
+</tr>
+<tr>
+<td>内置 / 自定义</td>
+<td>内置三种开箱即用；自定义写 TOML</td>
+<td>必填 <code>name</code> / <code>description</code> / <code>developer_instructions</code></td>
+</tr>
+<tr>
+<td>怎么选模型</td>
+<td><code>model</code> + <code>model_reasoning_effort</code></td>
+<td>侦察用快脑、审查用强脑</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 判断一个任务该不该拆给子代理（而不是一激动就拆）；用好内置三种 agent，或往 <code>~/.codex/agents/</code> 写一个带专属指令、专属模型、锁定权限的自定义 agent；并且记牢——<strong>得你开口它才拆，干完它只把摘要汇总回来。</strong> 这套「该并行就并行、该自己干就自己干」的分寸感，才是子代理真正的门槛——功能十分钟学会，分寸得用出来。</p>
+<p>记住开头那句反共识的话：<strong>Codex 的子代理强，但它默认不替你做主——拆不拆、拆几个，话语权一直在你这儿。</strong></p>
+<hr>
+<p>下一篇 <strong>22「Agent Skills 技能」</strong>——到这儿你给 Codex 配的「外援」越来越成体系了：AGENTS.md 定规矩、斜杠命令攒快捷、MCP 接外部工具、现在又会拆子代理并行干活。但你有没有发现，子代理的「办案守则」还得每次写一长段 <code>developer_instructions</code> ？要是这套本领能打包成一个<strong>可复用的技能</strong>、随用随调，是不是更省事？下一篇就聊 Codex 怎么把一身本事沉淀成 Skill。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/20-mcp.html"><span class="mono">← 上一篇 · 20</span><b>用 MCP 接外部工具：给 Codex 装上「外接口」</b></a>
+  <a class="pg nx" href="/library/codex/22-skills.html"><span class="mono">下一篇 · 22 →</span><b>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

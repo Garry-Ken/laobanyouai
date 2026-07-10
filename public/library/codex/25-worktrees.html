@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>25 Worktrees 并行隔离：让几个 Codex 各干各的，互不打架 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 25 篇:Worktrees 并行隔离：让几个 Codex 各干各的，互不打架。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/25-worktrees.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class="cur"><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class="cur"><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 25 篇</p>
+      <h1>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇〔<a href="24-hooks.html">24 规则与钩子（Hooks）</a>〕给 Codex 装上了「闸门」和「扳机」，让重复的破事自动化。这一篇换个维度——<strong>不是让一个 Codex 多干一件事，而是让好几个任务真正同时开工、还互不踩脚</strong>。Worktree（工作树）就是 Codex 用来做这件事的核心隔离手段：怎么建、怎么用、为什么同一个分支不能同时在两处检出、Handoff（交接）又是怎么把活儿在前台后台之间搬来搬去。下一篇〔<a href="26-git-github.html">26 Git 与 GitHub 集成</a>〕再讲改完之后怎么提交、推送、开 PR。</p>
+</blockquote>
+<p>说个我今年三月干的蠢事。</p>
+<p>那天我图省事，在 Codex 桌面 App 里<strong>连开两个 Local（本地）线程</strong>改同一个仓库，一个让它重构数据层、一个让它顺手改路由。我心里美滋滋：这不双开双倍效率嘛。结果两个线程都动了同一个 <code>config.ts</code> ，第二个线程一提交，把第一个刚写进去的改动<strong>盖掉了一半</strong>。我对着 <code>git diff</code> 那一坨花花绿绿的红绿块愣了好几分钟，才反应过来：<strong>不是 Codex 抽风，是我让俩人在同一张桌上抢同一支笔。</strong></p>
+<p>后来我才老老实实把那个本该用的东西用上——<strong>Worktree</strong>。同一个项目要并行，一律开 Worktree，每个线程拿一份隔离的代码副本，从那以后再没出过「互相覆盖」这种破事。</p>
+<p>第 07 篇讲桌面 App 时我已经把 Worktree <strong>提过一下</strong>——它是新线程时三个模式（Local / Worktree / Cloud）里的一个，配 Handoff 在前后台之间搬（其中 Cloud（云端）模式本篇不展开，单独放在〔<a href="10-cloud.html">10 云端任务</a>〕讲）。这一篇咱们往下挖：<strong>它底层到底怎么隔离的、为什么有「分支只能在一处检出」这条铁规、Handoff 两个方向怎么走、副本攒多了怎么清。</strong> 这些坑，不讲清楚迟早自己踩。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一句话讲清 Worktree 解决什么、它和「连开俩 Local」的本质区别</li>
+<li>在桌面 App 里建一个 Worktree 线程的完整步骤，外加它默认处在 detached HEAD（游离头指针）这件反直觉的事</li>
+<li>那条最容易栽跟头的铁规——<strong>同一个分支不能同时在两处检出</strong>，撞了报什么错、怎么绕</li>
+<li>Handoff（交接）把线程在 Local 和 Worktree 之间双向搬的两条常见路径，分别什么时候用</li>
+<li>用 Local environment（本地环境）的 setup 脚本，让新 worktree 一建出来就把依赖装好，不缺东西</li>
+<li>Worktree 攒多了占磁盘怎么办：默认保留几个、什么不会被删、删之前的快照能不能恢复</li>
+</ul>
+<blockquote>
+<p>⚠️ Worktree、Handoff、Local environments <strong>都是 Codex 桌面 App（desktop app）的功能</strong>，CLI 里没有对应的 <code>--worktree</code> 之类的开关——别在终端里找它。下文凡涉及具体按钮、默认值、配置项，都以 Codex 官方文档（<a href="https://developers.openai.com/codex/app/worktrees">Worktrees</a> / <a href="https://developers.openai.com/codex/app/local-environments">Local environments</a>）为准；功能随版本可能调整，以你本机运行的实际界面为准。</p>
+</blockquote>
+<hr>
+<h2>01 先想清楚：Worktree 到底解决什么问题</h2>
+<p>先给结论：<strong>Worktree 解决的是「同一个仓库里，几件互不相干的活想同时干，又不想互相覆盖」</strong>。它成立的前提只有一条——<strong>别让这几件活在同一份文件上抢笔</strong>。</p>
+<p>回想前面那些篇，咱们基本都在「一个线程」里折腾：开一个任务，给指令，它一步步干完。这模式九成的活够用。但有两种时候你会嫌它憋屈。</p>
+<p><strong>一是几件活天然能拆开、互不依赖。</strong> 比如「改前端样式」「修后端一个 bug」「补一批测试」，八竿子打不着，却被逼着排队——改完前端才轮到后端。明明能同时干。</p>
+<p><strong>二是你想试个新点子，又不敢碰手头没收尾的活。</strong> 当前工作区还一堆没提交的改动，你又突然想验证另一个思路，直接在原地动手，万一搞砸了，连带把没收尾的东西也弄乱了。</p>
+<p>这时候你可能想：那我多开几个线程不就行了？——<strong>坑就埋在这儿。</strong> 多开线程，如果都是 Local 模式、都指着同一个项目目录，那就是开头我干的那件蠢事：几个 Codex 在<strong>同一份文件</strong>上同时改，后写的盖前写的。</p>
+<p><strong>类比：医院的会诊单。</strong> 一个病人的病历本只有一份原件，三个科室的医生要同时给意见，全挤在那一本上写，笔迹必然打架、还会互相涂掉。规矩的做法是——<strong>给每个医生发一份病历的副本去写</strong>，各写各的，最后再汇总进原件。Worktree 干的就是这事：它从同一套仓库历史里，给你拉出几份独立的工作目录，<strong>各有各的全套文件，但共享同一个 <code>.git</code>（提交历史、分支这些元数据是同一套）</strong>。一个线程在它那份副本里怎么改，都碰不到另一个线程的副本。</p>
+<p>官方把这个值钱的点说得很直白：</p>
+<blockquote>
+<p>每个 worktree 都有你仓库里每个文件的一份独立副本，但它们共享关于提交、分支等的同一份元数据（<code>.git</code> 文件夹）。这让你能并行检出并处理多个分支。</p>
+</blockquote>
+<p>落到你会遇到的真实场景，该上 Worktree 的活长这样：</p>
+<ul>
+<li><strong>「这两个不相干的模块，一个修 bug、一个加功能，想同时推」</strong>——各开一个 Worktree 线程，谁也碰不到谁</li>
+<li><strong>「手头改了一半没提交，突然想试另一个方案」</strong>——开个 Worktree 试，原件纹丝不动，试砸了直接扔</li>
+<li><strong>「让 Codex 在后台慢慢跑一个大重构，我前台继续干别的」</strong>——把它甩进 worktree 后台跑（下一节细说前后台）</li>
+</ul>
+<blockquote>
+<p>💡 一句话总结：Worktree 是为了让<strong>同一仓库里互不相干的活同时开工又不互相覆盖</strong>（像给每个医生发一份病历副本），铁律只有一条——<strong>别让它们在同一份文件上抢笔</strong>，否则越并行越乱。</p>
+</blockquote>
+<p><img src="assets/25-worktree-parallel@2x.png" alt="Worktrees：多任务并行不打架"></p>
+<p>上图：同一 Git 仓库派生三份独立 worktree，三个 Codex 任务各占一份、互不覆盖。</p>
+<hr>
+<h2>02 在桌面 App 里建一个 Worktree 线程</h2>
+<p>知道为什么用之后，来看怎么建。<strong>全程在桌面 App 里点几下，没有命令要敲。</strong></p>
+<blockquote>
+<p>Worktree 只在 <strong>Git 仓库</strong>里能用——底层就是 git 的 worktree 能力。你选的那个项目得是个 git 仓库，否则压根没这个选项。</p>
+</blockquote>
+<h3>四步建出来</h3>
+<p><strong>第一步：新线程，模式选 Worktree。</strong> 在新线程的输入框下方，把模式从默认的 Local 切到 <strong>Worktree</strong>。（顺手可以挑一个 local environment 跑 setup 脚本，第 05 节专讲。）</p>
+<p><strong>第二步：选「从哪个分支起」。</strong> 输入框下面会让你挑这个 worktree 基于哪个分支创建——可以是 <code>main</code> / <code>master</code> ，可以是某个功能分支，也可以是<strong>你当前分支连带那些还没暂存的本地改动</strong>。这点很贴心：你手头改了一半的东西，能一起带进 worktree 里继续。</p>
+<p><strong>第三步：提交你的指令。</strong> 发出任务，Codex 就<strong>基于你选的分支创建一个 git worktree</strong> 并在里头开工。</p>
+<p><strong>第四步：干完决定去哪。</strong> 收尾时你有两条路——要么就待在这个 worktree 上接着干（提交、推送、开 PR），要么 Handoff 把这个线程交接回 Local（第 04 节）。</p>
+<h3>一个反直觉但关键的事实：worktree 默认处在 detached HEAD</h3>
+<p>这是新手最容易懵的点，得专门拎出来说。</p>
+<p><strong>Codex 建出来的 worktree，默认不在任何分支上</strong>，而是处在一种叫 <strong>detached HEAD（游离头指针）</strong> 的状态——你可以理解成「它直接指着某个具体提交，而不是指着一个分支名」。官方原话：</p>
+<blockquote>
+<p>默认情况下，Codex 在「游离 HEAD」状态下工作。</p>
+</blockquote>
+<p>为什么这么设计？官方说得很实在：<strong>这样 Codex 就能一口气建好几个 worktree，而不会污染你的分支列表</strong>。你的 <code>git branch</code> 不会因为开了五个 worktree 就凭空多出五个奇奇怪怪的分支名。</p>
+<p>那如果我就想把这份改动<strong>变成一个正经分支</strong>呢？——线程头部有个 <strong>Create branch here（在此创建分支）</strong> 按钮，点一下，当前 worktree 就转成一个分支，之后你才能在它上面提交、推送、开 PR。</p>
+<blockquote>
+<p>💡 一句话总结：建 Worktree 线程就四步——<strong>选 Worktree 模式 → 选起始分支 → 发指令 → 决定去留</strong>；记住它默认是 detached HEAD（不在任何分支上），想正经提交推送，先点 <strong>Create branch here</strong> 把它转成分支。</p>
+</blockquote>
+<hr>
+<h2>03 最该吃透的一条铁规：同一分支不能在两处同时检出</h2>
+<p>这一节短，但<strong>比前面都关键</strong>——栽过这个跟头的人不少，我也栽过。</p>
+<p>先把规矩立死。<strong>Git 有一条硬规矩：一个分支，同一时间只能在一个工作树里被检出。</strong> 你在某个 worktree 上检出了 <code>feature/a</code> ，那你的本地原件（Local）就<strong>不能</strong>同时也检出 <code>feature/a</code> ，反过来也一样。</p>
+<p><strong>类比：图书馆的同一本书。</strong> 一本书只有一个实体，A 借走了，B 就借不到同一本——不是图书馆小气，是这本书的「当前在谁手上」这个状态，<strong>同一时刻只能有一个确定答案</strong>。git 的分支也一样：一个分支名（<code>refs/heads/&lt;name&gt;</code>）代表「这棵工作树当前是什么状态」这个唯一答案，要是允许两处同时检出、同时往里提交，到底听谁的就乱套了——可能丢提交、可能索引打架。所以 git 干脆一刀切：<strong>一个分支，同一时刻只认一个工作树。</strong></p>
+<p>撞上这条会怎样？假设 Codex 在某个 worktree 上跑完活，你用 <strong>Create branch here</strong> 建了个 <code>feature/a</code> 分支；这会儿你又想在本地原件上检出 <code>feature/a</code> 看看——git 会直接甩你一个错：</p>
+<pre><code>fatal: &#39;feature/a&#39; is already used by worktree at &#39;&lt;WORKTREE_PATH&gt;&#39;
+</code></pre>
+<p>意思就是：这分支已经被那个 worktree 占着了，本地这边检不了。</p>
+<p>那怎么办？<strong>正解不是硬怼，是用 Handoff。</strong> 官方给的两条路：</p>
+<ul>
+<li>临时想看看：在 worktree 上<strong>改检出另一个分支</strong>，把 <code>feature/a</code> 腾出来。</li>
+<li>真要把这条线挪回本地继续：<strong>用 Handoff 把整个线程交接到 Local</strong>（下一节细说），别试图让同一个分支两头同时检出。</li>
+</ul>
+<blockquote>
+<p>💡 一句话总结：<strong>一个分支同一时刻只能在一个工作树里检出</strong>（像图书馆的同一本书只能借给一个人），硬要两处检出就报 <code>already used by worktree</code>；想把活挪到本地，<strong>用 Handoff，别硬怼分支</strong>。</p>
+</blockquote>
+<hr>
+<h2>04 Handoff：把线程在 Local 和 Worktree 之间双向搬</h2>
+<p>上一节反复提到 Handoff，这节讲透。它是 Codex 处理「同一分支不能两头检出」这个麻烦的<strong>官方正解</strong>，也是 worktree 工作流里你会天天用的动作。</p>
+<p>先理解一个心智模型：<strong>Local 是前台，Worktree 是后台。</strong> Local（本地原件）就是你平时直接动手、开熟悉的 IDE、跑开发服务器的那个工作区，相当于摆在你面前的台面；Worktree 是在旁边后台默默推进的隔离副本。<strong>Handoff 干的，就是把一个线程在前台和后台之间搬过去搬回来。</strong></p>
+<p><strong>类比：厨房的明档和备餐间。</strong> 明档（Local）是客人能看到、厨师当面出菜的台面；备餐间（Worktree）在后头默默切配、炖煮。一道菜该在哪做，看时机：要当面收尾、上桌验菜，就端到明档；要腾出明档先忙别的、这道菜慢慢炖着，就挪进备餐间。Handoff 就是这个「端进端出」的动作——<strong>而且 Codex 会替你把底层那些 git 操作安全地处理掉</strong>，你不用自己 <code>git worktree</code> 一通敲。</p>
+<p>官方点明了 Handoff 存在的根本原因，正好接上一节：</p>
+<blockquote>
+<p>这一点之所以重要，是因为 <strong>Git 只允许一个分支同一时间在一处被检出</strong>。</p>
+</blockquote>
+<p>它有两个方向，对应两条常见路径：</p>
+<p><strong>方向一：Worktree → Local（把后台的线程端到前台）。</strong> 点线程头部的 <strong>Hand off</strong> ，移到 <strong>Local</strong>。什么时候用？<strong>当你想用日常那套熟悉环境来验收</strong>——在你常用的 IDE 窗口里读 diff、跑你现有的开发服务器、或者你的 app <strong>只能开一个实例</strong>没法在 worktree 里另起一个。我自己最常用这条：让 Codex 在 worktree 后台把一个功能搭完，搭好了 Handoff 回 Local，在熟悉的编辑器里逐行过一遍。</p>
+<p><strong>方向二：Local → Worktree（把前台的线程甩到后台）。</strong> 反过来也行。你正在 Local 上干，想腾出前台去忙别的，就用 <strong>Hand off</strong> 把这条线程挪进 worktree——<strong>让 Codex 在后台继续跑，你把注意力切回本地别的事</strong>。</p>
+<p>这里有个<strong>贴心又容易忽略</strong>的细节：<strong>每个线程始终绑着同一个 worktree。</strong> 你把它 Handoff 回 Local，过会儿又想丢回后台，Codex 会<strong>把它送回原来那个 worktree</strong>，让你接着上次的进度干，不会另起炉灶。</p>
+<p>最后一个<strong>必须记牢的坑</strong>：</p>
+<blockquote>
+<p>由于 Handoff 用的是 Git 操作，任何在你 <code>.gitignore</code> 里的文件都不会随线程一起搬过去。</p>
+</blockquote>
+<p>也就是说——<strong><code>.env</code>、本地缓存这些没被 git 跟踪的东西，Handoff 不会带着走。</strong> 这跟 worktree 本身「干净新副本」的特性是一回事，下一节正好讲怎么补这个缺口。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Worktree → Local</th>
+<th>Local → Worktree</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>方向</strong></td>
+<td>后台端到前台</td>
+<td>前台甩到后台</td>
+</tr>
+<tr>
+<td><strong>典型场景</strong></td>
+<td>用熟悉 IDE 验收、跑只能开一份的开发服务器</td>
+<td>腾出前台忙别的，让它后台继续跑</td>
+</tr>
+<tr>
+<td><strong>谁处理 git</strong></td>
+<td>Codex 自动处理</td>
+<td>Codex 自动处理</td>
+</tr>
+<tr>
+<td><strong><code>.gitignore</code> 里的文件</strong></td>
+<td>不跟着搬</td>
+<td>不跟着搬</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：Handoff 把线程在 <strong>Local（前台）和 Worktree（后台）之间双向端进端出</strong>（像厨房明档和备餐间互相挪菜），git 操作 Codex 替你安全搞定；每个线程始终绑同一个 worktree，但 <strong><code>.gitignore</code> 里的文件不会跟着搬</strong>。</p>
+</blockquote>
+<hr>
+<h2>05 让新 worktree 一建出来就「装备齐全」：Local environment 的 setup 脚本</h2>
+<p>接着上一节那个缺口说：worktree 是一份<strong>全新检出</strong>，跑在跟你 Local 不同的目录里，所以<strong>那些没进 git 的依赖、配置、本地文件，它一开始都没有</strong>。最典型的就是：新 worktree 一跑，<code>node_modules</code> 不在、<code>.env</code> 不在，活儿直接卡住。</p>
+<p>我四月真栽过一次：兴冲冲开了个 Worktree 让 Codex 改后端，结果它连不上数据库——折腾半天才反应过来，<strong><code>.env</code> 压根没在 worktree 里</strong>（前一节说了，<code>.gitignore</code> 的东西不跟着走）。补上 setup 脚本之后就再没这毛病。</p>
+<p><strong>类比：连锁店开新分店的「开店清单」。</strong> 总店（你的 Local）东西齐全，新开一家分店（worktree）四壁空空。聪明的连锁店有一张<strong>标准开店清单</strong>：进货、装设备、布置，照着跑一遍，新店立马能营业。Local environment 的 <strong>setup 脚本</strong>就是这张清单——<strong>Codex 每次为新线程创建 worktree 时，自动跑一遍</strong>，把依赖装好、该构建的构建好。</p>
+<p>配在哪、怎么配？官方说得清楚：</p>
+<ul>
+<li>通过 <strong>Codex App 的 settings（设置）面板</strong>配置 local environment，生成的配置存在你项目根目录的 <strong><code>.codex</code> 文件夹</strong>里。</li>
+<li>这个配置文件<strong>可以提交进 git 跟队友共享</strong>——配一次，全队的 worktree 都自动装备齐全。</li>
+</ul>
+<p>举个官方给的 TypeScript 项目例子，setup 脚本就这么两行：</p>
+<pre><code class="language-bash">npm install
+npm run build
+</code></pre>
+<p>新 worktree 一创建，这两行自动跑，依赖装好、初始构建也做了，Codex 上来就能干活，不缺东西。</p>
+<p><strong>平台差异：</strong> 如果你的 setup 步骤分平台（macOS / Windows / Linux），可以为各平台单独定义 setup 脚本来覆盖默认的。Windows 上桌面 App 的可用范围以官方 Windows 文档为准。</p>
+<p>顺带提一个相关能力：除了 setup 脚本，local environment 还能配 <strong>Actions（动作）</strong>——把「启动开发服务器」「跑测试套件」这类常用命令做成 App 顶栏的快捷按钮，点一下就在内置终端里跑。这块第 07 篇露过一下，这里不展开。</p>
+<blockquote>
+<p>💡 一句话总结：worktree 是干净新副本，没进 git 的依赖和 <code>.env</code> 都不在里头；用 local environment 的 <strong>setup 脚本</strong>（存在项目根 <code>.codex</code> 文件夹、可提交共享）让它<strong>一建出来就自动装好依赖</strong>，像连锁店照「开店清单」开新店。</p>
+</blockquote>
+<hr>
+<h2>06 Worktree 攒多了怎么办：清理、上限与快照恢复</h2>
+<p>并行用爽了，会冒出一个现实问题：<strong>worktree 占磁盘</strong>。每一个都带着自己一整套仓库文件、依赖、构建缓存——开十几个，硬盘肉眼可见地瘪下去。所以 Codex 会帮你<strong>把 worktree 的数量控制在合理范围</strong>。</p>
+<p>先讲两个底层事实，免得你到处找 worktree 在哪：</p>
+<ul>
+<li>Codex 把 worktree 都建在 <strong><code>$CODEX_HOME/worktrees</code></strong> 下统一管理（<code>CODEX_HOME</code> 默认是 <code>~/.codex</code> ，配置篇第 18 篇提过）。</li>
+<li>默认情况下，Codex <strong>保留你最近的 15 个</strong> Codex 托管的 worktree；这个上限<strong>可以在设置里改</strong>，也可以<strong>关掉自动删除</strong>自己管磁盘。</li>
+</ul>
+<p>那 Codex 删 worktree 的规矩是什么？它会<strong>尽量不删还重要的</strong>。按官方：</p>
+<p><strong>这些情况下，Codex 托管的 worktree 不会被自动删除：</strong></p>
+<ul>
+<li>有一个置顶（pinned）的对话绑着它</li>
+<li>对应线程还在进行中</li>
+<li>它是一个永久 worktree（permanent worktree，见下文）</li>
+</ul>
+<p><strong>这些情况下会被自动删除：</strong></p>
+<ul>
+<li>你归档（archive）了对应的线程</li>
+<li>Codex 为了不超过你设的上限，需要删掉更老的 worktree</li>
+</ul>
+<p>最让人安心的一条——<strong>删之前有快照</strong>：</p>
+<blockquote>
+<p>在删除一个 Codex 托管的 worktree 之前，Codex 会保存该 worktree 上工作的一份快照。如果你在 worktree 被删后又打开了对应的对话，你会看到恢复它的选项。</p>
+</blockquote>
+<p>也就是说，就算某个 worktree 被自动清掉了，<strong>线程本身还在你历史里</strong>，重新打开还能选择恢复——不至于一删全没。</p>
+<p>最后区分一个概念，免得混：<strong>Codex 托管的 worktree</strong> vs <strong>永久 worktree</strong>。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Codex 托管的 worktree（默认）</th>
+<th>永久 worktree（permanent）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>怎么来的</strong></td>
+<td>开 Worktree 线程时 Codex 自动建</td>
+<td>在侧边栏项目的三点菜单里手动建</td>
+</tr>
+<tr>
+<td><strong>绑几个线程</strong></td>
+<td>通常专属一个线程</td>
+<td>可以从同一个起多个线程</td>
+</tr>
+<tr>
+<td><strong>会被自动删吗</strong></td>
+<td>会（超上限 / 归档时）</td>
+<td><strong>不会</strong>自动删</td>
+</tr>
+<tr>
+<td><strong>适合</strong></td>
+<td>轻量、用完即弃的临时活</td>
+<td>想要一个长期存在的固定环境</td>
+</tr>
+</tbody></table>
+<p>说白了：<strong>临时试个想法，用默认的就行，反正用完会自动收拾</strong>；<strong>想要一个长期稳定、反复回来用的环境</strong>，就从项目三点菜单建个永久 worktree，它自成一个项目、不会被自动删。</p>
+<blockquote>
+<p>💡 一句话总结：worktree 建在 <code>$CODEX_HOME/worktrees</code> ，默认<strong>保留最近 15 个</strong>、超了或归档时自动删（<strong>删前有快照能恢复</strong>），置顶 / 进行中 / 永久的不会被删；<strong>临时活用默认、长期环境建永久 worktree</strong>。</p>
+</blockquote>
+<hr>
+<h2>07 动手：在桌面 App 里跑通一条 Worktree 主链</h2>
+<p>光看不练假把式。下面这条<strong>全程在 Codex 桌面 App 里点</strong>，配一个 git 项目即可。每步给了能自验的预期结果，照着走一遍，这套手段就有肌肉记忆了。</p>
+<blockquote>
+<p>用到一个 git 仓库（没有就随便 <code>git init</code> 一个练手）。这是<strong>桌面 App 独有</strong>的流程，CLI 里没有对应开关。下面操作不依赖魔法上网。</p>
+</blockquote>
+<p><strong>第一步：新线程，模式切到 Worktree</strong></p>
+<p>在 App 里点新建线程，输入框下方把模式从 <strong>Local</strong> 切到 <strong>Worktree</strong>，再选一个起始分支（练手就选 <code>main</code> ）。</p>
+<p><strong>预期</strong>：模式显示成 Worktree，下方出现「起始分支」选择项。<strong>看到这俩 = 你正准备开一个隔离副本，而不是动原件。</strong></p>
+<p><strong>第二步：发一个只读的小任务</strong></p>
+<p>随便发一句安全的、不咋改文件的指令，比如：「列出这个项目里所有 markdown 文件的标题。」</p>
+<p><strong>预期</strong>：Codex <strong>基于你选的分支创建一个 worktree</strong> 并在里头开工。这个线程的工作目录在 <code>$CODEX_HOME/worktrees</code> 下（默认 <code>~/.codex/worktrees</code> ），跟你 Local 原件是两份。</p>
+<p><strong>第三步：在内置终端确认它是个独立 worktree</strong></p>
+<p>打开线程的内置终端（macOS <code>Cmd + J</code> ，Windows 键位以本机为准），跑一句：</p>
+<pre><code class="language-bash">git worktree list
+</code></pre>
+<p><strong>预期</strong>：列表里除了你的主检出，<strong>多出一行</strong>指向 <code>.../.codex/worktrees/...</code> 那个目录。看到这行 = 隔离副本确实建好了，你眼下就在它里面。</p>
+<p><strong>第四步：试一次 Handoff 回 Local</strong></p>
+<p>点线程头部的 <strong>Hand off</strong> ，选移到 <strong>Local</strong>。</p>
+<p><strong>预期</strong>：这条线程被搬到你的本地原件，<strong>现在你能在平时那套 IDE / 终端环境里看它的改动了</strong>。Codex 自动处理了底层 git 操作，你不用手敲任何 <code>git worktree</code> 命令。</p>
+<p><strong>第五步：清理</strong></p>
+<p>练手的临时 worktree 不想留，最省心的办法是<strong>归档（archive）这个线程</strong>——按第 06 节的规矩，归档后对应的 Codex 托管 worktree 会被自动删（删前留快照，反悔了还能从线程恢复）。也可以去设置里看 worktree 的数量上限和自动删除开关。</p>
+<p><strong>预期</strong>：归档后该线程从活动列表消失，对应 worktree 进入自动清理；磁盘上那份副本随之回收。<strong>清干净 = 一条完整链路走通。</strong></p>
+<p>跑通这五步，你就把「开隔离副本 → 确认它独立 → Handoff 搬前台 → 清理」这条 worktree 主链亲手走了一遍。<strong>以后真要并行干活，本质都是这套，无非换任务、多开几个 Worktree 线程。</strong></p>
+<blockquote>
+<p>💡 一句话总结：动手链路就五步——<strong>Worktree 模式开线程 → 发个小任务建出 worktree → <code>git worktree list</code> 确认独立 → Hand off 回 Local 验收 → 归档线程让它自动清理</strong>；走通一遍比记十条命令都管用。</p>
+</blockquote>
+<hr>
+<h2>08 小结</h2>
+<p>这一篇把「让几个 Codex 在同一仓库里同时开工还互不打架」这件事，从「为什么要隔离」一路讲到「副本攒多了怎么清」。</p>
+<p>把核心要点串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你想干的事</th>
+<th>用什么</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>搞清为什么要隔离</td>
+<td>Worktree 的两前提</td>
+<td>同仓库并行、别在同一份文件抢笔（像给每个医生发病历副本）</td>
+</tr>
+<tr>
+<td>建一个隔离线程</td>
+<td>新线程选 <strong>Worktree</strong> 模式</td>
+<td>选起始分支；默认是 detached HEAD，想提交先 <strong>Create branch here</strong></td>
+</tr>
+<tr>
+<td>别让分支两头检出</td>
+<td>记牢那条铁规</td>
+<td>同一分支同一时刻只能在一处检出，撞了报 <code>already used by worktree</code></td>
+</tr>
+<tr>
+<td>在前后台之间搬活</td>
+<td><strong>Handoff（交接）</strong></td>
+<td>Local 前台 / Worktree 后台双向搬，git 操作 Codex 自动处理，<code>.gitignore</code> 的不跟着走</td>
+</tr>
+<tr>
+<td>让新副本装备齐全</td>
+<td>Local environment 的 <strong>setup 脚本</strong></td>
+<td>存项目根 <code>.codex</code> 、可提交共享，新 worktree 一建就自动装依赖</td>
+</tr>
+<tr>
+<td>管住磁盘占用</td>
+<td>清理规则 + 永久 worktree</td>
+<td>默认留最近 15 个、删前有快照能恢复；长期环境建永久 worktree</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong></p>
+<ul>
+<li>说清 Worktree 解决什么，铁律是「同仓库并行别抢同一份文件」</li>
+<li>在桌面 App 里建一个 Worktree 线程，知道它默认是 detached HEAD、要提交得先 <strong>Create branch here</strong></li>
+<li>理解「同一分支不能两处检出」这条铁规，撞上了用 Handoff 而不是硬怼</li>
+<li>用 Handoff 把线程在 Local 和 Worktree 之间双向搬，用 local environment 的 setup 脚本让新 worktree 一建就齐活</li>
+<li>知道 worktree 攒多了怎么清、什么情况不会被删</li>
+</ul>
+<p>回头看开头那个「连开俩 Local 改同一个仓库」的蠢事，<strong>根子就是没用隔离、让俩 Codex 抢了同一支笔</strong>。现在你手里有 Worktree 这把隔离的钥匙，也有 Handoff 这个搬运工，<strong>能比一头扎进去的人少走一大圈弯路。</strong></p>
+<hr>
+<p>下一篇 <strong>〔<a href="26-git-github.html">26 Git 与 GitHub 集成</a>〕</strong>——这一篇你已经撞见好几个 Git 动作了：worktree 转分支、Handoff 背后那些被 Codex 悄悄替你处理的 git 操作、改完之后要提交推送……但这些大多还停在「Codex 替你做」的层面。下一篇就把 Codex 的 Git / GitHub 能力正面摊开：在 App 里直接 commit、push、开 PR，diff 面板怎么逐块暂存或还原，再到怎么跟 GitHub 联动。想想看：<strong>worktree 把活隔离好了，最后总得有一步把它干净地并回主线——那一步，正是下一篇的主场。</strong></p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/24-hooks.html"><span class="mono">← 上一篇 · 24</span><b>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</b></a>
+  <a class="pg nx" href="/library/codex/26-git-github.html"><span class="mono">下一篇 · 26 →</span><b>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

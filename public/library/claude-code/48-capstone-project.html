@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>48 综合实战：从零到上线，把所学串成一条线 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 48 篇:综合实战：从零到上线，把所学串成一条线。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/48-capstone-project.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class="cur"><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class="cur"><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 48 篇</p>
+      <h1>综合实战：从零到上线，把所学串成一条线</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 [47 Voice 语音模式] 让你把「打字下指令」换成「张嘴说需求」，解放了双手。这一篇是整套教程的<strong>毕业设计</strong>——不教任何新功能，而是拿一个<strong>比第 39 篇大一圈、要跨好几个会话</strong>的真实项目，把 CLAUDE.md、权限、MCP、subagent、检查点、git 这些零件<strong>一次性全调动起来</strong>，走一趟从开工到交付的完整工程流。</p>
+</blockquote>
+<p>把用 Claude Code 攒下来的项目翻一遍做个粗略统计就会发现：<strong>真正让人觉得「这玩意儿值回票价」的，没有一个是「一句话改一行」的小活儿，全是那种横跨三五个会话、动用了四五种功能的中等项目。</strong></p>
+<p>具体点说——用它从零搭一个内部用的小工具，前后开了 4 个会话、用掉大概两个半小时，中间接了一个 MCP server 去查文档、派了一个 subagent 做安全审查、还靠检查点救回过一次改崩的代码。<strong>最后回头看那条 git 提交记录，干干净净 7 个 commit，每个都说得清干了啥。</strong> 那一刻你才会真切感到：前面学的零件，不是一个个孤立的招式，是能<strong>拧成一股绳</strong>的。</p>
+<p>说白了，这正是「学过每个功能」和「能用它们干成一件正经事」之间最后那道坎。第 39 篇带你走过一趟最小实战——单会话、单脚本、纯本地。<strong>这一篇要把摊子铺大</strong>：项目更复杂、要跨会话接力、要连外部、要派分身、还要在改崩时优雅地退回去。<strong>前 47 篇是把乐器一件件教给你，这一篇是让你当一回指挥，把整个乐队合成一支完整的曲子。</strong></p>
+<p><strong>类比：指挥一支乐队完整演奏一支曲子。</strong> 你练过小提琴、练过铜管、练过打击乐——每件乐器单独都摸熟了。但「会演奏每件乐器」和「能让它们合奏出一支曲子」是两码事：你得知道哪个声部什么时候进、谁主谁辅、节奏怎么对上。这一篇里，<strong>你就是那个指挥</strong>——CLAUDE.md、权限、MCP、subagent、检查点、git 是你的各个声部，我带你把它们按正确的时机一个个引进来，合成一趟完整的演出。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一张「中等项目从零到交付」的完整地图，看清每个学过的功能<strong>在哪一步登场、解决哪一棒的事</strong></li>
+<li>一套跨会话接力的打法：怎么用 <code>--resume</code>、SPEC 文档、检查点把一个大活儿<strong>安全地分到几天 / 几个会话里干</strong></li>
+<li>每个关键环节「该敲什么、看什么、卡在哪」，含命令与预期输出</li>
+<li>一个能照着抄的真实小项目（一个带本地存储、测试、文档的命令行任务清单工具），全程串起 CLAUDE.md → 权限 → MCP → subagent → 检查点 → git</li>
+<li>一张「玩具练习 vs 真实项目」的对照表，把「摊子一大就翻车」的坑标出来</li>
+</ul>
+<hr>
+<h2>01 先看全景：一个中等项目，功能在哪一步登场</h2>
+<p>动手之前，先把整支曲子的「总谱」摊开看一眼。<strong>一个中等项目从零到交付，骨架还是那几步，但每一步都比第 39 篇重，而且会拉进新的声部。</strong></p>
+<p><img src="assets/48-capstone-flow@2x.png" alt="综合实战六步：立项 → 规划 → 接外部 → 分活 → 容错 → 交付；大项目跨会话接力回到「规划」"></p>
+<p>这张图把一趟中等实战画成一条<strong>带回路</strong>的流水线：六个环节依次接棒，而那条虚线是关键——<strong>真实项目一个会话干不完，验证完一轮会回到「规划」开下一个会话</strong>，把功能一块块啃下来。第 39 篇那条单向直线，这里弯成了一个能转好几圈的环。</p>
+<p>跟第 39 篇最大的不同，就两点，先记死：</p>
+<ul>
+<li><strong>它要跨会话。</strong> 一个会话上下文塞满了就该收尾（第 19 篇讲过工作台塞满会变蠢），换个干净会话接着干。所以「怎么把活儿安全地交接到下一个会话」本身就是一门功夫。</li>
+<li><strong>它要调动新声部。</strong> 单脚本用不上 MCP、subagent，但中等项目里它们是常态——查外部文档、隔离掉脏活、找个新鲜模型挑刺。</li>
+</ul>
+<p>官方最佳实践那句话，正好是这一篇的总纲：</p>
+<blockquote>
+<p>一旦你对一个 Claude 有效，通过并行会话、非交互模式和扇出模式来增加你的输出。</p>
+</blockquote>
+<p>说白了就是：<strong>摸清一套有效的打法之后，就靠并行跑多个会话、用非交互批量执行、用扇出派分身同时推进，把产出放大</strong>——而不是每次都从零试。这一篇就是在实战中把这几招一件件用起来。</p>
+<p>下面每一节，我都会在开头标清「这一棒对应前面哪一篇学过的东西」，让你边走边把零件对上号。<strong>地图记牢了，剩下的就是看每个声部什么时候进场。</strong></p>
+<blockquote>
+<p>💡 一句话总结：中等项目的骨架仍是「立项 → 规划 → 接外部 → 分活 → 容错 → 交付」，但比小任务多了两样——<strong>要跨会话接力、要调动 MCP / subagent 这些新声部</strong>；那条回到「规划」的虚线，是真实项目的常态。</p>
+</blockquote>
+<hr>
+<h2>02 立项：定项目、写 CLAUDE.md、把权限基线配好</h2>
+<p>第一棒——<strong>立项</strong>。对应第 12 / 18 篇（CLAUDE.md）、第 20 篇（权限）。这一棒在小任务里只是「写三五行 CLAUDE.md」，到了中等项目，<strong>得把「项目规矩」和「权限基线」一起立起来</strong>，因为后面好几个会话都要吃这套地基。</p>
+<p>我们这一篇要做的项目：<strong>一个命令行的任务清单工具（todo-cli）</strong>——能加任务、列任务、标记完成，数据存在本地一个 JSON 文件里，再配上测试和一份 README。它比第 39 篇那个单文件脚本大：<strong>多个文件、有持久化、有测试、要跨会话分步做</strong>，但依然只用 Python 标准库，谁都能跑。</p>
+<p><strong>第一步：建项目骨架、纳入 git</strong></p>
+<pre><code class="language-bash">mkdir todo-cli &amp;&amp; cd todo-cli &amp;&amp; git init
+</code></pre>
+<p>为什么开工第一件事就是 <code>git init</code>？因为<strong>它是你整趟项目最硬的那张后悔药</strong>。检查点（第 37 篇）能倒带 Claude 的编辑，但它和 git 是两套东西、各管一段。<strong>一个干净的初始提交，是你无论后面怎么折腾都能逃回去的原点</strong>——这条第 39 篇讲过，项目越大越要守。</p>
+<p><strong>第二步：在项目根启动，写一份够用的 CLAUDE.md</strong></p>
+<pre><code class="language-bash">claude
+</code></pre>
+<p>进去后让它生成 CLAUDE.md（中等项目更推荐先手动指明几条核心规矩，比 <code>/init</code> 扫全库更准，因为这会儿还没什么代码可扫）：</p>
+<pre><code class="language-text">帮我在项目根目录建一个 CLAUDE.md，写清这几条：
+1. 这是个纯 Python 标准库的命令行工具，不要引入任何第三方依赖
+2. 数据持久化到项目根的 todos.json，所有读写都走这一个文件
+3. 每加一个功能都要配 unittest 测试，改完跑 python3 -m unittest 验证
+4. 提交信息用中文，前缀用 feat: / fix: / docs:
+</code></pre>
+<p><strong>预期</strong>：Claude 先把内容给你看、再请求批准写文件（第 20 篇的权限机制）。批准后多出一个 <code>CLAUDE.md</code>，把这四条规矩钉死。注意——<strong>它现在只有十来行</strong>。官方那句红线值得再贴一遍：</p>
+<blockquote>
+<p>保持简洁。对于每一行，问自己：「删除这个会导致 Claude 犯错吗？」如果不会，删除它。</p>
+</blockquote>
+<p>这四条全是 Claude 猜不出来、又会反复用到的规矩，所以留着。后面三四个会话，它每次开工都自动加载这份说明，<strong>你不用每个会话都复读「别引第三方库、改完跑测试」</strong>。</p>
+<p><strong>第三步：把权限基线配好——这是中等项目比小任务多出来的关键一步</strong></p>
+<p>小任务你可以一处一处批准。但中等项目要跑好几个会话、改十几个文件，官方在最佳实践里直接点破了这个问题：<strong>「在第十次批准后，你不是真的在审查，你只是点击通过。」</strong> 所以开工就该把权限基线定好。三条路，看场景挑：</p>
+<table>
+<thead>
+<tr>
+<th>做法</th>
+<th>怎么用</th>
+<th>适合的场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>权限允许列表</strong></td>
+<td><code>/permissions</code> 把你确定安全的命令加进去（如 <code>python3 -m unittest</code>、<code>git status</code>）</td>
+<td>项目里反复跑的安全命令，免得每次都问</td>
+</tr>
+<tr>
+<td><strong>plan mode（计划模式）</strong></td>
+<td><code>Shift+Tab</code> 切，或 <code>claude --permission-mode plan</code> 启动</td>
+<td>不熟的改动、要先审方案再动手时</td>
+</tr>
+<tr>
+<td><strong>auto mode（自动模式）</strong></td>
+<td><code>claude --permission-mode auto</code>，分类器只拦危险操作</td>
+<td>信任任务大方向、不想点过每一步时</td>
+</tr>
+</tbody></table>
+<p>做这个 todo-cli 时一套实用的配法：<strong><code>python3 -m unittest</code>、<code>git diff</code>、<code>git status</code> 这几条反复跑的，第一时间用 <code>/permissions</code> 加进允许列表</strong>；涉及多文件的功能改动一律先 <code>Shift+Tab</code> 切 plan mode 审方案。<strong>这套基线立好，后面几个会话的批准噪音直接少一大半</strong>——头一回做中等项目时要是没配，光「要不要跑测试」这一个问题就能批二十多次，烦到差点关掉确认（那才是真危险）。</p>
+<blockquote>
+<p>⚠️ 权限放松是把双刃剑——auto mode 和「全部接受」省心，但你交出的是「事中拦截」那道窗口。第 20、21 篇专门讲过这个权衡：<strong>越是放手，越要靠后面的验证和检查点兜底</strong>。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：中等项目的立项 = <strong>git init 留原点 + 写一份十来行的 CLAUDE.md 定规矩 + 用 <code>/permissions</code>、plan mode、auto mode 配好权限基线</strong>；权限基线这一步，是项目变大后比小任务多出来、最该花两分钟做的事。</p>
+</blockquote>
+<hr>
+<h2>03 规划：先探索出一份 SPEC，再跨会话分步实现</h2>
+<p>地基打好，第二棒——<strong>规划</strong>。对应第 16 篇（探索）、第 20 篇（plan mode）、第 19 篇（上下文管理）。中等项目和小任务在这一棒分野最大：<strong>小任务一句话说清就能动手，中等项目得先沉淀出一份「规格说明（SPEC）」，再照着它分会话啃。</strong></p>
+<p><strong>为什么中等项目一定要先出 SPEC？</strong> 因为功能一多，你脑子里那点模糊想法根本撑不住一趟实现——做到一半发现边界没想清、字段对不上，回头返工。官方最佳实践给了个特别好用的招：<strong>让 Claude 反过来采访你</strong>。</p>
+<p><strong>第一步：让它采访你，逼出一份 SPEC</strong></p>
+<p>进 plan mode（<code>Shift+Tab</code>），把这段话甩给它：</p>
+<pre><code class="language-text">我想做一个命令行任务清单工具 todo-cli，数据存本地 JSON。
+用 AskUserQuestion 工具详细采访我：技术实现、命令行接口怎么设计、
+边界情况（比如空清单、重复任务、文件损坏）、有哪些权衡。
+别问显而易见的，挖那些我可能没想到的硬骨头。
+问完把完整规格写进 SPEC.md。
+</code></pre>
+<p><strong>预期</strong>：Claude 会一条条问你——「任务要不要带优先级？」「<code>todos.json</code> 不存在时是报错还是自动建？」「标记完成是删掉还是留着打勾？」<strong>这些全是你自己拍脑袋时漏掉的</strong>。问够了，它写出一份 <code>SPEC.md</code>，把命令、字段、边界、验收标准全列清。官方点破了 SPEC 的价值：</p>
+<blockquote>
+<p>最有用的规范是自包含的：它们命名涉及的文件和接口，说明什么在范围之外，并以端到端验证步骤结束。</p>
+</blockquote>
+<p>做这个工具时，它常会问到一个你压根没想的点：<strong>「两条任务文字一模一样，算不算重复、要不要去重？」</strong> 被这么一问才意识到这是个真要拍板的设计决策。<strong>花十分钟被它采访，省掉的是后面「做到一半推翻重来」的两小时</strong>——这笔账太划算了。</p>
+<p><strong>第二步：把大活儿切成「一个会话一块」</strong></p>
+<p>SPEC 出来了，<strong>别想着一个会话从头干到尾</strong>。中等项目的功能一多，单会话上下文很快就塞满，塞满了 Claude 就开始「忘事、犯错」（第 19 篇讲透了）。正确的打法是<strong>照 SPEC 切块，一个会话啃一块</strong>：</p>
+<pre><code class="language-text">会话 1：搭骨架——文件结构、todos.json 读写、add 命令 + 测试
+会话 2：list 和 done 命令 + 测试
+会话 3：边界处理（文件损坏、空清单）+ 补全测试
+会话 4：写 README、整体过一遍、交付
+</code></pre>
+<p><strong>第三步：会话之间怎么安全接力</strong></p>
+<p>这是中等项目独有的功夫。一个会话干完一块，怎么把活儿交给下一个会话？两个抓手：</p>
+<ul>
+<li><strong><code>/clear</code> 收尾，<code>--resume</code> 接力。</strong> 干完一块、要换不相关的下一块时，<code>/clear</code> 重置上下文（官方反复强调「不相关任务之间频繁 <code>/clear</code>」）；想接着之前那条线干，用 <code>claude --resume</code> 从列表里挑回那个会话。</li>
+<li><strong>SPEC.md 当「交接班的备忘录」。</strong> 每个会话开头让它先读一眼 <code>SPEC.md</code> 和 <code>git log</code>，几秒钟就接上了上一棒的进度——<strong>这就是为什么 SPEC 要落成文件，而不只是聊在对话里</strong>：对话会随会话清掉，文件不会。</li>
+</ul>
+<p>给你一句能直接抄的「接力开场白」，每个新会话第一句就甩这个：</p>
+<pre><code class="language-text">先读 SPEC.md 和 git log 看我们做到哪了，别改任何代码，
+告诉我下一块该做什么、有没有遗留的坑。
+</code></pre>
+<p>做 todo-cli 时偷个懒很容易翻车——第二个会话没让它读 SPEC，凭记忆直接说「接着做 list 命令」，结果它<strong>把第一个会话已经定好的 JSON 字段名又改了一套</strong>，两个会话的数据格式对不上，白折腾。所以雷打不动的做法是：<strong>新会话第一句永远是「先读 SPEC 和 git log」</strong>，让它自己接上进度，比口头复述准得多。</p>
+<p>官方那句话点得很实在：</p>
+<blockquote>
+<p>Claude Code 在本地保存对话，所以当任务跨越多个会话时，你不必重新解释 context。</p>
+</blockquote>
+<p>官方说的「保存对话」是指历史记录文件会留下来——但要注意，那些历史对话一旦重新加载进来就占上下文窗口，塞满了同样会变蠢（第 19 篇讲的那个坑）。所以 SPEC 是比历史对话更可靠的交接锚点：<strong>一份文件，几秒钟让新会话读完就接上了，不占多余的窗口空间。</strong></p>
+<blockquote>
+<p>💡 一句话总结：中等项目规划 = <strong>先让 Claude 采访你逼出一份 SPEC.md，再照它把大活儿切成「一个会话一块」</strong>；会话间用 <code>/clear</code> 收尾、<code>--resume</code> 接力，SPEC 文件当交接班备忘录——<strong>对话会清掉，文件不会</strong>。</p>
+</blockquote>
+<hr>
+<h2>04 接外部：用 MCP 把它够不着的东西接进来</h2>
+<p>骨架开始动工，很快会撞到第三棒——<strong>接外部</strong>。对应第 22 篇（MCP）。这一棒在第 39 篇那个纯本地小脚本里完全用不上，但<strong>中等项目几乎绕不开</strong>：你总会需要它查个外部文档、读个数据库、开个 PR。</p>
+<p><strong>什么时候该想起 MCP？</strong> 官方的判断特别朴素：</p>
+<blockquote>
+<p>当您发现自己从另一个工具复制数据到聊天中时，请连接一个服务器。</p>
+</blockquote>
+<p>做 todo-cli 时常撞上的真实场景是：写测试时拿不准 <code>unittest</code> 里某个断言方法的准确用法，<strong>第一反应是去浏览器搜，搜完再复制回来贴给它</strong>——这就是该上 MCP 的信号。与其手动倒腾，不如让它自己去查。</p>
+<p><strong>类比：给一台只有本地硬盘的电脑插上网线。</strong> 没联网时，电脑只能读自己硬盘里那点东西，要外面的资料你得拿 U 盘一趟趟拷。插上网线，它自己就能去取了。Claude 默认就是那台「没联网」的电脑——只摸得到你本地的文件和命令；MCP 就是那根网线，<strong>接一次，外部那些它本来够不着的东西，它自己就能去拿</strong>。区别只在网线那头连的是什么：连文档站、连数据库、还是连 GitHub。</p>
+<p><strong>这里我们接一个最适合练手的：官方文档 MCP server</strong>。它是托管的 HTTP server，<strong>不用登录、不用任何配置</strong>，专门拿来练手最稳。</p>
+<p><strong>第一步：加 server</strong>（在终端，不是在 <code>claude</code> 会话里）</p>
+<pre><code class="language-bash">claude mcp add --transport http claude-code-docs https://code.claude.com/docs/mcp
+</code></pre>
+<p><strong>注意：</strong> 这个 server 是远程托管服务，加它需要联网；国内访问 <code>code.claude.com</code> 如果不通，先开「魔法上网」再试。</p>
+<p><strong>预期</strong>：打印一行确认，类似 <code>Added HTTP MCP server claude-code-docs ...</code>。</p>
+<p><strong>第二步：确认连上了</strong></p>
+<pre><code class="language-bash">claude mcp list
+</code></pre>
+<p><strong>预期</strong>：列表里 <code>claude-code-docs</code> 旁边标着 <code>✓ Connected</code>。看到这个绿勾 = 真连上了；要是 <code>✗ Failed to connect</code>，多半是网络，开魔法上网再试。</p>
+<p><strong>第三步：在会话里点名让它走这个 server 查</strong></p>
+<pre><code class="language-text">用 claude-code-docs server 查一下 Claude Code 的 subagent 是怎么定义的，
+配置文件放哪、有哪些字段。
+</code></pre>
+<p><strong>预期</strong>：Claude <strong>第一次调这个 server 会停下来问你要不要批准</strong>（第 22 篇说的「工具首次调用要批准」）——批准它。然后它返回 subagent 的说明，<strong>而且输出里那个工具调用旁边会标着 <code>claude-code-docs</code></strong>。看到这个标记 = 答案是真从文档查来的，不是模型记忆里编的。</p>
+<p>中等项目里 MCP 的真实用法远不止查文档。常见的还有这几路，体会一下「接上之后能干嘛」：</p>
+<table>
+<thead>
+<tr>
+<th>你想让它够着的东西</th>
+<th>接哪个 server</th>
+<th>接上之后能干嘛</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>项目的 issue / PR</td>
+<td>GitHub MCP</td>
+<td>「把 issue #12 描述的功能实现了，再开个 PR」</td>
+</tr>
+<tr>
+<td>公司数据库</td>
+<td>PostgreSQL 等 MCP</td>
+<td>「查本月新增的任务条数」（生产库<strong>一律先用只读账号</strong>）</td>
+</tr>
+<tr>
+<td>设计稿</td>
+<td>Figma MCP</td>
+<td>「按这版设计调整命令行的输出格式」</td>
+</tr>
+</tbody></table>
+<p><strong>但接 server 前那句安全警告，项目越大越不能忘</strong>（第 21、22 篇讲过）：</p>
+<blockquote>
+<p>在连接每个服务器之前，请验证您信任该服务器。获取外部内容的服务器可能会使您面临提示注入风险。</p>
+</blockquote>
+<p>MCP server 是第三方代码，Anthropic 不替你审计。<strong>优先用官方目录和大厂官方 server，给数据库一律先用只读账号</strong>——这是把风险摁到最低最实在的一招。还有官方那句提醒：<strong>每个连上的 server 都吃一点上下文窗口</strong>，所以这个练手的 docs server 用完，记得 <code>claude mcp remove claude-code-docs</code> 拆掉，把空间腾出来。</p>
+<blockquote>
+<p>💡 一句话总结：中等项目几乎绕不开 MCP——<strong>发现自己在「从别处复制数据贴给它」时，就该接个 server</strong>；练手用免登录的官方文档 server 最稳，真实项目接 GitHub / 数据库 / Figma，但<strong>接前先验信任、数据库用只读、不用的及时拆</strong>。</p>
+</blockquote>
+<hr>
+<h2>05 分活：派 subagent 干脏活，再找个新鲜模型挑刺</h2>
+<p>项目代码越堆越多，第四棒登场——<strong>分活</strong>。对应第 23 篇（subagent）、第 29 篇（agent teams）。这一棒小任务用不上，但中等项目里<strong>它是保住主对话不被塞爆、保住代码质量的两员大将</strong>。</p>
+<h3>用 subagent 探索，别让一堆文件灌满主对话</h3>
+<p>todo-cli 做到第三个会话，文件多了起来，假设你想搞清「现在的 <code>todos.json</code> 读写逻辑散落在哪几处」。<strong>别直接在主对话里让它一个个翻文件读</strong>——那会把一堆文件内容灌进你的主上下文，正经活儿的空间就被挤没了（第 19 篇讲的工作台塞满变蠢）。正确做法是<strong>派个 subagent 去翻</strong>：</p>
+<pre><code class="language-text">派一个 subagent 去摸清 todos.json 的所有读写都发生在哪些函数里，
+只把「哪些文件、哪些函数、各自干啥」的清单报给我，别贴文件全文。
+</code></pre>
+<p><strong>预期</strong>：subagent 在<strong>它自己的独立上下文</strong>里翻文件，翻完只把一份摘要清单递回主对话。官方说得很直接：</p>
+<blockquote>
+<p>由于 context 是你的基本约束，subagents 是可用的最强大的工具之一……它们在单独的 context windows 中运行并报告摘要。</p>
+</blockquote>
+<p><strong>类比：派个实习生去档案室查资料。</strong> 你要的是「查到什么」，不是让他把整柜子档案搬到你办公桌上。subagent 就是这个实习生——他在档案室（独立上下文）里翻得天翻地覆，回来只给你一页要点，<strong>你的桌面（主上下文）干干净净</strong>。</p>
+<h3>找个新鲜模型给代码挑刺——「不让作者给自己打分」</h3>
+<p>功能写完了，<strong>别让刚写完代码的那个 Claude 自己审自己</strong>——它会偏袒自己刚写的东西。中等项目里必做的一步，是<strong>开一个新鲜上下文专门挑刺</strong>。官方把道理讲透了：</p>
+<blockquote>
+<p>在新鲜的 subagent context 中运行的审查者只看到差异和你给它的标准，而不是产生更改的推理，所以它按自己的条件评估结果。</p>
+</blockquote>
+<p>最省事的是跑官方捆绑的 <code>/code-review</code> 命令，它会在新鲜子代理里审当前 diff、把缺陷报回来：</p>
+<pre><code class="language-text">/code-review
+</code></pre>
+<p>或者你自己写审查提示，点名「审什么、按什么标准、什么算缺陷」：</p>
+<pre><code class="language-text">用 subagent 对照 SPEC.md 审一遍刚才的改动：每条要求是否实现、
+列出的边界情况有没有测试、有没有动到范围外的代码。
+只报影响正确性的问题，别报风格偏好。
+</code></pre>
+<p>做 todo-cli 时，审查 subagent 常能揪出一个主会话也没注意的 bug：<strong><code>todos.json</code> 损坏时以为已经处理了，其实只 catch 了文件不存在、没 catch 内容不是合法 JSON 的情况</strong>。这就是「新鲜模型」的价值——它不带「刚写的应该没问题」这层滤镜。不过官方也提醒一句别走偏：</p>
+<blockquote>
+<p>告诉审查者只标记影响正确性或陈述要求的缺陷，将其余的视为可选。</p>
+</blockquote>
+<blockquote>
+<p>实验性提醒：<strong>Agent teams（智能体团队，第 29 篇）是这一棒的「自动化加强版」，可能随版本变化</strong>。它能让多个会话带着共享任务清单自动协作——比如一个写代码、一个持续审查。中等项目你先用「手动开个 subagent 挑刺」就够；等活儿大到一个人盯不过来，再上 agent team 让它自己跑这个循环。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：项目变大后<strong>两员大将</strong>——探索脏活派 <strong>subagent</strong>（独立上下文翻文件、只递摘要，主对话不被灌满）；代码质量靠<strong>新鲜模型挑刺</strong>（<code>/code-review</code> 或自定义审查提示，不让作者给自己打分）；再大就上 agent team（实验性）。</p>
+</blockquote>
+<hr>
+<h2>06 容错：改崩了别硬补，干净地倒带回去</h2>
+<p>项目一大，<strong>「改崩」就成了家常便饭</strong>，第五棒就是专治这个——<strong>容错</strong>。对应第 37 篇（检查点）。这一棒第 39 篇点过，但中等项目里它的分量重得多：<strong>改动越复杂、越容易偏，而你已经回不到「一眼能看完所有 diff」的小任务状态了。</strong></p>
+<p><strong>先说新手最容易犯的错：对着已经改乱的代码，再让它「在这基础上修一下」。</strong></p>
+<p>千万别这么干。在一个已经偏了的状态上反复打补丁，越补越乱——它每次都带着上一版的错误上下文，窟窿越捅越大。<strong>正确处理是：先干净地退回到一个已知正确的点，再带着「这次该怎么说清楚」重开。</strong> 退回有两档：</p>
+<table>
+<thead>
+<tr>
+<th>退回档位</th>
+<th>用什么</th>
+<th>退到哪</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>轻档：撤刚才的编辑</strong></td>
+<td>检查点，<code>/rewind</code> 或连按两次 <code>Esc</code></td>
+<td>Claude 改这一批文件之前</td>
+<td>改岔一两处、刚发现就想撤</td>
+</tr>
+<tr>
+<td><strong>重档：回到某个干净提交</strong></td>
+<td>git，<code>git restore .</code>（撤工作区未暂存改动）或 <code>git reset --hard &lt;SHA&gt;</code>（回到某个 commit）</td>
+<td>你之前 commit 过的某个稳定点</td>
+<td>方向整个偏了、想从某节点重来</td>
+</tr>
+</tbody></table>
+<p><strong>轻档</strong>最常用：敲 <code>/rewind</code> 打开倒带菜单，能只回代码、只回对话、或两者都回。官方对它的定位很清楚，有一点中等项目尤其要记牢——<strong>检查点只跟踪 Claude 在本会话里做的更改，不跟踪 bash 命令改的文件，更不是 git 的替代品。</strong></p>
+<p><strong>这就是为什么中等项目要勤 commit。</strong> 检查点只管 Claude 在本会话里的编辑；可这项目跨好几个会话、中间还跑过测试、装过东西——<strong>这些检查点管不着，只有 git 管得着</strong>。做 todo-cli 时很容易栽这么一个跟头：第三个会话让它重构 JSON 读写，它一口气改了三个文件、还顺手「优化」了没让动的 add 逻辑，方向全偏。<strong>幸好每完成一块就 commit 了一次，<code>git reset --hard</code> 回到上一个稳定提交，三十秒回到原点</strong>——要是只指望检查点，跨会话那部分根本理不清。</p>
+<p>退回去之后<strong>别急着原样重说一遍</strong>。先想想这次为什么偏了——十有八九是<strong>指令漏了关键约束</strong>（第 15 篇讲的「话说清」）。重开时补一句「只重构读写那两个函数、绝对别动 add」，第二次就顺了。<strong>退回不是失败，是止损。</strong></p>
+<blockquote>
+<p>💡 一句话总结：项目大了「改崩」是常态——<strong>第一反应永远是「干净退回」，不是在烂摊子上硬补</strong>；轻档用 <code>/rewind</code> 撤编辑、重档用 git 回稳定提交；<strong>检查点只管本会话的编辑、不是 git 替代品</strong>，所以中等项目要勤 commit 留退路。</p>
+</blockquote>
+<hr>
+<h2>07 动手：把一个真项目从零串到交付</h2>
+<p>光看地图不算会，得真上手把整支曲子合奏一遍。下面给你一个<strong>能原样照着跑</strong>的完整流程——做完那个 todo-cli 的前两块（搭骨架 + add/list），全程把前面六棒串起来。<strong>只用 Python 标准库，有 <code>python3</code> 就行</strong>（Mac / Linux 自带，Windows 装了 Python 即可）。</p>
+<p><strong>第一步：立项（对应 02 节）</strong></p>
+<pre><code class="language-bash">mkdir todo-cli &amp;&amp; cd todo-cli &amp;&amp; git init &amp;&amp; claude
+</code></pre>
+<p>进会话后写 CLAUDE.md：</p>
+<pre><code class="language-text">建一个 CLAUDE.md：纯 Python 标准库别引第三方依赖；数据存项目根的 todos.json；
+每个功能配 unittest，改完跑 python3 -m unittest 验证；提交信息用中文带 feat:/fix: 前缀。
+</code></pre>
+<p><strong>预期</strong>：它给你看内容、请求批准、写出十来行的 <code>CLAUDE.md</code>。批准后顺手把测试命令加进允许列表：在会话里敲 <code>/permissions</code>，把 <code>Bash(python3 -m unittest*)</code> 加到 allow。<strong>预期：允许列表里出现 <code>Bash(python3 -m unittest*)</code> 一行 = 加进去了。</strong></p>
+<p><strong>第二步：规划（对应 03 节）</strong></p>
+<p>切 plan mode（<code>Shift+Tab</code>），让它先出方案别动手：</p>
+<pre><code class="language-text">我要做 todo-cli：todo.py 提供 add「文字」加任务、list 列出所有任务（带编号和完成状态），
+数据存 todos.json。先告诉我文件结构和你打算怎么实现，等我说「开始」再动手。
+</code></pre>
+<p><strong>预期</strong>：它回一份计划——<code>todo.py</code> 含读写 <code>todos.json</code> 的函数、<code>add</code> / <code>list</code> 两个子命令（用 <code>argparse</code>），外加一个 <code>test_todo.py</code>。<strong>它停在这儿等你拍板。</strong></p>
+<p><strong>第三步：动手 + 审 diff（对应 02 节权限）</strong></p>
+<pre><code class="language-text">方案可以，开始吧。先实现 add 和 list，再写对应的 unittest。
+</code></pre>
+<p><strong>预期</strong>：Claude 开始建 <code>todo.py</code> 和 <code>test_todo.py</code>，<strong>每改一处把 diff 摆给你批准</strong>。扫一眼确认三件事：① 真在实现 add/list（符合方案）；② 没引第三方库（CLAUDE.md 的规矩）；③ 没乱动别的。对得上就批。</p>
+<p><strong>第四步：验证——亲手跑，别信「我改好了」（对应全篇铁律）</strong></p>
+<p>先跑测试（这条已在允许列表里，不会再问你）：</p>
+<pre><code class="language-bash">python3 -m unittest
+</code></pre>
+<p><strong>预期输出</strong>（关键是最后那行 <code>OK</code>）：</p>
+<pre><code class="language-text">...
+----------------------------------------------------------------------
+Ran 3 tests in 0.00s
+
+OK
+</code></pre>
+<p>再亲手跑一遍真实功能：</p>
+<pre><code class="language-bash">python3 todo.py add &quot;写第48篇教程&quot;
+python3 todo.py add &quot;跑通动手环节&quot;
+python3 todo.py list
+</code></pre>
+<p><strong>预期输出</strong>（编号 + 未完成标记，具体符号看它实现，大致如此）：</p>
+<pre><code class="language-text">[1] [ ] 写第48篇教程
+[2] [ ] 跑通动手环节
+</code></pre>
+<p>看到测试 <code>OK</code>、<code>list</code> 列出刚加的两条 = <strong>这一块真的成了</strong>。「它说改好了」是假设，<strong>你跑出来对了才是事实</strong>——这条第 39 篇讲过，项目越大越要守。</p>
+<p><strong>第五步：找新鲜模型挑刺（对应 05 节）</strong></p>
+<pre><code class="language-text">/code-review
+</code></pre>
+<p><strong>预期</strong>：它在新鲜子代理里审刚才的 diff，把发现报回来（比如「<code>todos.json</code> 不存在时没处理」）。<strong>只修影响正确性的，风格偏好先放着。</strong></p>
+<p><strong>第六步：交付（对应 06 节 + git）</strong></p>
+<pre><code class="language-text">我改了哪些文件？给个改动概览。然后用一句话描述这次改动、提交它。
+</code></pre>
+<p><strong>预期</strong>：它跑 <code>git status</code> / <code>git diff</code> 给你看范围，再<strong>拟一条提交信息（如 <code>feat: 实现 todo-cli 的 add 和 list 命令</code>）、请求批准执行 <code>git commit</code></strong>——这又是第 20 篇那道权限闸：它动你的 git 历史前照样先问你。</p>
+<p><strong>第七步：守住 push 这条红线</strong></p>
+<p>到这儿这一块就交付了。但有一条边界<strong>任何项目都不能含糊</strong>：</p>
+<blockquote>
+<p><strong>本地 <code>commit</code> 可以放手让它代劳，但 <code>git push</code>（推到远程）这一步，钥匙必须攥在你自己手里。</strong></p>
+</blockquote>
+<p>把成果推上 GitHub 之类的远程前，务必你自己心里有数、亲自把关——这是第 43 篇「Git 工作流」细讲的。本地提交它先给你确认、放手没问题；<strong>推远程那一下，自己来。</strong></p>
+<p>跑通这七步，你就把「立项 → 规划 → 动手 → 验证 → 挑刺 → 交付 → 守红线」在一个真项目上<strong>亲手合奏了一遍</strong>。接着照同样的节奏做 done 命令、补边界处理，就是完整的 todo-cli——<strong>整套打法一模一样，无非多转几圈那个回路</strong>。</p>
+<blockquote>
+<p>💡 一句话总结：动手就是把六棒在真项目上跑一遍——<strong>立项配规矩和权限 → plan mode 出方案 → 审 diff 动手 → 亲手跑测试和功能验证 → <code>/code-review</code> 挑刺 → 看范围后 commit</strong>；记死最后一条红线——<strong>本地 commit 放手，push 远程自己把关</strong>。</p>
+</blockquote>
+<hr>
+<h2>08 一组对照：玩具练习 vs 真实项目，差距在哪</h2>
+<p>同样是「让 Claude 干活」，玩具练习和真实中等项目走出来天差地别——<strong>差的全在那几个「摊子一大才暴露」的地方</strong>。我把最常见的坑并排列出来，对着自查：</p>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>❌ 玩具练习的随意打法</th>
+<th>✅ 真实项目该有的打法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>规矩</strong></td>
+<td>写三行 CLAUDE.md 就够</td>
+<td>立项就把规矩 + 权限基线一起配好，管住后面所有会话</td>
+</tr>
+<tr>
+<td><strong>规划</strong></td>
+<td>一句话说需求直接干</td>
+<td>先让它采访你逼出 SPEC.md，照它切块分会话</td>
+</tr>
+<tr>
+<td><strong>会话</strong></td>
+<td>一个会话从头干到尾，塞爆也不管</td>
+<td>一块一个会话，<code>/clear</code> 收尾、<code>--resume</code> 接力、SPEC 当交接备忘录</td>
+</tr>
+<tr>
+<td><strong>外部</strong></td>
+<td>数据靠手动复制粘贴</td>
+<td>该接 MCP 就接，但先验信任、数据库只读</td>
+</tr>
+<tr>
+<td><strong>质量</strong></td>
+<td>让写代码的自己审自己</td>
+<td>派新鲜模型挑刺（<code>/code-review</code>），不让作者给自己打分</td>
+</tr>
+<tr>
+<td><strong>容错</strong></td>
+<td>改崩了就在烂摊子上硬补</td>
+<td>干净退回（<code>/rewind</code> / git），勤 commit 留退路</td>
+</tr>
+<tr>
+<td><strong>交付</strong></td>
+<td>改完晾着，或不看范围乱提交</td>
+<td>看范围 → 拟提交信息 → commit；<strong>push 自己把关</strong></td>
+</tr>
+</tbody></table>
+<p><strong>这张表的精髓就一句：玩具练习能省的步，真实项目一步都省不得——因为摊子一大，省掉的每一步都会在后面加倍还回来。</strong> 刚从「玩具」迈到「真实项目」那阵子，很容易把小任务那套随意打法原样搬过来，结果<strong>一个会话塞爆了硬撑、改崩了硬补、改完没审就提交</strong>，连环踩坑，那个本该两小时的活儿干了大半天。<strong>从这里就能认下一个理：项目越大，流程越要稳——流程不是拖慢你的镣铐，是让你能放心把摊子铺大的骨架。</strong></p>
+<p>还有个常被问的：<strong>「中等项目每步都这么讲究，不嫌慢？」</strong> 恰恰相反——<strong>正是因为讲究，你才敢把活儿交得更大、跑得更远</strong>。省掉规划和验证，看着快，实则把时间挪到了后面的返工里。</p>
+<blockquote>
+<p>💡 一句话总结：玩具 vs 真实项目的差距，全在「<strong>摊子大了还省不省那几步</strong>」；规矩、规划、会话接力、外部信任、新鲜挑刺、容错退路、push 把关——<strong>这七处真实项目一步都省不得</strong>，省掉的会在后面加倍还回来。</p>
+</blockquote>
+<hr>
+<h2>09 小结</h2>
+<p>这一篇是整套教程的毕业设计——<strong>没教任何新功能，只带你当一回指挥，把前 47 篇学的零件在一个中等项目上合奏成一支完整的曲子</strong>。</p>
+<p>把整支曲子的「总谱」串起来回顾，你会看清每个声部在哪一棒进场：</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>这一棒干什么</th>
+<th>调动的声部（前篇）</th>
+<th>一句话关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>立项</strong></td>
+<td>定项目 + 写 CLAUDE.md + 配权限基线</td>
+<td>12 / 18 / 20</td>
+<td>规矩和权限基线一次配好，管住后面所有会话</td>
+</tr>
+<tr>
+<td><strong>规划</strong></td>
+<td>采访出 SPEC、切块分会话</td>
+<td>16 / 19 / 20</td>
+<td>对话会清掉，SPEC 落成文件才能跨会话交接</td>
+</tr>
+<tr>
+<td><strong>接外部</strong></td>
+<td>MCP 连文档 / 数据库 / GitHub</td>
+<td>22</td>
+<td>「在复制粘贴数据」就是该接 server 的信号</td>
+</tr>
+<tr>
+<td><strong>分活</strong></td>
+<td>subagent 探索 + 新鲜模型挑刺</td>
+<td>23 / 29</td>
+<td>隔离脏活护主上下文，别让作者给自己打分</td>
+</tr>
+<tr>
+<td><strong>容错</strong></td>
+<td>改崩了干净退回</td>
+<td>37</td>
+<td><code>/rewind</code> 撤编辑、git 回稳定提交，勤 commit</td>
+</tr>
+<tr>
+<td><strong>交付</strong></td>
+<td>验证 → commit → push 把关</td>
+<td>43 / 44</td>
+<td>本地 commit 放手，push 远程自己捏着</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 拿到一个「帮我从零做个 XX 工具 / 服务」的中等需求，不再只会单会话怼一个小脚本——心里有这张总谱，知道立项就把规矩和权限配好、规划阶段逼出一份 SPEC、把大活儿切成几个会话接力着干，知道什么时候该接 MCP、什么时候该派 subagent 挑刺、改崩了怎么干净退回，最后干干净净交付、守住 push 那条红线。<strong>这一趟跑顺了，前 47 篇学的所有零件才算真正活了过来，能拧成一股绳替你干一件正经事。</strong></p>
+<p>整套教程的「实战」部分到这儿就圆满了——<strong>从第 39 篇的最小一趟，到这一篇的中等项目全流程，你已经把乐器和指挥都摸了一遍。</strong></p>
+<hr>
+<p>下一篇 <strong>49「最佳实践」</strong>——这一篇带你走通了「怎么做」，下一篇换个高度聊「怎么做得更好」：把官方和实战里踩出来的那些经验，浓缩成一份能反复翻的实践清单。想想看——<strong>同样跑完这趟流程，为什么有人三句话搞定、有人来回返工五轮？</strong> 差距往往就藏在那些「说出来不起眼、做到了差很多」的习惯里，下一篇一条条给你拆开。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/47-voice.html"><span class="mono">← 上一篇 · 47</span><b>Voice 语音模式：把提示词说出来，而不是打出来</b></a>
+  <a class="pg nx" href="/library/claude-code/49-best-practices.html"><span class="mono">下一篇 · 49 →</span><b>最佳实践：把零散的好习惯，攒成一套能照着做的心法</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

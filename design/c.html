@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>方案 C · 纸上 — 老板有AI</title>
+<style>
+  /* ============ 方案 C「纸上」——中式商业杂志 / 报刊排印 ============
+     暖纸底 + 浓墨 + 朱砂印。报头、竖排批注、汉字序号、点线目录。
+     传达:有思想的生意人,中式的老钱感,内容本身就是产品。 */
+  :root {
+    --paper: #f6f1e4;
+    --paper-2: #efe8d6;
+    --ink: #221d12;
+    --ink-soft: #4a4232;
+    --muted: #7d7357;
+    --cinnabar: #a63a26;      /* 朱砂 */
+    --cinnabar-hi: #c14a33;
+    --line: #d8cdb2;
+    --line-strong: #b3a682;
+    --serif: "Songti SC", STSong, "Source Han Serif SC", "Noto Serif CJK SC", SimSun, Georgia, serif;
+    --sans: -apple-system, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    background:
+      radial-gradient(ellipse 90rem 50rem at 50% -10%, rgba(255, 253, 246, 0.75), transparent),
+      var(--paper);
+    color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.9;
+  }
+  ::selection { background: var(--cinnabar); color: var(--paper); }
+
+  .wrap { max-width: 70rem; margin: 0 auto; padding: 0 clamp(1.5rem, 4.5vw, 3.5rem); }
+  .serif { font-family: var(--serif); font-weight: 600; }
+
+  /* 朱砂印章 */
+  .seal {
+    display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; grid-auto-flow: column;
+    width: 58px; height: 58px; background: var(--cinnabar); color: #f8f2e2;
+    font-family: var(--serif); font-size: 1.05rem; line-height: 1;
+    place-items: center; padding: 6px; gap: 2px;
+    box-shadow: 0 1px 0 rgba(34, 29, 18, 0.18); transform: rotate(-1.5deg);
+  }
+  .seal span { display: grid; place-items: center; }
+  .seal .ai { font-size: 0.72rem; letter-spacing: 0; font-weight: 700; }
+
+  /* ============ 报头式导航 ============ */
+  .masthead { border-bottom: 3px double var(--line-strong); background: rgba(246, 241, 228, 0.94); position: sticky; top: 0; z-index: 80; backdrop-filter: blur(10px); }
+  .mast-top { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 0; }
+  .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--ink); }
+  .brand b { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; letter-spacing: 0.14em; }
+  .brand .mini-seal { width: 30px; height: 30px; background: var(--cinnabar); color: #f8f2e2; display: grid; place-items: center; font-family: var(--serif); font-size: 0.7rem; transform: rotate(-2deg); }
+  .mast-date { font-size: 0.72rem; letter-spacing: 0.28em; color: var(--muted); }
+  .mast-nav { display: flex; justify-content: center; gap: clamp(0.5rem, 3vw, 2.5rem); border-top: 1px solid var(--line); padding: 0.65rem 0; }
+  .mast-nav a { color: var(--ink-soft); text-decoration: none; font-size: 0.88rem; letter-spacing: 0.24em; padding: 0.2rem 0.4rem; transition: color 0.2s; }
+  .mast-nav a:hover { color: var(--cinnabar); }
+  .mast-nav a.on { color: var(--cinnabar); font-weight: 600; }
+  @media (max-width: 720px) {
+    .mast-date { display: none; }
+    .mast-nav { overflow-x: auto; justify-content: flex-start; }
+    .mast-nav a { white-space: nowrap; letter-spacing: 0.14em; }
+  }
+
+  /* ============ 头版 Hero ============ */
+  .hero { padding: clamp(4rem, 9vh, 7rem) 0 clamp(3.5rem, 7vh, 5.5rem); position: relative; }
+  .hero-grid { display: grid; grid-template-columns: 3.2rem 1fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+  .vert {
+    writing-mode: vertical-rl; font-family: var(--serif); font-size: 0.95rem;
+    letter-spacing: 0.5em; color: var(--muted); border-left: 1px solid var(--line-strong);
+    padding-left: 1.1rem; height: 16rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 5.8vw, 4.6rem); line-height: 1.28; font-weight: 600;
+    max-width: 20ch; text-wrap: balance; letter-spacing: 0.02em;
+  }
+  .hero h1 .zhu { color: var(--cinnabar); }
+  .hero .lede {
+    margin-top: 2.4rem; max-width: 36em; color: var(--ink-soft); font-size: 1.05rem;
+  }
+  .hero .lede::before { content: "◉ "; color: var(--cinnabar); font-size: 0.8em; }
+  .actions { margin-top: 2.8rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+  .btn {
+    display: inline-flex; align-items: center; padding: 0.95rem 2.3rem;
+    font-size: 0.92rem; letter-spacing: 0.18em; text-decoration: none; transition: all 0.22s; font-weight: 500;
+  }
+  .btn.zhu { background: var(--cinnabar); color: #f8f2e2; box-shadow: 2.5px 2.5px 0 var(--ink); }
+  .btn.zhu:hover { background: var(--cinnabar-hi); transform: translate(-1px, -1px); box-shadow: 3.5px 3.5px 0 var(--ink); }
+  .btn.mo { border: 1.5px solid var(--ink); color: var(--ink); }
+  .btn.mo:hover { background: var(--ink); color: var(--paper); }
+  .hero .seal-slot { position: absolute; right: clamp(1.5rem, 6vw, 5rem); top: clamp(4rem, 10vh, 7.5rem); }
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .vert { writing-mode: horizontal-tb; height: auto; border-left: 0; border-bottom: 1px solid var(--line-strong); padding: 0 0 0.7rem; letter-spacing: 0.3em; }
+    .hero .seal-slot { display: none; }
+  }
+
+  /* 头版目录条 */
+  .toc { border-top: 3px double var(--line-strong); border-bottom: 1px solid var(--line); background: rgba(239, 232, 214, 0.5); }
+  .toc-in { display: grid; grid-template-columns: repeat(5, 1fr); }
+  .toc-item { padding: 1.15rem 1.2rem; border-right: 1px solid var(--line); font-size: 0.85rem; display: flex; align-items: baseline; gap: 0.7rem; color: var(--ink-soft); text-decoration: none; transition: background 0.2s; }
+  .toc-item:last-child { border-right: 0; }
+  .toc-item:hover { background: rgba(166, 58, 38, 0.06); color: var(--cinnabar); }
+  .toc-item .no { font-family: var(--serif); color: var(--cinnabar); font-size: 0.95rem; }
+  @media (max-width: 900px) { .toc-in { grid-template-columns: 1fr 1fr; } .toc-item:nth-child(2n) { border-right: 0; } .toc-item { border-bottom: 1px solid var(--line); } }
+
+  /* ============ 章节公共 ============ */
+  section.block { padding: clamp(4.5rem, 10vh, 7.5rem) 0; }
+  .sec-mark { display: flex; align-items: center; gap: 1.1rem; }
+  .sec-mark .tag {
+    font-family: var(--serif); background: var(--ink); color: var(--paper);
+    padding: 0.28rem 0.9rem; font-size: 0.86rem; letter-spacing: 0.3em;
+  }
+  .sec-mark .line { flex: 1; height: 1px; background: var(--line-strong); }
+  .sec-mark .no { font-family: var(--serif); color: var(--muted); font-size: 0.9rem; letter-spacing: 0.2em; }
+  .head h2 { margin-top: 1.8rem; font-family: var(--serif); font-size: clamp(1.75rem, 3.4vw, 2.7rem); font-weight: 600; line-height: 1.35; text-wrap: balance; }
+  .head .desc { margin-top: 1.2rem; max-width: 40em; color: var(--muted); }
+
+  /* ============ 五类问题:目录点线 ============ */
+  .plist { margin-top: 3.5rem; border-top: 1.5px solid var(--ink); }
+  .prow { display: grid; grid-template-columns: 4.5rem 12rem 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--line); align-items: baseline; transition: background 0.25s; }
+  .prow:hover { background: rgba(166, 58, 38, 0.035); }
+  .prow .han {
+    font-family: var(--serif); font-size: 1.5rem; color: var(--cinnabar);
+    border: 1px solid rgba(166, 58, 38, 0.4); width: 2.6rem; height: 2.6rem;
+    display: grid; place-items: center; line-height: 1;
+  }
+  .prow h3 { font-family: var(--serif); font-size: 1.4rem; font-weight: 600; }
+  .prow .d1 { color: var(--ink-soft); font-size: 0.95rem; }
+  .prow .d2 { margin-top: 0.5rem; color: var(--muted); font-size: 0.85rem; }
+  .prow .d2::before { content: "批注 · "; color: var(--cinnabar); font-family: var(--serif); }
+  @media (max-width: 860px) { .prow { grid-template-columns: 3.4rem 1fr; } .prow > div:last-child { grid-column: 1 / -1; } }
+
+  .diagnose { margin-top: 3rem; display: flex; justify-content: space-between; gap: 2rem; align-items: baseline; flex-wrap: wrap; }
+  .diagnose p { max-width: 30em; color: var(--muted); font-size: 0.95rem; }
+  .link-zhu { font-family: var(--serif); color: var(--cinnabar); text-decoration: none; font-size: 0.95rem; letter-spacing: 0.1em; border-bottom: 1px solid rgba(166, 58, 38, 0.45); padding-bottom: 3px; }
+  .link-zhu:hover { border-bottom-color: var(--cinnabar); }
+
+  /* ============ 六步闭环:环形步阶 ============ */
+  .loop-bg { background: var(--paper-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .loop { margin-top: 3.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(2rem, 4vw, 3.5rem) clamp(2rem, 4vw, 4rem); counter-reset: step; }
+  .loop li { list-style: none; position: relative; padding-top: 1.4rem; }
+  .loop li::before { content: ""; position: absolute; top: 0; left: 0; width: 3.2rem; height: 3px; background: var(--cinnabar); }
+  .loop li .han { font-family: var(--serif); font-size: 1.05rem; color: var(--cinnabar); letter-spacing: 0.3em; }
+  .loop li h3 { margin-top: 0.7rem; font-family: var(--serif); font-size: 1.32rem; font-weight: 600; }
+  .loop li p { margin-top: 0.6rem; color: var(--muted); font-size: 0.9rem; }
+  @media (max-width: 900px) { .loop { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .loop { grid-template-columns: 1fr; } }
+
+  /* ============ 为什么再做一个:社论 ============ */
+  .editorial { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: clamp(2.5rem, 6vw, 5.5rem); }
+  .editorial .lead h2 { font-family: var(--serif); font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 600; line-height: 1.42; text-wrap: balance; }
+  .editorial .lead h2::first-line { }
+  .editorial .lead .rule { margin-top: 1.8rem; width: 4.5rem; height: 3px; background: var(--cinnabar); }
+  .editorial .body p { color: var(--ink-soft); font-size: 0.98rem; text-align: justify; }
+  .editorial .body p + p { margin-top: 1.4rem; }
+  .editorial .body p:first-child::first-letter {
+    font-family: var(--serif); font-size: 3.1em; float: left; line-height: 0.95;
+    padding: 0.08em 0.14em 0 0; color: var(--cinnabar); font-weight: 600;
+  }
+  .editorial .body strong { color: var(--ink); font-weight: 600; box-shadow: inset 0 -0.32em 0 rgba(166, 58, 38, 0.16); }
+  @media (max-width: 860px) { .editorial { grid-template-columns: 1fr; } }
+
+  /* ============ 手册 / 案例:卷宗 ============ */
+  .twin { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .folio { border: 1px solid var(--line-strong); background: rgba(255, 253, 246, 0.6); padding: 2.6rem 2.5rem; position: relative; display: flex; flex-direction: column; }
+  .folio::before { content: ""; position: absolute; inset: 7px; border: 1px solid var(--line); pointer-events: none; }
+  .folio .kind { font-family: var(--serif); font-size: 0.85rem; letter-spacing: 0.4em; color: var(--cinnabar); }
+  .folio h3 { margin-top: 1.1rem; font-family: var(--serif); font-size: 1.5rem; font-weight: 600; line-height: 1.45; text-wrap: balance; }
+  .folio p { margin-top: 0.9rem; color: var(--muted); font-size: 0.9rem; flex: 1; }
+  .folio .link-zhu { margin-top: 1.8rem; align-self: flex-start; position: relative; }
+  @media (max-width: 820px) { .twin { grid-template-columns: 1fr; } }
+
+  /* ============ 转化区:请柬 ============ */
+  .invite {
+    border: 1.5px solid var(--ink); background: rgba(255, 253, 246, 0.72); position: relative;
+    padding: clamp(2.5rem, 6vw, 4rem); display: flex; gap: clamp(2rem, 5vw, 4rem); align-items: center;
+  }
+  .invite::before { content: ""; position: absolute; inset: 8px; border: 1px solid var(--line-strong); pointer-events: none; }
+  .invite .qr { flex-shrink: 0; background: #fffdf8; border: 1px solid var(--line); padding: 12px; position: relative; z-index: 1; }
+  .invite .qr img { display: block; width: 168px; height: 168px; object-fit: contain; }
+  .invite h3 { font-family: var(--serif); font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 600; line-height: 1.45; }
+  .invite .guide { margin-top: 1.1rem; color: var(--ink-soft); }
+  .invite .note { margin-top: 0.4rem; color: var(--muted); font-size: 0.88rem; }
+  .invite .who { margin-top: 1.6rem; display: inline-flex; align-items: center; gap: 0.7rem; font-family: var(--serif); font-size: 0.9rem; color: var(--ink-soft); letter-spacing: 0.12em; }
+  .invite .who .dot { width: 26px; height: 26px; background: var(--cinnabar); color: #f8f2e2; display: grid; place-items: center; font-size: 0.62rem; transform: rotate(-2deg); }
+  @media (max-width: 780px) { .invite { flex-direction: column; text-align: center; } .invite .who { justify-content: center; } }
+
+  /* ============ 页脚 ============ */
+  footer { border-top: 3px double var(--line-strong); padding: 3.5rem 0 2.8rem; margin-top: clamp(4rem, 8vh, 6rem); }
+  .foot { display: flex; justify-content: space-between; gap: 3rem; flex-wrap: wrap; }
+  .foot .about { max-width: 22rem; }
+  .foot .about b { font-family: var(--serif); font-size: 1.25rem; letter-spacing: 0.14em; }
+  .foot .about p { margin-top: 0.9rem; color: var(--muted); font-size: 0.85rem; }
+  .foot nav { display: flex; flex-direction: column; gap: 0.6rem; }
+  .foot nav a { color: var(--ink-soft); text-decoration: none; font-size: 0.86rem; letter-spacing: 0.1em; }
+  .foot nav a:hover { color: var(--cinnabar); }
+  .legal { margin-top: 3rem; padding-top: 1.4rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 0.74rem; color: var(--muted); letter-spacing: 0.16em; }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .rise { animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  @media (prefers-reduced-motion: reduce) { .rise { animation: none; } }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="mast-top">
+      <span class="mast-date">丙午年 · 创刊号</span>
+      <a class="brand" href="/design/c.html"><b>老板有AI</b></a>
+      <span class="mast-date" style="letter-spacing: 0.18em;">LAOBANYOUAI.COM</span>
+    </div>
+  </div>
+  <nav class="mast-nav wrap">
+    <a class="on" href="/design/c.html">首页</a>
+    <a href="/cases.html">案例库</a>
+    <a href="/intel.html">AI 情报</a>
+    <a href="/library/">团队手册</a>
+    <a href="/join.html">加入</a>
+  </nav>
+</header>
+
+<main>
+  <!-- 头版 -->
+  <div class="hero">
+    <div class="wrap hero-grid rise">
+      <span class="vert">面向中小企业老板 · 每月一场经营战役</span>
+      <div>
+        <h1 class="serif">让 AI 替你干活，<br />而不是让老板<span class="zhu">重新学一门技术</span>。</h1>
+        <p class="lede">面向中小企业老板的 AI 经营实战社区，每月解决一个真实经营问题。</p>
+        <div class="actions">
+          <a class="btn zhu" href="/join.html">加入社区</a>
+          <a class="btn mo" href="/cases.html">看看案例长什么样</a>
+        </div>
+      </div>
+    </div>
+    <div class="seal-slot">
+      <div class="seal"><span>老</span><span>板</span><span>有</span><span class="ai">AI</span></div>
+    </div>
+  </div>
+
+  <!-- 目录条 -->
+  <div class="toc">
+    <div class="wrap toc-in">
+      <a class="toc-item" href="#pillars"><span class="no">壹</span>五类经营问题</a>
+      <a class="toc-item" href="#loop"><span class="no">贰</span>六步结果闭环</a>
+      <a class="toc-item" href="#why"><span class="no">叁</span>为什么再做一个</a>
+      <a class="toc-item" href="/library/"><span class="no">肆</span>团队手册</a>
+      <a class="toc-item" href="/join.html"><span class="no">伍</span>加入方式</a>
+    </div>
+  </div>
+
+  <!-- 五类问题 -->
+  <section class="block" id="pillars">
+    <div class="wrap">
+      <div class="sec-mark"><span class="tag">解决什么</span><span class="line"></span><span class="no">第壹节</span></div>
+      <div class="head">
+        <h2>老板的问题只有五类，工具每周都在变</h2>
+        <p class="desc">所以我们不追工具。把生意拆成五类固定问题，每一类都有已经跑通的做法，你只需要挑一个开始。</p>
+      </div>
+      <div class="plist">
+        <div class="prow"><span class="han">壹</span><h3>AI 获客</h3><div><p class="d1">内容选题、短视频脚本、私域承接、销售线索的筛选与分发。</p><p class="d2">把"每天发什么"变成一条可复制的流水线，而不是靠老板灵感。</p></div></div>
+        <div class="prow"><span class="han">贰</span><h3>AI 销售</h3><div><p class="d1">客户画像分析、跟进话术、异议处理、成交复盘。</p><p class="d2">让新人第一个月就能用上老销售的经验，而不是自己踩三年坑。</p></div></div>
+        <div class="prow"><span class="han">叁</span><h3>AI 管理</h3><div><p class="d1">会议纪要、任务拆解、招聘筛选、内部培训、知识库沉淀。</p><p class="d2">把散落在老板脑子里的判断标准，变成团队能直接调用的东西。</p></div></div>
+        <div class="prow"><span class="han">肆</span><h3>AI 降本</h3><div><p class="d1">客服应答、文案生产、数据整理、重复流程的自动化。</p><p class="d2">先算清楚一件事一年花多少人力，再决定要不要让 AI 接手。</p></div></div>
+        <div class="prow"><span class="han">伍</span><h3>AI 决策</h3><div><p class="d1">行业情报、竞品跟踪、经营数据分析、投放与定价判断。</p><p class="d2">决策质量取决于信息密度，AI 最擅长的恰恰是把信息压缩给你。</p></div></div>
+      </div>
+      <div class="diagnose">
+        <p>不确定自己卡在哪一类？那就从经营诊断开始。加微信后我会先问你三个问题，通常十分钟就能定位。</p>
+        <a class="link-zhu" href="/join.html">去做一次诊断 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 六步闭环 -->
+  <section class="block loop-bg" id="loop">
+    <div class="wrap">
+      <div class="sec-mark"><span class="tag">怎么运转</span><span class="line"></span><span class="no">第贰节</span></div>
+      <div class="head">
+        <h2>以结果收口的六步闭环</h2>
+        <p class="desc">课程的终点是听完，这里的终点是一个能被验证的数字。每个月只跑一轮，不贪多。</p>
+      </div>
+      <ol class="loop">
+        <li><span class="han">第一步</span><h3>经营诊断</h3><p>先看你的生意目前卡在哪一环，而不是先看有什么工具。</p></li>
+        <li><span class="han">第二步</span><h3>选择问题</h3><p>从五类问题里挑一个，本月只解决它。</p></li>
+        <li><span class="han">第三步</span><h3>30 天战役</h3><p>一个月一场，有起点、有动作清单、有截止日。</p></li>
+        <li><span class="han">第四步</span><h3>使用 AI 方案</h3><p>给现成的提示词、工作流和工具组合，不从零摸索。</p></li>
+        <li><span class="han">第五步</span><h3>记录结果</h3><p>用数字收口：省了多少小时、多了多少线索、降了多少成本。</p></li>
+        <li><span class="han">第六步</span><h3>沉淀案例</h3><p>跑通的路径写成行业案例，成为下一位老板的起点。</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 社论 -->
+  <section class="block" id="why">
+    <div class="wrap">
+      <div class="sec-mark" style="margin-bottom: 3rem;"><span class="tag">为什么再做一个</span><span class="line"></span><span class="no">第叁节</span></div>
+      <div class="editorial">
+        <div class="lead">
+          <h2>市面上不缺 AI 课程，缺的是有人陪你把一件事做完</h2>
+          <div class="rule"></div>
+        </div>
+        <div class="body">
+          <p>生财有术这样的社区把「发现项目 → 找高手 → 参加航海 → 跑出结果」这条链路做得很成熟，覆盖的方向也足够宽。但正因为宽，AI 只是其中一个方向，而老板的经营问题往往需要有人盯着看完一整个月。</p>
+          <p>我们把人群收窄到<strong>已经在经营一门生意的中小企业老板</strong>，把交付物收窄到<strong>可被验证的经营结果</strong>——省下的小时数、多出来的线索、降下去的成本。</p>
+          <p>这意味着我们不教你怎么调参数，也不做工具评测。你要的是这个月的获客成本降下来，不是又收藏了三十个提示词。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 卷宗 -->
+  <section class="block" style="padding-top: 0;">
+    <div class="wrap twin">
+      <div class="folio">
+        <span class="kind">卷宗 · 团队手册</span>
+        <h3>你不用会敲命令，但你的团队得会</h3>
+        <p>我们收录了一套完整的 AI 编程实操手册，共 92 篇，给你的技术负责人看。原作者是 stormzhang，以 MIT 许可开源，我们原样收录并保留署名。</p>
+        <a class="link-zhu" href="/library/">打开团队手册 →</a>
+      </div>
+      <div class="folio">
+        <span class="kind">卷宗 · 案例库</span>
+        <h3>首批案例正在征集</h3>
+        <p>这里以后会放真实的行业案例。在有真实结果之前，我们不会放任何数字——包括看起来很好看的那种。</p>
+        <a class="link-zhu" href="/cases.html">看看一条案例会包含什么 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 请柬 -->
+  <section class="block" style="padding-top: 0;">
+    <div class="wrap">
+      <div class="invite">
+        <div class="qr"><img src="/qr/wechat.png" alt="微信二维码" width="168" height="168" /></div>
+        <div>
+          <h3>先聊十分钟，再决定要不要一起做</h3>
+          <p class="guide">微信扫码添加，备注「老板有AI」</p>
+          <p class="note">我会先问你三个问题：做什么生意、现在卡在哪、这个月最想解决什么。</p>
+          <span class="who"><span class="dot">印</span>明道 Garry 丨 AI 增长</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="about">
+        <b class="serif">老板有AI</b>
+        <p>面向中小企业老板的 AI 经营实战社区，每月解决一个真实经营问题。</p>
+      </div>
+      <nav>
+        <a href="/design/c.html">首页</a>
+        <a href="/cases.html">案例库</a>
+        <a href="/intel.html">AI 情报</a>
+        <a href="/library/">团队手册</a>
+        <a href="/join.html">加入</a>
+      </nav>
+    </div>
+    <div class="legal"><span>© 2026 老板有AI</span><span>方案 C · 纸上</span></div>
+  </div>
+</footer>
+</body>
+</html>

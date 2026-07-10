@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>04 订阅与计费 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 04 篇:订阅与计费。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/04-pricing.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class="cur"><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class="cur"><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 04 篇</p>
+      <h1>订阅与计费</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="03-install.html">03 安装与登录</a> 把 Codex 装好、用 ChatGPT 账号或 API key 登进去了。这一篇把账算清楚——<strong>到底该订哪个套餐、钱怎么花的、API key 又是另一回事，以及怎么让额度更耐用</strong>。</p>
+</blockquote>
+<p>都说「订阅一个 ChatGPT Plus 就能无脑用 Codex」，但说句实话，<strong>Codex 的计费根本不是「订了就随便用」那么简单</strong>。</p>
+<p>我自己 2026 年初刚把 Codex 接进工作流时就吃过这个亏：以为 Plus 那 20 刀一个月就是「Codex 包月」，结果连着两天让它在一个上万行的老项目里跑重构，第二天下午就撞到了限额——CLI 直接提示我「本窗口用量已到上限」。我当时还纳闷，明明每天就发了几十条消息怎么就到顶了。后来才搞明白：<strong>Codex 的限额不是按「几条消息」算的，是按「每条消息烧多少 token」算的</strong>，我那几十条全是「读大文件 + 长任务」，一条顶人家十条。</p>
+<p>更绕的是，Codex 同一个工具有<strong>两套完全不同的付费逻辑</strong>：用 ChatGPT 账号登录走「订阅 + 额度」，用 API key 登录走「按 token 实时扣费」。这俩混在一起，新手很容易算糊涂。</p>
+<p>这一篇就把这两套逻辑掰开揉碎讲明白。<strong>搞清楚计费规则，比纠结订哪档更重要</strong>——同一个 Plus，会用的人一个月够用，不会用的人两天触顶。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一张「ChatGPT 订阅各档 vs API key」的对比表，知道自己该走哪条路</li>
+<li>看懂 Codex 的两套计费逻辑（订阅含的「用量限额 + 额度」 vs API key 的「按 token 扣费」）</li>
+<li><code>/status</code> 命令的用法，在 CLI 里随时查「还剩多少额度」</li>
+<li>一套官方认证的「让额度更耐用」习惯，<strong>同样的活儿，token 能少烧一大截</strong></li>
+</ul>
+<blockquote>
+<p>⚠️ <strong>价格与限额随时会变</strong>：本文里的具体金额、限额区间、积分单价都来自官方 <a href="https://developers.openai.com/codex/pricing">pricing</a> 页某一时刻的快照，<strong>OpenAI 调价、调限额很频繁</strong>，下单前请一律以官网当前价为准，文中数字只帮你建立概念。</p>
+</blockquote>
+<hr>
+<h2>01 先搞清楚：你在为什么付费</h2>
+<p>先说结论：<strong>Codex 这个工具本身不要钱，你付的是背后「模型算力」的钱</strong>。</p>
+<p>Codex 只是个命令行工具（外加桌面 App、IDE 扩展、网页端几个入口），下载安装全免费。真正花钱的是它背后的 GPT 系列大模型——你提问、它读文件、它写代码跑命令，每一步都要把内容发给模型处理，<strong>这个处理量才是计费单位</strong>。</p>
+<p><strong>类比：Codex 是一台你免费领到的「叫车 App」，模型是真正跑的车。</strong> 装 App、注册账号都不花钱，但你一旦叫车出发，<strong>车跑的每一公里都在计费</strong>——你问得越多、让它读的代码越大、让它想得越久，「里程」就越长。</p>
+<p>这个「里程」的计量单位叫 <strong>token（模型把文字切成的最小计费块）</strong>。<strong>类比：token 就是文字的「计价字数」。</strong> 一段话发给模型，会被切成一个个 token 来数：你发出去的算「输入 token」，它回来的算「输出 token」，<strong>输出通常比输入贵不少</strong>。</p>
+<p>举几个你天天会遇到、token 悄悄堆起来的场景：</p>
+<ul>
+<li>让它「读一下这个 2000 行的文件再改」——<strong>整个文件都变成输入 token 发出去了</strong></li>
+<li>一轮对话聊到第 50 条——<strong>前面那 49 条作为上下文每次都重发一遍</strong></li>
+<li>项目根目录放了个又长又啰嗦的 <code>AGENTS.md</code>（Codex 的项目说明书）——<strong>它每条消息都把这份说明塞进去</strong></li>
+</ul>
+<p>所以<strong>花钱多少跟「问了几个问题」关系不大，跟「每次塞进去多少上下文」关系极大</strong>——这是后面省钱的核心抓手，先记住。</p>
+<blockquote>
+<p>💡 一句话总结：工具免费，<strong>你付的是模型按 token 计的算力费</strong>——输入 + 输出 + 上下文，全都算钱。</p>
+</blockquote>
+<hr>
+<h2>02 两套计费逻辑：ChatGPT 订阅 vs API key</h2>
+<p>知道了为 token 付费，下一个关键问题是：<strong>这钱通过什么渠道付？</strong> Codex 就两条路，而且差别巨大，先上表，再说人话。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>ChatGPT 订阅登录</th>
+<th>API key 登录</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>怎么收费</strong></td>
+<td>固定月费，含一定「用量限额」，超了买积分续</td>
+<td>没有月费，<strong>按实际 token 用量实时扣费</strong></td>
+</tr>
+<tr>
+<td><strong>付费心理</strong></td>
+<td>封顶可控，月初心里有数</td>
+<td>浮动，用多少付多少，账单事后才知道</td>
+</tr>
+<tr>
+<td><strong>云端功能</strong>（自动代码审查、Slack、GitHub 等）</td>
+<td>✅ 有</td>
+<td>❌ <strong>基本没有</strong></td>
+</tr>
+<tr>
+<td><strong>新模型</strong></td>
+<td>第一时间能用</td>
+<td><strong>延迟开放</strong>（如 GPT-5.3-Codex-Spark 等新模型晚一步）</td>
+</tr>
+<tr>
+<td><strong>适合谁</strong></td>
+<td>个人日常高频用、想要固定支出</td>
+<td>CI/CD、自动化脚本、共享环境里跑 Codex</td>
+</tr>
+<tr>
+<td><strong>怎么登录</strong></td>
+<td><code>codex login</code>（浏览器授权 ChatGPT 账号）</td>
+<td>API key 登录（<code>codex login</code> 里选 API key 方式）</td>
+</tr>
+</tbody></table>
+<p>（来源：官方 <a href="https://developers.openai.com/codex/pricing">pricing</a>、<a href="https://developers.openai.com/codex/auth">auth</a> 文档）</p>
+<p><strong>这两条路不是「哪个更划算」，是「你是什么用法」。</strong> 拆开说：</p>
+<p><strong>ChatGPT 订阅</strong> 是绝大多数个人开发者该走的路。你已经订了 Plus / Pro，那 Codex 就在订阅范围内、跟着限额走，<strong>不用单独绑卡、不用盯实时账单</strong>，撞到限额了再决定要不要买积分。云端那些花活（GitHub 自动代码审查、Slack 集成）也只有订阅登录才有。</p>
+<p><strong>API key</strong> 是给「机器」用的，不是给「人」日常聊天用的。官方明确推荐它用在<strong>程序化场景，比如 CI/CD 流水线</strong>——脚本里跑 Codex，按标准 API 价实时扣 token 钱。代价是：<strong>没有云端功能，新模型还延迟开放</strong>。所以你要是个人坐在电脑前敲代码，别图省事用 API key，多半不划算还少功能。</p>
+<blockquote>
+<p>关于「用 API key 时钱怎么算」：它走的是 OpenAI Platform 的标准 API 价，<strong>跟 ChatGPT 订阅的限额、积分完全是两套账</strong>，具体单价以 <a href="https://platform.openai.com/docs/pricing">API pricing</a> 页为准，本文不写死。</p>
+</blockquote>
+<p>我自己的搭配是：<strong>人在终端前手敲，用 ChatGPT 订阅登录；写到自动化脚本、半夜让它批量跑任务，才换 API key。</strong> 两套互不干扰，账也清爽。</p>
+<blockquote>
+<p>💡 一句话总结：<strong>人用订阅、机器用 API key</strong>——订阅图省心和云端功能，API key 图自动化里按量精算，别用反了。</p>
+</blockquote>
+<hr>
+<h2>03 ChatGPT 各档怎么选：Plus / Pro / Business / Enterprise</h2>
+<p>走订阅这条路，下一步就是选档。我把官方 pricing 页列出的、<strong>含 Codex 能力的几档</strong>整理成一张表（具体金额随时会变，认概念为主）：
+<img src="assets/04-1-2-subscription.png" alt="ChatGPT 各订阅档位与 Codex 能力对比"></p>
+<p>这张图列出了 Plus、Pro、Business、Enterprise &amp; Edu 和 API key 五个档位在 Codex 能力上的对比，后面文字逐档细说。</p>
+<table>
+<thead>
+<tr>
+<th>档位</th>
+<th>月费（参考）</th>
+<th>Codex 用量（相对）</th>
+<th>关键特点</th>
+<th>适合谁</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Plus</strong></td>
+<td>$20/月</td>
+<td>基准量</td>
+<td>网页/CLI/IDE/iOS 全入口、云端自动审查 + Slack、最新模型</td>
+<td>个人，每周几段专注的编程</td>
+</tr>
+<tr>
+<td><strong>Pro</strong></td>
+<td>从 $100/月起</td>
+<td><strong>Plus 的 5 倍或 20 倍</strong></td>
+<td>Plus 全部 + 一个面向日常的快速模型（研究预览）</td>
+<td>重度用户、每天大量跑 Codex</td>
+</tr>
+<tr>
+<td><strong>Business</strong></td>
+<td>按量付费（Pay as you go）</td>
+<td>同 Plus 量级、可加积分</td>
+<td>团队席位管理、更大的云端虚拟机、SSO/MFA、数据默认不训练</td>
+<td>创业团队、成长型公司</td>
+</tr>
+<tr>
+<td><strong>Enterprise &amp; Edu</strong></td>
+<td>联系销售</td>
+<td>弹性定价、用量随积分伸缩</td>
+<td>Business 全部 + 优先处理、SCIM/RBAC、审计日志、数据驻留</td>
+<td>整个组织级部署</td>
+</tr>
+</tbody></table>
+<p>（来源：官方 <a href="https://developers.openai.com/codex/pricing">pricing</a> 页）</p>
+<p>说几句表里塞不下的人话：</p>
+<p><strong>Plus（$20）是绝大多数人的起点。</strong> 该有的入口（网页、CLI、IDE 扩展、iOS）和云端功能（自动代码审查、Slack）它都有，最新模型也第一时间能用。<strong>唯一的悬念就是「限额够不够你用」</strong>——这就是开头我两天触顶那次的坑，下一节专门讲限额。</p>
+<p><strong>Pro（从 $100 起）的卖点就一个：限额大幅提升。</strong> 官方写得很直白——Pro 提供「比 Plus 高 5 倍或 20 倍」的 Codex 用量，外加一个面向日常编程的快速模型（研究预览阶段）。<strong>说白了就是 Plus 撞限额撞烦了、又不想买积分续命的人，直接上 Pro。</strong> 我自己在那次重构触顶后纠结过要不要升 Pro，最后没升——因为靠下一节那套省 token 的习惯，Plus 又够用了。<strong>先学会省，再考虑升档。</strong></p>
+<p><strong>Business / Enterprise &amp; Edu 是团队和组织的事。</strong> Business 走「按量付费 + 席位」、给团队管理和安全控制；Enterprise &amp; Edu 再往上叠优先处理、合规审计、数据驻留这些。<strong>个人开发者基本用不到，知道有这两档就行。</strong></p>
+<h3>那 Free 和 Go 呢？</h3>
+<p>很多人会问：<strong>ChatGPT 免费版（Free）、入门档 Go，能不能白嫖 Codex？</strong></p>
+<p>说实话，<strong>这块官方 Codex 定价页讲得很模糊</strong>。截至本文参考的快照，pricing 页<strong>正经列出的、含 Codex 能力的最低档就是 Plus（$20）</strong>，Free 只在「图像生成不支持免费版」这一句里被顺带提了一下，Go 档<strong>整页没出现</strong>。</p>
+<p>所以我的判断和建议：</p>
+<p><strong>类比：这就像健身房的「免费体验卡」和「正式月卡」。</strong> 体验卡也许能进门转一圈，但器械、私教这些核心服务八成得正式月卡才解锁。Codex 的核心编程能力，官方明确挂在 Plus 及以上。</p>
+<ul>
+<li><strong>别指望 Free / Go 能正经跑 Codex 编程</strong>——至少官方定价页没给它们承诺额度。</li>
+<li>真想免费试，<strong>Codex 网页端的 Sites 功能预览期间免费</strong>（来源：pricing 文档），可以拿来感受一下，但这不等于「免费用 Codex 写代码」。</li>
+<li><strong>Free / Go 到底含不含、含多少 Codex，会随官方政策调整</strong>——下单前直接去 <a href="https://chatgpt.com/pricing">chatgpt.com/pricing</a> 看当前档位说明，别信任何「免费版也能无限用」的二手说法。</li>
+</ul>
+<blockquote>
+<p>💡 一句话总结：<strong>个人从 Plus 起步、撞限额烦了再上 Pro、团队才看 Business 以上</strong>；Free / Go 能不能用 Codex 官方说得含糊，以官网当前页为准，别预设能白嫖。</p>
+</blockquote>
+<hr>
+<h2>04 限额到底怎么算：5 小时窗口 + 积分续命</h2>
+<p>这是最容易让新手懵的一块，也是我开头那次「两天触顶」的真正原因。讲清楚两件事：<strong>限额怎么数、超了怎么办。</strong></p>
+<h3>限额按「5 小时滚动窗口」算，不是按天</h3>
+<p>官方把 Codex 的用量限额分成<strong>本地消息（Local Messages）<strong>和</strong>云端任务（Cloud Tasks）<strong>两类，二者</strong>共享一个「5 小时窗口」</strong>（来源：pricing 文档）。也就是说，每 5 小时是一个计量周期，不是「每天清零」那么简单，可能还另有每周上限。（窗口的具体起算方式以官方当前说明为准。）</p>
+<p>更关键的是——<strong>限额是个区间，不是固定数</strong>。比如官方给 Plus 标的是「GPT-5.5 每 5 小时 15–80 条本地消息」。为啥是范围？因为：</p>
+<blockquote>
+<p>你能发多少条 Codex 消息，取决于用的模型、编程任务的大小和复杂度、以及你在本地跑还是云端跑。小脚本或常规函数可能只耗掉一点点配额，而大型代码库、长时间运行的任务、需要 Codex 记住更多上下文的长会话，每条消息会用掉多得多的配额。（译自官方 pricing 文档）</p>
+</blockquote>
+<p>看懂这句你就明白我那次为啥几十条就触顶了——<strong>我每条都是「大型代码库 + 长任务」，吃配额的速度是小脚本的好几倍。</strong> 同样一个 Plus，你拿来改改小函数能发大几十条，我拿来啃大项目可能十几条就见底。</p>
+<h3>不同档位的限额差多少</h3>
+<p>直接上官方的数（GPT-5.5 模型、每 5 小时本地消息，仅供建立概念，<strong>实际以官网为准</strong>）：</p>
+<table>
+<thead>
+<tr>
+<th>档位</th>
+<th>GPT-5.5 本地消息 / 5 小时（参考）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Plus</strong></td>
+<td>15–80 条</td>
+</tr>
+<tr>
+<td><strong>Pro（5x）</strong></td>
+<td>80–400 条</td>
+</tr>
+<tr>
+<td><strong>Pro（20x）</strong></td>
+<td>300–1600 条</td>
+</tr>
+<tr>
+<td><strong>Business</strong></td>
+<td>15–80 条（同 Plus 量级，可加积分）</td>
+</tr>
+</tbody></table>
+<p>（来源：官方 <a href="https://developers.openai.com/codex/pricing">pricing</a> 页；同页还有 GPT-5.4、GPT-5.4-mini 的更高限额，换小模型能发更多条。）</p>
+<p>这张表透露一个省钱信号：<strong>同一档下，换更小的模型（如 GPT-5.4-mini），限额能翻好几倍。</strong> 后面 05 节会用到。</p>
+<h3>超了怎么办：买积分续</h3>
+<p>撞到限额不用慌，也不用急着升档。官方给的办法是<strong>买积分（credits）续命</strong>：</p>
+<blockquote>
+<p>ChatGPT Plus 和 Pro 用户达到用量限额后，可以购买额外积分继续工作，无需升级现有套餐。（译自官方 pricing 文档）</p>
+</blockquote>
+<p><strong>类比：积分就像手机流量包用完后的「加油包」。</strong> 月套餐的限额是你的「包月流量」，用超了不必直接升更贵的套餐，<strong>单独买个加油包接着用就行</strong>。Business / Enterprise / Edu 这边对应的是买「工作区积分」。</p>
+<p>积分本身也按 token 算账——官方给了张「每百万 token 多少积分」的费率卡，还顺带提了一句很实用的参考值：</p>
+<blockquote>
+<p>GPT-5.5 平均每条消息消耗 5–45 积分。（译自官方 pricing 费率卡）</p>
+</blockquote>
+<p>记住这个「5–45 积分/条」的量级就够了，<strong>具体每百万 token 多少积分、各模型费率，以官网费率卡为准</strong>，会变。</p>
+<blockquote>
+<p>💡 一句话总结：限额按 <strong>5 小时计量周期 + 模型</strong> 算、是个区间不是死数；<strong>啃大项目掉得快</strong>，撞顶了买积分续命，别一上来就升档。</p>
+</blockquote>
+<hr>
+<h2>05 让额度更耐用：官方认证的省 token 习惯</h2>
+<p>换更贵的档是下策，<strong>会用工具才是上策</strong>。回到 01 节那句——<strong>花钱多少跟你塞进去多少上下文极度相关</strong>。下面四条全部来自官方 pricing 文档的「怎么让限额更耐用」一节，我挑的是对新手最立竿见影的，每条我都自己验过。</p>
+<p><strong>第一，提示写具体，删掉没用的上下文。</strong> 官方原话是「给 Codex 精确的指令，但移除不必要的上下文」。你越含糊，它越要满项目翻文件猜你想干嘛，每翻一个都烧 token。我那次重构触顶后复盘，<strong>有大半 token 是它在「猜我到底要改哪」时瞎读文件烧掉的</strong>——后来我把需求写成「改 <code>src/auth.ts</code> 里的 <code>login</code> 函数，加输入校验」，一下就省下来了。</p>
+<p><strong>第二，给 <code>AGENTS.md</code> 瘦身。</strong> <code>AGENTS.md</code> 是 Codex 的项目说明书，<strong>它每条消息都会把这份内容塞进上下文</strong>。官方建议大项目用「嵌套」的方式分层放（不同子目录放各自的小 <code>AGENTS.md</code>），别在根目录堆一份几百行的巨无霸。我之前在一个项目里把根 <code>AGENTS.md</code> 从两百多行砍到几十行，<strong>每条消息的输入 token 肉眼可见地降了一截</strong>。</p>
+<p><strong>第三，少挂 MCP server。</strong> MCP（外部工具接口）每接一个，<strong>它的工具描述就会塞进你每条消息的上下文，吃掉更多限额</strong>。官方建议「不用的时候把 MCP server 关掉」。说白了：用得着才开，别一股脑全挂着。</p>
+<p><strong>第四，常规任务换小模型。</strong> 官方明说「换成 GPT-5.4 或 GPT-5.4-mini 能延长你的本地消息限额」。结合 04 节那张表——<strong>小模型同档限额翻好几倍</strong>。日常改代码、调小 bug，用 <code>/model</code> 切个小模型完全够；只有硬骨头才上最强的。</p>
+<p>下面这张表可以当成贴在显示器边上的「省额度速查」：</p>
+<table>
+<thead>
+<tr>
+<th>坏习惯 ❌</th>
+<th>好习惯 ✅</th>
+<th>省在哪</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>「帮我改进下这个项目」</td>
+<td>「改 <code>src/auth.ts</code> 的 <code>login</code> 加输入校验」</td>
+<td>少瞎翻文件</td>
+</tr>
+<tr>
+<td>根目录堆几百行 <code>AGENTS.md</code></td>
+<td>瘦身 + 按子目录分层</td>
+<td>每条消息少塞上下文</td>
+</tr>
+<tr>
+<td>MCP server 全程挂满</td>
+<td>用得着才开，用完关</td>
+<td>不为没用的工具付费</td>
+</tr>
+<tr>
+<td>全程挂最强模型</td>
+<td>常规活换 GPT-5.4-mini</td>
+<td>同档限额翻几倍</td>
+</tr>
+</tbody></table>
+<p>补一条 CLI 里的实战习惯：<strong>切到不相关的活儿，用 <code>/new</code> 开个新对话。</strong> <code>/new</code> 能在不退出 CLI 的前提下「重置聊天上下文」（来源：官方 CLI 斜杠命令表）——否则一个对话从早聊到晚，下午每条消息都把上午那堆早没用的内容重发一遍，限额白白浪费。</p>
+<blockquote>
+<p>💡 一句话总结：省额度不是换贵套餐，是 <strong>提示说清、<code>AGENTS.md</code> 瘦身、MCP 按需开、常规换小模型、切活用 <code>/new</code></strong>——上下文越小，额度越耐用。</p>
+</blockquote>
+<hr>
+<h2>06 动手：在 CLI 里盯住你的用量</h2>
+<p>光看不练等于没看。下面这套动作<strong>你现在就能跑一遍</strong>，几分钟建立起「用量感知」。</p>
+<p><strong>前提</strong>：已按 <a href="03-install.html">03 安装与登录</a> 装好并登录了 Codex（ChatGPT 订阅或 API key 都行）。<strong>国内用户注意</strong>：登录 ChatGPT 账号、跑云端任务通常需要「魔法上网」，本地用 API key 跑则看你网络能不能直连 OpenAI API。</p>
+<p>在项目目录下启动 Codex：</p>
+<pre><code class="language-bash">codex
+</code></pre>
+<p><strong>第一步：用 <code>/status</code> 查当前会话状态和剩余限额。</strong> 在 Codex 对话里直接敲：</p>
+<pre><code class="language-text">/status
+</code></pre>
+<p>它会显示<strong>当前模型、审批策略、可写目录、剩余上下文容量</strong>等会话配置与 token 用量（来源：官方 CLI 斜杠命令表）。而「查剩余用量限额」这一点，官方在计费文档里也专门点了用 <code>/status</code>：</p>
+<blockquote>
+<p>想在 Codex CLI 会话进行时查看剩余限额，可以用 <code>/status</code>。（译自官方 pricing 文档）</p>
+</blockquote>
+<p>重点看两个：<strong>当前模型</strong>对不对（常规任务别挂着最强模型），<strong>剩余限额</strong>还剩多少。撞顶前心里有数，比突然被拦住强。</p>
+<p><strong>第二步：随便让它干个小活，再看一次。</strong> 先发个小任务：</p>
+<pre><code class="language-text">看看当前目录下有哪些文件，简单说下这个项目是干嘛的
+</code></pre>
+<p>等它回完，再敲一次 <code>/status</code>，对比一下上下文用量涨了多少。<strong>这就是「问一个简单问题 + 读一遍目录」的成本</strong>——有了这个基准，以后哪次对话异常烧额度你一眼能察觉。</p>
+<p><strong>第三步：常规任务切个小模型。</strong> 用 <code>/model</code> 切换当前模型和推理强度（来源：官方文档，<code>/model</code> 用于选择活动模型，可在会话中途切换）：</p>
+<pre><code class="language-text">/model
+</code></pre>
+<p>按提示选个更小的模型（如 GPT-5.4-mini 这类）跑日常活儿，<strong>限额能撑更久</strong>。也可以在启动时直接指定，比如：</p>
+<pre><code class="language-bash">codex --model gpt-5.5
+</code></pre>
+<p>（<code>--model</code> 后跟哪些模型名<strong>以你账号当前可用的为准</strong>，<code>/status</code> 里能看到当前用的是哪个。）</p>
+<p><strong>第四步（订阅用户）：网页端看完整用量面板。</strong> CLI 里的 <code>/status</code> 看的是当前会话，<strong>想看跨设备的完整用量和剩余限额</strong>，去官方用量面板：</p>
+<pre><code class="language-text">https://chatgpt.com/codex/settings/usage
+</code></pre>
+<p>（来源：官方 pricing 文档明确指向这个 <a href="https://chatgpt.com/codex/settings/usage">Codex usage dashboard</a>。）</p>
+<blockquote>
+<p>API key 用户：你不走 ChatGPT 限额，<strong>账单和用量在 OpenAI Platform 后台看</strong>（<a href="https://platform.openai.com">platform.openai.com</a> ），不是上面这个面板。但 <code>/status</code> 看当前会话上下文、<code>/new</code> 切活清上下文这些习惯照样要养成。</p>
+</blockquote>
+<p>跑完这几步，你就从「闷头烧额度」升级成「随时知道还剩多少、还能主动省」。</p>
+<blockquote>
+<p>💡 一句话总结：<strong><code>/status</code> 查剩余限额建基准 → <code>/model</code> 切小模型省额度 → 网页面板看全局用量</strong>，几分钟拿回开销掌控权。</p>
+</blockquote>
+<hr>
+<h2>07 小结</h2>
+<p>这一篇把 Codex 的「钱」掰开揉碎讲了一遍。</p>
+<table>
+<thead>
+<tr>
+<th>你学到的</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>为什么付费</strong></td>
+<td>工具免费，付的是模型按 token 计的算力费</td>
+</tr>
+<tr>
+<td><strong>两套计费逻辑</strong></td>
+<td>人用 ChatGPT 订阅（含限额 + 积分），机器用 API key（按 token 实时扣）</td>
+</tr>
+<tr>
+<td><strong>各档怎么选</strong></td>
+<td>个人从 Plus 起、撞顶上 Pro、团队看 Business 以上</td>
+</tr>
+<tr>
+<td><strong>限额怎么算</strong></td>
+<td>5 小时计量周期 + 模型，是区间不是死数；超了买积分续</td>
+</tr>
+<tr>
+<td><strong>怎么省额度</strong></td>
+<td>提示说清、<code>AGENTS.md</code> 瘦身、MCP 按需开、常规换小模型、切活用 <code>/new</code></td>
+</tr>
+</tbody></table>
+<p>只记一条的话：<strong>花钱多少跟「塞进去多少上下文」极度相关，不是跟「问了几个问题」</strong>。吃透这句，省额度的招你都能自己推导出来——<strong>看懂两套账、查清当次开销、撞顶买积分、把活儿干得更省</strong>，到这你都拿下了。</p>
+<p>⚠️ 再强调一次准确性：本文涉及的<strong>套餐金额、限额区间、积分单价都会变动</strong>，一律以官方 <a href="https://developers.openai.com/codex/pricing">pricing</a> 页或 <a href="https://chatgpt.com/pricing">chatgpt.com/pricing</a> 当前价为准；<code>/status</code>、<code>/model</code>、<code>/new</code> 等命令行为以<a href="https://developers.openai.com/codex/cli">官方 CLI 文档</a>为准，可能随版本更新（<code>codex --version</code> 看版本）。</p>
+<hr>
+<p>账算明白、套餐也选好了，可如果你在国内、又嫌官方订阅要绑外币卡 + 魔法上网太折腾，还有一条更省的路——下一篇 <strong>05「接入 DeepSeek 等国产模型」</strong>，教你把 DeepSeek、Kimi、GLM 这些国产模型接进 Codex，<strong>不用 OpenAI 账号也能让它跑起来</strong>。这条路对国内开发者尤其实在。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/03-install.html"><span class="mono">← 上一篇 · 03</span><b>安装与登录（Mac / Windows / Linux）</b></a>
+  <a class="pg nx" href="/library/codex/05-third-party-models.html"><span class="mono">下一篇 · 05 →</span><b>接入 DeepSeek 等国产模型</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>37 检查点（Checkpoints）：随时能倒带的安全网 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 37 篇:检查点（Checkpoints）：随时能倒带的安全网。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/37-checkpoints.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class="cur"><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class="cur"><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 37 篇</p>
+      <h1>检查点（Checkpoints）：随时能倒带的安全网</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 [36 斜杠 / 命令] 把 <code>/</code> 开头那一长串命令理顺了，<code>/rewind</code> 也在里头露过脸。这一篇专门把它拆开讲——<strong>检查点（Checkpoint）是 Claude Code 自动给你存的「编辑前快照」，让你随时倒带回某个状态</strong>。它怎么自动记、怎么回退、能回滚什么不能回滚什么、跟 git 到底怎么分工，一篇说透。</p>
+</blockquote>
+<p>都说检查点是你的「后悔药」，有它兜底就能放开手脚让 Claude 大干一场——<strong>说句实话，把它当 git 用，迟早翻车。</strong></p>
+<p>设想一个刚上手 Claude Code 的人，听说有 <code>/rewind</code> 这玩意儿，整个人就松了，让 Claude 一口气改十几个文件，中间还跑了几条 <code>rm</code> 和 <code>mv</code> 清理目录。改到第三轮发现方向不对，淡定地 <code>/rewind</code> 想跳回去——<strong>结果代码是回去了一部分，但那几个被 <code>rm</code> 删掉的文件，一个都没回来</strong>。当场就懵了：「不是说能撤销吗？」</p>
+<p>能撤销，但撤销的是 <strong>Claude 用编辑工具改的那些文件</strong>，不是它跑 bash 命令在你磁盘上留下的痕迹，更不是 git 那种永久历史。<strong>检查点是个「会话级的本地撤销」，强在快、强在自动、强在连对话都能一起退</strong>；但它有清清楚楚的边界，越界的事它管不了。</p>
+<p>这一篇就干两件事：一是把检查点这套「自动存档 + 倒带」讲到你闭眼能操作；二是把它的<strong>边界</strong>钉死——哪些能回、哪些回不来、什么时候该靠它、什么时候必须上 git。<strong>搞清楚边界，它才是真安全网，不然就是个会骗你的安全网。</strong></p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一句话讲明白检查点是什么、它什么时候<strong>自动</strong>帮你存（不用你手动操作）</li>
+<li><code>/rewind</code> 和「空输入框双击 Esc」两种打开方式，以及回退菜单里那几个选项分别干嘛</li>
+<li>一张「能回滚 vs 回不来」对照表——代码、对话能回，bash 副作用和外部状态回不来</li>
+<li>检查点和 git 的明确分工：什么时候用哪个，为什么不能拿一个替另一个</li>
+<li>一个能照着跑、给了预期输出的实战：亲手制造一次「改错」再倒带回去</li>
+</ul>
+<hr>
+<h2>01 检查点是什么：它在你每次发话前，偷偷拍了张快照</h2>
+<p>先给结论：<strong>检查点是 Claude Code 自动给你的代码拍的「编辑前快照」——你每发一条提示，它就拍一张；事后想退回哪张，一句 <code>/rewind</code> 跳回去。</strong></p>
+<p>第 07 篇你已经见过它一面，知道改错了能 <code>/rewind</code> 兜底。这一篇往深里走。先回想一下你跟 Claude 干活的节奏：你发一句指令 → 它「想 → 做 → 看」转一圈、改几个文件 → 你看结果再发下一句（这个循环第 03 篇讲过）。<strong>检查点干的事，就是在每一句指令落地之前，先把当时的代码状态拍下来留底。</strong></p>
+<p><strong>类比：录像机（DVR）的时间轴回放。</strong> 你家那台能回放的机顶盒，节目是连续录下来的，但它在每个节目切换的地方都打了个「章节标记」。你想重看某一段，不用从头快进，直接拖到那个章节标记上一点就跳过去了。检查点就是这个味道：<strong>你发的每一条提示，都是时间轴上的一个章节标记；<code>/rewind</code> 就是把整盘带子拖回某个标记重来。</strong> 区别只在于——录像机回放是「看」，检查点回放是真把代码和对话<strong>退回到那一刻</strong>，让你能换个走法重录。</p>
+<p>官方对它的定位是这样的：</p>
+<blockquote>
+<p>当您与 Claude 合作时，checkpointing 会自动捕获每次编辑前代码的状态。这个安全网让您可以放心地执行雄心勃勃的大规模任务，因为您始终可以返回到之前的代码状态。</p>
+</blockquote>
+<p>注意那个词——<strong>自动</strong>。这是检查点最爽的一点，也是它和 git 最大的体感差别：<strong>你什么都不用做。</strong> git 是你得记着 <code>git commit</code>，忘了提交就没存上；检查点是 Claude 在背后默默拍，你压根不用操心「我存了没」。</p>
+<p>官方列了四类最典型的用场，我每条配一个你真实会遇到的画面：</p>
+<ul>
+<li><strong>探索替代方案</strong>：A 实现做完不满意，退回起点重来 B 方案，<strong>起点完好无损</strong>，不用怕「试坏了回不去」。</li>
+<li><strong>从错误中恢复</strong>：它改完某个文件，测试反而挂了，你又懒得手动一行行抠回去——退回上一个检查点，干净。</li>
+<li><strong>迭代功能</strong>：让 Claude 把整个模块重写一遍练手，写完发现不如原来——跳回重写前，跟没发生过一样，<strong>敢放手试</strong>。</li>
+<li><strong>释放上下文空间</strong>：调试聊了一长串，前面的设置说明想留、中间的试错想丢——这就用上「总结」了（第 03 节讲）。</li>
+</ul>
+<p>体会一下这四类的共同点：<strong>它们都是「我想大胆往前冲，又怕冲坏了回不来」</strong>——检查点就是来消掉这份「怕」的。</p>
+<blockquote>
+<p>💡 一句话总结：检查点是 Claude <strong>每次编辑前自动拍的代码快照</strong>，你每发一条提示就多一个「章节标记」，事后一句 <code>/rewind</code> 就能把代码和对话倒带回那一刻——<strong>全程自动，不用你手动存</strong>。</p>
+</blockquote>
+<hr>
+<h2>02 它到底什么时候存、存哪、留多久</h2>
+<p>检查点既然是「自动」的，那你得知道它<strong>自动的规律</strong>——什么时机拍、拍的东西放哪、能放多久。这三点官方写得很清楚，我一条条给你对。</p>
+<h3>触发时机：每条提示一个检查点</h3>
+<p>规律就一句话：<strong>你每发一条提示（prompt），Claude Code 就创建一个新检查点。</strong> 官方原话：</p>
+<blockquote>
+<p>每个用户提示都会创建一个新的 checkpoint。</p>
+</blockquote>
+<p>所以时间轴上的「章节标记」密度，是跟着你说话的节奏走的——你发十句指令，就有十个可以跳回去的点。这也解释了为什么后面回退菜单里列出来的，<strong>正是你这次会话发过的每一条提示</strong>：每条提示既是一次「动手的开始」，也是一个「可以退回去的存档点」。</p>
+<p>把这个节奏画出来，你一眼就懂检查点是怎么沿着你的对话「一路落点」的：</p>
+<p><img src="assets/37-checkpoint-rewind@2x.png" alt="检查点时间轴：每条提示前自动存档；改坏了 /rewind 倒带回任意检查点（代码 + 对话一起回）"></p>
+<p>这张图画的是：你每发一条提示，Claude 动手之前先落一个检查点（蓝色节点）；等改到提示 3 发现搞砸了，一句 <code>/rewind</code> 就能顺着那条虚线<strong>跳回检查点 1</strong>，把提示 2、3 的改动连同对话一起退掉——这正是它「随时能倒带」的本质。</p>
+<h3>存哪：藏在你的 <code>~/.claude</code> 里</h3>
+<p>快照不是凭空记在内存里的，它落到了磁盘上。官方文档（<code>claude-directory.md</code>）里点了名：</p>
+<blockquote>
+<p><code>file-history/&lt;session&gt;/</code> —— Claude 更改的文件的编辑前快照，用于 checkpoint 恢复。</p>
+</blockquote>
+<p>也就是说，每个会话的「编辑前快照」都存在 <code>~/.claude/file-history/&lt;session&gt;/</code> 这个目录下。你<strong>不用去碰它</strong>，但知道它在哪有两个好处：一是明白检查点是真有实体文件撑着、不是玄学；二是哪天你好奇 Claude Code 在你机器上占了多少地方，知道这块归它管。</p>
+<h3>跨会话：关了重开，存档还在</h3>
+<p>既然落了磁盘，就有个很实用的特性——<strong>检查点跨会话不丢</strong>。官方原话：</p>
+<blockquote>
+<p>Checkpoints 在会话之间持久存在，因此您可以在恢复的对话中访问它们。</p>
+</blockquote>
+<p>什么意思？你今天干到一半 <code>Ctrl+D</code> 退出，明天用 <code>claude --resume</code>（或 <code>--continue</code>）把这个会话续上，<strong>之前那一串检查点还在</strong>，照样能 <code>/rewind</code> 倒带回昨天某个点。容易误以为 <code>/rewind</code> 只在当前这次开着的窗口里有效，关掉就清零——可实际上续一个三天前的会话，回退菜单里那些老提示<strong>居然还能跳</strong>，它是真存在盘上、跟着会话走的。所以「存档」这事，连「关机重开」这一关它都扛得住，只受那个 <code>cleanupPeriodDays</code> 期限管。</p>
+<h3>留多久：默认 30 天，可调</h3>
+<p>检查点不会永远留着，官方设了个自动清理：</p>
+<blockquote>
+<p>在 30 天后自动清理（可配置）。</p>
+</blockquote>
+<p>这个「可配置」具体是哪个开关？是 settings.json 里的 <code>cleanupPeriodDays</code>（第 31 篇专门讲过 settings.json 的用户级 / 项目级配置）。官方 <code>settings.md</code> 说它默认 <strong>30</strong> 天清理不活跃会话的记录、最少 1 天，设成 <code>0</code> 会被直接拒绝——这个值同时管着检查点快照的留存。<strong>对小白的建议：别动它。</strong> 默认值够用了，你真正需要长期保存的进度，本来就该交给 git（下面第 05 节细说），而不是指望检查点替你存半年。</p>
+<p>哪天翻 <code>~/.claude</code> 想清理空间，注意到 <code>file-history</code> 这个目录，才反应过来：<strong>原来每天那一堆 <code>/rewind</code> 的「后悔药」，都是这儿在默默兜着。</strong> 平时根本感知不到它存在，这恰恰是「自动」的好处。</p>
+<p>把这三点拢成一张表：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>规律</th>
+<th>你要做的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>什么时候存</strong></td>
+<td>每发一条提示，自动建一个检查点</td>
+<td>啥都不用做，正常说话就行</td>
+</tr>
+<tr>
+<td><strong>存在哪</strong></td>
+<td><code>~/.claude/file-history/&lt;session&gt;/</code></td>
+<td>不用碰，知道它在哪即可</td>
+</tr>
+<tr>
+<td><strong>跨会话吗</strong></td>
+<td>跨会话持久，恢复对话后还能用</td>
+<td>关了重开也找得回</td>
+</tr>
+<tr>
+<td><strong>留多久</strong></td>
+<td>默认随 <code>cleanupPeriodDays</code> 清理</td>
+<td>别改；长期进度交给 git</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：检查点<strong>每条提示存一个</strong>，落在 <code>~/.claude/file-history/</code> 里、<strong>跨会话不丢</strong>、默认按 <code>cleanupPeriodDays</code> 清理；这套规律你只需知道、不用操作——它全自动。</p>
+</blockquote>
+<hr>
+<h2>03 怎么倒带：<code>/rewind</code>、双击 Esc，和那张回退菜单</h2>
+<p>知道了它在背后默默存，现在学怎么把它调出来用。<strong>入口就两个，记死了：<code>/rewind</code> 命令，或者空输入框双击 Esc。</strong></p>
+<h3>两个入口</h3>
+<p>第一个，在会话里敲斜杠命令：</p>
+<pre><code class="language-text">/rewind
+</code></pre>
+<p>第二个，更快——<strong>在输入框为空时，连按两下 <code>Esc</code></strong>：</p>
+<pre><code class="language-text">（输入框空着，连按 Esc Esc）
+</code></pre>
+<p>这两个都会弹出同一个<strong>回退菜单（rewind menu）</strong>。官方原话：</p>
+<blockquote>
+<p>运行 <code>/rewind</code>，或在提示输入为空时按两次 <code>Esc</code>，打开回溯菜单。</p>
+</blockquote>
+<p>这里有个<strong>第 14 篇就埋过的坑</strong>，必须再敲一遍黑板：</p>
+<blockquote>
+<p>如果提示输入包含文本，双 <code>Esc</code> 会清除它而不是打开菜单。清除的文本会保存到您的输入历史记录中，因此在您完成回溯菜单后，按 <code>Up</code> 可以调用它。</p>
+</blockquote>
+<p>翻译成人话：<strong>输入框里有字的时候，双击 Esc 是「清空这段字」，不是打开菜单。</strong> 想倒带，先确保输入框是空的。新手很容易在这儿栽跟头——打了半句话想反悔，狂按 Esc，字没了菜单也没出来，一脸懵。<strong>记住：先清空，再 Esc Esc。</strong> 拿不准就老老实实敲 <code>/rewind</code>，它不挑输入框空不空。</p>
+<h3>回退菜单里在选什么</h3>
+<p>菜单弹出来，<strong>它列的是你这次会话发过的每一条提示</strong>——也就是时间轴上那一串「章节标记」。你先选一个「想退回到的点」，再选「<strong>怎么退</strong>」。这第二步是关键，因为退法不止一种。</p>
+<p>官方给的几个操作，我逐个翻译：</p>
+<table>
+<thead>
+<tr>
+<th>菜单选项</th>
+<th>它干嘛</th>
+<th>什么时候选</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>恢复代码和对话</strong></td>
+<td>代码和对话<strong>一起</strong>退回那个点</td>
+<td>整轮都想推倒重来：当那几句话从没发生过</td>
+</tr>
+<tr>
+<td><strong>恢复对话</strong></td>
+<td>只退对话，<strong>代码保持现状</strong></td>
+<td>改出来的代码想留，但聊歪了想重新组织对话</td>
+</tr>
+<tr>
+<td><strong>恢复代码</strong></td>
+<td>只退代码改动，<strong>对话保留</strong></td>
+<td>代码改坏了要回滚，但前面的讨论还想接着用</td>
+</tr>
+<tr>
+<td><strong>从此处总结</strong></td>
+<td>把这条及之后的对话<strong>压缩成摘要</strong></td>
+<td>砍掉一段跑偏的旁支讨论，保住前面的完整细节</td>
+</tr>
+<tr>
+<td><strong>到此处总结</strong></td>
+<td>把这条之前的对话<strong>压缩成摘要</strong></td>
+<td>压掉冗长的前期铺垫，留住最近工作的完整细节</td>
+</tr>
+<tr>
+<td><strong>算了</strong></td>
+<td>啥也不动，返回列表</td>
+<td>点错了 / 看看就走</td>
+</tr>
+</tbody></table>
+<p>中间那两个「只退一半」的选项，新手常犯嘀咕「为啥要分开退」。各举一个真实场景就通了：</p>
+<ul>
+<li><strong>只「恢复代码」</strong>：你跟 Claude 来回聊了五轮终于定下方案，它照着改了，结果代码跑挂了。你想退掉这堆烂代码，<strong>但那五轮讨论的来龙去脉不能丢</strong>（重新解释一遍太累）——这时选「恢复代码」，代码回到改之前，对话原封不动，让它<strong>带着原来的理解重写一遍</strong>。</li>
+<li><strong>只「恢复对话」</strong>：反过来，它改出来的代码你挺满意、想留着，可这轮对话被你问的几个无关问题带歪了，越聊越乱——选「恢复对话」，把对话退回到歪掉之前那个点，<strong>代码留在现状</strong>，你重新组织思路接着指挥。</li>
+</ul>
+<p>看懂没——<strong>「恢复代码 / 恢复对话」是给你拆开来精修的两个旋钮</strong>，不是非得「代码和对话」一起退。这里面最常用的其实是「恢复代码」：方案没问题，就是 Claude 写歪了，退掉代码让它重写，比从头描述需求省事得多。</p>
+<p><strong>而这里最容易混的，是「恢复」和「总结」根本是两回事。</strong> 别被放在同一个菜单里就以为它们干类似的活：</p>
+<ul>
+<li><strong>恢复（restore）</strong> = 真的<strong>往回退状态</strong>：把代码、对话、或两者都退回选中的点。这是「时光倒流」。</li>
+<li><strong>总结（summarize）</strong> = <strong>不动磁盘上的文件</strong>，只是把对话的某一侧压缩成 AI 生成的摘要、腾出上下文空间。这是「整理桌面」，不是倒带。</li>
+</ul>
+<p>官方把这层区别说得很直白：</p>
+<blockquote>
+<p>恢复选项恢复状态：它们撤销代码更改、对话历史或两者。总结选项将对话的一部分压缩为 AI 生成的摘要，而不改变磁盘上的文件。</p>
+</blockquote>
+<p>看出来了吗——<strong>「总结」其实是第 19 篇那个 <code>/compact</code> 的精确版</strong>。<code>/compact</code> 是把整个对话压一遍，而这里的「从此处 / 到此处总结」，是让你<strong>挑一个点，只压它的一侧</strong>：跑偏的旁支用「从此处总结」砍掉，冗长的开场用「到此处总结」压扁。官方自己也是这么对照的：</p>
+<blockquote>
+<p>这类似于 <code>/compact</code>，但更有针对性：您不是总结整个对话，而是选择所选消息的哪一侧进行压缩。</p>
+</blockquote>
+<p>还有个贴心细节：<strong>选了「恢复对话」或「从此处总结」之后，被选中那条消息的原始提示会自动填回输入框</strong>，你可以改一改重新发——相当于「退回到说这句话之前，给你个重说的机会」。（选「到此处总结」则不一样：它把你留在对话末尾、输入框空着。）</p>
+<h3>两个新手常卡的小问题</h3>
+<p><strong>「回退菜单弹出来是空的 / 没几个点可选」</strong>——正常。菜单列的是<strong>你这次会话发过的提示</strong>，你才刚开张、只发了一两句，自然没几个点可退。检查点是「边干边攒」的，发得越多、可退的点越多。</p>
+<p><strong>「我手滑选错了点，退过头了，能不能再退回来？」</strong>——先别慌。检查点本身是<strong>跨会话留在磁盘上</strong>的（第 02 节说过），并不会因为你 <code>/rewind</code> 一次就消失；菜单里那些点通常还在，你可以<strong>再开一次回退菜单，挑一个更靠后的点</strong>调整。不过具体每个版本的菜单行为可能有差异，<strong>最稳的还是那条老规矩</strong>：动手干高风险的活之前，先 <code>git commit</code> 一笔——git 那条「永久历史」永远是你退无可退时的最后一道防线（下一节细说）。</p>
+<blockquote>
+<p>💡 一句话总结：倒带入口就俩——<code>/rewind</code> 或<strong>空输入框</strong>双击 Esc；菜单里先选「退回哪个点」再选「怎么退」，<strong>「恢复」是真退状态、「总结」只压上下文不动文件</strong>，这俩千万别混；退过头别慌，<strong>真兜底的是提前 <code>git commit</code></strong>。</p>
+</blockquote>
+<hr>
+<h2>04 边界在哪：能回滚什么，什么死活回不来</h2>
+<p>这一节是全篇的命门，开头那个栽进去的跟头就栽在这儿。<strong>检查点不是万能撤销键，它只盯着一类东西——Claude 用「文件编辑工具」做的直接改动。</strong> 越过这条线的，它一概管不了。</p>
+<p><strong>类比还是那台录像机：它只录了「屏幕上的画面」，没录「你家客厅里真实发生的事」。</strong> 你倒带回去，画面是回去了，但你刚才在客厅打翻的那杯咖啡、寄出去的那封信、删掉的那个文件——<strong>现实世界里已经发生的事，倒带带不回来。</strong> 检查点拍的是「代码文件的快照」，它管得了文件内容的来回；管不了 Claude 跑命令在你系统里掀起的真实动静。</p>
+<p>具体哪些回得来、哪些回不来，官方在「限制」一节列得很清楚，我整理成一张对照表——<strong>这张表你得记牢</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>能不能回</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Claude 用编辑工具改的<strong>文件内容</strong></td>
+<td>✅ 能回</td>
+<td>这正是检查点跟踪的对象</td>
+</tr>
+<tr>
+<td><strong>对话历史</strong></td>
+<td>✅ 能回</td>
+<td>回退菜单可单独 / 一起恢复对话</td>
+</tr>
+<tr>
+<td>Claude 跑 <strong>bash 命令</strong>改的文件（<code>rm</code> / <code>mv</code> / <code>cp</code>…）</td>
+<td>❌ 回不来</td>
+<td>bash 改动不被跟踪</td>
+</tr>
+<tr>
+<td><strong>当前会话没编辑过的文件</strong></td>
+<td>❌ 回不来</td>
+<td>只跟踪本会话碰过的文件</td>
+</tr>
+<tr>
+<td>你<strong>在 Claude Code 外面</strong>手动改的文件</td>
+<td>❌ 回不来</td>
+<td>外部更改不被捕获</td>
+</tr>
+<tr>
+<td><strong>其他并发会话</strong>改的东西</td>
+<td>❌ 回不来</td>
+<td>同上，除非碰巧动了同一个文件</td>
+</tr>
+<tr>
+<td>已经<strong>发出去的副作用</strong>（发请求、删数据库行、推送…）</td>
+<td>❌ 回不来</td>
+<td>外部状态，检查点完全够不着</td>
+</tr>
+</tbody></table>
+<p>最该刻进脑子的是<strong>头两条「回不来」</strong>，官方专门拎出来强调。先看 bash 命令这条：</p>
+<blockquote>
+<p>Checkpointing 不跟踪由 bash 命令修改的文件。例如，如果 Claude Code 运行 <code>rm file.txt</code>、<code>mv old.txt new.txt</code>、<code>cp source.txt dest.txt</code>……这些文件修改无法通过回溯撤销。只有通过 Claude 的文件编辑工具进行的直接文件编辑才会被跟踪。</p>
+</blockquote>
+<p>这就是开头那个坑——<strong>Claude 是用 <code>rm</code> 删的文件，不是用编辑工具改的，所以 <code>/rewind</code> 救不回来。</strong> 划重点：<strong>「Claude 改文件」分两种</strong>——用它的编辑工具改（受跟踪、能回退），和用 bash 命令改（不受跟踪、回不来）。这俩在你眼里都是「它动了我的文件」，但在检查点眼里天差地别。</p>
+<p>怎么当场分清它走的是哪种？<strong>看它在干活时打出来的工具调用名</strong>（第 14 篇讲过 <code>Ctrl+O</code> 能展开详细转录）：</p>
+<ul>
+<li>看到 <code>Edit</code>、<code>Write</code>、<code>MultiEdit</code> 这类<strong>编辑工具</strong>在动——受检查点跟踪，改坏了 <code>/rewind</code> 能救。</li>
+<li>看到 <code>Bash</code> 在跑 <code>rm</code>、<code>mv</code>、<code>cp</code>、<code>&gt;</code>（重定向覆盖）这类命令——<strong>不受跟踪</strong>，改坏了 <code>/rewind</code> 救不回。</li>
+</ul>
+<p>这俩在转录里写得清清楚楚。<strong>养成「让它干高风险活时瞄一眼工具名」的习惯</strong>，你就能在它真动手前判断：这步要是搞砸，我还有没有 <code>/rewind</code> 这张后悔药。判断为「没有」的，就老老实实先 <code>git commit</code>。</p>
+<p>再看「外部更改」这条：</p>
+<blockquote>
+<p>Checkpointing 仅跟踪在当前会话中编辑过的文件。您在 Claude Code 外部对文件所做的手动更改以及来自其他并发会话的编辑通常不会被捕获，除非它们碰巧修改了与当前会话相同的文件。</p>
+</blockquote>
+<p>意思是：你自己拿别的编辑器改的、或者另开一个 Claude Code 会话改的，这个会话的检查点<strong>不认</strong>。</p>
+<p>这里有条值得照办的土规矩：<strong>凡是让 Claude 干「删文件、移目录、改数据库、发请求」这类带不可逆副作用的活，绝不指望 <code>/rewind</code> 兜底——该 <code>git commit</code> 的先提交，该备份的先备份。</strong> 检查点只在「它用编辑工具改坏了代码」这种场景下，才是真靠得住的后悔药。</p>
+<p>把「新手以为它能救」和「实际能不能救」摆一起，开头那个反共识就立住了：</p>
+<table>
+<thead>
+<tr>
+<th>出了岔子的事</th>
+<th align="center">新手以为 <code>/rewind</code> 能救</th>
+<th align="center">实际</th>
+<th>真正的救法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Claude 用编辑工具把代码改坏了</td>
+<td align="center">✅</td>
+<td align="center">✅ <strong>能救</strong></td>
+<td><code>/rewind</code></td>
+</tr>
+<tr>
+<td>Claude 跑 <code>rm</code> 删错了文件</td>
+<td align="center">✅</td>
+<td align="center">❌ 救不回</td>
+<td>提前 <code>git commit</code> / 备份</td>
+</tr>
+<tr>
+<td>Claude 跑了个写库的脚本、改了数据</td>
+<td align="center">✅</td>
+<td align="center">❌ 救不回</td>
+<td>数据库备份 / 事务回滚</td>
+</tr>
+<tr>
+<td>Claude <code>git push</code> 推上去了</td>
+<td align="center">✅</td>
+<td align="center">❌ 救不回</td>
+<td>git 层面 revert（远端已变）</td>
+</tr>
+<tr>
+<td>你自己拿别的编辑器改花了文件</td>
+<td align="center">✅</td>
+<td align="center">❌ 不认</td>
+<td>你自己的撤销 / git</td>
+</tr>
+</tbody></table>
+<p>中间那几行的「❌」，全是开头那类坑的变体——<strong>它们的共同点是「改动跑到了检查点的视野之外」</strong>：要么走的是 bash 而非编辑工具，要么发生在 Claude Code 之外，要么干脆是把变化推到了外部系统。<strong>只要一件事的后果落在了「磁盘上的代码文件」之外，检查点就够不着。</strong> 记死这一句，比记那张限制表更省脑子。</p>
+<blockquote>
+<p>💡 一句话总结：检查点只管<strong>编辑工具改的文件 + 对话</strong>，这俩能回；<strong>bash 命令的副作用（<code>rm</code>/<code>mv</code>）、外部改动、已发出的请求一律回不来</strong>——一句话判断：<strong>后果落在「代码文件」之外的，它都够不着</strong>，别拿 <code>/rewind</code> 当保险。</p>
+</blockquote>
+<hr>
+<h2>05 和 git 的分工：本地撤销 vs 永久历史，谁也替不了谁</h2>
+<p>讲到这儿，开头那句「别把检查点当 git 用」就能彻底讲透了。<strong>很多人一上手就纠结「有了检查点，还要不要 git？」——答案是：要，而且它俩根本不抢饭碗。</strong></p>
+<p>官方把这层关系一句话钉死，值得你裱起来：</p>
+<blockquote>
+<p>将 checkpoints 视为「本地撤销」，将 Git 视为「永久历史」。</p>
+</blockquote>
+<p><strong>类比：草稿本上的涂改 vs 交出去归档的正式文件。</strong> 检查点像你在草稿本上写写画画——写错一笔随手擦掉重写，快、随意、只对你自己有意义，本子用完（30 天后）也就扔了。git 像你把定稿打印出来、签字、归进档案柜——<strong>留痕、能给别人看、能追溯到任意一版、永久保存</strong>。你不会因为草稿本能擦就不归档正式文件，也不会因为要归档就连打草稿都拿正式文件来回改。<strong>两样都得有，各干各的。</strong></p>
+<p>官方给的分工清单：</p>
+<blockquote>
+<ul>
+<li>继续使用版本控制（例如 Git）进行提交、分支和长期历史；</li>
+<li>Checkpoints 补充但不替代适当的版本控制。</li>
+</ul>
+</blockquote>
+<p>把它俩并排放，区别一目了然：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>检查点（Checkpoint）</th>
+<th>Git</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>谁来触发</strong></td>
+<td>自动（每条提示）</td>
+<td>手动（你 <code>git commit</code>）</td>
+</tr>
+<tr>
+<td><strong>粒度</strong></td>
+<td>每条提示一个，很细</td>
+<td>一次 commit 一个，你定</td>
+</tr>
+<tr>
+<td><strong>管不管 bash 副作用</strong></td>
+<td>❌ 不管</td>
+<td>✅ 已提交的文件能恢复</td>
+</tr>
+<tr>
+<td><strong>保存多久</strong></td>
+<td>默认随 <code>cleanupPeriodDays</code> 清掉</td>
+<td>永久（直到你删历史）</td>
+</tr>
+<tr>
+<td><strong>能分享 / 协作吗</strong></td>
+<td>❌ 纯本地、只对你</td>
+<td>✅ 推上去全队可见</td>
+</tr>
+<tr>
+<td><strong>最适合</strong></td>
+<td>「这步改坏了，跳回去」即时反悔</td>
+<td>里程碑、永久历史、协作</td>
+</tr>
+</tbody></table>
+<p>注：git 同样管不了已发出的请求、数据库改动等外部副作用，只是能帮你恢复磁盘上<strong>已提交的</strong>文件。</p>
+<p><strong>什么时候用哪个，我给你一套土办法：</strong></p>
+<ul>
+<li><strong>小步快跑、随时反悔</strong> → 检查点。改一版不行 <code>/rewind</code>，再试一版，完全不用碰 git，丝滑。</li>
+<li><strong>干完一个像样的阶段、想长期存下来</strong> → <code>git commit</code>。一个功能做通了、测试过了，提交一笔，这才是「永久存档」。</li>
+<li><strong>要让 bash 副作用也能回滚</strong> → 只能靠 git。上一节说了检查点管不了 <code>rm</code>，但只要你<strong>提交得勤</strong>，git 能把整个工作区的状态找回来。</li>
+</ul>
+<p>比较稳的节奏是这样：<strong>让 Claude 干活的过程中，靠检查点随时倒带试错；每完成一个能跑通的小阶段，立刻 <code>git commit</code> 钉一个永久存档点。</strong> 这俩配合起来，等于「细粒度的随手撤销」叠上「粗粒度的永久里程碑」，双保险。<strong>真正会咬人的教训是：太信检查点，一个下午没 commit 过，结果会话崩了重开，虽然代码文件还在，但那一长串「章节标记」全断了——想退回三小时前某个中间态，退不了了。所以更该养成「跑通就提交」的肌肉记忆。</strong></p>
+<p>关于 git 怎么跟 Claude Code 配合（让它帮你写 commit message、管分支），<strong>第 43 篇「Git 工作流」</strong> 有专篇，这里你只要先记住一条：<strong>检查点是本地撤销、git 是永久历史，前者补充后者、绝不替代。</strong></p>
+<p>最后补一个进阶岔路，官方提了一句：如果你想<strong>换个方法试试、又想原封不动保住当前会话</strong>，别用「总结」（它会改你当前会话的上下文），而是用 fork：</p>
+<pre><code class="language-bash">claude --continue --fork-session
+</code></pre>
+<p>它会基于当前会话<strong>叉出一条新分支</strong>去试，原会话完好。这招你先知道有，真到「想并行试两种思路」时再翻第 34 篇的「继续 / 恢复会话」。</p>
+<blockquote>
+<p>💡 一句话总结：检查点 = <strong>自动的本地撤销</strong>（细、快、纯本地、会过期），git = <strong>手动的永久历史</strong>（可追溯、可协作、不丢）；<strong>小步试错靠检查点，里程碑和副作用回滚靠 git</strong>，跑通一个阶段就 <code>commit</code>。</p>
+</blockquote>
+<hr>
+<h2>06 动手：亲手制造一次「改错」，再倒带回去</h2>
+<p>光看不练记不住。下面这套<strong>最小流程</strong>，带你亲手走一遍「Claude 改文件 → 你反悔 → <code>/rewind</code> 倒带回去」的完整闭环。不依赖任何复杂项目，随便找个空文件夹就能跑。打开终端跟着走。</p>
+<p><strong>第一步：建个玩具文件夹，放一个一眼能看懂的文件</strong></p>
+<pre><code class="language-bash">mkdir ~/rewind-demo &amp;&amp; cd ~/rewind-demo
+git init
+printf &#39;hello\n&#39; &gt; note.txt
+git add note.txt &amp;&amp; git commit -m &quot;init: 初始 note&quot;
+</code></pre>
+<p><strong>预期</strong>：<code>note.txt</code> 里就一行 <code>hello</code>，并且 git 提交了一笔（待会儿好对比检查点和 git 的区别）。</p>
+<p><strong>第二步：启动 Claude，让它改这个文件</strong></p>
+<pre><code class="language-bash">claude
+</code></pre>
+<p>进去后发第一条指令（这条提示会触发<strong>第一个检查点</strong>）：</p>
+<pre><code class="language-text">把 note.txt 的内容改成三行：apple、banana、cherry，用编辑工具改
+</code></pre>
+<p><strong>预期</strong>：Claude 用编辑工具把 <code>note.txt</code> 改成三行水果（default 模式下它会先给 diff 等你批准，批准它）。<strong>特意强调「用编辑工具」，是为了让这次改动落进检查点的跟踪范围</strong>——这正是 <code>/rewind</code> 能救的那一类。</p>
+<p><strong>第三步：再发一条，把它改得更「面目全非」</strong></p>
+<pre><code class="language-text">再把这三行全删掉，换成一行：这是我不想要的版本
+</code></pre>
+<p><strong>预期</strong>：<code>note.txt</code> 现在只剩「这是我不想要的版本」。到这儿你已经发了两条提示，时间轴上有<strong>两个章节标记</strong>了。</p>
+<p><strong>第四步：打开回退菜单，倒带</strong></p>
+<p>确保输入框是空的，然后<strong>连按两下 <code>Esc</code></strong>（或者直接敲 <code>/rewind</code>）：</p>
+<pre><code class="language-text">（输入框空着，Esc Esc）
+</code></pre>
+<p><strong>预期</strong>：弹出回退菜单，列出你刚才发的那两条提示。<strong>选中第一条提示（改成三行水果那次）之前的点，再选「恢复代码和对话」。</strong></p>
+<p><strong>第五步：验证倒带成功</strong></p>
+<p>回到终端（或用 <code>!</code> 在会话里跑），看一眼文件：</p>
+<pre><code class="language-text">! cat note.txt
+</code></pre>
+<p><strong>预期</strong>：<code>note.txt</code> <strong>变回了一行 <code>hello</code></strong>——你两次改动全被退掉了，代码和对话都回到了改之前。<strong>看到 <code>hello</code> 回来 = 检查点倒带成功。</strong> 这就是「本地撤销」的威力：你没敲一个 <code>git</code> 命令，纯靠检查点就把两轮改动干净退回去了。</p>
+<p><strong>第六步（关键对照）：验证 bash 副作用回不来</strong></p>
+<p>现在故意让它用 <strong>bash 命令</strong>删文件，体会第 04 节那条边界。在会话里发：</p>
+<pre><code class="language-text">用 bash 命令（rm）把 note.txt 删掉
+</code></pre>
+<p>它删完之后，再 <code>/rewind</code> 试图退回删除之前那个点，选「恢复代码」。然后看：</p>
+<pre><code class="language-text">! ls
+</code></pre>
+<p><strong>预期</strong>：<code>note.txt</code> <strong>没回来</strong>，<code>ls</code> 里找不到它。这就印证了——<strong>bash 命令（<code>rm</code>）改的东西，检查点跟踪不到、<code>/rewind</code> 救不回。</strong> 想找回？这时候才轮到 git 上场：</p>
+<pre><code class="language-bash">git checkout note.txt
+</code></pre>
+<p>（这条会用 git 里那笔 <code>init</code> 提交把文件恢复出来。）<strong>预期</strong>：<code>note.txt</code> 带着 <code>hello</code> 回来了——<strong>git 这个「永久历史」，补上了检查点够不着的那块。</strong></p>
+<p>跑完这六步，你就把本篇最核心的两件事<strong>亲手验证</strong>过了：<strong>检查点能丝滑倒带编辑工具的改动（第五步），但管不了 bash 副作用——那得靠 git（第六步）。</strong> 这一正一反两个结果，比前面讲十遍边界都记得牢。</p>
+<blockquote>
+<p>💡 一句话总结：这套实战让你亲眼看到——<strong>编辑工具改的，<code>/rewind</code> 一键退回</strong>；<strong>bash <code>rm</code> 删的，检查点束手无策、得靠 <code>git checkout</code> 找回</strong>。一正一反，边界就刻进去了。</p>
+</blockquote>
+<hr>
+<h2>07 小结</h2>
+<p>这一篇把 Claude Code 那张「自动安全网」彻底拆开了——<strong>检查点是它每次编辑前自动拍的代码快照，让你随时倒带，但它有清清楚楚的边界，跟 git 是搭档不是替身。</strong></p>
+<p>把核心要点串成一张表，揣兜里：</p>
+<table>
+<thead>
+<tr>
+<th>你想搞清的事</th>
+<th>结论</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>检查点是什么</td>
+<td>每条提示前自动拍的代码快照</td>
+<td>全自动，不用你手动存</td>
+</tr>
+<tr>
+<td>怎么倒带</td>
+<td><code>/rewind</code> 或<strong>空输入框</strong>双击 Esc</td>
+<td>输入框有字时双 Esc 是清空、不开菜单</td>
+</tr>
+<tr>
+<td>菜单里选什么</td>
+<td>先选「退回哪个点」再选「怎么退」</td>
+<td><strong>「恢复」退状态 / 「总结」压上下文</strong>，别混</td>
+</tr>
+<tr>
+<td>能回滚什么</td>
+<td>编辑工具改的文件 + 对话</td>
+<td>这俩能回</td>
+</tr>
+<tr>
+<td>什么回不来</td>
+<td>bash 副作用、外部改动、已发请求</td>
+<td><code>rm</code>/<code>mv</code> 的改动一律救不回</td>
+</tr>
+<tr>
+<td>和 git 啥关系</td>
+<td>本地撤销 vs 永久历史</td>
+<td>小步试错靠它、里程碑和副作用靠 git</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 说清检查点是什么、它什么时候自动帮你存；用 <code>/rewind</code> 或双击 Esc 打开回退菜单，分得清「恢复」和「总结」的区别；心里有一条清晰的边界线——<strong>编辑工具改的能回，bash 副作用和外部状态回不来</strong>；并且知道它和 git 怎么分工、什么时候该提交。<strong>把这条边界刻牢，检查点才是真正能托底的安全网，而不是一个会在关键时刻骗你的「假后悔药」。</strong></p>
+<p>回到开头那句：检查点确实是后悔药，但它治的是「代码改坏了」，治不了「<code>rm</code> 删错了」——<strong>前者放心 <code>/rewind</code>，后者老老实实 <code>git commit</code> 在前头兜着。</strong> 分清这两味药，你就能比开头那位少摔一跤。</p>
+<hr>
+<p>下一篇 <strong>38「插件参考手册」</strong>——你一路学下来的 Skill、Hook、Subagent、MCP，还有这一篇的种种命令，怎么打包成一个能装能卸、能分享给别人的「插件」？第 24 篇带你入了门，这一篇是把插件的<strong>完整结构和清单字段</strong>摊开当工具书查。想想看：如果你想把自己这套顺手的配置，做成一个朋友「装上即用」的包，它内部到底长什么样？</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/36-slash-commands.html"><span class="mono">← 上一篇 · 36</span><b>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</b></a>
+  <a class="pg nx" href="/library/claude-code/38-plugins-reference.html"><span class="mono">下一篇 · 38 →</span><b>插件参考手册：把自己那套配置，打成一个能发出去的包</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

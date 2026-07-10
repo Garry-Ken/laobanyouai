@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>31 settings.json：用户级 / 项目级配置 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 31 篇:settings.json：用户级 / 项目级配置。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/31-settings-json.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class="cur"><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class="cur"><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 31 篇</p>
+      <h1>settings.json：用户级 / 项目级配置</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="30-choosing-features.html">30 功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a> 教你「需求来了该挂哪个扩展点」。这一篇往下挖一层——这些扩展点背后的开关，<strong>到底写进哪个文件、用户级和项目级谁压谁</strong>。<code>settings.json</code> 就是 Claude Code 那块总配电盘，今天把它的接线规则一次理清。</p>
+</blockquote>
+<p>这里有件特别容易栽的蠢事，踩过一次就再难忘。</p>
+<p>刚开始正经用 Claude Code 时，常见的操作是在某个项目的 <code>.claude/settings.json</code> 里塞一行 <code>defaultMode: &quot;auto&quot;</code>，想让它一进项目就自动放行、别老问。改完没反应。第一反应是写错了字段名，对着官方文档逐字核对三遍，<strong>一个字母都没错</strong>。再怀疑是 JSON 格式坏了，拿在线校验器跑一遍，<strong>合法得很</strong>。折腾大概二十分钟，甚至开始怀疑是不是 Claude Code 这个版本有 bug。</p>
+<p>后来才在文档角落里看到那句话：<code>defaultMode</code> 设成 <code>&quot;auto&quot;</code> 时，<strong>写在项目设置里会被直接忽略</strong>——这是官方故意拦的，防止某个仓库偷偷给自己开自动模式（这点第 20 篇也提过）。那行配置语法全对、文件没坏，<strong>纯粹是写错了「楼层」</strong>。挪到用户级的 <code>~/.claude/settings.json</code> 里，秒生效。</p>
+<p>说这个坑是想让你记住一件事：<strong><code>settings.json</code> 的坑，九成不在「怎么写」，而在「写在哪一层、哪一层压哪一层」</strong>。今天就把这套「楼层规则」掰开揉碎，让你下次配置时心里有数——这条该放主目录还是放项目里，一眼就知道。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一句话讲明白 <code>settings.json</code> 是什么、它跟 CLAUDE.md 到底分什么工</li>
+<li>三个层级（用户级 / 项目级 / 本地级）各自的文件位置、影响范围、该放什么</li>
+<li>一张「谁压谁」的优先级表，外加一个最反直觉的例外（数组是合并不是覆盖）</li>
+<li>几个你最常会动的配置项（<code>model</code>、<code>permissions</code>、<code>env</code>、<code>hooks</code>、<code>statusLine</code>）分别干嘛、放哪层</li>
+<li>一个能照着跑、给了预期输出的实战：写一份配置 → 用 <code>/status</code> 验证它真生效</li>
+</ul>
+<hr>
+<h2>01 先搞懂：settings.json 是什么，跟 CLAUDE.md 分什么工</h2>
+<p>先给结论：<strong><code>settings.json</code> 是 Claude Code 的「行为开关总成」——用 JSON 格式管权限、环境变量、默认模型、Hook、状态栏这些工具行为；它跟 CLAUDE.md 是两套东西，一个管「怎么干活」，一个管「记住什么」。</strong></p>
+<p>很多人一上来就把这俩搞混。你前面写了一路 CLAUDE.md（第 18 篇），又配了权限规则（第 20 篇），接下来还要配 Hook——这些东西<strong>最终都落在 <code>settings.json</code> 这个文件里</strong>，但它跟 CLAUDE.md 装的是完全不同的内容。</p>
+<p><strong>类比：公司的项目档案柜 vs 你工位上的电闸盒。</strong> CLAUDE.md 像档案柜里那本《项目说明书》——写的是「我们用 pnpm 不用 npm」「提交前先跑测试」这类<strong>给人（给 Claude）看的、自然语言的约定</strong>，它每会话被读进去当背景。<code>settings.json</code> 不一样，它是工位墙上那个<strong>电闸盒</strong>——里面是一个个明确的开关：这个工具准不准用、默认跑哪个模型、改完文件自动触发哪段脚本。<strong>档案柜是「讲给它听的规矩」，电闸盒是「替它定死的机器行为」</strong>。</p>
+<p>官方把它的定位说得很干脆：</p>
+<blockquote>
+<p><code>settings.json</code> 文件是通过分层设置配置 Claude Code 的官方机制。</p>
+</blockquote>
+<p>注意「<strong>官方机制</strong>」和「<strong>分层</strong>」这两个词，正好是这一篇的两条主线：它是<strong>配置 Claude Code 的正规入口</strong>（不是临时在命令行敲参数），而且是<strong>分好几层叠起来</strong>的（用户级、项目级、本地级）。</p>
+<p>落到你会遇到的真实场景，<code>settings.json</code> 管的就是这几类事：</p>
+<ul>
+<li><strong>「这个项目里，<code>rm -rf</code> 这种命令给我拦死」</strong>——写 <code>permissions.deny</code></li>
+<li><strong>「这个项目默认用 Sonnet 就行，别老用 Opus 烧额度」</strong>——写 <code>model</code></li>
+<li><strong>「每次它改完文件，自动跑一遍格式化」</strong>——写 <code>hooks</code></li>
+<li><strong>「我想让终端底下那行状态栏显示当前 git 分支」</strong>——写 <code>statusLine</code></li>
+</ul>
+<p>这些都不是「讲给 Claude 听」的话，而是<strong>实打实改变它运行行为的开关</strong>。这就是 <code>settings.json</code> 跟 CLAUDE.md 的根本分工。</p>
+<blockquote>
+<p>💡 一句话总结：CLAUDE.md 是「讲给 Claude 听的自然语言规矩」，<code>settings.json</code> 是「替它定死机器行为的开关总成」——<strong>前者管记住什么，后者管怎么干活</strong>，两套东西别混着用。</p>
+</blockquote>
+<hr>
+<h2>02 三个层级：主目录、项目里、还是只在你这台机器</h2>
+<p><code>settings.json</code> 最该先搞懂的，不是有哪些字段，而是<strong>它有三个层级，同一个文件名摆在三个不同位置，作用范围天差地别</strong>。开头那个坑，根子就在没分清层级。</p>
+<p><strong>类比：贴通知的三种地方。</strong> 同一条「下班记得关空调」的通知，贴在<strong>公司大门口</strong>（全公司每个项目都看得到）、贴在<strong>这间办公室门上</strong>（只有这个项目的人看得到、还登记进了办公室公约）、还是贴在<strong>你自己显示器边上的便利贴</strong>（只有你看、别人不知道）——范围完全不同。<code>settings.json</code> 的三个层级就是这三种「贴法」。</p>
+<p>官方定义的三层，看这张表（外加最高的 Managed 层，企业 IT 专用，咱们小白基本碰不到，下一节单独提一句）：</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>文件位置</th>
+<th>影响谁</th>
+<th>进 git 吗</th>
+<th>该放什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>用户级（User）</strong></td>
+<td><code>~/.claude/settings.json</code></td>
+<td>你，跨你<strong>所有</strong>项目</td>
+<td>否（在你主目录）</td>
+<td>个人偏好：你惯用的模型、主题、跨项目都想要的工具</td>
+</tr>
+<tr>
+<td><strong>项目级（Project）</strong></td>
+<td><code>.claude/settings.json</code></td>
+<td>这个仓库的<strong>所有协作者</strong></td>
+<td><strong>是</strong>（提交到 git 共享）</td>
+<td>团队约定：权限规则、Hook、共享的 MCP</td>
+</tr>
+<tr>
+<td><strong>本地级（Local）</strong></td>
+<td><code>.claude/settings.local.json</code></td>
+<td>你，<strong>仅在这个仓库</strong></td>
+<td>否（自动 gitignored）</td>
+<td>个人覆盖、带凭据的实验性配置</td>
+</tr>
+</tbody></table>
+<p>三层的取舍，记住这三句就够：</p>
+<ul>
+<li><strong>「我所有项目都想要」→ 用户级</strong>（<code>~/.claude/settings.json</code>）。比如「我习惯默认用 Sonnet」「我的状态栏脚本」，配一次，开任何项目都在。</li>
+<li><strong>「全队都该有、还得跟着仓库走」→ 项目级</strong>（<code>.claude/settings.json</code>）。它被<strong>提交进 git</strong>，队友拉下来就有同一套配置，这是「配置即代码」。</li>
+<li><strong>「只我自己、这个项目专属、不想进版本库」→ 本地级</strong>（<code>.claude/settings.local.json</code>）。</li>
+</ul>
+<p>这里有个<strong>特别贴心的细节</strong>，官方明说了：当你创建 <code>.claude/settings.local.json</code> 时，<strong>Claude Code 会自动帮你把它加进 git 忽略</strong>。</p>
+<blockquote>
+<p>Claude Code 将在创建 <code>.claude/settings.local.json</code> 时配置 git 以忽略它。</p>
+</blockquote>
+<p>为啥这么设计？想想看：本地级就是放「私人物品」的——你个人的实验配置、可能带点凭据的东西，<strong>这些本来就不该上交到版本库污染队友</strong>。官方替你把这道防线焊死了，省得你哪天手滑 <code>git add .</code> 把私人配置怼上去。这也呼应了第 21 篇讲的安全主线：<strong>敏感东西，从源头就别让它有机会进 git</strong>。</p>
+<h3>实战里怎么分：一个真实项目的三层分布</h3>
+<p>光记定义不够，看一个真实项目里这三层各放了啥，立刻就有体感：</p>
+<ul>
+<li><strong>用户级</strong>（<code>~/.claude/settings.json</code>）：那套自定义状态栏脚本、默认模型偏好。这些跟具体项目无关，是「走到哪带到哪」的个人习惯。</li>
+<li><strong>项目级</strong>（<code>.claude/settings.json</code>）：一组 <code>permissions.deny</code>（禁 <code>curl</code>、禁读 <code>.env</code>）、一个「提交前自动跑 lint」的 hook。这些是<strong>全队的底线和卡点</strong>，必须进 git 让每个协作者拉下来都有。</li>
+<li><strong>本地级</strong>（<code>.claude/settings.local.json</code>）：个人临时多放行的几条命令（团队没必要知道）、一个还在试验、没成熟到能分享给队友的 hook。</li>
+</ul>
+<p>判断一条配置该放哪层，脑子里过一个问题链就够：<strong>「这条只我自己要 → 用户级或本地级；全队都要 → 项目级」</strong>，再细分一步：<strong>「全项目通用、还跟着我走 → 用户级；就这个项目、还不想进 git → 本地级」</strong>。</p>
+<p>一个反方向的错很常见：图省事把项目专属的权限规则全堆进了<strong>用户级</strong>——结果换到另一个项目，那些规则<strong>全跟过来了</strong>，在不相干的项目里平白多出一堆莫名其妙的放行。这才能明白：<strong>「这条配置该跟着我走，还是该跟着项目走」</strong>，是分层的第一判断。跟着项目走的，老老实实放项目里。</p>
+<blockquote>
+<p>💡 一句话总结：三层一句话区分——<strong>跨所有项目放用户级 <code>~/.claude/settings.json</code>、全队共享放项目级 <code>.claude/settings.json</code>（进 git）、私人覆盖放本地级 <code>.claude/settings.local.json</code>（自动 gitignored）</strong>；判断口诀「跟着我走 vs 跟着项目走」。</p>
+</blockquote>
+<hr>
+<h2>03 谁压谁：优先级，外加一个最反直觉的例外</h2>
+<p>三层都能写同一个字段。那问题来了：<strong>用户级说用 Opus、项目级说用 Sonnet，到底听谁的？</strong> 这就是「优先级（precedence）」要管的事，也是 <code>settings.json</code> 最容易绕晕人的地方。</p>
+<p>先给官方的优先级排序，从<strong>高到低</strong>（高的压低的）：</p>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>层级</th>
+<th>说人话</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1（最高）</td>
+<td><strong>Managed</strong>（企业 IT 部署）</td>
+<td>公司锁死的策略，谁都改不动</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>命令行参数</strong>（<code>--settings</code> 等）</td>
+<td>你启动时临时拍的板，只管这一次会话</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>本地级</strong> <code>.claude/settings.local.json</code></td>
+<td>你在这个项目的私人覆盖</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>项目级</strong> <code>.claude/settings.json</code></td>
+<td>团队共享的项目设置</td>
+</tr>
+<tr>
+<td>5（最低）</td>
+<td><strong>用户级</strong> <code>~/.claude/settings.json</code></td>
+<td>你的全局默认，没人覆盖时才生效</td>
+</tr>
+</tbody></table>
+<p>这个「从高到低」的压制关系，画成一张图你会更有体感——<strong>高层像盖在低层上的纸，挡住下面写了同字段的部分</strong>：</p>
+<p><img src="assets/31-settings-stack@2x.png" alt="Claude Code settings 五层优先级栈：Managed &gt; 命令行 &gt; 本地 &gt; 项目 &gt; 用户"></p>
+<p>这张图自上而下就是优先级从高到低：<strong>上面的层覆盖下面的层</strong>（仅限单值字段）。换句话说，越靠上的越「临时、具体」，越靠下的越「全局、兜底」——只有当上面所有层都没碰某个字段时，最下面的用户级默认才轮到生效。</p>
+<p>一句话记牢这个顺序：<strong>越「具体到当下」的越大，越「全局兜底」的越小</strong>。命令行参数（就这一次）压本地（就这项目、就你），本地压项目（全队），项目压用户（全局）。官方给的例子最直观：</p>
+<blockquote>
+<p>例如，如果您的用户设置允许 <code>Bash(npm run *)</code>，但项目的共享设置拒绝它，则项目设置优先，命令被阻止。</p>
+</blockquote>
+<p>也就是说——<strong>你在主目录给自己开的绿灯，进了某个项目可能被项目设置一票否决</strong>。这恰恰印证了上一篇结尾埋的那个悬念：<strong>同一条配置，写在你主目录和写在项目里，效果可能正好相反</strong>。开头那个 <code>defaultMode: &quot;auto&quot;</code> 的坑，本质就是栽在没吃透这套层级语义上。</p>
+<p><strong>Managed 层，小白一句话带过就行。</strong> 它是企业 IT 通过 MDM、注册表或服务器统一下发的策略，优先级最高、<strong>用户和项目都覆盖不了</strong>，专门给公司强制执行安全合规用的（比如「全公司禁止 <code>curl</code>」）。你自己一个人用、或者小团队协作，基本碰不到它——<strong>知道有这么个「天花板层」存在就够了</strong>，真在受管控的公司环境里再去翻官方的 <code>server-managed-settings</code> 那页。</p>
+<h3>那个最反直觉的例外：数组是「合并」，不是「覆盖」</h3>
+<p>上面说的「谁压谁」，针对的是<strong>单个值</strong>（像 <code>model</code> 这种，你写一个值我写一个值，高层那个赢）。但有一类配置<strong>完全不按这个来</strong>，新手十有八九会栽——<strong>数组类配置（比如 <code>permissions.allow</code> / <code>deny</code>）是跨层「合并」的，不是覆盖</strong>。</p>
+<p>啥意思？看官方原话：</p>
+<blockquote>
+<p><strong>数组设置跨作用域合并。</strong> 当相同的数组值设置出现在多个作用域中时，数组被<strong>连接和去重</strong>，而不是替换。</p>
+</blockquote>
+<p>翻成大白话：<strong>你的权限规则不会被项目设置「整个换掉」，而是两边的规则「拼到一起」一块生效</strong>。</p>
+<p>举个例子你立刻懂：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>直觉（错的）</th>
+<th>实际（对的）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>用户级 <code>allow: [&quot;Bash(npm run *)&quot;]</code>，项目级 <code>allow: [&quot;Bash(git diff *)&quot;]</code></td>
+<td>项目级优先级高，所以只剩 <code>git diff</code></td>
+<td><strong>两条都生效</strong>：<code>npm run *</code> 和 <code>git diff *</code> 都被允许</td>
+</tr>
+</tbody></table>
+<p>这跟单值字段的「高层覆盖低层」是<strong>两套逻辑</strong>，一定要分开记：</p>
+<ul>
+<li><strong>单值字段</strong>（如 <code>model</code>、<code>defaultMode</code>）：高优先级层<strong>整个盖掉</strong>低层。</li>
+<li><strong>数组字段</strong>（如 <code>permissions.allow</code> / <code>deny</code>、<code>env</code> 里的多个变量也类似拼装）：各层<strong>拼起来去重</strong>，谁都不会抹掉谁。</li>
+</ul>
+<p>这个点很容易绊人：以为在项目级写了一组 <code>deny</code>，就把用户级那组宽松的 <code>allow</code> 顶掉了，结果发现用户级那些 <code>allow</code> 还在生效——<strong>因为它俩是合并的，不是替换的</strong>。理解了这条，你才不会「以为关了某个口子、其实它还从另一层敞着」。</p>
+<blockquote>
+<p>💡 一句话总结：优先级口诀「<strong>越具体到当下的越大</strong>」（命令行&gt;本地&gt;项目&gt;用户，Managed 封顶）；但<strong>数组类配置（尤其权限规则）是跨层合并去重、不是覆盖</strong>——这是最容易踩的反直觉点。</p>
+</blockquote>
+<hr>
+<h2>04 最常动的几个配置项：放哪层、干嘛用</h2>
+<p>层级和优先级理清了，来看你<strong>实际最常会去动</strong>的几个字段。<code>settings.json</code> 官方支持的键有上百个，但 90% 的人日常碰的就这么几个。我挑出来，每个讲清「干嘛的、放哪层最合适」。</p>
+<p>先放一份<strong>麻雀虽小五脏俱全</strong>的示例，让你对长相有个整体印象（这是官方示例的精简版）：</p>
+<pre><code class="language-json">{
+  &quot;$schema&quot;: &quot;https://json.schemastore.org/claude-code-settings.json&quot;,
+  &quot;model&quot;: &quot;claude-sonnet-4-6&quot;,
+  &quot;permissions&quot;: {
+    &quot;allow&quot;: [&quot;Bash(npm run test *)&quot;],
+    &quot;deny&quot;: [&quot;Bash(curl *)&quot;, &quot;Read(./.env)&quot;]
+  },
+  &quot;env&quot;: {
+    &quot;CLAUDE_CODE_ENABLE_TELEMETRY&quot;: &quot;1&quot;
+  }
+}
+</code></pre>
+<p>开头那行 <code>$schema</code> 强烈建议你加上。它指向官方的 JSON 架构，<strong>加了之后在 VS Code、Cursor 这类编辑器里写配置会有自动补全和实时校验</strong>——字段名敲错、值类型不对，编辑器当场给你标红。开头那对着文档逐字核对字段名的二十分钟，<strong>要是当初加了这行 <code>$schema</code>，编辑器早就提示出来了</strong>。官方原话：</p>
+<blockquote>
+<p>将其添加到您的 <code>settings.json</code> 可在 VS Code、Cursor 和任何其他支持 JSON 架构验证的编辑器中启用自动完成和内联验证。</p>
+</blockquote>
+<p>下面逐个拆这几个高频字段：</p>
+<h3>model：默认用哪个模型</h3>
+<p><code>model</code> 决定这一层默认跑哪个模型。值填模型 ID（像 <code>&quot;claude-sonnet-4-6&quot;</code>）。</p>
+<ul>
+<li><strong>放哪层</strong>：看你的需求。「我个人就爱用某个模型」→ 用户级；「这个项目大家统一用 Sonnet 省额度」→ 项目级。</li>
+<li><strong>一个要注意的点</strong>：<code>model</code> 跟大多数字段不同，它<strong>在会话启动时只读一次</strong>，改了要么重启、要么会话里用 <code>/model</code> 现切。<code>--model</code> 启动参数和 <code>ANTHROPIC_MODEL</code> 环境变量都能临时盖过它（模型相关详见第 5 篇）。</li>
+</ul>
+<p>这个字段有个很顺手的用法：<strong>给不同项目配不同的默认模型</strong>。比如一个文档类项目，活儿都不重，就在它的项目级 <code>settings.json</code> 里写死 <code>model</code> 用相对轻量的型号；另一个核心代码项目则不设、保持用户级那个更强的默认。这么一分，<strong>进哪个项目就自动用哪个档位，不用每次手动 <code>/model</code> 切</strong>——既不浪费强模型的额度在简单活儿上，也不在硬骨头项目上将就。这正是「项目级压用户级」这条优先级的实用价值：<strong>项目级给这个项目定制，用户级兜底其余所有项目</strong>。</p>
+<h3>permissions：准不准用某个工具 / 命令</h3>
+<p>这是第 20 篇专门讲过的——<code>allow</code>（放行）、<code>ask</code>（每次问）、<code>deny</code>（拦死）三种规则，按工具、按命令精确控权。</p>
+<ul>
+<li><strong>放哪层</strong>：团队都该守的安全底线（比如「禁 <code>curl</code>」「禁读 <code>.env</code>」）→ <strong>项目级</strong>，进 git 让全队都有；你个人图省事想多放行几条 → 本地级或用户级。</li>
+<li><strong>记住第 03 节那条</strong>：<code>permissions</code> 是数组，<strong>跨层合并</strong>——别指望在某一层写 <code>deny</code> 就能把别层的 <code>allow</code> 顶掉。</li>
+</ul>
+<h3>env：给会话注入环境变量</h3>
+<p><code>env</code> 里写的键值对，会作为环境变量应用到<strong>每个会话以及 Claude Code 跑起来的子进程</strong>。</p>
+<p><strong>类比：进车间前统一发的工牌和装备。</strong> 不管今天谁来上工，一进这个车间（会话）就自动配齐这套环境——<code>env</code> 就是这套「入场标配」，你在这儿声明的变量，会话里跑的每条命令、每个子进程都带着它。</p>
+<ul>
+<li><strong>典型用途</strong>：打开遥测（<code>CLAUDE_CODE_ENABLE_TELEMETRY</code>）、给某个工具链塞个固定变量。</li>
+<li><strong>放哪层</strong>：项目专属的环境（比如这个项目要连的某个服务地址）→ 项目级；你全局都想要的 → 用户级。</li>
+</ul>
+<h3>hooks：在固定时机自动跑脚本</h3>
+<p><code>hooks</code> 是上一篇反复提到、第 33 篇要专门拆的那个「事件触发自动动作」的入口——它就配在 <code>settings.json</code> 里。比如「每次改完文件自动跑格式化」「每次会话开始打个招呼」。</p>
+<ul>
+<li><strong>放哪层</strong>：团队都该跑的卡点（如「提交前自动 lint」）→ 项目级；你个人的自动化习惯 → 用户级。</li>
+<li>具体怎么写、能监听哪些事件，这里先知道「<strong>它的家在 <code>settings.json</code></strong>」就行，第 33 篇展开。</li>
+</ul>
+<h3>statusLine：自定义底部状态栏</h3>
+<p>第 14 篇讲过界面底下那行「状态行」。<code>statusLine</code> 让你<strong>自定义它显示什么</strong>——比如塞个脚本进去，实时显示当前 git 分支、当前模型、token 用量。</p>
+<pre><code class="language-json">{
+  &quot;statusLine&quot;: {
+    &quot;type&quot;: &quot;command&quot;,
+    &quot;command&quot;: &quot;~/.claude/statusline.sh&quot;
+  }
+}
+</code></pre>
+<ul>
+<li><strong>放哪层</strong>：状态栏是个人视觉偏好，<strong>绝大多数人放用户级</strong>（<code>~/.claude/settings.json</code>），配一次所有项目通用。</li>
+</ul>
+<p>我把这几个常用字段「放哪层」的经验汇成一张表，纠结时直接查：</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>干嘛的</th>
+<th>我的默认放法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>model</code></td>
+<td>默认模型</td>
+<td>个人偏好→用户级；项目统一→项目级</td>
+</tr>
+<tr>
+<td><code>permissions</code></td>
+<td>工具 / 命令准入</td>
+<td>安全底线→<strong>项目级</strong>（进 git）</td>
+</tr>
+<tr>
+<td><code>env</code></td>
+<td>注入环境变量</td>
+<td>项目专属→项目级；全局→用户级</td>
+</tr>
+<tr>
+<td><code>hooks</code></td>
+<td>事件触发自动动作</td>
+<td>团队卡点→项目级；个人习惯→用户级</td>
+</tr>
+<tr>
+<td><code>statusLine</code></td>
+<td>自定义状态栏</td>
+<td>个人视觉→<strong>用户级</strong></td>
+</tr>
+</tbody></table>
+<h3>一个容易踩的混淆：不是所有配置都住在 settings.json 里</h3>
+<p>这点很多人不知道，往往是被报错教育才记住的。Claude Code 还有<strong>另一个</strong>配置文件 <code>~/.claude.json</code>（注意，是主目录下的 <code>.claude.json</code>，跟 <code>~/.claude/settings.json</code> 不是一个东西）。它装的是<strong>另一类东西</strong>：你的登录会话、用户/本地作用域的 MCP server 配置（第 22 篇提过 MCP 配置存这儿）、每个项目的信任状态、各种缓存。</p>
+<p>关键的坑在于——<strong>有少数配置项官方规定就只能放 <code>~/.claude.json</code>，你要是把它们写进 <code>settings.json</code>，会直接触发架构校验错误</strong>。官方点名的几个比如：<code>autoConnectIde</code>（外部终端自动连 IDE）、<code>teammateDefaultModel</code>（队友默认模型）这类。</p>
+<p>典型的撞坑场景是想配「外部终端自动连 VS Code」，顺手写进了 <code>settings.json</code>，结果 <code>$schema</code> 校验当场标红、<code>/status</code> 也报错。翻文档才知道这字段的家在 <code>~/.claude.json</code>。<strong>所以记住：<code>settings.json</code> 管「行为开关」，<code>~/.claude.json</code> 管「会话状态 / MCP / 缓存」这类幕后数据</strong>——绝大多数时候你只碰前者，但偶尔有字段「死活写不进 settings.json」时，先想想它是不是该去 <code>~/.claude.json</code>。</p>
+<blockquote>
+<p>💡 一句话总结：高频字段就这几个——<code>model</code>（默认模型）、<code>permissions</code>（控权）、<code>env</code>（环境变量）、<code>hooks</code>（自动动作）、<code>statusLine</code>（状态栏）；<strong>「全队该有」放项目级进 git、「个人偏好」放用户级</strong>，加上 <code>$schema</code> 让编辑器替你查错；注意少数字段（如 <code>autoConnectIde</code>）住在 <code>~/.claude.json</code> 而非 <code>settings.json</code>。</p>
+</blockquote>
+<hr>
+<h2>05 在哪编辑、改完啥时候生效、怎么确认它真的读到了</h2>
+<p>字段会写了，还有三个<strong>特别实际</strong>的问题没解决：在哪改、改完要不要重启、怎么知道它真生效了。开头折腾的二十分钟，一半时间就耗在「不确定它到底读没读到这份配置」上。</p>
+<h3>在哪编辑：直接改文件，或者用 <code>/config</code></h3>
+<p>两条路：</p>
+<ol>
+<li><strong>直接拿编辑器改那个 JSON 文件</strong>——按第 02 节的位置找到对应层级的文件改就行。本项目 CLAUDE.md 也建议「改文件优先用清晰的编辑」，比临时敲命令更可控。</li>
+<li><strong>会话里敲 <code>/config</code></strong>——官方提供的交互式设置界面，能看状态、改一部分常用开关（主题、详细输出这类）。</li>
+</ol>
+<p>一个<strong>容易误会的点</strong>官方专门澄清过：<code>/config</code> 里那个 Config 选项卡<strong>不是</strong>你 <code>settings.json</code> 文件内容的完整视图，它只是「主题、详细输出」等少数固定开关的编辑器。<strong>别指望在 <code>/config</code> 里看到你写的每一条配置</strong>——完整的还得去文件里看。</p>
+<h3>改完啥时候生效：大部分热加载，两个例外要重启</h3>
+<p>这是个好消息——<strong>Claude Code 会盯着你的设置文件，改了大多数键会在运行中的会话里直接生效，不用重启</strong>。官方明说：</p>
+<blockquote>
+<p>Claude Code 监视您的设置文件，并在它们更改时重新加载它们……这包括 <code>permissions</code>、<code>hooks</code> 和凭证助手。</p>
+</blockquote>
+<p>但有<strong>两个例外</strong>，它俩是「启动时只读一次」的，改完得重启（或用对应命令现切）才认：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>改完怎么生效</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>model</code></td>
+<td>重启，或会话里用 <code>/model</code> 现切</td>
+</tr>
+<tr>
+<td><code>outputStyle</code>（输出样式，下一篇讲）</td>
+<td>重启，或 <code>/clear</code> 后重建</td>
+</tr>
+</tbody></table>
+<p>记这条的实际意义：你改了 <code>permissions</code> 或 <code>hooks</code>，<strong>存盘就生效，接着用</strong>；但你改了 <code>model</code> 发现没变化，<strong>别急着怀疑写错了——它就是要重启才认</strong>。开头那个坑要是发生在 <code>permissions</code> 上，本来存盘就能验出来，偏偏撞上了「层级被忽略」的特例，才多绕了那么久。</p>
+<h3>怎么确认它真读到了：<code>/status</code> 看「Setting sources」</h3>
+<p>这是最关键的一招，<strong>专治「我不确定它到底加载了哪份配置」</strong>。会话里敲 <code>/status</code>，里面有一行 <code>Setting sources</code>，<strong>列出当前会话实际加载了哪几层设置</strong>——比如 <code>User settings</code>、<code>Project local settings</code>（具体标签名以实际界面为准）。</p>
+<p>官方对它的说明很实在：</p>
+<blockquote>
+<p><code>Setting sources</code> 行确认正在读取哪些源……仅当该源至少加载一个键时，该层才出现在列表中，因此空列表意味着未找到任何设置源。</p>
+</blockquote>
+<p>这话信息量很大，拆开看：</p>
+<ul>
+<li>你写的那层<strong>出现在列表里</strong> = 这份文件被成功读到了。</li>
+<li>你写的那层<strong>没出现</strong> = Claude Code 压根没找到 / 没读到它（多半是路径放错了，比如把 <code>.claude/settings.json</code> 写成了 <code>settings.json</code>）。</li>
+<li>文件要是有<strong>语法错误</strong>（JSON 坏了、值不合法），<code>/status</code> 会<strong>直接报错</strong>给你看，省得你瞎猜。</li>
+</ul>
+<p><strong>所以以后配完一份 <code>settings.json</code>，第一件事就是敲 <code>/status</code> 确认那层真在列表里</strong>——这一步要是早知道，开头那二十分钟的弯路能省成两分钟。</p>
+<h3>配置不生效？照这张表排查</h3>
+<p>把这一篇所有「坑」收拢成一张排查表。下次你写的配置「没反应」，<strong>别急着怀疑语法，按这个顺序自查</strong>，基本一查一个准：</p>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>❌ 别先怀疑</th>
+<th>✅ 先查这个</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>改完完全没反应</td>
+<td>字段名写错了？</td>
+<td><code>/status</code> 看你那层在不在 <code>Setting sources</code> 里——不在就是<strong>路径放错了</strong></td>
+</tr>
+<tr>
+<td><code>model</code> 改了不变</td>
+<td>配置坏了？</td>
+<td><code>model</code> <strong>重启才生效</strong>（或 <code>/model</code> 现切），存盘不够</td>
+</tr>
+<tr>
+<td><code>defaultMode: &quot;auto&quot;</code> 不起作用</td>
+<td>拼写错了？</td>
+<td><code>auto</code> 在<strong>项目/本地级被忽略</strong>，得放用户级（第 03 节）</td>
+</tr>
+<tr>
+<td>写了 <code>deny</code> 但某命令还能跑</td>
+<td>deny 没写对？</td>
+<td>权限<strong>跨层合并</strong>，多半别层有条 <code>allow</code> 没抹掉（第 03 节）</td>
+</tr>
+<tr>
+<td>某字段死活写不进 settings.json</td>
+<td>JSON 格式错了？</td>
+<td>它可能住在 <code>~/.claude.json</code>（如 <code>autoConnectIde</code>，第 04 节）</td>
+</tr>
+</tbody></table>
+<p>你看这张表里，<strong>真正属于「语法写错」的几乎没有</strong>——绝大多数「不生效」都是层级、生效时机、合并语义这几个概念没吃透。这也正是开头那个坑最想传给你的一句话：<strong><code>settings.json</code> 难的从来不是怎么写，是搞清它那套分层规则</strong>。</p>
+<blockquote>
+<p>💡 一句话总结：改文件或用 <code>/config</code>（后者只管少数开关）；<code>permissions</code>/<code>hooks</code> 存盘热加载、<code>model</code>/<code>outputStyle</code> 要重启；<strong>配完务必 <code>/status</code> 看「Setting sources」那行确认你那层真被读到了</strong>；不生效先查层级别查语法。</p>
+</blockquote>
+<hr>
+<h2>06 动手：写一份用户级 + 项目级配置，用 /status 验证它真生效</h2>
+<p>光看不练假把式。下面带你<strong>亲手写两层配置、再用 <code>/status</code> 验证它们真被加载</strong>——把这一篇的「写文件 → 分层 → 验证」整条链路跑通一遍。全程用最小示例，不依赖你已有的复杂环境。</p>
+<p><strong>第一步：建个练手项目</strong>（在终端）</p>
+<pre><code class="language-bash">mkdir settings-demo &amp;&amp; cd settings-demo
+</code></pre>
+<p><strong>第二步：写一份项目级配置</strong></p>
+<p>在 <code>settings-demo/.claude/settings.json</code> 里贴入下面这份（放行测试命令、拦死 <code>curl</code>）。第一行 <code>$schema</code> 让你的编辑器顺手做校验：</p>
+<pre><code class="language-json">{
+  &quot;$schema&quot;: &quot;https://json.schemastore.org/claude-code-settings.json&quot;,
+  &quot;permissions&quot;: {
+    &quot;allow&quot;: [&quot;Bash(npm run test *)&quot;],
+    &quot;deny&quot;: [&quot;Bash(curl *)&quot;]
+  }
+}
+</code></pre>
+<p><strong>第三步：写一份本地级配置</strong></p>
+<p>再在 <code>settings-demo/.claude/settings.local.json</code> 里贴入一条<strong>只属于你、不进 git</strong> 的私人放行：</p>
+<pre><code class="language-json">{
+  &quot;permissions&quot;: {
+    &quot;allow&quot;: [&quot;Bash(git status *)&quot;]
+  }
+}
+</code></pre>
+<p><strong>预期</strong>：这两个文件都建好后，你这个项目里就同时有了「项目级」和「本地级」两层配置。注意——按第 02 节说的，<code>settings.local.json</code> 会被自动 gitignore（下一步验证）。</p>
+<p><strong>第四步：确认本地级真被 git 忽略了</strong></p>
+<pre><code class="language-bash">git init -q &amp;&amp; git status --short
+</code></pre>
+<p><strong>预期</strong>：输出里能看到 <code>.claude/settings.json</code>（项目级，待加入版本库），但<strong>看不到</strong> <code>.claude/settings.local.json</code>——<strong>它被自动忽略了</strong>。看到这个差异 = 第 02 节那条「本地级自动 gitignored」在你这儿验证成功。</p>
+<p><strong>第五步：进会话，用 <code>/status</code> 验证两层都被读到</strong></p>
+<pre><code class="language-bash">claude
+</code></pre>
+<p>进去后敲：</p>
+<pre><code class="language-text">/status
+</code></pre>
+<p><strong>预期</strong>：在弹出的状态信息里找到 <code>Setting sources</code> 那一行，<strong>它应该列出 <code>Project local settings</code></strong>（可能还有你早先配过的 <code>User settings</code>），具体标签名以实际界面为准。<strong>看到你写的层都在列表里 = 那份配置被成功加载了</strong>。如果某一层没出现，回第 02 节核对文件路径有没有放错。</p>
+<p><strong>第六步：再用 <code>/permissions</code> 交叉确认规则生效</strong></p>
+<pre><code class="language-text">/permissions
+</code></pre>
+<p><strong>预期</strong>：能看到刚写的规则——<code>npm run test *</code> 和 <code>git status *</code> 在允许列表里、<code>curl *</code> 在拒绝列表里。<strong>特别注意</strong>：<code>git status *</code> 来自本地级、另外两条来自项目级，但它们<strong>全都在生效</strong>——这正是第 03 节讲的「权限规则跨层合并、不是覆盖」的活例子。</p>
+<p>跑通这六步，你就把 <code>settings.json</code> 最核心的能力亲手验了一遍：<strong>分层写、自动隔离私人配置、用 <code>/status</code> 确认加载、用 <code>/permissions</code> 看合并效果</strong>。以后配任何一层、任何字段，本质都是这套流程。</p>
+<blockquote>
+<p>💡 一句话总结：动手就练「<strong>项目级 + 本地级两份配置 → <code>git status</code> 验本地级被忽略 → <code>/status</code> 看两层都加载 → <code>/permissions</code> 看规则合并</strong>」——亲手跑通这条链路，分层和合并这两个最绕的点立刻就通了。</p>
+</blockquote>
+<hr>
+<h2>07 小结</h2>
+<p>这一篇我们把 Claude Code 那块「总配电盘」<code>settings.json</code> 从里到外理清了——<strong>从「它是什么」到「分几层、谁压谁、改完怎么验」，把配置这件事规规矩矩安顿明白</strong>。</p>
+<p>把核心要点串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你想搞清的事</th>
+<th>答案</th>
+<th>一句话关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>它跟 CLAUDE.md 啥关系</td>
+<td>两套东西</td>
+<td>CLAUDE.md 管「记住什么」，<code>settings.json</code> 管「怎么干活」</td>
+</tr>
+<tr>
+<td>有几层、放哪</td>
+<td>三层</td>
+<td>用户级 <code>~/.claude/</code>、项目级 <code>.claude/</code>（进 git）、本地级 <code>.claude/settings.local.json</code>（自动 gitignore）</td>
+</tr>
+<tr>
+<td>冲突听谁的</td>
+<td>越具体越大</td>
+<td>命令行&gt;本地&gt;项目&gt;用户，Managed 封顶</td>
+</tr>
+<tr>
+<td>最反直觉的点</td>
+<td>数组合并</td>
+<td>权限规则等数组<strong>跨层拼起来去重</strong>，不是覆盖</td>
+</tr>
+<tr>
+<td>常动哪几个字段</td>
+<td>五个</td>
+<td><code>model</code>/<code>permissions</code>/<code>env</code>/<code>hooks</code>/<code>statusLine</code></td>
+</tr>
+<tr>
+<td>改完怎么验</td>
+<td><code>/status</code></td>
+<td>看「Setting sources」那行确认你那层真被读到</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 分清 <code>settings.json</code> 和 CLAUDE.md 各管什么、知道一条配置该放用户级还是项目级、看懂「谁压谁」的优先级以及「数组合并不是覆盖」这个反直觉例外、认识 <code>model</code>/<code>permissions</code>/<code>env</code>/<code>hooks</code>/<code>statusLine</code> 这几个高频字段，并且配完会用 <code>/status</code> 确认它真生效。<strong>这套「分层配置」的能力，是你把 Claude Code 从「装好能用」调成「贴合你和团队工作流」的那把扳手。</strong></p>
+<p>开头那二十分钟的弯路，根子就一句话——<strong>没分清「写在哪一层」</strong>。这一篇之后，你能少走一大圈：<strong>配置不生效时，先别怀疑语法，先想「我是不是放错了楼层」，再敲个 <code>/status</code> 看一眼</strong>。</p>
+<hr>
+<p>下一篇 <strong>32「输出样式（Output Styles）」</strong>——你刚在 <code>settings.json</code> 里见过一个特殊的 <code>outputStyle</code> 字段，还记得它是「启动时只读一次、要重启才生效」的两个例外之一吗？下一篇就专门讲它：<strong>怎么调 Claude 的「说话风格和系统提示」</strong>，让它从默认的「干活助手」切换成更适合讲解、教学或别的场景的样子。想想看：同一个 Claude，换一套输出样式，给你的回答风格能差出多远？</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/30-choosing-features.html"><span class="mono">← 上一篇 · 30</span><b>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</b></a>
+  <a class="pg nx" href="/library/claude-code/32-output-styles.html"><span class="mono">下一篇 · 32 →</span><b>输出样式（Output Styles）：换一档「节目」，不换主持人</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>11 网页版与云端：把 Claude Code 装进浏览器和手机 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 11 篇:网页版与云端：把 Claude Code 装进浏览器和手机。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/11-web-and-cloud.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class="cur"><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class="cur"><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 11 篇</p>
+      <h1>网页版与云端：把 Claude Code 装进浏览器和手机</h1>
+    </div>
+    <article class="prose">
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="./10-desktop.md">10 桌面 app（Desktop）</a> 帮你把 Claude Code 装成了 Mac / Windows 上的原生应用，跑在你自己机器上。这一篇换个方向——<strong>连装都不用装，浏览器打开就能用</strong>，外加用手机接管你电脑上正在跑的会话。</p>
+<p>我前阵子在高铁上，临时收到一条消息——线上一个仓库的 README 里把安装命令写错了，得赶紧改。</p>
+<p><strong>手边没带电脑，只有一台手机，外加那种时断时续的车厢 WiFi。</strong></p>
+<p>放在以前，这就是「等到了再说」。但我当时掏出手机打开 claude.ai/code ，选中那个仓库，敲了一句「修正 README 里的安装命令，npm 包名应该是 xxx」，就把手机塞回兜里了。<strong>等出站的时候，一个改好的分支已经躺在 GitHub 上等我提 PR 了——前后大概十来分钟，一行命令都没敲过，电脑全程没开。</strong></p>
+<p>这就是这一篇要聊的两件事：<strong>网页版</strong>（在云端跑、连 GitHub）和 <strong>Remote Control</strong>（让手机 / 任意设备接管你本地的会话）。说白了，就是把「必须坐在电脑前敲命令」这个前提给拆了。</p>
+<p><strong>⚠️ 注意</strong>：网页版和 Remote Control 目前都处于<strong>研究预览</strong>（research preview）阶段，功能和细节可能随时变化，本篇以官方文档当前版本为准。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>搞清楚<strong>网页版</strong>到底是啥：免安装、在云端沙箱跑、连你的 GitHub 仓库</li>
+<li>一套从登录到提任务、再到提 PR 的完整网页版操作流程，照着走就行</li>
+<li><strong>Remote Control</strong> 是怎么回事：在电脑上起个会话，用手机 / 别的浏览器接着指挥</li>
+<li>一张「网页版 vs 本地 CLI vs Remote Control」的取舍对照表，知道什么时候用哪个</li>
+<li>deep-links 一键起会话、国内访问要点这些零碎但有用的细节</li>
+</ul>
+<hr>
+<h2>01 先把三个东西分清楚：本地、网页、远控</h2>
+<p>开篇先泼盆冷水：<strong>很多人一上来就把「桌面 app」「网页版」「Remote Control」搅成一锅粥</strong>，结果用错场景，越用越懵。咱们先花一分钟把它们掰开。</p>
+<p><strong>类比：同一份工作，三种到岗方式。</strong></p>
+<ul>
+<li><strong>本地 CLI / 桌面 app</strong>：你<strong>亲自到办公室</strong>上班，电脑、文件、工具全在手边——上一篇讲的桌面 app 就是这种，代码跑在你自己机器上。</li>
+<li><strong>网页版（on the web）</strong>：你<strong>派了个远程同事</strong>，他在公司租的云服务器上干活，你只需要在浏览器里给他派活、看结果。代码跑在 <strong>Anthropic 的云上</strong>，不碰你的电脑。</li>
+<li><strong>Remote Control（远程控制）</strong>：你人在办公室、活也在你办公室的电脑上跑，但你<strong>用手机远程遥控</strong>那台电脑。代码还是跑在你机器上，手机只是个「遥控器窗口」。</li>
+</ul>
+<p>记住这条最关键的分界线：</p>
+<p><strong>代码到底在谁的机器上跑？</strong> 网页版在 Anthropic 云上跑；Remote Control 和本地一样，始终在你自己机器上跑。</p>
+<p>这条线决定了一切——能不能访问你本地的文件、要不要联网克隆仓库、断网了会不会停。后面所有取舍都从这儿派生。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：本地是「亲自到岗」、网页版是「派云端同事」、Remote Control 是「手机遥控你的电脑」；<strong>先认准代码在谁机器上跑，剩下的全好理解</strong>。</p>
+</blockquote>
+<p><img src="assets/11-three-surfaces@2x.png" alt="一个会话，三个入口：本地 / 网页 / 手机"></p>
+<p>看这张图就能搞清楚：哪端只是个窗口，哪端才是真正干活的地方。</p>
+<hr>
+<h2>02 网页版是什么：浏览器打开就能用</h2>
+<p>先给结论：<strong>网页版就是把 Claude Code 搬到了云上，你不用装任何东西，打开网页就能让它干活，干完直接给你提 PR。</strong></p>
+<p>它跑在 <a href="https://claude.ai/code">claude.ai/code</a> ，<strong>在 Anthropic 管理的云虚拟机（cloud VM）里运行</strong>——这是一台一次性的隔离机器，每次任务都新克隆你的仓库进去。</p>
+<p><strong>类比：租了台一次性的云电脑，用完即焚。</strong> 你不用自己配环境、装依赖，云端那台机器开机时已经预装好了 Python、Node、Go、Docker 一大堆工具。Claude 在那台机器上读代码、改代码、跑测试，结束后把改动以一个 GitHub 分支推给你。<strong>那台机器跟你本地电脑完全隔离，它崩了、被搞坏了，都伤不到你一根头发。</strong></p>
+<p>它适合这几类真实场景：</p>
+<ul>
+<li><strong>并行跑多个任务</strong>：每个任务一个独立会话、独立分支，互不打架。比如一口气派三个活——修一个 flaky 测试、补一份 API 文档、重构日志模块，三个云会话同时在跑，你喝着咖啡等结果就行。</li>
+<li><strong>本地没克隆的仓库</strong>：想顺手看一眼某个仓库、改个小东西，但你本地根本没 clone 它。网页版每次都帮你新克隆，<strong>省了你 <code>git clone</code> 再配环境那一整套</strong>。</li>
+<li><strong>不想配本地环境</strong>：换了台新电脑、或者在别人机器上，懒得装一长串依赖。</li>
+</ul>
+<p>有两个<strong>前提</strong>得说清楚，免得你白忙活：</p>
+<ol>
+<li><strong>它需要一个 GitHub 仓库</strong>。网页版靠克隆 GitHub 仓库来干活，没仓库它没法开工。</li>
+<li><strong>目前是研究预览</strong>，开放给 <strong>Pro、Max、Team</strong> 用户，以及有高级席位或 Chat + Claude Code 席位的 Enterprise 用户。</li>
+</ol>
+<p>还有个很爽的点：<strong>会话在设备间持久化（persist）</strong>。你在电脑浏览器上派的任务，<strong>关掉网页它照样在云端跑</strong>，回头用手机打开 Claude app 就能接着看进度。开头那个高铁上改 README 的场景，就是靠这条——派完任务锁屏，到站再看结果。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：网页版 = 云端一次性沙箱 + 连 GitHub 仓库 + 免安装，<strong>适合并行跑活、改本地没克隆的仓库、不想配环境</strong>；前提是有 GitHub 仓库、是 Pro / Max / Team 用户。</p>
+</blockquote>
+<hr>
+<h2>03 网页版 vs 本地 CLI：到底该用哪个</h2>
+<p>这两个不是替代关系，是<strong>分工</strong>关系。实测下来，判断标准就一句话：</p>
+<p><strong>这活需不需要碰我电脑上的东西？</strong> 需要，就老老实实用本地 CLI；不需要，云端跑更省事。</p>
+<p>为什么？因为网页版那台云机器<strong>只有你仓库里的东西</strong>——凡是你只在自己电脑上装的、配的（比如某个本地工具、你 <code>~/.claude/CLAUDE.md</code> 里的全局指令、<code>claude mcp add</code> 加的 MCP server），云端<strong>统统看不见</strong>。要让云端用上，得把配置<strong>提交进仓库</strong>（比如写进仓库的 <code>.claude/settings.json</code>、<code>.mcp.json</code>）。</p>
+<p>来张对照表，一眼看清取舍：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>网页版（on the web）</th>
+<th>本地 CLI / 桌面 app</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>代码跑在哪</strong></td>
+<td>Anthropic 云 VM</td>
+<td>你自己的机器</td>
+</tr>
+<tr>
+<td><strong>从哪聊天</strong></td>
+<td>claude.ai 或手机 app</td>
+<td>你的终端 / 桌面 UI</td>
+</tr>
+<tr>
+<td><strong>用得上你的本地配置吗</strong></td>
+<td>❌ 只有仓库里的</td>
+<td>✅ 全都在</td>
+</tr>
+<tr>
+<td><strong>需要 GitHub 吗</strong></td>
+<td>✅ 需要（或捆绑本地仓库上传）</td>
+<td>❌ 不需要</td>
+</tr>
+<tr>
+<td><strong>断开连接还继续跑吗</strong></td>
+<td>✅ 关掉网页照样跑</td>
+<td>❌ 关了终端就停</td>
+</tr>
+<tr>
+<td><strong>并行跑多任务</strong></td>
+<td>✅ 天生擅长，各占一个会话</td>
+<td>要自己开多个 worktree</td>
+</tr>
+<tr>
+<td><strong>权限模式</strong></td>
+<td>只有「自动接受编辑」和「Plan」</td>
+<td>全部模式都有</td>
+</tr>
+</tbody></table>
+<p>有一行我得专门点一下：<strong>网页版的权限模式只有两种</strong>——「自动接受编辑（Auto accept edits）」和「Plan 模式」，<strong>没有</strong>你在第 07 篇里熟悉的那种「每次改动都跳出来问你」的默认（default）模式。</p>
+<p>这意味着什么？默认情况下，<strong>云端的 Claude 改完文件直接推分支，不会停下来一行行等你点同意</strong>。所以派云端任务时，<strong>任务描述一定要写清楚、写具体</strong>——它不会中途回头问你「这样改行不行」。这个亏我自己头一回用就吃了：图省事派了个模糊的「优化一下这个日志模块」，回来一看，它自作主张把整套日志重构了一遍、连接口都改了，<strong>远不是我想要的那点小改动</strong>，最后那个分支我直接弃了重派。后来我学乖了，云端任务一律写明白文件名、要改什么、预期行为。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：<strong>碰本地东西用本地 CLI，不碰本地、想并行或想随处可用就上网页版</strong>；记住网页版默认「自动接受编辑」，所以任务描述务必写具体。</p>
+</blockquote>
+<hr>
+<h2>04 Remote Control：让手机接管你本地的会话</h2>
+<p>网页版是「把活搬到云上」，<strong>Remote Control（远程控制）走的是另一条路：活还在你电脑上跑，但你能从手机 / 任意浏览器去指挥它。</strong></p>
+<p>先给结论：<strong>Remote Control 让你在办公桌上起一个本地会话，然后从沙发上的手机、或另一台电脑的浏览器接着聊——代码自始至终在你自己机器上跑，没有任何东西上云。</strong></p>
+<p><strong>类比：给你的电脑装了个远程遥控器。</strong> 你的文件系统、本地 MCP server、各种工具、项目配置——<strong>全都还在、全都能用</strong>，跟你坐在电脑前没区别。网页和手机界面只是那个本地会话的一扇「窗户」，你透过窗户发指令，活在窗户后面的电脑上干。</p>
+<p>它和网页版的根本区别，还是那条老分界线：</p>
+<p><strong>Remote Control 在你的机器上执行，所以你的本地 MCP server、工具和项目配置都还在。网页版在 Anthropic 云上执行。</strong></p>
+<p>什么时候用它？官方给的判断很清楚：<strong>你正干着本地的活，临时想换个设备接着弄</strong>，就用 Remote Control。一个很典型的场景——下班前在公司电脑上让 Claude 跑一个耗时的重构。人直接走，到家用手机打开 Claude app，会话还连着公司那台电脑，<strong>躺床上就能看它跑到哪了、给它发下一条指令</strong>。</p>
+<p>启动也简单。在你的项目目录里跑这一行，就进入「服务器模式」，它会挂在终端等远程连接：</p>
+<pre><code class="language-bash">claude remote-control
+</code></pre>
+<p>跑起来后，终端里会显示一个<strong>会话 URL</strong>，按<strong>空格键</strong>还能调出一个<strong>二维码</strong>——手机扫一下，直接在 Claude app 里打开这个会话。</p>
+<p>如果你已经在一个 Claude Code 会话里头了，想把当前这次对话直接转成可远程的，不用重开，直接敲：</p>
+<pre><code class="language-text">/remote-control
+</code></pre>
+<p>（嫌长可以用别名 <code>/rc</code>。）它会继承你当前的对话历史，照样给你一个 URL 和二维码。</p>
+<p>几个<strong>硬性前提</strong>记一下，不满足会连不上：</p>
+<ul>
+<li><strong>版本</strong>：需要 Claude Code <strong>v2.1.51 或更高</strong>，<code>claude --version</code> 查一下。</li>
+<li><strong>登录方式</strong>：必须用 claude.ai 账号 <code>/login</code> 登录，<strong>不支持 API key</strong>。</li>
+<li><strong>本地进程得一直开着</strong>：Remote Control 本质是个跑在你电脑上的本地进程，<strong>你一关终端、退出 <code>claude</code>，会话就结束了</strong>。</li>
+</ul>
+<p>还有个挺贴心的：当 Remote Control 活着的时候，<strong>长任务跑完或者需要你拿主意时，Claude 能给你手机推送通知</strong>。你也可以在指令里直接要求，比如「测试跑完了通知我」。（推送通知需要 v2.1.110 或更高。）</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：Remote Control = 本地会话 + 手机 / 浏览器当遥控器，<strong>代码全程在你机器上跑、本地配置全都在</strong>；<code>claude remote-control</code> 起服务、扫码即连，但本地进程不能关。</p>
+</blockquote>
+<hr>
+<h2>05 别搞混：<code>--remote</code> 和 <code>--remote-control</code> 是两码事</h2>
+<p>这俩长得太像了，官方文档专门反复强调过，新手一开始也很容易踩这个坑——<strong>它们干的根本是相反的方向</strong>。一行表说清：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>方向</th>
+<th>干什么</th>
+<th>代码跑在哪</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>claude --remote &quot;任务&quot;</code></td>
+<td>本地 → 云</td>
+<td>从终端<strong>起一个新的云会话</strong></td>
+<td>Anthropic 云 VM</td>
+</tr>
+<tr>
+<td><code>claude --teleport</code></td>
+<td>云 → 本地</td>
+<td>把一个云会话<strong>拉回本地</strong>继续</td>
+<td>你的机器</td>
+</tr>
+<tr>
+<td><code>claude --remote-control</code></td>
+<td>（无关云）</td>
+<td>把<strong>本地会话</strong>开放给手机 / 网页监控</td>
+<td>你的机器</td>
+</tr>
+</tbody></table>
+<p>看出门道了吧：</p>
+<ul>
+<li><strong><code>--remote</code></strong>（带任务）= 我人在终端，但想把活<strong>甩到云上</strong>去跑，自己腾出手干别的。</li>
+<li><strong><code>--teleport</code></strong> = 云上那个会话我想<strong>拽回本地</strong>接着弄（比如要用本地工具了）。注意这是<strong>单向</strong>的：你能把云会话拉回本地，但<strong>不能</strong>把一个已存在的本地终端会话推上云。</li>
+<li><strong><code>--remote-control</code></strong> = 跟云<strong>一点关系没有</strong>，纯粹是把我本地这个会话<strong>开个窗口</strong>让别的设备看 / 控。</li>
+</ul>
+<p>举个常见用法：复杂任务可以<strong>先在本地 Plan Mode 规划</strong>（让 Claude 出方案但不动代码），方案满意了推送到 GitHub，再一句 <code>claude --remote &quot;执行 docs/ 里的迁移方案&quot;</code> 把执行甩到云上自主跑。<strong>策略你把控，体力活云端干</strong>——这套「本地规划、远程执行」用起来很顺手。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：<code>--remote</code> 把活送上云、<code>--teleport</code> 把云会话拉回本地（单向）、<code>--remote-control</code> 是本地会话开远程窗口——<strong>三个方向，千万别记混</strong>。</p>
+</blockquote>
+<hr>
+<h2>06 deep-links：一个链接直接起会话</h2>
+<p>最后补一个小而美的功能：<strong>deep-links（深链接）</strong>。</p>
+<p>它解决的问题是：有时候你想给别人（或给未来的自己）<strong>一个一键起点</strong>——点一下链接，Claude Code 就在对应的仓库里打开，提示词都帮你填好了。</p>
+<p><strong>类比：给同事发一个「点开即用」的快捷方式。</strong> 比起跟人解释「你 clone 这个仓库、cd 进去、然后敲这段话」，直接甩个链接过去，对方点一下，会话开好、提示填好，省事多了。典型用在事故处理手册、监控告警、CI 失败通知里——点开就在出问题的仓库里带着诊断提示开干。</p>
+<p>深链接是个 <code>claude-cli://</code> 开头的 URL，长这样：</p>
+<pre><code class="language-text">claude-cli://open?repo=acme/payments&amp;q=review%20open%20PRs
+</code></pre>
+<p><code>repo</code> 指定一个 GitHub 的 <code>owner/name</code> 仓库，<code>q</code> 是预填的提示词（要 URL 编码，<code>%20</code> 就是空格）。点开它，你机器上会弹出一个新终端，Claude Code 在你 <code>acme/payments</code> 那个<strong>本地克隆</strong>里启动，提示框里已经填好了「review open PRs」。有个前提要注意：<code>repo</code> 只认识你<strong>至少跑过一次 <code>claude</code> 的路径</strong>——如果你从来没在那个克隆里启动过 Claude Code，它找不到记录，会话会回落到你的主目录，而不是仓库目录。</p>
+<p>这里有条<strong>安全设定</strong>得记牢，挺重要：</p>
+<p>深链接本身<strong>永远不会执行任何操作</strong>。它只是选好目录、把提示填进输入框。<strong>在你看过内容、亲手按下回车之前，没有任何东西会发给模型。</strong></p>
+<p>换句话说，哪怕你从一个不信任的页面点了深链接，它也只是帮你把字打进去，<strong>主动权始终在你手里</strong>。（深链接需要 v2.1.91 或更高。）</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：deep-links 用一个 <code>claude-cli://</code> 链接帮你「选好仓库 + 填好提示」一键起会话，<strong>但只填不发，按回车前一切可控</strong>。</p>
+</blockquote>
+<hr>
+<h2>07 动手：起一个本地会话，用手机接管它</h2>
+<p>光说不练没意思。下面这个最小练习，让你亲手体验一次「电脑起会话、手机接管」——<strong>不用 GitHub、不用任何项目，几分钟搞定</strong>。</p>
+<p><strong>第一步：确认版本够新</strong></p>
+<pre><code class="language-bash">claude --version
+</code></pre>
+<p><strong>预期</strong>：版本号 <strong>≥ 2.1.51</strong>。低于这个数，先 <code>claude update</code> 升级，否则 Remote Control 起不来。</p>
+<p><strong>第二步：在任意一个文件夹里起服务器模式</strong></p>
+<p>随便找个目录（沿用第 07 篇那个 <code>hello-claude</code> 也行），敲：</p>
+<pre><code class="language-bash">claude remote-control
+</code></pre>
+<p><strong>预期</strong>：终端<strong>不会</strong>像平时那样进入聊天，而是显示一段「等待远程连接」的状态，外加一个会话 URL。<strong>这是对的</strong>——服务器模式就是挂在这儿等手机连。</p>
+<p><strong>第三步：调出二维码</strong></p>
+<p>在那个状态界面里，<strong>按一下空格键</strong>。</p>
+<p><strong>预期</strong>：终端里画出一个<strong>二维码</strong>。（如果你还没装 Claude 手机 app，可以先在另开的 Claude Code 里敲 <code>/mobile</code>，它会给你 app 的下载二维码。）</p>
+<p><strong>第四步：手机扫码接管</strong></p>
+<p>用装好 Claude app 的手机扫这个码。</p>
+<p><strong>预期</strong>：手机的 Claude app 里打开了这个会话，<strong>你电脑的终端会显示连接状态变化</strong>。这时你在手机上发一句话，比如：</p>
+<pre><code class="language-text">列出当前目录下有哪些文件
+</code></pre>
+<p><strong>预期</strong>：<strong>活在你电脑上跑</strong>（它读的是你那台机器的目录），结果同步显示在手机上。<strong>看到手机上列出了你电脑当前目录里的文件 = 你已经成功用手机接管了本地会话，全流程跑通，恭喜！</strong></p>
+<p><strong>第五步：收摊</strong></p>
+<p>回到电脑终端，按 <code>Ctrl+C</code> 停掉 <code>claude remote-control</code>。</p>
+<p><strong>预期</strong>：服务器模式退出，远程会话随之结束——记得，<strong>本地进程一关，会话就没了</strong>。</p>
+<blockquote>
+<p>⚠️ 要是手机连不上、或报「Remote Control 需要 claude.ai 订阅」，<strong>九成是登录方式不对</strong>：Remote Control 只认 claude.ai 账号，不认 API key。先在终端 <code>/login</code> 用 claude.ai 账号登录，并确认环境里没设 <code>ANTHROPIC_API_KEY</code>。</p>
+</blockquote>
+<hr>
+<h2>08 国内访问：先把魔法上网备好</h2>
+<p>这一篇讲的所有功能，都绕不开一个现实门槛——<strong>它们全都连 <a href="https://claude.ai">claude.ai</a> 这套域名</strong>：网页版在 claude.ai/code 跑，Remote Control 和手机 app 也都往 Anthropic 的服务器发请求。</p>
+<p>所以结论很直接：<strong>国内用户用网页版、Remote Control、手机 app 之前，先把「魔法上网」准备好</strong>，否则页面打不开、手机 app 连不上、二维码扫了也没反应。这跟前面装本地 CLI 时的网络要求是一回事，只是这回连<strong>手机端</strong>也得在能正常访问的网络环境下。</p>
+<p>一个容易忽略的细节：<strong>云会话里的 Claude 是从 Anthropic 的云基础设施访问网络的，不是从你的网络</strong>。所以云端那台机器拉 npm 包、克隆 GitHub 仓库走它自己的通道，跟你本地的魔法上网无关——<strong>你需要魔法上网的地方，只是「浏览器 / 手机怎么连上 claude.ai」这一段</strong>。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：网页版 / Remote Control / 手机 app 全都连 claude.ai ，<strong>国内用之前先备好魔法上网</strong>；但云会话内部的联网走 Anthropic 自己的网络，不归你管。</p>
+</blockquote>
+<hr>
+<h2>09 小结</h2>
+<p>这一篇，咱们把 Claude Code 从「必须坐在电脑前敲命令」彻底解放了出来，主要拿下两件事：<strong>浏览器免安装直接用（网页版）</strong>，和<strong>用手机 / 任意设备接管本地会话（Remote Control）</strong>。</p>
+<p>把核心区别再钉一遍：</p>
+<table>
+<thead>
+<tr>
+<th>你想干的事</th>
+<th>该用哪个</th>
+<th>代码跑在哪</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不想装环境、改个本地没克隆的仓库</td>
+<td><strong>网页版</strong></td>
+<td>Anthropic 云</td>
+</tr>
+<tr>
+<td>同时跑好几个独立任务</td>
+<td><strong>网页版</strong>（各占一个会话）</td>
+<td>Anthropic 云</td>
+</tr>
+<tr>
+<td>本地活跑一半，换手机接着指挥</td>
+<td><strong>Remote Control</strong></td>
+<td>你的机器</td>
+</tr>
+<tr>
+<td>把本地任务甩到云上自主跑</td>
+<td><code>claude --remote</code></td>
+<td>Anthropic 云</td>
+</tr>
+<tr>
+<td>给别人一个一键起会话的链接</td>
+<td><strong>deep-links</strong></td>
+<td>点链接那台机器</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 分清本地、网页版、Remote Control 三者的根本差别（代码在谁机器上跑），知道网页版怎么连 GitHub 提任务提 PR、默认是「自动接受编辑」所以任务要写具体，会用 <code>claude remote-control</code> + 扫码让手机接管本地会话，也不会再把 <code>--remote</code> 和 <code>--remote-control</code> 搞混。<strong>这套「随处可用」的能力，是把 Claude Code 真正塞进你日常工作流的关键一步。</strong></p>
+<hr>
+<p>下一篇 <strong>12「项目初始化：用 <code>/init</code> 生成 CLAUDE.md」</strong>——不管你是在本地、网页还是手机上用 Claude Code，它干得好不好，很大程度取决于那个仓库里有没有一份像样的 CLAUDE.md 。下一篇就教你用一条 <code>/init</code> 命令，让 Claude 自己把项目摸一遍、生成第一版「项目说明书」。你不妨先想想：<strong>如果让一个新同事接手你的项目，你最想先告诉他哪三件事？</strong></p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/10-desktop.html"><span class="mono">← 上一篇 · 10</span><b>桌面 app（Desktop）</b></a>
+  <a class="pg nx" href="/library/claude-code/12-project-init.html"><span class="mono">下一篇 · 12 →</span><b>项目初始化：用 /init 一键生成 CLAUDE.md</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

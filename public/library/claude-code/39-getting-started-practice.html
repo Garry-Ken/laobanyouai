@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>39 实战入门：拿一个真需求，从开工到交付走一整趟 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 39 篇:实战入门：拿一个真需求，从开工到交付走一整趟。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/39-getting-started-practice.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class="cur"><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class="cur"><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 39 篇</p>
+      <h1>实战入门：拿一个真需求，从开工到交付走一整趟</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="38-plugins-reference.html">38 插件参考手册</a> 教你把自己那套配置打成一个能发出去的包。这一篇彻底换挡——<strong>前面三十八篇全在「一件件拆功能」，这一篇第一次把它们串成一条完整的实战路径</strong>：拿一个真实的小需求，从打开项目、写 CLAUDE.md、提问、审查改动到验证交付，一口气走完。学过的招，这回拧成一股绳用。</p>
+</blockquote>
+<p>说句实话，大多数人以为 AI 写代码就是「一句话然后等结果」——说清楚需求，Claude 自己跑完，你接过来用。这条路听起来顺，踩一次坑就知道哪里断了：</p>
+<blockquote>
+<p>方向跑偏了、顺手多改了三个文件、说好的 bug 修完照崩……最后花在收拾的时间，比自己动手还多。</p>
+</blockquote>
+<p><strong>不是工具不够聪明，是这趟流程里少了几个关键交接棒。</strong></p>
+<p><strong>说白了，这就是「学过每个动作」和「能把动作连成一趟」之间的鸿沟。</strong> 你练过打方向、练过看后视镜、练过点刹车，但第一次独自上路，得把这些动作<strong>按正确的顺序连起来</strong>才叫会开车。这一篇不教任何新功能，只干一件事——<strong>带你把已经会的零件，第一次连成一条能跑通的实战路径</strong>。</p>
+<p>我们挑的任务小到不能再小，但五脏俱全：<strong>给一个数单词频率的小脚本加个功能，顺手修个 bug</strong>。麻雀虽小，从开工到交付那条完整的路，一步都不缺。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一条「开工 → 探索 → 规划 → 动手 → 验证 → 交付」的标准实战路径，每一步该敲什么、看什么</li>
+<li>一个能照着抄的真实小任务（数单词的脚本加 <code>--top N</code>、修空参数崩溃），全程命令 + 预期输出</li>
+<li>「先让它探索、再让它动手」这条铁律为什么是新手最该养成的肌肉记忆</li>
+<li>怎么用 plan mode（详见第 20 篇）让它<strong>先出方案再砸代码</strong>，以及怎么审查它给你的 diff</li>
+<li>一张「老手怎么走 vs 新手怎么走」的对照表，把最常踩的顺序坑标出来</li>
+</ul>
+<hr>
+<h2>01 先看全景：一趟实战，就这六步</h2>
+<p>动手之前，先把整趟路在脑子里过一遍。<strong>一个真实任务从接到手到交付，无论大小，骨架都是这六步：</strong></p>
+<p><img src="assets/39-six-step-flow@2x.png" alt="Claude Code 实战六步法：开工 → 探索 → 规划 → 动手 → 验证 → 交付"></p>
+<p><strong>类比：接力赛的交接棒。</strong> 这六步就是六个交接棒的人：探索把「我看懂了什么」交给规划，规划把「打算怎么改」交给动手，动手把「改了什么」交给验证。<strong>任何一棒掉了棒，整趟都得返工</strong>——新手翻车，九成是某个交接没做，最典型的就是「没探索就直接让它动手」，棒还没拿稳就开跑。</p>
+<p>这六步不是我编的，它就是官方快速开始（quickstart）和常见工作流（common workflows）两篇文档拼起来的实操顺序。官方那句话点得很到位：</p>
+<blockquote>
+<p>在进行更改之前，让 Claude 理解您的代码。</p>
+</blockquote>
+<p><strong>这六步还能压缩，但不能跳。</strong> 熟手会把「探索 + 规划」合成一句话、把「验证 + 交付」连成一个动作，看起来像三步——但每一步都还在，只是节奏快了。新手最爱犯的不是「走得慢」，而是<strong>直接把中间四步全删了</strong>，只剩「说需求 → 拿结果」，等于把棒从第一个人手里直接扔到终点线，中间没人接。这一篇剩下的篇幅，就是带你把这六步<strong>在一个真实任务上踏踏实实走一遍</strong>，每一棒都亲手交一次。我会在每步开头标清「这一步对应前面哪一篇学过的东西」，让你边走边把零件对上号。</p>
+<blockquote>
+<p>💡 一句话总结：一趟实战的骨架永远是「<strong>开工 → 探索 → 规划 → 动手 → 验证 → 交付</strong>」六步，像接力赛一样<strong>棒棒得交到位</strong>；新手最常掉的那一棒，是「没让它探索就直接动手」。</p>
+</blockquote>
+<hr>
+<h2>02 准备：造一个练手的小项目</h2>
+<p>为了让你能<strong>原样照着跑</strong>，我们不碰任何真实的大项目，先花两分钟造一个最小的练手场。它只有一个 Python 脚本加一个文本文件，<strong>不依赖任何第三方库，有 <code>python3</code> 就能跑</strong>（Mac / Linux 自带；Windows 装了 Python 即可）。</p>
+<p><strong>第一步：建目录、进去、放两个文件</strong></p>
+<p>在终端里执行（这一步是纯手动准备，还没动用 Claude Code）：</p>
+<pre><code class="language-bash">mkdir wordcount-demo &amp;&amp; cd wordcount-demo
+</code></pre>
+<p>新建一个 <code>wordcount.py</code>，内容如下（这就是我们要改的「祖传代码」，故意写得糙一点）：</p>
+<pre><code class="language-python">import sys
+from collections import Counter
+
+def count_words(path):
+    with open(path) as f:
+        text = f.read()
+    words = text.lower().split()
+    return Counter(words)
+
+def main():
+    path = sys.argv[1]
+    counts = count_words(path)
+    for word, n in counts.items():
+        print(f&quot;{word}: {n}&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+<p>再建一个 <code>sample.txt</code> 当测试数据：</p>
+<pre><code class="language-text">the quick brown fox the lazy dog the fox
+</code></pre>
+<p><strong>第二步：手动跑一遍，确认它能用</strong></p>
+<pre><code class="language-bash">python3 wordcount.py sample.txt
+</code></pre>
+<p><strong>预期输出</strong>（顺序可能略有不同，数字一定一样）：</p>
+<pre><code class="language-text">the: 3
+quick: 1
+brown: 1
+fox: 2
+lazy: 1
+dog: 1
+</code></pre>
+<p>看到这些计数 = 脚本正常工作，练手场搭好了。<strong>这个脚本有两个毛病，正好当我们的任务</strong>：</p>
+<ul>
+<li><strong>缺个功能</strong>：我想只看「最高频的前 N 个词」，现在它一股脑全打出来。</li>
+<li><strong>藏个 bug</strong>：你试试不带文件名直接跑 <code>python3 wordcount.py</code>，它会甩你一脸 <code>IndexError</code> 崩溃，而不是好好提示你「该传个文件」。</li>
+</ul>
+<p><strong>第三步：把它纳入 git（这一步很关键，别跳）</strong></p>
+<pre><code class="language-bash">git init &amp;&amp; git add . &amp;&amp; git commit -m &quot;init: 一个简陋的数词脚本&quot;
+</code></pre>
+<p><strong>预期</strong>：末尾出现一行类似 <code>2 files changed</code> 的提交确认（<code>wordcount.py</code> 和 <code>sample.txt</code> 各记一笔）。看到它 = <strong>你已经有了一个干净的「原点」</strong>，后面无论 Claude 把代码改成什么样，你都能一键退回这里。</p>
+<p>为什么开工前一定先 <code>git commit</code>？因为<strong>它是你最硬的那张后悔药</strong>。第 37 篇讲过检查点（checkpoint）能倒带 Claude 的编辑，但检查点和 git 是两套东西、各管一段（第 37 篇专门掰过）。<strong>开工前一个干净的 git 提交，是你「无论后面怎么折腾都能一键回到原点」的地基</strong>——没提交就让它大改、改完想反悔却没有干净基线可对比，是很常见的亏，所以雷打不动先提交再开工。</p>
+<blockquote>
+<p>💡 一句话总结：练手场就一个糙脚本 + 一个文本文件，<strong>有 <code>python3</code> 就能跑</strong>；它故意留了「缺功能」和「藏 bug」两个活儿；<strong>开工前先 <code>git commit</code> 一次，给自己留最硬的后悔药</strong>。</p>
+</blockquote>
+<hr>
+<h2>03 开工：在项目目录里启动，先写一份最小的 CLAUDE.md</h2>
+<p>环境有了，正式开第一棒——<strong>开工</strong>。这一步对应第 02 篇（启动）、第 07 篇（第一次跑通）、第 12 / 18 篇（CLAUDE.md）。</p>
+<p><strong>第一步：在项目根目录启动 Claude Code</strong></p>
+<p>你得<strong>在 <code>wordcount-demo</code> 这个目录里</strong>敲 <code>claude</code>，而不是在别处。Claude Code 默认拿「你启动它的那个目录」当工作区——站错地方，它读的就是别的项目的文件。</p>
+<pre><code class="language-bash">claude
+</code></pre>
+<p><strong>预期</strong>：看到 Claude Code 的欢迎屏，底部显示当前目录是 <code>wordcount-demo</code>。这就是第 07 篇带你跑通过的那个起点。</p>
+<p><strong>第二步：先给它一份「最小可用」的 CLAUDE.md</strong></p>
+<p>第 18 篇反复强调过一句话：<strong>最没用的 CLAUDE.md 是写了三百行 Claude 一条没听的那种</strong>。所以练手项目别贪多，三五行说清最要紧的规矩就够。我们这个小脚本，规矩其实就两条：用什么跑、改完怎么验。在会话里直接让它生成（也可以手写，但让它写更省事）：</p>
+<pre><code class="language-text">帮我在项目根目录建一个 CLAUDE.md，写清两条：
+1. 这是个纯标准库的 Python 命令行小工具，不要引入任何第三方依赖
+2. 每次改完代码，用 python3 wordcount.py sample.txt 跑一遍验证不报错
+</code></pre>
+<p><strong>预期</strong>：Claude 会<strong>先把要写的内容给你看，再请求批准写文件</strong>（第 20 篇讲的权限机制——它动文件前一定先问你）。批准后，项目根目录多出一个 <code>CLAUDE.md</code>，内容大致长这样：</p>
+<pre><code class="language-markdown"># wordcount-demo
+
+一个数文本里单词频率的命令行小工具。
+
+## 技术约束
+- 纯 Python 标准库，**不要引入任何第三方依赖**。
+
+## 验证
+- 每次改完代码，跑一遍确认不报错：`python3 wordcount.py sample.txt`
+</code></pre>
+<p>短，但两条最要紧的规矩都钉死了。<strong>别嫌它简陋——三五行能管住的事，不必写三十行。</strong></p>
+<blockquote>
+<p>这里你可能想到第 12 篇的 <code>/init</code>。区别在：<code>/init</code> 是让 Claude <strong>自己扫一遍代码库、自动生成</strong>一份较完整的说明书，适合有点规模的真实项目；咱们这个脚本就两个文件，<strong>手动指明那两条核心规矩反而更准、更短</strong>。两条路都对，看项目大小挑。</p>
+</blockquote>
+<p>为什么开工就花这一步写 CLAUDE.md？<strong>因为它是给后面所有交接棒定的「总规矩」</strong>。等下你让它加功能，它会自动记得「别引第三方库」；改完它会自动记得「跑一遍验证」——<strong>你只说一次，整场都生效</strong>，不用每个指令都复读。这就是 CLAUDE.md 最实在的价值：把「每次都要嘱咐的话」固化成它每会话自动加载的背景。</p>
+<blockquote>
+<p>💡 一句话总结：开工 = <strong>站对目录敲 <code>claude</code></strong> + <strong>写一份三五行的最小 CLAUDE.md</strong> 把核心规矩定死；练手小项目手动指明两条规矩，比 <code>/init</code> 扫全库更准更短。</p>
+</blockquote>
+<hr>
+<h2>04 探索：先让它「看懂」，别急着让它「动手」</h2>
+<p>这是整趟路<strong>最该养成肌肉记忆、也最容易被新手跳过</strong>的一棒——探索。对应第 16 篇「四个最常用的活儿」里的第一类。</p>
+<p><strong>先说结论：拿到任务的第一句话，不是「给我改」，而是「先看懂」。</strong></p>
+<p>开头那个愣住的场景，犯的就是这个错——一上来就想敲「给脚本加个 <code>--top</code> 参数」。<strong>坏在哪？</strong> Claude 对你的代码一无所知，它会一边猜一边改，猜错了就给你改出一堆四不像。<strong>正确的开法是先派它去摸清现状</strong>：</p>
+<pre><code class="language-text">先别改任何代码。给我讲讲 @wordcount.py 现在是怎么工作的，
+入口在哪、有没有什么明显的问题或者容易崩的地方？
+</code></pre>
+<p>注意两个细节：</p>
+<ul>
+<li>开头那句 <strong>「先别改任何代码」</strong>，是给它划一道线——这一棒只许看、不许动。第 15 篇讲过，把边界说清，它就不会越界。</li>
+<li>那个 <strong><code>@wordcount.py</code></strong>，是用 <code>@</code> 直接把文件内容塞进对话（第 16、17 篇提过的 <code>@</code> 引用），省得它再去翻一道。</li>
+</ul>
+<p><strong>预期</strong>：Claude 会读完文件，给你一段讲解——大致会说：这是个用 <code>Counter</code> 数词频的脚本，入口是 <code>main()</code>，它从 <code>sys.argv[1]</code> 取文件路径，<strong>然后大概率会主动点出那个隐患：如果不传文件名，<code>sys.argv[1]</code> 会越界崩溃</strong>。</p>
+<p>看到没——<strong>你还没提那个 bug，它探索的时候自己就发现了</strong>。这就是「先探索」白赚的好处：它不光看懂了现状，还顺手帮你把问题摸出来了。这一棒交得漂亮，下一棒（规划）才有谱。</p>
+<p><strong>这个脚本只有十几行，探索一句就够；但真实项目里，探索往往要「由宽到窄」问几层。</strong> 官方常见工作流里给的探索套路就是这个节奏：先问全局，再钻局部——</p>
+<pre><code class="language-text">先给我这个代码库的整体结构和它是干嘛的（先别改任何代码）
+</code></pre>
+<pre><code class="language-text">处理用户登录的逻辑在哪几个文件？它们怎么配合的？
+</code></pre>
+<p>第一句拿到「全局地图」，第二句顺着地图钻进你要改的那块。<strong>为什么不一上来就问细节？</strong> 因为它对项目越没概念，越容易把「看起来相关」的文件当成「真正相关」的——先给它一张全局地图，它后面定位才准。进一个没碰过的中等项目，雷打不动先来这么两三句，<strong>宁可多花两分钟探索，也不让它带着错误的全局印象去改</strong>。</p>
+<p><strong>类比：第一次独自上路前，先绕车走一圈。</strong> 老司机上车前会下意识扫一眼——轮胎瘪没瘪、后面有没有障碍、镜子角度对不对。这一圈花不了十秒，但能避开「直接挂挡撞上没看见的柱子」。让 Claude 先探索，就是上路前这一圈——<strong>十秒钟的「看一眼」，省掉的是后面「改错了推倒重来」的半小时</strong>。</p>
+<blockquote>
+<p>探索阶段读文件会吃上下文（第 19 篇讲过工作台塞满会变蠢）。任务大、要翻一堆文件时，可以让它<strong>派个 subagent 去探索</strong>（第 23 篇）——子代理在自己的窗口里翻，只把结论递回来，你的主对话不被一堆文件内容灌满。小任务用不上，知道有这条路即可。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：拿到任务<strong>第一句话永远是「先别改、先看懂」</strong>；让它探索不仅省掉瞎猜乱改，还常常白赚一个「它主动帮你发现的问题」——这一棒，新手最该练成本能。</p>
+</blockquote>
+<hr>
+<h2>05 规划：让它先出方案，你点头了再砸代码</h2>
+<p>探索完，它懂了现状，也知道你要干嘛。<strong>但还差一步——让它先把「打算怎么改」摆出来给你看，你认可了再动手</strong>。这一棒对应第 20 篇里的 plan mode（计划模式）。</p>
+<p>为什么不直接让它改？因为 <strong>「它理解的方案」未必是「你想要的方案」</strong>。让它先讲一遍打算，是花一分钟堵住「方向就跑偏了还一路改到底」的最便宜的保险。</p>
+<p><strong>方式一：直接让它先说方案、别动手</strong></p>
+<p>最简单的，一句话约束它：</p>
+<pre><code class="language-text">我想给这个脚本加一个 --top N 参数，只显示最高频的前 N 个词；
+顺手把不传文件名就崩溃的问题也修了。
+先告诉我你打算怎么改、动哪几个地方，等我说「开始」你再动手。
+</code></pre>
+<p><strong>预期</strong>：它会回你一份计划，类似——用 <code>argparse</code> 替掉手写的 <code>sys.argv</code>、加一个 <code>--top</code> 选项、用 <code>Counter.most_common(N)</code> 取前 N 个、不传文件名时由 <code>argparse</code> 自动报友好提示而不是崩溃。<strong>它停在这儿等你拍板，不会擅自改文件。</strong></p>
+<p><strong>方式二：正经用 plan mode</strong></p>
+<p>如果是更大的任务，更稳妥的是切到官方的计划模式——它会<strong>强制</strong>Claude 不编辑源代码、只产出方案，<strong>不批准就一行都不改</strong>（但它仍可运行 shell 命令做探索）。两种进法（第 20 篇讲过）：</p>
+<pre><code class="language-bash">claude --permission-mode plan
+</code></pre>
+<p>或者在会话里按 <strong><code>Shift+Tab</code></strong> 循环切到 plan mode。官方对它的定位很清楚：</p>
+<blockquote>
+<p>Claude 读取文件并提出计划，但在您批准前不进行任何编辑。</p>
+</blockquote>
+<p>这两种方式的区别，一张表看清：</p>
+<table>
+<thead>
+<tr>
+<th>做法</th>
+<th>怎么约束它</th>
+<th>强制程度</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>一句话叫它先说方案</strong></td>
+<td>靠你在提示里写「先别动手」</td>
+<td>软约束（它一般会听，但没拦死）</td>
+<td>小改动、你盯着的时候</td>
+</tr>
+<tr>
+<td><strong>plan mode</strong></td>
+<td>模式层面<strong>禁止编辑源代码</strong>（shell 命令仍可跑）</td>
+<td>硬约束（批准前源代码一行都改不了）</td>
+<td>大改动、不放心、想认真审方案</td>
+</tr>
+</tbody></table>
+<p>一个实用的习惯：<strong>像这个 <code>--top</code> 这么小的改动，方式一一句话就够</strong>；但凡涉及多文件、或心里没底的改动，一律 <code>Shift+Tab</code> 切 plan mode——<strong>让模式替你把住「没点头不许动」这道闸，比盯着省心</strong>。给一个不熟的项目做较大改动时，要是图快没切 plan mode，它很可能一口气改了四个文件、方向还跟你想的不一样，回退花的时间够看三遍方案了。<strong>所以拿不准就 plan。</strong></p>
+<blockquote>
+<p>💡 一句话总结：动手前让它<strong>先出方案、你点头再改</strong>；小改动一句「先别动手」就行，大改动 / 没底的改动用 <code>Shift+Tab</code> 切 <strong>plan mode</strong> 硬性锁住「批准前一行不改」。</p>
+</blockquote>
+<hr>
+<h2>06 动手 + 审查：放它改，但每一处 diff 你都过一眼</h2>
+<p>方案点头了，第六棒（其实是动手和审查连着的一棒）——<strong>让它改，同时你盯着每一处改动</strong>。对应第 20 篇的权限确认。</p>
+<p><strong>第一步：给它开绿灯</strong></p>
+<pre><code class="language-text">方案可以，开始改吧。
+</code></pre>
+<p><strong>预期</strong>：Claude 开始编辑 <code>wordcount.py</code>。<strong>关键来了——它每改一处，会把那段 diff（改动对照：删了哪几行、加了哪几行）摆到你面前请求批准</strong>（除非你开了「全部接受」模式，新手强烈别开）。第 20 篇讲过这套权限机制，<strong>这一步就是它真正落地的时刻</strong>。</p>
+<p><strong>第二步：认真看 diff，别无脑回车</strong></p>
+<p>这是新手最容易松懈的地方——<strong>diff 划过去看都不看就一路 <code>y</code></strong>。我的铁律是：<strong>每一处改动至少扫一眼「它动的是不是我让它动的地方」</strong>。这个任务里你该看到的改动大致是：</p>
+<pre><code class="language-text">- import sys
++ import argparse
+
+- def main():
+-     path = sys.argv[1]
+-     counts = count_words(path)
+-     for word, n in counts.items():
++ def main():
++     parser = argparse.ArgumentParser(...)
++     parser.add_argument(&quot;path&quot;, ...)
++     parser.add_argument(&quot;--top&quot;, type=int, default=None, ...)
++     args = parser.parse_args()
++     counts = count_words(args.path)
++     items = counts.most_common(args.top) if args.top else counts.most_common()
++     for word, n in items:
+</code></pre>
+<p>扫一眼确认三件事：<strong>① 它确实在加 <code>--top</code> 和改入参（符合方案）；② 没顺手乱动 <code>count_words</code> 那个本来就好的函数；③ 没偷偷引入第三方库（CLAUDE.md 立的规矩）。</strong> 对得上，就批准。</p>
+<p><strong>怎么快速扫一段 diff？</strong> 不用逐字读，盯三类信号就够：<strong>红行（<code>-</code>，删了什么）别有你舍不得删的；绿行（<code>+</code>，加了什么）别有你没要的依赖或没让加的功能；改动的范围别超出你说的那几个地方</strong>。这个任务里红行删的是手写 <code>sys.argv</code>、绿行加的是 <code>argparse</code> 和 <code>--top</code>，范围只在 <code>main()</code> 里——全在预期内，放心批。</p>
+<p><strong>关于那个「全部接受」模式，给新手一句忠告：练手阶段别开。</strong> quickstart 里提过你可以「为会话启用全部接受模式」（也就是第 20 篇的 acceptEdits），开了它就不再逐处问你、自己一路改下去。<strong>省事，但代价是你彻底交出了「事中拦截」这道窗口。</strong> 比较稳的做法是只在两种情况开：一是改动已经在 plan mode 里逐行看过方案、心里有数；二是一堆机械的重复改动（比如批量改个变量名）。<strong>头一两个月，老老实实一处一处看，把「读 diff」的眼力练出来再谈放飞。</strong></p>
+<p><strong>为什么审查这一步省不得？</strong> 因为 <strong>AI 改代码不是「对或错」的二极管，它常常「大体对、细节偏」</strong>——可能多改了你没让改的地方，可能用了你不想要的写法。第 20 篇那句话值得再贴一遍：</p>
+<blockquote>
+<p>Claude Code 在修改文件前始终请求许可。</p>
+</blockquote>
+<p>这道许可不是走过场，<strong>它是你「事中拦截」的唯一窗口</strong>——一旦批了、改下去了，就得靠第 37 篇的检查点或 git 去「事后倒带」，成本高一截。<strong>事中扫一眼 diff，永远比事后回滚划算。</strong></p>
+<blockquote>
+<p>💡 一句话总结：动手阶段<strong>放它改、但每处 diff 都过一眼</strong>——确认「动的是该动的、没乱碰好代码、没违反 CLAUDE.md」；这道批准是你<strong>事中拦截</strong>的唯一窗口，无脑回车等于把后悔药留给事后。</p>
+</blockquote>
+<hr>
+<h2>07 验证：跑给你看，别信「我改好了」</h2>
+<p>代码改完了，它八成会跟你说一句「已经改好了，加上了 <code>--top</code> 参数，也修复了崩溃问题」。<strong>这句话你一个字都别信，直到你亲眼看它跑通。</strong> 这是整趟路的倒数第二棒，也是新手最爱省的一棒。</p>
+<p><strong>先说结论：「它说改好了」不算数，「跑一遍对了」才算数。</strong> 这正是项目规范里那条「改完主动验证、不要只改不验」的硬要求，落到实操就是——<strong>亲手把验收标准跑一遍</strong>。</p>
+<p><strong>第一步：验证新功能（<code>--top</code>）</strong></p>
+<pre><code class="language-bash">python3 wordcount.py sample.txt --top 3
+</code></pre>
+<p><strong>预期输出</strong>（按词频从高到低，只出前 3 个）：</p>
+<pre><code class="language-text">the: 3
+fox: 2
+quick: 1
+</code></pre>
+<p>看到只剩前三、且是按频率排好序的 = <strong>新功能成了</strong>。（<code>the</code> 出现 3 次、<code>fox</code> 2 次，第三名是任意一个出现 1 次的词。）</p>
+<p><strong>第二步：验证旧功能没被改坏（回归）</strong></p>
+<p>加了新参数，<strong>老用法不能崩</strong>——不带 <code>--top</code> 时得跟原来一样全打出来：</p>
+<pre><code class="language-bash">python3 wordcount.py sample.txt
+</code></pre>
+<p><strong>预期</strong>：跟第 02 节那份原始输出一致（六个词全在）。一致 = <strong>没有「修好新的、碰坏旧的」</strong>。</p>
+<p><strong>第三步：验证 bug 真的修了</strong></p>
+<p>这步最关键——重现当初那个崩溃，看它现在是不是好好提示而不是甩 traceback：</p>
+<pre><code class="language-bash">python3 wordcount.py
+</code></pre>
+<p><strong>预期</strong>：<strong>不再是那串 <code>IndexError</code> 崩溃，而是一行干净的用法提示</strong>，类似：</p>
+<pre><code class="language-text">usage: wordcount.py [-h] [--top TOP] path
+wordcount.py: error: the following arguments are required: path
+</code></pre>
+<p>从「程序崩了甩你一脸 traceback」变成「明确告诉你少传了 <code>path</code>」——<strong>这就是 bug 修好的铁证</strong>。三步全过，这趟活儿才算真的成了。</p>
+<p><strong>想再稳一档？让它把验证「钉成一个测试」。</strong> 上面三步是你手动跑、这次过了就完事；但同一个 bug，下次别人一改代码可能又崩回去。更稳的做法是让 Claude 顺手写个小测试，把「不传文件名要友好报错」这条变成<strong>可重复跑的关卡</strong>——官方常见工作流里专门有「修复 bug 时先写一个能重现它的测试，再让测试通过」这套（项目规范里那条「写重现 bug 的测试再让它通过」也是这个意思）：</p>
+<pre><code class="language-text">给「不传文件名时不崩溃、而是退出码非 0 并打印用法提示」写一个测试，再确认它通过。
+</code></pre>
+<p><strong>预期</strong>：Claude 写一小段测试（用 <code>subprocess</code> 跑脚本、断言退出码和输出），然后跑给你看绿灯。<strong>这一步把「我这次跑过了」升级成「以后每次都能自动验」</strong>——对一次性练手是锦上添花，对真实项目几乎是必备。小任务你嫌重可以跳，但<strong>心里得有这根弦</strong>。</p>
+<p>为什么对「亲手跑」这么轴？<strong>因为被「我改好了」坑过的人不止一两个。</strong> 让它修一个边界情况，它信誓旦旦说修好了，没跑就提交，结果那个边界根本没覆盖到——它改的是「看起来相关」的另一处。<strong>所以认一个死理：AI 说的「完成」是假设，你跑出来的「通过」才是事实。</strong> 这跟项目规范里那句「凡声称已验证，必须真的跑一遍」是一个意思。</p>
+<blockquote>
+<p>💡 一句话总结：验证 = <strong>亲手跑三遍</strong>——新功能对不对、旧功能有没有被改坏、bug 是不是真修了；<strong>「它说改好了」是假设，「你跑出来对了」才是事实</strong>，这一棒省不得。</p>
+</blockquote>
+<hr>
+<h2>08 交付：让它写提交信息，把成果存进库</h2>
+<p>三步验证全过，最后一棒——<strong>交付</strong>，把这次成果稳稳存进 git。对应第 07 篇尾巴提过的「对话式 Git」。</p>
+<p><strong>第一步：先看一眼到底改了什么</strong></p>
+<pre><code class="language-text">我改了哪些文件？给我一个改动概览。
+</code></pre>
+<p><strong>预期</strong>：Claude 跑 <code>git status</code> / <code>git diff</code>，告诉你这次只动了 <code>wordcount.py</code>，新增了 <code>--top</code> 参数、把入参改成 <code>argparse</code>。<strong>交付前再确认一次「改动范围跟预期一致」</strong>，是临门一脚的复查。</p>
+<p><strong>第二步：让它生成提交信息并提交</strong></p>
+<pre><code class="language-text">用一句话描述清楚这次改动，提交它。
+</code></pre>
+<p><strong>预期</strong>：Claude 会<strong>先把它拟的提交信息（commit message）给你看</strong>——类似「feat: 给 wordcount 加 --top N 参数并用 argparse 修复缺参崩溃」——<strong>再请求批准执行 <code>git commit</code></strong>。这又是第 20 篇那道权限闸：<strong>它动你的 git 历史前，照样先问你</strong>。</p>
+<blockquote>
+<p>这里插一句重要的边界：<strong><code>git commit</code> 它会先把要提交的内容给你确认；但 <code>git push</code>（推到远程）是另一回事</strong>。把成果推上 GitHub 之类的远程仓库前，务必你自己心里有数、亲自把关——这是第 43 篇「Git 工作流」要细讲的，这里你先记住：<strong>本地提交可以放手让它代劳，推远程这一步自己捏在手里</strong>。</p>
+</blockquote>
+<p><strong>第三步：确认提交成功</strong></p>
+<pre><code class="language-text">显示我最后 1 次提交。
+</code></pre>
+<p><strong>预期</strong>：它跑 <code>git log -1</code>，你能看到刚才那条提交信息和改动。看到它 = <strong>这趟活儿正式交付，从开工到入库全程闭环</strong>。</p>
+<p>走到这儿，你回头看看：从一个崩溃、功能也不全的糙脚本，到一个带 <code>--top</code>、缺参数还会友好提示的小工具，<strong>全程你只敲了六七句自然语言</strong>——但每一句都卡在那六步的正确位置上。<strong>这就是「把零件连成一趟」的样子。</strong></p>
+<blockquote>
+<p>💡 一句话总结：交付 = <strong>先看改动概览 → 让它拟提交信息并 <code>commit</code>（它会先给你确认）→ <code>git log</code> 验证入库</strong>；记住边界——<strong>本地 commit 可放手，push 远程自己把关</strong>（留给第 43 篇）。</p>
+</blockquote>
+<hr>
+<h2>09 改岔了怎么办：干净地退回去，别在烂摊子上硬补</h2>
+<p>上面那趟走得顺，是因为这里故意挑了个小任务。<strong>真实任务多半没这么乖</strong>——验证那一步常常是红的：功能没实现对、或者它把别处改坏了。这时候新手的本能反应往往是错的：<strong>对着已经改乱的代码，再让它「在这基础上修一下」</strong>。</p>
+<p><strong>别这么干。</strong> 在一个已经偏了的状态上反复打补丁，越补越乱——它每次都带着上一版的错误上下文，很容易把窟窿越捅越大。<strong>正确的处理是：先干净地退回到一个已知正确的点，再带着「这次该怎么说得更清楚」重开一次。</strong> 这正好把第 37 篇的检查点和第 02 节那个开工前的 git 提交派上用场。</p>
+<p>退回有两档，看你改到哪一步了：</p>
+<table>
+<thead>
+<tr>
+<th>退回档位</th>
+<th>用什么</th>
+<th>退到哪</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>轻档：撤销刚才的编辑</strong></td>
+<td>第 37 篇的检查点，<code>/rewind</code></td>
+<td>Claude 改这一批文件之前</td>
+<td>改岔了一两处、刚发现就想撤</td>
+</tr>
+<tr>
+<td><strong>重档：回到开工原点</strong></td>
+<td>git，<code>git restore .</code> / <code>git reset --hard</code></td>
+<td>你开工前那个干净提交</td>
+<td>整个方向都偏了、想从零重来</td>
+</tr>
+</tbody></table>
+<p><strong>轻档</strong>最常用：在会话里敲 <code>/rewind</code>，它能把 Claude 这一轮的文件编辑倒带回去（第 37 篇专门讲过它的边界——能回文件、回对话，但别拿它当 git 使）。<strong>重档</strong>是兜底：要是改得面目全非、检查点也理不清了，就回到第 02 节那个开工提交——这就是当初为什么坚持「开工前先 commit」，<strong>那一个干净提交，就是你永远能逃回去的原点</strong>。</p>
+<p>退回去之后别急着原样重说一遍。<strong>先想想这次为什么偏了</strong>——十有八九是探索没做够、或者指令给得太含糊（第 15 篇讲的「话说清」）。一条经验：<strong>第一次让它改偏了，90% 是那句指令里漏了关键约束</strong>，比如没说清「只改这个函数、别动别的」。退回原点、把那句话补具体，第二次往往就顺了。<strong>退回不是失败，是止损</strong>——比在烂摊子上硬补省太多事。</p>
+<blockquote>
+<p>💡 一句话总结：改岔了<strong>第一反应是「干净退回」，不是「在烂摊子上硬补」</strong>；轻档用 <code>/rewind</code> 撤编辑、重档用 git 回开工原点（开工前那次 commit 就是干这个的）；退回后先补清指令再重开，别原样重说。</p>
+</blockquote>
+<hr>
+<h2>10 一组对照：老手怎么走 vs 新手怎么走</h2>
+<p>同样这六步，老手和新手走出来天差地别——<strong>差的全在那几个「省掉的交接棒」上</strong>。我把最常见的坑并排列出来，你对着自查：</p>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>❌ 新手常踩</th>
+<th>✅ 老手怎么走</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>开工</strong></td>
+<td>随便哪个目录就敲 <code>claude</code>，不写 CLAUDE.md</td>
+<td>站对项目目录，先写三五行最小 CLAUDE.md 定规矩</td>
+</tr>
+<tr>
+<td><strong>探索</strong></td>
+<td>上来就「给我改」，跳过看懂</td>
+<td>第一句永远「先别改、先看懂」，让它先摸现状</td>
+</tr>
+<tr>
+<td><strong>规划</strong></td>
+<td>直接让它动手，方向偏了才发现</td>
+<td>让它先出方案、点头再改；没底就 plan mode</td>
+</tr>
+<tr>
+<td><strong>动手</strong></td>
+<td>diff 看都不看一路 <code>y</code></td>
+<td>每处 diff 扫一眼：动的对不对、有没有越界</td>
+</tr>
+<tr>
+<td><strong>验证</strong></td>
+<td>信「我改好了」就完事</td>
+<td>亲手跑三遍：新功能、旧功能、bug 各验一遍</td>
+</tr>
+<tr>
+<td><strong>交付</strong></td>
+<td>改完晾着，或不看范围直接提交</td>
+<td>先看改动概览、让它拟提交信息、<code>log</code> 确认入库</td>
+</tr>
+</tbody></table>
+<p><strong>这张表的精髓就一句：新手把六步压成两步（说需求 → 拿结果），老手老老实实走六步。</strong> 刚上手那阵子谁都爱抄近道，吃过几次「方向跑偏 + 没验证就提交」的连环亏，才慢慢把这六步走顺。<strong>最该先练成本能的是头尾两棒——开头的「先探索」和结尾的「亲手验证」</strong>，这两棒守住，翻大车的概率就低一大半。</p>
+<p>还有个常被问的：<strong>「每次都这么六步，不嫌麻烦？」</strong> 不嫌，因为<strong>任务越小，每步越快</strong>——咱这个练手任务，六步全走完也就十分钟。而且熟了以后，探索和规划常常能合并成一句话（「先看懂 @file 再告诉我你打算怎么改 X，别动手」）。<strong>流程是骨架，不是镣铐</strong>；骨架记牢了，怎么打快板是你的事。</p>
+<blockquote>
+<p>💡 一句话总结：老手 vs 新手的差距全在「<strong>省没省掉交接棒</strong>」；最该练成本能的是头尾两棒——<strong>开头「先探索」、结尾「亲手验证」</strong>；任务越小每步越快，六步是骨架不是镣铐。</p>
+</blockquote>
+<hr>
+<h2>11 小结</h2>
+<p>这一篇没教任何新功能，只干了一件事——<strong>带你把前面三十八篇学的零件，第一次在一个真实小任务上连成一趟完整的实战路径</strong>。</p>
+<p>先把整趟你敲过的话<strong>连起来回放一遍</strong>，你会发现就这六七句、每句卡在一个交接棒上：</p>
+<pre><code class="language-text"># 开工后（先定规矩）
+帮我建个 CLAUDE.md：纯标准库别引第三方依赖；改完跑 python3 wordcount.py sample.txt 验证
+
+# 探索（先看懂、别动手）
+先别改任何代码。讲讲 @wordcount.py 怎么工作的、有没有容易崩的地方？
+
+# 规划（出方案、等点头）
+我想加 --top N 只看高频前 N 个词，顺手修不传文件名就崩溃的问题。先说方案，等我说开始再动手。
+
+# 动手（点头放行，然后逐处审 diff）
+方案可以，开始改吧。
+
+# 验证（亲手跑，不信它说的）
+（回终端跑：--top 3 / 不带 top / 不带文件名，三条各验一遍）
+
+# 交付（看范围 → 提交 → 确认）
+我改了哪些文件？ → 用一句话描述这次改动，提交它。 → 显示我最后 1 次提交。
+</code></pre>
+<p><strong>看清楚没——真正的「实战」就是这几句自然语言，难的从来不是话术，是把每句话放对位置。</strong> 把这趟路的六步串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>这一步干什么</th>
+<th>用到的前篇</th>
+<th>一句话关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>开工</strong></td>
+<td>站对目录启动 + 写最小 CLAUDE.md</td>
+<td>02 / 07 / 12 / 18</td>
+<td>核心规矩说一次，全场生效</td>
+</tr>
+<tr>
+<td><strong>探索</strong></td>
+<td>让它先看懂代码、别动手</td>
+<td>16</td>
+<td>第一句永远「先别改、先看懂」</td>
+</tr>
+<tr>
+<td><strong>规划</strong></td>
+<td>让它出方案、你点头</td>
+<td>20（plan mode）</td>
+<td>没底就 <code>Shift+Tab</code> 硬锁「批准前不改」</td>
+</tr>
+<tr>
+<td><strong>动手</strong></td>
+<td>放它改、每处 diff 过一眼</td>
+<td>20（权限确认）</td>
+<td>事中拦截比事后回滚划算</td>
+</tr>
+<tr>
+<td><strong>验证</strong></td>
+<td>亲手跑通，别信「我改好了」</td>
+<td>16 / 37</td>
+<td>跑出来的「通过」才是事实</td>
+</tr>
+<tr>
+<td><strong>交付</strong></td>
+<td>看范围 → 拟提交信息 → 入库</td>
+<td>07</td>
+<td>本地 commit 可放手，push 自己把关</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 拿到任何一个「帮我给某个东西加个功能 / 修个 bug」的真实小需求，不再对着终端发懵不知先敲哪句——心里默念那六步（开工、探索、规划、动手、验证、交付），一棒一棒交到位地走下来；尤其守住头尾两棒「先探索、后验证」，让 Claude 既不瞎猜乱改、改完也确实跑得通。<strong>这套流程跑顺了，前面学的所有零件才算真正活了过来，能拧成一股绳替你干活。</strong></p>
+<p>这一篇是个分水岭——<strong>从这儿往后，咱们默认你「会把零件连成一趟」了</strong>，后面几篇会在这条实战路径上继续加新本事。</p>
+<hr>
+<p>下一篇 <strong>40「Chrome：让它操作浏览器」</strong>——这一趟实战，Claude 干的全是「本地文件 + 命令行」的活。但真实工作里，多少事得<strong>在浏览器里</strong>完成：填个表单、点几下页面、抓一段网页上的数据、对着真实渲染的界面调样式。下一篇就给它接上浏览器这只「手」，让它从「只会改代码」迈向「能替你点鼠标」。想想看——<strong>当 Claude 不光能改你的代码、还能亲自打开浏览器替你操作时，它能帮你干的活，又要宽一大圈了。</strong></p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/38-plugins-reference.html"><span class="mono">← 上一篇 · 38</span><b>插件参考手册：把自己那套配置，打成一个能发出去的包</b></a>
+  <a class="pg nx" href="/library/claude-code/40-chrome.html"><span class="mono">下一篇 · 40 →</span><b>Chrome：让它操作浏览器</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

@@ -2,7 +2,6 @@
 const withAlpha = (v) => `rgb(var(${v}) / <alpha-value>)`
 
 export default {
-  darkMode: 'class',
   content: ['./*.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
@@ -21,6 +20,11 @@ export default {
         accent: withAlpha('--accent'),
         'accent-hi': withAlpha('--accent-hi'),
         'accent-fg': withAlpha('--accent-fg'),
+        band: withAlpha('--band'),
+        'band-card': withAlpha('--band-card'),
+        'band-fg': withAlpha('--band-fg'),
+        'band-muted': withAlpha('--band-muted'),
+        'band-rule': withAlpha('--band-rule'),
         success: withAlpha('--success'),
         warn: withAlpha('--warn'),
         danger: withAlpha('--danger'),
@@ -44,28 +48,25 @@ export default {
       },
       fontFamily: {
         sans: [
-          'Inter',
           '-apple-system',
-          'BlinkMacSystemFont',
-          '"SF Pro Text"',
-          'system-ui',
           '"PingFang SC"',
+          '"Helvetica Neue"',
+          '"Microsoft YaHei"',
           '"Segoe UI"',
           'Roboto',
-          '"Helvetica Neue"',
           'Arial',
           'sans-serif',
         ],
-        mono: ['"SF Mono"', '"JetBrains Mono"', 'ui-monospace', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+        mono: ['ui-monospace', '"SF Mono"', '"JetBrains Mono"', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
       },
-      // 排版刻度参考 publish-hub：大字号收紧字距，中文小字放松一点
+      // 超重大标题压行高收字距;正文行距放宽
       fontSize: {
-        display: ['clamp(2.25rem, 5.2vw, 4rem)', { lineHeight: '1.08', letterSpacing: '-0.03em' }],
-        headline: ['clamp(1.75rem, 3.2vw, 2.5rem)', { lineHeight: '1.18', letterSpacing: '-0.022em' }],
-        title: ['1.25rem', { lineHeight: '1.4', letterSpacing: '-0.012em' }],
-        body: ['1rem', { lineHeight: '1.75' }],
-        label: ['0.875rem', { lineHeight: '1.5' }],
-        eyebrow: ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.14em' }],
+        display: ['clamp(2.5rem, 5.7vw, 4.7rem)', { lineHeight: '1.14', letterSpacing: '-0.035em' }],
+        headline: ['clamp(1.85rem, 3.6vw, 2.9rem)', { lineHeight: '1.2', letterSpacing: '-0.03em' }],
+        title: ['1.25rem', { lineHeight: '1.45', letterSpacing: '-0.01em' }],
+        body: ['1rem', { lineHeight: '1.85' }],
+        label: ['0.875rem', { lineHeight: '1.6' }],
+        eyebrow: ['0.68rem', { lineHeight: '1.4', letterSpacing: '0.15em' }],
       },
       borderRadius: {
         lg2: '10px',
@@ -73,17 +74,24 @@ export default {
         '2xl2': '18px',
       },
       maxWidth: {
-        content: '68rem',
+        content: '82rem',
+      },
+      transitionTimingFunction: {
+        spring: 'var(--spring)',
       },
       keyframes: {
-        'fade-up': { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+        'fade-up': { '0%': { opacity: '0', transform: 'translateY(16px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
         'fade-in': { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
         'scale-in': { '0%': { opacity: '0', transform: 'scale(0.97)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
+        ping2: { '0%': { transform: 'scale(0.6)', opacity: '0.7' }, '80%, 100%': { transform: 'scale(1.5)', opacity: '0' } },
+        tick: { to: { transform: 'translateX(-50%)' } },
       },
       animation: {
-        'fade-up': 'fade-up 0.6s cubic-bezier(0.16,1,0.3,1) both',
+        'fade-up': 'fade-up 0.65s cubic-bezier(0.22,1,0.36,1) both',
         'fade-in': 'fade-in 0.4s ease both',
-        'scale-in': 'scale-in 0.3s cubic-bezier(0.16,1,0.3,1) both',
+        'scale-in': 'scale-in 0.3s cubic-bezier(0.22,1,0.36,1) both',
+        ping2: 'ping2 2.2s cubic-bezier(0.22,1,0.36,1) infinite',
+        tick: 'tick 46s linear infinite',
       },
     },
   },

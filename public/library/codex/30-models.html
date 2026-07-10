@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>30 怎么选模型：同一句话，到底该派哪个模型去跑 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 30 篇:怎么选模型：同一句话，到底该派哪个模型去跑。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/30-models.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class="cur"><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class="cur"><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 30 篇</p>
+      <h1>怎么选模型：同一句话，到底该派哪个模型去跑</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇〔<a href="29-integrations.html">29 Slack / Linear 与 SDK 集成</a>〕讲的是「在别处召唤 Codex、把它嵌进自己产品」的进阶玩法。这一篇把镜头拉回本地最日常的一个决定——<strong>你敲下回车那一刻，背后到底是哪个模型、用多大力气在帮你干活</strong>。下一篇〔<a href="31-speed.html">31 进阶技巧与提速</a>〕再讲怎么让整条流程更快更省。</p>
+</blockquote>
+<p>都说「选最强的模型准没错」，我信了挺久。</p>
+<p>有段时间我把默认模型锁死 <code>gpt-5.5</code>、推理强度直接拉满到 <code>xhigh</code>，图个「一步到位、再不折腾」。直到有天我让它帮我把一个变量名从 <code>data</code> 改成 <code>payload</code>——一个三十秒的体力活。它「深思熟虑」了将近一分钟才肯动手，我盯着那个转圈的推理动画，第一次觉得「最强」有点蠢。</p>
+<p><strong>说白了，模型不是越强越好，是越合适越好。</strong> 一个改 typo 的活儿用旗舰 + 顶格推理，跟开着挖掘机去拔棵草没区别——慢、费、还显得你不会用。反过来，真碰上要重构一整个模块的硬骨头，你图快用了轻量模型，它给你一份看着能跑、实则埋了三个坑的方案，返工的时间够你用好模型跑五遍。</p>
+<p>这一篇就把「派谁去」这件事讲透：<strong>Codex 现在有哪几个模型、一个比换模型更立竿见影的旋钮（推理强度）、以及一张我自己天天在用的「场景 → 模型 + 强度」对照表。</strong> 看完，以后打开 <code>/model</code> 面板就不会发懵。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一套不用背参数的判断框架：选模型本质是拿「任务有多难」去匹配「该花多少算力」</li>
+<li>Codex 当前能选的几个模型分别是什么定位、哪个是默认、哪两个已经被淘汰</li>
+<li>一个新手最容易忽略、却比换模型更立竿见影的旋钮——<strong>推理强度（reasoning effort）</strong></li>
+<li>一张能直接抄走的「什么活派什么模型 + 配多大推理强度」对照表</li>
+<li>四种切换姿势：改默认、启动指定、会话里临时切、给子代理单独配</li>
+<li>一套能照做的动手流程，亲手感受「同一句话、不同档位」差在哪</li>
+</ul>
+<blockquote>
+<p>⚠️ 模型名称、可用范围会随版本和套餐变动（比如哪个是最新旗舰、你的账号能选哪些）。本篇讲的是 <strong>「怎么判断、怎么切」的方法</strong>，具体有哪些模型，一律以你本地 <code>/model</code> 面板实际列出的为准，别背名字。涉及命令和配置项以 Codex <a href="https://developers.openai.com/codex/models">官方文档</a> 为准。</p>
+</blockquote>
+<hr>
+<h2>01 先想清楚：选模型不是「选最贵的那个」</h2>
+<p>先给结论：<strong>选模型的本质，是拿「这个任务有多难」去匹配「该投多少算力」——多一分是浪费，少一分会翻车。</strong></p>
+<p>很多人（包括当年的我）默认「反正选最强的，能力封顶总不会错」。这个想法的漏洞在于：它只算了「能不能做对」，没算「等多久」和「花多少」。而在真实开发里，后两者天天咬你——</p>
+<ul>
+<li>你一天要跟 Codex 来回几十轮，每轮多等三十秒，一天就是小半个钟头耗在转圈上。</li>
+<li>用订阅套餐有额度、用 API key 直接烧钱，旗舰模型的 token 单价是轻量模型的好几倍。</li>
+</ul>
+<p>所以选模型前，先在脑子里过三个变量：</p>
+<p><strong>这活儿有多复杂？我能等多久？我在乎这点成本吗？</strong> 三者一权衡，该派谁基本就有数了。</p>
+<table>
+<thead>
+<tr>
+<th>你的处境</th>
+<th>该往哪个方向选</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>活儿难（架构、跨模块重构、难缠的 bug）</td>
+<td>上旗舰、给足推理强度，准确性第一</td>
+</tr>
+<tr>
+<td>活儿简单（改名、补注释、写个小函数）</td>
+<td>用轻量模型、低推理强度，图快图省</td>
+</tr>
+<tr>
+<td>要秒回（实时结对、连珠炮式问答）</td>
+<td>用专为即时响应优化的模型，别让它「想太久」</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：选模型不是挑最强的，是让「算力」对上「任务难度」。</p>
+</blockquote>
+<hr>
+<h2>02 Codex 现在能选哪些模型</h2>
+<p>打开 <code>/model</code> 面板，你会看到一串名字，新手第一反应往往是「这都啥跟啥」。别慌，记定位不记参数。</p>
+<p><strong>类比：选模型像给一件活儿派人。</strong> 啃硬骨头的架构活儿，你派经验最老、想得最深的那位（旗舰）；跑腿改小东西，派手脚麻利的实习生就够了（轻量）；需要你问一句它秒答一句的现场结对，派反应最快的那个（实时型）。派对了人，事半功倍；派错了，要么大材小用、要么力不从心。</p>
+<p>当前 Codex 的几个模型，定位大致是这样：</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>定位</th>
+<th>最适合</th>
+<th>速度 / 成本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>gpt-5.5</code></strong></td>
+<td>旗舰、默认推荐</td>
+<td>复杂编程、计算机操作、知识工作、研究类工作流</td>
+<td>较慢 / 最高</td>
+</tr>
+<tr>
+<td><strong><code>gpt-5.4-mini</code></strong></td>
+<td>轻量、快而省</td>
+<td>轻量编程任务、给子代理用</td>
+<td>快 / 低</td>
+</tr>
+<tr>
+<td><strong><code>gpt-5.3-codex-spark</code></strong></td>
+<td>即时型（研究预览）</td>
+<td>近乎实时的高频编程迭代（偏纯文本、能力较弱）</td>
+<td>极快 / 低</td>
+</tr>
+</tbody></table>
+<p>几个要点，记下来少踩坑：</p>
+<ul>
+<li><strong>不指定就走默认。</strong> 你要是从没设过，Codex（App / CLI / IDE 扩展）会自动用推荐的旗舰模型，多数情况这就够用。</li>
+<li><strong><code>gpt-5.3-codex-spark</code> 是研究预览（research preview），目前只对 ChatGPT Pro 订阅开放。</strong> 没看到它很正常，不是你装错了。</li>
+<li><strong>有两个名字你可能在老教程里见过，现在别用了</strong>：<code>gpt-5.2</code> 和 <code>gpt-5.3-codex</code>，在 ChatGPT 登录方式下已经被官方标为弃用（deprecated）。如果你的脚本、<code>config.toml</code> 或 <code>codex exec --model</code> 里还写着它们，趁早换成最新的。少数弃用模型在 API 侧可能还能调，那得用 API key 登录，且以官方 API 模型页为准。</li>
+</ul>
+<p>我自己最常用的一个组合是：<strong>主力会话挂旗舰，批量脏活交给子代理 + <code>gpt-5.4-mini</code>。</strong> 上个月清理一个项目里二十多个文件的过期 import，我让主代理拆活、十几个子代理并行用 mini 去改，几分钟全收工——这种「又多又简单」的活儿，mini 的速度和成本优势就出来了，换旗舰纯属烧钱等结果。</p>
+<blockquote>
+<p>💡 一句话总结：记定位别记参数——旗舰啃硬活、mini 跑快省、spark 求秒回，弃用的两个名字别再写进配置。</p>
+</blockquote>
+<p><img src="assets/30-model-tiers@2x.png" alt="模型档位怎么挑"></p>
+<p>把三个模型摆到「任务难度 × 速度成本」这张图上一看就清楚：越往右下角任务越硬、模型越强但越慢越贵（旗舰 <code>gpt-5.5</code>），越往左上角越快越省（mini、spark）——挑模型就是拿手头这活儿的位置去对号入座。</p>
+<hr>
+<h2>03 比换模型更立竿见影的旋钮：推理强度</h2>
+<p>新手盯着「换哪个模型」，老手还会拧另一个旋钮——<strong>推理强度（reasoning effort）</strong>。这东西很多人压根没注意，但它对体验的影响，常常比换模型还直接。</p>
+<p><strong>类比：推理强度像答题前给它多少思考时间。</strong> 同一个学霸（同一个模型），你让他扫一眼就答，跟让他先打草稿、反复验算再答，交出来的东西质量天差地别——但后者明显更慢。推理强度，调的就是「让它想多久再动手」。</p>
+<p>先说清一件事：<strong>推理强度的可选档位随模型变化，不是固定一套</strong>（仅对支持推理的模型、Responses API 生效）。下面是常见的几档，从低到高：</p>
+<table>
+<thead>
+<tr>
+<th>档位</th>
+<th>含义</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>none</code></td>
+<td>完全不做额外推理（部分模型支持）</td>
+<td>纯指令执行</td>
+</tr>
+<tr>
+<td><code>minimal</code></td>
+<td>几乎不额外思考，秒答</td>
+<td>极简任务、高频问答</td>
+</tr>
+<tr>
+<td><code>low</code></td>
+<td>稍作分析</td>
+<td>简单改动、快速迭代</td>
+</tr>
+<tr>
+<td><code>medium</code></td>
+<td>速度与深度平衡（常见默认档）</td>
+<td>日常大多数编程</td>
+</tr>
+<tr>
+<td><code>high</code></td>
+<td>深度推理</td>
+<td>复杂重构、难缠 bug</td>
+</tr>
+<tr>
+<td><code>xhigh</code></td>
+<td>顶格推理（部分模型支持）</td>
+<td>最硬的架构与调试</td>
+</tr>
+</tbody></table>
+<p>注意两点：<strong><code>medium</code> 一般是默认起点</strong>（具体默认值以你本地版本为准）；<strong>这张表不是每个模型都全支持</strong>——比如 <code>none</code> 和 <code>xhigh</code> 都只有部分模型吃。当前模型到底能选哪几档，直接在 <code>/model</code> 面板里看，选了无效或报错面板通常会有提示；拿不准就查它的官方说明页。</p>
+<p>这就是开篇那个「改变量名等一分钟」的真相——<strong>不是模型笨，是我把推理强度顶到了 <code>xhigh</code>，它在为一个根本不需要思考的活儿拼命「深呼吸」。</strong> 反过来，真有一回我追一个偶发的并发 bug，普通档位它绕了半天没头绪，我把强度提到 <code>high</code> 重跑，它这才沉下去把竞态条件的来龙去脉理清楚。</p>
+<p><strong>所以遇到结果不满意，先别急着换更强的模型——很多时候，把推理强度往上提一档就解决了；嫌慢，就往下降一档。</strong> 这个旋钮比换模型更轻、更快见效。</p>
+<blockquote>
+<p>💡 一句话总结：换模型之前先想想推理强度——嫌它笨往上提一档，嫌它慢往下降一档，常常一拧就好。</p>
+</blockquote>
+<hr>
+<h2>04 实战对照表：什么活，派什么模型 + 什么强度</h2>
+<p>光讲原理不如直接给配方。下面这张表是我自己日常在用的「场景 → 模型 + 推理强度」对照，照着抄、再按你的习惯微调：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐模型</th>
+<th>推理强度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>架构设计、技术选型</td>
+<td><code>gpt-5.5</code></td>
+<td><code>high</code> / <code>xhigh</code></td>
+</tr>
+<tr>
+<td>跨模块重构、复杂改造</td>
+<td><code>gpt-5.5</code></td>
+<td><code>high</code></td>
+</tr>
+<tr>
+<td>难缠 / 偶发 bug 调试</td>
+<td><code>gpt-5.5</code></td>
+<td><code>high</code></td>
+</tr>
+<tr>
+<td>日常写功能、补逻辑</td>
+<td><code>gpt-5.5</code></td>
+<td><code>medium</code></td>
+</tr>
+<tr>
+<td>改小 bug、调格式、补注释</td>
+<td><code>gpt-5.4-mini</code></td>
+<td><code>low</code></td>
+</tr>
+<tr>
+<td>子代理批量处理简单任务</td>
+<td><code>gpt-5.4-mini</code></td>
+<td><code>low</code> / <code>medium</code></td>
+</tr>
+<tr>
+<td>实时结对、高频快问快答</td>
+<td><code>gpt-5.3-codex-spark</code></td>
+<td><code>minimal</code></td>
+</tr>
+</tbody></table>
+<p>怎么用这张表？<strong>别一开始就纠结，先按「日常档」（旗舰 + <code>medium</code>）干着，碰到具体卡点再针对性调</strong>：</p>
+<ul>
+<li>它给的方案太浅、漏了边界情况 → 把强度提到 <code>high</code>。</li>
+<li>一堆又多又简单的体力活拖慢了你 → 换 <code>gpt-5.4-mini</code> 降档批量跑。</li>
+<li>你只是想连珠炮式问几个小问题、等不及它思考 → 上即时型模型、<code>minimal</code>。</li>
+</ul>
+<p>我的真实习惯是：<strong>默认配置就是「旗舰 + <code>medium</code>」，绝大多数活儿不用动；只有进入「啃硬骨头」或「批量跑脏活」这两种模式时，我才会手动切一下。</strong> 把切换当成工具箱里按需取用的螺丝刀，不是时刻握在手里的锤子——想起来才拿，不用每次都纠结。</p>
+<blockquote>
+<p>💡 一句话总结：默认「旗舰 + medium」打天下，只在「啃硬活」和「批脏活」两种时刻才手动切档。</p>
+</blockquote>
+<hr>
+<h2>05 四种切换姿势：默认、启动、会话、子代理</h2>
+<p>知道选哪个，还得会切。Codex 给了四种姿势，覆盖从「一劳永逸」到「就这一次」的所有需求。</p>
+<p><strong>① 设默认模型（一劳永逸）。</strong> 在配置文件 <code>~/.codex/config.toml</code> 里写一行，之后启动就用它：</p>
+<pre><code class="language-toml"># ~/.codex/config.toml
+model = &quot;gpt-5.5&quot;
+model_reasoning_effort = &quot;medium&quot;
+</code></pre>
+<p><strong>② 启动时临时指定（这一次会话）。</strong> 用 <code>-m</code> / <code>--model</code> 标志：</p>
+<pre><code class="language-bash"># 用指定模型起一个新会话
+codex -m gpt-5.5
+
+# codex exec 非交互模式同样适用
+codex exec -m gpt-5.4-mini &quot;把这个文件里的过期 import 清理掉&quot;
+</code></pre>
+<p><strong>③ 会话进行中切换（中途换人）。</strong> 在 Codex 会话里直接敲斜杠命令，弹出选择器，挑一个就切过去：</p>
+<pre><code class="language-text">/model
+</code></pre>
+<p>新版的 <code>/model</code> 面板里，通常能在选模型的同时一并选推理强度，具体长什么样以你本地面板为准。</p>
+<p><strong>④ 给子代理单独配（分工干活）。</strong> 主代理用旗舰统筹，把简单的批量活儿派给挂着 <code>gpt-5.4-mini</code> 的子代理——这是性价比最高的打法，细节见〔<a href="21-subagents.html">21 子代理（Subagents）</a> 〕。</p>
+<p>四种姿势对照着记：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>怎么做</th>
+<th>作用范围</th>
+<th>什么时候用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>改默认</td>
+<td><code>config.toml</code> 写 <code>model</code></td>
+<td>之后所有会话</td>
+<td>你有稳定的主力模型</td>
+</tr>
+<tr>
+<td>启动指定</td>
+<td><code>codex -m &lt;模型&gt;</code></td>
+<td>当前这一个会话</td>
+<td>临时换个模型起活</td>
+</tr>
+<tr>
+<td>会话内切</td>
+<td><code>/model</code></td>
+<td>切换点之后</td>
+<td>中途发现该换人了</td>
+</tr>
+<tr>
+<td>子代理配</td>
+<td>子代理配置里指定</td>
+<td>那个子代理</td>
+<td>主力统筹、杂活外包</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚠️ 一个例外：<strong>云端 Codex Cloud 任务目前不能改默认模型</strong>，这一条以官方说明为准。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：一劳永逸改 config、临时起活用 <code>-m</code>、中途换人敲 <code>/model</code>、杂活外包给 mini 子代理。</p>
+</blockquote>
+<hr>
+<h2>06 两个锦上添花的小开关</h2>
+<p>模型和强度定了，还有两个小开关能让体验更顺手，知道有就行，不用一开始就折腾。</p>
+<p><strong>① 推理摘要（<code>model_reasoning_summary</code>）——你想看多少它的「思考过程」。</strong> 取值 <code>auto</code> / <code>concise</code> / <code>detailed</code> / <code>none</code>。想看它怎么一步步想的，调 <code>detailed</code>；觉得刷屏碍事，调 <code>none</code> 直接关掉：</p>
+<pre><code class="language-toml"># ~/.codex/config.toml
+model_reasoning_summary = &quot;concise&quot;
+</code></pre>
+<p><strong>② 服务层级（<code>service_tier</code>）——给你的请求排个优先级。</strong> 内置 <code>flex</code>（弹性，优化成本，可能稍慢）和 <code>fast</code>（优先速度）。赶时间且不在乎那点成本，可以试 <code>fast</code>——注意官方要求同时加一个 feature flag 才生效：</p>
+<pre><code class="language-toml"># ~/.codex/config.toml
+# 弹性模式（默认）
+service_tier = &quot;flex&quot;
+
+# 快速模式：需同时开启 feature flag，否则不生效
+service_tier = &quot;fast&quot;
+[features]
+fast_mode = true
+</code></pre>
+<p>这俩都属于「用顺手了再去碰」的细节，新手保持默认完全没问题。</p>
+<blockquote>
+<p>💡 一句话总结：推理摘要管「看不看它怎么想」，服务层级管「排不排队优先」，新手默认即可。</p>
+</blockquote>
+<hr>
+<h2>07 动手环节：亲手感受「同一句话，不同档位」</h2>
+<p>光看表没用，自己拧一遍旋钮，你才会记住差别。下面三步，五分钟走完。</p>
+<p><strong>第一步：看看你的账号能选哪些模型。</strong></p>
+<p>进一个 Codex 会话，敲：</p>
+<pre><code class="language-text">/model
+</code></pre>
+<p>预期输出：弹出一个模型选择器，列出<strong>你当前账号 / 套餐可用</strong>的模型（每人看到的不一定一样，这正常）。先认认有哪些、当前选中的是哪个。</p>
+<p><strong>第二步：设一份默认配置。</strong></p>
+<p>打开 <code>~/.codex/config.toml</code>（没有就新建），写入：</p>
+<pre><code class="language-toml">model = &quot;gpt-5.5&quot;
+model_reasoning_effort = &quot;medium&quot;
+</code></pre>
+<p>保存后重开一个会话，敲 <code>/model</code> 确认当前模型和强度，就是你刚设的这套。</p>
+<p><strong>第三步：同一句话，跑两个推理强度，对比差别。</strong></p>
+<p>挑一个略有难度的需求，比如「帮我把这个函数重构成更易测的写法，并说明你的取舍」。</p>
+<ol>
+<li>先用默认的 <code>medium</code> 跑一遍，留意：<strong>它等了多久、方案考虑得多周全。</strong></li>
+<li>把配置里的 <code>model_reasoning_effort</code> 改成 <code>high</code>，重开会话，同一句话再跑一遍。</li>
+</ol>
+<p>预期你会观察到：<strong><code>high</code> 那次明显更慢，但方案往往想得更深</strong>——比如多考虑了边界情况、给了备选方案或权衡说明。亲手感受过这个「慢一点、深一些」的取舍，你以后调档就有手感了，不用死记表格。</p>
+<blockquote>
+<p>💡 一句话总结：选择器看清能用啥、配置文件定下默认、再用一句话跑两档对比——手感比记参数管用。</p>
+</blockquote>
+<hr>
+<h2>小结</h2>
+<p>这一篇把「派谁去干活」拆成了两层旋钮和一套打法：</p>
+<ul>
+<li><strong>选模型的本质</strong>：拿任务难度去匹配算力，不是越强越好，是越合适越好。</li>
+<li><strong>认识当前模型</strong>：旗舰 <code>gpt-5.5</code> 啃硬活、<code>gpt-5.4-mini</code> 快省跑杂活、<code>gpt-5.3-codex-spark</code> 求秒回；<code>gpt-5.2</code>、<code>gpt-5.3-codex</code> 已弃用别再写进配置。</li>
+<li><strong>推理强度是隐藏王牌</strong>：嫌笨往上提一档、嫌慢往下降一档，常比换模型更快见效。</li>
+<li><strong>一张对照表 + 一个习惯</strong>：默认「旗舰 + <code>medium</code>」打天下，只在「啃硬活」「批脏活」时手动切。</li>
+<li><strong>四种切换姿势</strong>：改默认、启动指定、会话内切、子代理单配，按需取用。</li>
+</ul>
+<p><strong>你现在应该能</strong>：打开 <code>/model</code> 不再发懵，看一眼任务就知道该派哪个模型、配多大强度，并且会用四种方式把它切过去。</p>
+<hr>
+<p>下一篇〔<a href="31-speed.html">31 进阶技巧与提速</a> 〕，咱们从「派谁、用多大力」往前再走一步：聊聊那些能让整条工作流更快、更省、更少返工的进阶技巧。留个小思考——你有没有发现，<strong>很多时候拖慢你的不是模型不够强，而是你给的上下文太乱、让它走了冤枉路</strong>？这恰恰是下一篇要解的题。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/29-integrations.html"><span class="mono">← 上一篇 · 29</span><b>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</b></a>
+  <a class="pg nx" href="/library/codex/31-speed.html"><span class="mono">下一篇 · 31 →</span><b>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

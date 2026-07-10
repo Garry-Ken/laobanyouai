@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>27 Skills 使用实例：装一个、喊一声、看它干活 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 27 篇:Skills 使用实例：装一个、喊一声、看它干活。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/27-skills-in-practice.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class="cur"><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class="cur"><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 27 篇</p>
+      <h1>Skills 使用实例：装一个、喊一声、看它干活</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="26-agent-skills.html">26 Skill 是什么</a> 把原理讲透了——<code>SKILL.md</code> 是什么、<code>description</code> 凭啥决定 Claude 用不用它。这一篇不讲道理，真刀真枪：<strong>带你查一遍手里有哪些 skill、用一句话喊起一个、盯着它把活干完</strong>，把「会用别人的 skill」落到地上。</p>
+</blockquote>
+<p>比如要赶一份代码库结构图，给老板汇报用。换平时，咱们得先在脑子里理节点、画 Mermaid 草图、调配色、导出 PNG，<strong>一套下来稳稳半天</strong>。这时候只要对着 Claude Code 敲一句「帮我画一张这个项目的架构图」——Claude 就自己搞定了。</p>
+<p>它不问你任何参数，自己加载一个叫 <code>baoyu-diagram</code> 的 skill，按里面写死的暗色设计系统排好版、生成 SVG、转成 @2x PNG，<strong>前后不到五分钟，图就躺在 <code>docs/assets/</code> 里了</strong>。</p>
+<p>这一刻你才真正理解 skill 的价值：<strong>它不是「让 Claude 更聪明」，而是「让 Claude 把某件事，每次都按同一套靠谱流程做出来」</strong>。半天压成五分钟，差的就是这套写好的流程。</p>
+<p>上一篇你已经知道 skill 是什么了。这一篇只干一件事：<strong>带你把这个「半天变五分钟」的体验，亲手跑一遍</strong>。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一句话查出当前会话里<strong>到底有哪些 skill</strong> 可用，不再瞎猜</li>
+<li>看懂一个真实 <code>SKILL.md</code> 长什么样，知道 <code>description</code> 那行凭啥决定它触不触发</li>
+<li>用「自然语言触发」和「<code>/</code> 直呼其名」两种方式跑完一个 skill 的完整流程，每步都有预期输出</li>
+<li>skill 喊不动时的三步排查表（说法太含糊 / description 不匹配 / 压根没启用）</li>
+<li>把一个 skill 提交进项目、让<strong>全队照同一套流程干活</strong>的具体做法</li>
+</ul>
+<hr>
+<h2>01 先别急着用：看看手里到底有哪些 skill</h2>
+<p>动手第一步不是「用 skill」，是<strong>搞清楚你现在有哪些 skill 能用</strong>。</p>
+<p>新手最容易犯的错，是凭印象瞎喊——「我记得有个画图的 skill 吧？」然后对着 Claude 喊半天没反应，以为是 skill 坏了，其实压根没装。<strong>先查清家底，比啥都强</strong>。</p>
+<p><strong>类比：照菜谱做菜前，先翻翻你这本菜谱里到底收了哪几道菜。</strong> 你不会对着厨房空想「今天做个红烧肉吧」，得先确认菜谱里有「红烧肉」这一页、食材步骤都齐。skill 就是 Claude 的菜谱，每个 <code>SKILL.md</code> 是一道写好的菜——<strong>先翻目录，确认这道菜在册，再开火</strong>。</p>
+<p>查看的办法特别简单，<strong>在 Claude Code 会话里用大白话问它就行</strong>：</p>
+<pre><code class="language-text">有哪些可用的 skill？
+</code></pre>
+<p>官方文档里用的是英文问法 <code>What skills are available?</code>，中文一样认。<strong>预期</strong>：Claude 会列出当前会话能用的 skill，每个带名字和一句话简介。在这个教程项目里跑，列表里就有那个画图的：</p>
+<pre><code class="language-text">baoyu-diagram — 生成专业的暗色主题 SVG 图（架构图 / 流程图 / 时序图 / 思维导图……）
+</code></pre>
+<blockquote>
+<p>💡 一句话总结：用 skill 之前，先在会话里问一句「有哪些可用的 skill？」<strong>确认你要的那道菜在册，再开火</strong>，别对着不存在的 skill 瞎喊。</p>
+</blockquote>
+<p>还有两个查家底的小动作，顺手记一下：</p>
+<p><strong><code>/skills</code> 菜单</strong>——在输入框敲 <code>/skills</code> 回车，会弹出一个可视化菜单，把所有 skill 列出来，还能在这里切换每个 skill 的启用状态（高亮后按 Space 循环切换，Enter 保存）。比纯文字列表更直观。</p>
+<p><strong><code>/doctor</code> 体检</strong>——这条偏进阶：如果你装了一大堆 skill，Claude 可能因为「描述预算」装不下、把一部分 skill 的描述截断了，导致它「看不全」。<code>/doctor</code> 能告诉你预算有没有溢出、哪些 skill 受影响。新手一般用不到，但<strong>哪天发现某个 skill 莫名其妙不触发了，先跑 <code>/doctor</code> 看一眼</strong>。</p>
+<hr>
+<h2>02 拆开一个真 skill：<code>SKILL.md</code> 长什么样</h2>
+<p>光知道「有这个 skill」还不够，得看懂<strong>它内部长什么样</strong>，你才明白它凭啥被触发、能干啥。</p>
+<p>正好，这个教程项目里就躺着一个真 skill。咱们不看官方文档里的玩具示例，直接扒这个<strong>真实在用、天天靠它出图</strong>的 <code>baoyu-diagram</code>。</p>
+<p>它在项目里的位置是：</p>
+<pre><code class="language-text">.claude/skills/baoyu-diagram/
+├── SKILL.md              # 主说明（必需）
+├── references/           # 各类图的详细排版规范（按需加载）
+│   ├── architecture.md
+│   ├── flowchart.md
+│   └── sequence.md
+└── scripts/
+    └── main.ts           # SVG 转 PNG 的脚本（被执行，不进上下文）
+</code></pre>
+<p>看出门道没？<strong>一个 skill 就是一个文件夹，<code>SKILL.md</code> 是入口，旁边可以挂参考文档和脚本</strong>。<code>SKILL.md</code> 必需，其余都是可选的「料」——参考文档让主说明保持精简（用到哪类图才加载哪个），脚本是给 Claude 跑的工具。</p>
+<p>打开它的 <code>SKILL.md</code>，<strong>最上面那块 <code>---</code> 围起来的就是命门</strong>，叫 frontmatter（前置元数据，写在文件最顶端的配置）：</p>
+<pre><code class="language-yaml">---
+name: baoyu-diagram
+description: Create professional, dark-themed SVG diagrams of any type — architecture diagrams, flowcharts, sequence diagrams... Also trigger when the user says &quot;画个图&quot; &quot;画一个架构图&quot; &quot;diagram&quot; &quot;flowchart&quot;...
+version: 1.117.3
+---
+</code></pre>
+<p><code>---</code> 下面那一大段 markdown，才是 Claude 真正要照着干的「菜谱正文」（设计系统、配色、排版规则、转 PNG 的命令）。</p>
+<p><strong>这里有个上一篇讲过、但你现在该亲眼对上号的关键点</strong>：那行 <code>description</code>，是 Claude 判断「这次该不该用这个 skill」的核心依据（frontmatter 里还有个可选的 <code>when_to_use</code> 字段可以补充触发条件，两者合计截断为 1536 字符）。</p>
+<p>你注意到没——这个 description 里<strong>明晃晃塞了一堆中文触发词</strong>：「画个图」「画一个架构图」，还有英文的 <code>diagram</code>、<code>flowchart</code>。这不是随便写的，是作者<strong>故意把用户可能说的话都铺进去</strong>，好让 Claude 一听到这些词就反应过来「该我上了」。</p>
+<p><strong>类比：菜谱页眉那行「适合：家宴、待客、下饭」。</strong> 你翻菜谱找「待客菜」时，一眼扫到页眉这行字，就知道这道菜对路。<code>description</code> 就是 skill 的页眉标签——<strong>Claude 拿你的话去比对每个 skill 的 <code>description</code>，谁的标签最对得上，就翻开谁那一页</strong>。</p>
+<p>所以记住这条因果链，后面排查全靠它：</p>
+<p>你说的话 → Claude 拿去比对各个 skill 的 <code>description</code> → 匹配上了 → 加载那个 <code>SKILL.md</code> 的正文 → 照里面的步骤干活。</p>
+<p><code>description</code> 写得越贴近你的真实说法，触发越准。这也是为什么下一节排查「喊不动」，第一个要查的就是它。</p>
+<p><img src="assets/27-skill-trigger-flow@2x.png" alt="一句话喊起 skill 的内部流程：从你说话到照菜谱干活"></p>
+<p>这张图把「一句话怎么变成 skill 干活」拆成四步：你说话 → Claude 拿去和每个 skill 的 <code>description</code> 比对 → 命中后加载对应 <code>SKILL.md</code> 正文 → 照里面写死的步骤产出结果。看懂这条链，你就知道排查该从哪一环下手。</p>
+<blockquote>
+<p>💡 一句话总结：一个 skill 就是一个带 <code>SKILL.md</code> 的文件夹，最顶上的 <code>description</code> 是触发命门——<strong>Claude 拿你的话去比对它，对上了才翻开这页菜谱</strong>。</p>
+</blockquote>
+<hr>
+<h2>03 跑通第一个：自然语言喊一声，看它出活</h2>
+<p>家底清了、结构懂了，开整。这一节用 <code>baoyu-diagram</code> 走一遍<strong>最常见的用法：用大白话喊，让 Claude 自己判断该不该上</strong>。</p>
+<p>这是 skill 最爽的地方——<strong>你不用记任何命令，该用哪个 skill 是 Claude 自己挑的</strong>。</p>
+<p>第一步，在教程项目根目录把 Claude Code 起起来：</p>
+<pre><code class="language-bash">claude
+</code></pre>
+<p><strong>预期</strong>：进入会话，底部出现输入框。</p>
+<p>第二步，直接用大白话提需求——注意，这里<strong>一个字都没提 <code>baoyu-diagram</code> 这个名字</strong>：</p>
+<pre><code class="language-text">帮我画一张图，说明 Claude 的「想→做→看」代理循环
+</code></pre>
+<p><strong>预期</strong>：Claude 一听「画一张图」，就去比对各 skill 的 <code>description</code>，命中 <code>baoyu-diagram</code> 那行的 <code>diagram</code>/「画个图」，于是<strong>自动加载它</strong>，然后照菜谱正文干活：读对应的参考文档（流程图就读 <code>references/flowchart.md</code>）、按暗色设计系统排版、生成一个 <code>.svg</code>、再跑脚本转成 <code>@2x.png</code>。</p>
+<p>干完它会告诉你产出在哪，大致长这样：</p>
+<pre><code class="language-text">已生成图表：
+  docs/claude-code/assets/27-agent-loop.svg
+  docs/claude-code/assets/27-agent-loop@2x.png
+</code></pre>
+<p><strong>看到这两个文件 = skill 触发成功、活也干完了。</strong> 整个过程你没碰任何参数，全靠一句大白话。</p>
+<p>这就是 skill 和「普通对话」最大的区别。摆一张对比，差距一目了然：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>❌ 没有 skill</th>
+<th>✅ 有 skill</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>你要说的</td>
+<td>详细描述配色、字号、布局、转 PNG 怎么转……</td>
+<td>一句「帮我画张图」</td>
+</tr>
+<tr>
+<td>产出稳定性</td>
+<td>这次暗色那次亮色，每次风格飘</td>
+<td>每次都套同一套设计系统，稳定一致</td>
+</tr>
+<tr>
+<td>你要记的</td>
+<td>一堆参数和步骤</td>
+<td>啥都不用记</td>
+</tr>
+</tbody></table>
+<p>说白了，<strong>skill 把「每次都要交代一遍的繁琐流程」一次性写死了</strong>。你只管说要什么，「怎么做得专业」是菜谱的事。</p>
+<h3>不想等它猜？直接点名</h3>
+<p>有时候你很确定就要用某个 skill，<strong>懒得让它猜，直接 <code>/</code> 点名最快</strong>：</p>
+<pre><code class="language-text">/baoyu-diagram 画一张用户登录的时序图
+</code></pre>
+<p><strong>预期</strong>：跳过「匹配 description」这一步，直接加载 <code>baoyu-diagram</code> 并执行，<code>/</code> 后面那串话作为参数传进去（这里就是告诉它画什么图）。</p>
+<p>两种方式啥时候用哪个？一般来说：</p>
+<ul>
+<li><strong>探索、不确定该用啥</strong> → 用大白话，让 Claude 自己挑（说不定它挑的比你想的还准）。</li>
+<li><strong>明确知道要哪个、要它立刻执行</strong> → <code>/</code> 点名，尤其是那种「有副作用、不能乱触发」的 skill（比如部署、提交），官方就建议这类干脆只让你手动 <code>/</code> 调，别让 Claude 自作主张。</li>
+</ul>
+<blockquote>
+<p>💡 一句话总结：跑 skill 两条路——<strong>大白话让 Claude 自己挑、<code>/名字</code> 直接点名</strong>；前者适合探索，后者适合「我就要它、立刻干」。</p>
+</blockquote>
+<hr>
+<h2>04 喊了没反应？三步排查，对号入座</h2>
+<p>真上手你迟早会遇到：<strong>喊了一句，Claude 没用 skill，自己吭哧吭哧用普通方式干了</strong>。先别慌，也别觉得 skill 坏了——<strong>九成是下面三种情况之一</strong>。官方的故障排查就这几条，下面按「最常见」排了序。</p>
+<p><strong>类比：照菜谱做菜，菜没成，无非三种原因——你说的菜名跟菜谱页眉对不上、菜谱根本没收进这本书、或者你话说得太含糊厨师没听懂。</strong> 一条条排，总能揪出是哪环。</p>
+<p><strong>第一步：先怀疑「你说得太含糊」（最常见）。</strong></p>
+<p>很多时候不是 skill 的错，是你那句话<strong>离 <code>description</code> 太远</strong>。比如 <code>baoyu-diagram</code> 的 <code>description</code> 里写的是「画图 / diagram / 架构图」，你要是说「给我整个可视化的东西」，Claude 可能就没把它跟「画图」对上。</p>
+<p><strong>解法</strong>：把话往 <code>description</code> 上靠，<strong>换个更直白的说法重说一遍</strong>：</p>
+<pre><code class="language-text">帮我画一张架构图
+</code></pre>
+<p>带上「画」「图」这种明确动词，命中率立刻上去。这是最快的一招，先试它。</p>
+<p><strong>第二步：确认「这个 skill 到底在不在册」。</strong></p>
+<p>回到第 01 节那招，问一句：</p>
+<pre><code class="language-text">有哪些可用的 skill？
+</code></pre>
+<p><strong>预期</strong>：如果列表里<strong>根本没有</strong>你要的那个 skill，那问题就清楚了——它压根没装，或者没被加载（比如项目级 skill 还没通过信任、或你启动目录不对）。这种就别在「怎么触发」上耗了，<strong>先把它装上 / 加载上</strong>（第 05 节讲项目级怎么让它生效）。</p>
+<p><strong>第三步：确认了在册、还是不触发——直接 <code>/</code> 点名兜底。</strong></p>
+<p>如果第二步确认了它在列表里、第一步换了说法也还是不灵，<strong>别跟它较劲，直接 <code>/名字</code> 手动调起来</strong>：</p>
+<pre><code class="language-text">/baoyu-diagram 画一张架构图
+</code></pre>
+<p>只要它在册，<code>/</code> 点名一定能调起来（<code>/</code> 是「我点名要你」，绕过了「Claude 自己判断」那一环）。这一步既是兜底，也能帮你<strong>定位问题</strong>：<code>/</code> 调得起来 = skill 本身没毛病，纯粹是自动触发没匹配上，那回头优化 <code>description</code> 就行。</p>
+<p>把这三步整理成一张排查表，喊不动时照着走：</p>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>先查什么</th>
+<th>怎么解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>喊了没反应，Claude 用普通方式干了</td>
+<td>你的说法离 <code>description</code> 远不远</td>
+<td>换更直白的说法重说（带明确动词）</td>
+</tr>
+<tr>
+<td>换了说法还是不灵</td>
+<td>skill 在不在「可用列表」里</td>
+<td>问「有哪些可用的 skill？」；不在就先装 / 加载</td>
+</tr>
+<tr>
+<td>确认在册、还是不自动触发</td>
+<td>是不是纯粹匹配没中</td>
+<td><code>/名字</code> 手动点名兜底，事后优化 description</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚠️ 反过来也有「<strong>触发太勤</strong>」的烦恼——某个 skill 动不动就自己蹦出来。官方的解法是：<strong>把它的 <code>description</code> 写得更具体</strong>（别用太宽的词），或者给它加 <code>disable-model-invocation: true</code>，直接禁止 Claude 自动触发、只许你手动 <code>/</code> 调。这个改法属于「造 / 改 skill」，下一篇会展开。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：喊不动按三步排——<strong>先怀疑说法太含糊（换直白说法）、再查在不在册、最后 <code>/</code> 点名兜底</strong>；这三招覆盖你会遇到的几乎所有「不触发」。</p>
+</blockquote>
+<hr>
+<h2>05 让全队都能用：把 skill 提交进项目</h2>
+<p>到这儿你已经会用 skill 了。但有个问题：上面装在 <code>~/.claude/skills/</code> 里的 skill，<strong>只有你自己电脑上有，同事拉下代码是没有的</strong>。</p>
+<p>想让<strong>整个团队都照同一套流程干活</strong>，得换个地方放——<strong>项目级 skill</strong>。</p>
+<p><strong>类比：这道菜的菜谱，别只贴在你自家厨房，印进随项目一起发的「公司菜谱册」里。</strong> 谁拿到这本册子（clone 了仓库），翻开就能照着做同一道菜。个人 skill 是你私房菜谱，项目级 skill 是<strong>跟代码一起发出去、人手一份的公共菜谱</strong>。</p>
+<p>差别就一个：<strong>放哪、要不要提交进 Git</strong>。看这张对照：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>个人 skill</th>
+<th>项目级 skill</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>放在哪</td>
+<td><code>~/.claude/skills/&lt;名&gt;/SKILL.md</code></td>
+<td>项目里的 <code>.claude/skills/&lt;名&gt;/SKILL.md</code></td>
+</tr>
+<tr>
+<td>谁能用</td>
+<td>你所有项目，但<strong>只有你这台机器</strong></td>
+<td>clone 了这个仓库的<strong>所有人</strong></td>
+</tr>
+<tr>
+<td>进不进 Git</td>
+<td>不进（在你主目录）</td>
+<td><strong>进</strong>，跟代码一起提交</td>
+</tr>
+<tr>
+<td>典型用途</td>
+<td>你的个人习惯流程</td>
+<td>团队统一规范（部署、提交格式、出图风格）</td>
+</tr>
+</tbody></table>
+<p>具体怎么落地，就三步：</p>
+<p><strong>第一步：把 skill 放进项目的 <code>.claude/skills/</code></strong>（而不是主目录）：</p>
+<pre><code class="language-text">你的项目/
+└── .claude/
+    └── skills/
+        └── team-commit/
+            └── SKILL.md
+</code></pre>
+<p><strong>第二步：提交进版本控制。</strong> 像提交普通代码一样：</p>
+<pre><code class="language-bash">git add .claude/skills/
+git commit -m &quot;feat: 加一个团队统一的 commit skill&quot;
+</code></pre>
+<p><strong>第三步：同事拉下来就能用</strong>——这是项目级最香的地方：<strong>别人 clone 仓库、<code>git pull</code> 之后，这个 skill 自动就在他们的会话里了</strong>，不用各自手动装。整个团队从此「画图都是同一套风格」「提交都走同一套检查」。</p>
+<p>这里有个<strong>官方明确的安全细节，务必记住</strong>：别人项目里检入的 skill，<strong>首次打开该项目时会弹一个「工作区信任」对话框让你确认</strong>。为啥要这一道？因为 skill 可以给自己授予工具权限（比如自动跑命令），<strong>信任一个仓库前，先扫一眼它的 skill 里写了啥</strong>，别闭眼点同意。官方原话：</p>
+<blockquote>
+<p>在信任存储库之前查看项目 skills，因为 skill 可以授予自己广泛的工具访问权限。</p>
+</blockquote>
+<p>拉外部项目时就该按这条做。比如 clone 一个开源仓库，信任前翻一眼它 <code>.claude/skills/</code> 下的 <code>SKILL.md</code>，<strong>有可能发现里面某个 skill 在 <code>allowed-tools</code> 里放开了一堆 <code>Bash</code> 权限</strong>——倒不一定是恶意，但宁可看清楚再点信任。<strong>这一眼，值得花</strong>。</p>
+<blockquote>
+<p>💡 一句话总结：想让全队用同一个 skill，放进项目的 <code>.claude/skills/</code> 并提交进 Git，<strong>别人 clone 就自动有</strong>；但信任别人的项目 skill 前，<strong>先扫一眼它都申请了啥权限</strong>。</p>
+</blockquote>
+<hr>
+<h2>06 动手：从零装一个个人 skill，亲手喊起来</h2>
+<p>前面用的都是现成的 <code>baoyu-diagram</code>。这一节带你<strong>从零造一个最简单的 skill 并触发它</strong>——不为造多复杂，就为<strong>亲眼看到「写文件 → 它出现在列表 → 一句话喊起来」这条完整链路</strong>。全程不依赖任何复杂环境。</p>
+<p>我们做一个超简单的：让 Claude <strong>用「咖啡馆聊天风」帮你解释一段代码</strong>。</p>
+<p><strong>第一步：建 skill 目录</strong>（个人级，放主目录，你所有项目都能用）。Mac / Linux：</p>
+<pre><code class="language-bash">mkdir -p ~/.claude/skills/explain-casual
+</code></pre>
+<p>Windows（PowerShell）：</p>
+<pre><code class="language-powershell">mkdir $HOME\.claude\skills\explain-casual
+</code></pre>
+<p><strong>预期</strong>：<code>~/.claude/skills/</code> 下多了个 <code>explain-casual</code> 文件夹。</p>
+<p><strong>第二步：写 <code>SKILL.md</code>。</strong> 用你顺手的编辑器，在 <code>~/.claude/skills/explain-casual/SKILL.md</code> 里贴入：</p>
+<pre><code class="language-markdown">---
+description: 用轻松的咖啡馆聊天风格解释一段代码。当用户说「用大白话讲讲这段代码」「这段代码在干嘛」「讲讲这个函数」时使用。
+---
+
+## 任务
+
+用最口语、最轻松的方式解释用户给的代码，像跟朋友在咖啡馆闲聊，不要学术腔。要求：
+
+1. 先一句话说清这段代码整体在干嘛。
+2. 再挑出关键的几行，逐个用大白话讲。
+3. 最后提一句：有没有看着别扭、可能埋坑的地方。
+</code></pre>
+<p><strong>划重点</strong>：那行 <code>description</code> 里<strong>故意塞满了用户可能说的话</strong>——「用大白话讲讲这段代码」「这段代码在干嘛」「讲讲这个函数」。这就是第 02 节说的「页眉标签」，<strong>塞得越贴近真实说法，触发越准</strong>。</p>
+<p><strong>第三步：确认它进了列表。</strong> 这里有个官方细节要注意：<strong>会话启动时不存在的「顶级 skill 目录」需要重启才能被监视到</strong>。咱们刚新建了 <code>explain-casual</code> 这个目录，所以保险起见<strong>新开一个会话</strong>：</p>
+<pre><code class="language-bash">claude
+</code></pre>
+<p>进去后问：</p>
+<pre><code class="language-text">有哪些可用的 skill？
+</code></pre>
+<p><strong>预期</strong>：列表里<strong>出现了 <code>explain-casual</code></strong>，带着你写的那句中文描述。<strong>看到它 = skill 装好且被加载了。</strong></p>
+<p><strong>第四步：用大白话喊它（别提名字）。</strong> 在会话里贴一段代码让它讲，比如：</p>
+<pre><code class="language-text">用大白话讲讲这段代码：
+def average(numbers):
+    return sum(numbers) / len(numbers)
+</code></pre>
+<p><strong>预期</strong>：Claude 把你这句「用大白话讲讲这段代码」跟 <code>explain-casual</code> 的 <code>description</code> 对上，<strong>自动加载这个 skill</strong>，然后照里面三步走：先一句话说它算平均值；再讲 <code>sum(numbers) / len(numbers)</code> 这行；最后<strong>提醒你传空列表会除以 0 崩掉</strong>（这正是第 1 步任务里「埋坑的地方」那条在起作用）。整个口吻是轻松的咖啡馆风，不是干巴巴的文档腔。</p>
+<p><strong>第五步：对比一下「点名调用」。</strong> 再试 <code>/</code> 直呼：</p>
+<pre><code class="language-text">/explain-casual def average(numbers): return sum(numbers) / len(numbers)
+</code></pre>
+<p><strong>预期</strong>：同样的效果，但这次是你<strong>点名</strong>触发的——跳过了「Claude 自己判断」那一环，<code>/</code> 后面的代码作为参数传进去。</p>
+<p>跑通这五步，你就把 skill 的完整生命周期<strong>亲手摸了一遍</strong>：写 <code>SKILL.md</code> → 它出现在可用列表 → 大白话能喊起来 → <code>/</code> 也能点名。<strong>以后用任何别人的 skill，本质都是这套机制，无非菜谱内容更复杂。</strong></p>
+<blockquote>
+<p>⚠️ 如果第三步列表里没看到 <code>explain-casual</code>：十有八九是<strong>没重启会话</strong>（新建顶级目录得重启才被监视到），退出 <code>claude</code> 重进一次。要是重进还没有，检查文件路径和文件名是不是<strong>一字不差</strong>地叫 <code>SKILL.md</code>（全大写）。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：亲手造个最简单的 skill 跑一遍——<strong>建目录、写 <code>SKILL.md</code>（description 塞满真实说法）、重启确认进列表、大白话喊起来</strong>；这条链路走通，别人的 skill 你也就全会用了。</p>
+</blockquote>
+<hr>
+<h2>07 小结</h2>
+<p>这一篇全程在动手，把「会用别人的 skill」从概念落成了肌肉记忆。把核心动作串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你要做的事</th>
+<th>怎么干</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查有哪些 skill</td>
+<td>问「有哪些可用的 skill？」/ <code>/skills</code> 菜单</td>
+<td>用之前先确认它在册</td>
+</tr>
+<tr>
+<td>看懂一个 skill</td>
+<td>读它的 <code>SKILL.md</code></td>
+<td>最顶上的 <code>description</code> 是触发命门</td>
+</tr>
+<tr>
+<td>触发一个 skill</td>
+<td>大白话喊 / <code>/名字</code> 点名</td>
+<td>探索用前者，要它立刻干用后者</td>
+</tr>
+<tr>
+<td>喊不动排查</td>
+<td>换直白说法 → 查在不在册 → <code>/</code> 点名兜底</td>
+<td>九成是「说法太含糊」</td>
+</tr>
+<tr>
+<td>让全队用</td>
+<td>放进项目 <code>.claude/skills/</code> 并提交 Git</td>
+<td>信任别人的项目 skill 前先看它申请了啥权限</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 在任何会话里查清手里有哪些 skill、看懂一个真实 <code>SKILL.md</code> 的结构和它凭啥触发、用两种方式把一个 skill 跑起来、喊不动时三步定位问题，还能把一个 skill 提交进项目让团队共享。<strong>这套「会用别人的 skill」的能力，是你之后白嫖整个 skill 生态的入场券</strong>——社区里大量现成 skill，装上、喊一声，就是别人写好的专业流程为你所用。</p>
+<p>开头那张「半天变五分钟」的架构图，就是这么来的。你现在也有了同一把钥匙。</p>
+<hr>
+<p>下一篇 <strong>28「skill-creator：造你自己的 skill」</strong>——会用别人的菜谱了，下一步自然是<strong>自己写菜谱</strong>。你有没有哪段流程，是每次都要给 Claude 重复交代一长串？（这种流程往往不止一个。）下一篇就教你用官方的 <code>skill-creator</code>，把这种「反复粘贴的繁琐流程」一次性固化成你专属的 skill，从「用菜谱的人」变成「写菜谱的人」。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/26-agent-skills.html"><span class="mono">← 上一篇 · 26</span><b>Agent Skills：给 Claude 装一身随叫随到的专项本事</b></a>
+  <a class="pg nx" href="/library/claude-code/28-skill-creator.html"><span class="mono">下一篇 · 28 →</span><b>skill-creator 使用：用一个 skill 造你自己的 skill</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

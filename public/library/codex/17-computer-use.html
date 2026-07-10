@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>17 电脑操控与浏览器（Computer Use）：让 Codex 长出手 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 17 篇:电脑操控与浏览器（Computer Use）：让 Codex 长出手。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/17-computer-use.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class="cur"><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class="cur"><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 17 篇</p>
+      <h1>电脑操控与浏览器（Computer Use）：让 Codex 长出手</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="16-security.html">16 · 安全与风险边界</a> 把「Codex 能闯多大祸、边界在哪」这条线画清楚了。这一篇给它再开一扇门——<strong>让 Codex 直接看你的屏幕、点你的桌面应用、开你的浏览器</strong>：测一个原生 App、复现一个只在界面上才出现的 bug、在你登录好的网站里替你点几下。前面所有篇章里 Codex 干的活都在「文件 + 命令行」那一亩三分地，这篇是它头一回伸手碰图形界面。下一篇 <a href="18-config.html">18 · config.toml 配置详解</a> 再回到配置文件，把那一摞旋钮一次拧明白。</p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>实验性功能，可能随版本变化。</strong> 本篇讲的 Computer Use（电脑操控）、Chrome 扩展、内置浏览器都还在快速迭代，下面凡涉及具体入口、菜单名、默认行为、快捷键，一律<strong>以你界面里看到的和 <a href="https://developers.openai.com/codex/app/computer-use">Codex 官方文档</a> 为准</strong>，后续版本可能调整。</p>
+</blockquote>
+<p>OpenAI 在官方文档里给 Computer Use 圈了一条很硬的地理红线：<strong>上线时它在 macOS 和 Windows 可用，但欧洲经济区（EEA）、英国、瑞士这三处不行</strong>。这不是网络问题，是功能本身按区域关掉了——你人在伦敦，哪怕魔法上网也不一定能开。</p>
+<p>我第一次注意到这条，是去年翻 <code>app</code> 那棵文档目录时数页面：<code>computer-use</code>、<code>browser</code>、<code>chrome-extension</code> 三个页面<strong>专门讲「Codex 怎么碰图形界面」</strong>，比讲沙箱的篇幅还长。OpenAI 把这么多笔墨砸在这上面，说明它认定一件事——<strong>光会读文件、跑命令的 AI，迟早会卡在「这事只能在界面上做」的墙前</strong>。</p>
+<p>举个我真撞过的墙：去年调一个 Electron 小工具，有个 bug 只在窗口拉到某个宽度时才崩，命令行里跑测试一切正常，日志干干净净。这种「只在界面上才现形」的 bug，以前我只能自己一遍遍拖窗口、截图、再回头跟它描述。<strong>Computer Use 就是来拆这堵墙的</strong>——让 Codex 自己看屏幕、自己动手复现。</p>
+<p>这一篇就讲清三件事：Codex 碰图形界面的<strong>三条路</strong>（内置浏览器、Chrome 扩展、电脑操控）各管哪一块、怎么开起来、以及操作你「真桌面 / 真浏览器」时的安全边界在哪。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一句话讲明白 Computer Use 是什么、什么时候才轮到它出场（以及什么时候<strong>别</strong>用它）</li>
+<li>三条「碰界面」的路彻底分清：<strong>内置浏览器（localhost）→ Chrome 扩展（带登录态的网站）→ 电脑操控（整个桌面）</strong>，配一张对照表</li>
+<li>三条路各自的开启步骤（装哪个插件、给哪些系统权限、怎么 <code>@</code> 调它），以及地区 / 平台限制</li>
+<li>网站访问的默认行为（<strong>默认每个新站都先问你</strong>）、allowlist / blocklist 怎么管、哪个开关一打开就不再问</li>
+<li>操作「真桌面 / 真浏览器」相对沙箱的风险在哪、官方给了哪些护栏、你自己该守哪几条</li>
+<li>一个能照着跑、给了预期结果的最小实战：用内置浏览器读一次本地页面</li>
+</ul>
+<hr>
+<h2>01 先搞懂：Computer Use 到底是什么、什么时候才用它</h2>
+<p>先给结论：<strong>Computer Use = 让 Codex 像人一样「看屏幕、动鼠标键盘」操作图形界面</strong>——它能看你 macOS 或 Windows 上的窗口、菜单、按钮，能点击、能打字、能翻菜单。命令行工具够不着、结构化集成（插件 / MCP）也没有的活，才轮到它。</p>
+<p>官方把它的本命说得很直白：<strong>当一件事「光看文件或命令输出验证不了」时，才用它</strong>。比如——</p>
+<ul>
+<li>测一个 Codex 正在帮你写的 macOS App、Windows App、iOS 模拟器流程，或别的桌面应用。</li>
+<li>复现一个<strong>只在图形界面里才冒出来</strong>的 bug（就是我上面那个拖窗口才崩的例子）。</li>
+<li>改一个<strong>必须点 UI 才能改</strong>的应用设置。</li>
+<li>查一个<strong>没有插件可接</strong>的应用或数据源里的信息。</li>
+<li>跑一条<strong>横跨好几个 App</strong> 的工作流。</li>
+</ul>
+<p><strong>类比：请了个「能上手帮你点电脑」的实习生，而不是只会发邮件的远程同事。</strong> 远程同事（命令行 / 插件）你只能给他发指令、收他回的文件，他碰不到你桌面；Computer Use 这个实习生是<strong>坐到你工位上</strong>的——他用你的鼠标、你的键盘，屏幕上有啥他看得见，你也全程看得见他在点哪。方便归方便，但他动的是你<strong>真实的桌面</strong>，不是一个隔间里的演练机——这点后面安全那节是重点。</p>
+<p>这里有个新手最容易踩反的判断，<strong>官方反复强调</strong>：</p>
+<blockquote>
+<p>对于你<strong>在本地构建</strong>的 Web 应用，<strong>先用内置浏览器（in-app browser）</strong>，而不是 Computer Use。</p>
+</blockquote>
+<p>为什么？因为 Computer Use 是「最重、最慢」的手段——它要截屏、要算坐标、要一帧帧动鼠标。能用更轻的工具搞定的事，杀鸡别用牛刀。所以正确的排序是：<strong>有插件 / MCP 就用插件，是网页就用浏览器工具，只有连原生桌面、模拟器、没接口的应用都得碰，才升级到 Computer Use</strong>。下一节就把这三条路彻底摆开。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：Computer Use 让 Codex <strong>看屏幕、动鼠标键盘</strong>操作整个桌面，是「最重」的那条路——专留给原生 App、只在界面现形的 bug、没插件的数据源；<strong>本地 Web 应用先用内置浏览器，别一上来就掏它</strong>。</p>
+</blockquote>
+<hr>
+<h2>02 三条路分清楚：内置浏览器 / Chrome 扩展 / 电脑操控</h2>
+<p>接之前先把一件最容易混的事捋顺：<strong>Codex 碰「界面」有三条路，新手十有八九会用错那条</strong>。官方为这三条专门各写了一个文档页，可见它们是三个不同的东西，不是一个功能的三种叫法。</p>
+<p><strong>类比：去另一个城市办事的三种交通方式。</strong> 同城近距离（本地网页）走路就到，又快又不用打票——这是<strong>内置浏览器</strong>；要去你常去、有门禁卡的写字楼（你已登录的网站）得开你自己那台车，车里插着门禁卡——这是<strong>Chrome 扩展</strong>；连郊区没通路的地方都得去（原生桌面、没接口的应用），才包一辆能上山下乡的越野车——这是<strong>电脑操控</strong>。三种都能「移动」，但<strong>用错了要么到不了、要么瞎费劲</strong>。</p>
+<p>挨个说清楚各自的主场：</p>
+<p><strong>内置浏览器（in-app browser）</strong> ——Codex 窗口里<strong>自带的一个浏览器</strong>，你和它共享同一个渲染页面的视图。它专管：<strong>本地开发服务器（localhost）、文件预览、不用登录的公开页</strong>。它<strong>不碰</strong>你 Chrome 的登录态、cookie、扩展、已开的标签页——所以它干净、隔离，预览和验证都关在 Codex 里头，不动你日常浏览器。开发时改完前端想看一眼效果，就用它。</p>
+<p><strong>Chrome 扩展（Codex Chrome extension）</strong> ——当任务<strong>需要你已经登录好的浏览器状态</strong>时才用它。官方点名的典型场景：让 Codex 读 / 操作 <strong>LinkedIn、Salesforce、Gmail、公司内部工具</strong>这类必须登录的站。它借的是你真实 Chrome 里那份登录态，能进你登录着的一切。</p>
+<p><strong>电脑操控（Computer Use）</strong> ——上一节讲的，<strong>碰的是整个桌面</strong>：原生 App、模拟器、跨应用流程。范围最大，也最慢。</p>
+<p>三条路对照着看，你就知道该掏哪条：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>内置浏览器</th>
+<th>Chrome 扩展</th>
+<th>电脑操控</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>碰什么</strong></td>
+<td>Codex 自带浏览器里的网页</td>
+<td>你真实 Chrome（带登录态）</td>
+<td>整个 macOS / Windows 桌面</td>
+</tr>
+<tr>
+<td><strong>典型活儿</strong></td>
+<td>localhost、文件预览、公开页</td>
+<td>LinkedIn / Salesforce / Gmail / 内网系统</td>
+<td>原生 App、模拟器、跨应用流程</td>
+</tr>
+<tr>
+<td><strong>用不用你的登录态</strong></td>
+<td>❌ 不用，干净隔离</td>
+<td>✅ 用你 Chrome 的登录态</td>
+<td>看你操作的具体应用</td>
+</tr>
+<tr>
+<td><strong>怎么调起来</strong></td>
+<td><code>@Browser</code> 或让它「用浏览器」</td>
+<td><code>@Chrome</code></td>
+<td><code>@Computer</code> 或 <code>@AppName</code></td>
+</tr>
+<tr>
+<td><strong>装什么</strong></td>
+<td>Browser 插件</td>
+<td>Chrome 插件 + Chrome 扩展</td>
+<td>Computer Use 插件</td>
+</tr>
+<tr>
+<td><strong>轻重 / 速度</strong></td>
+<td>最轻最快</td>
+<td>中等</td>
+<td>最重最慢</td>
+</tr>
+</tbody></table>
+<p>一句话分工：<strong>本地网页用内置浏览器，登录态网站用 Chrome 扩展，连桌面都得碰才上电脑操控</strong>。下面三节分别讲怎么开。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：碰界面有三条路——<strong>内置浏览器（localhost / 公开页，不碰登录态）、Chrome 扩展（你已登录的网站）、电脑操控（整个桌面）</strong>；从轻到重，用错那条要么够不着要么瞎费劲，先对着表选对路再动手。</p>
+</blockquote>
+<hr>
+<h2>03 开起来之一：内置浏览器（最该先用的那条）</h2>
+<p>按「从轻到重」的顺序，先讲最该先上手的内置浏览器。它的定位就一句话：<strong>你和 Codex 共享一个看渲染页面的视图，专门拿来预览和验证本地 Web 应用</strong>。</p>
+<h3>装插件 + 打开它</h3>
+<p>第一步，装 <strong>Browser 插件</strong>：在 Codex 里进 <strong>Plugins</strong>，把 Browser 插件加上、打开（具体入口以界面为准）。</p>
+<p>第二步，打开内置浏览器。官方给了几种方式：</p>
+<ul>
+<li>从工具栏点开；</li>
+<li>点页面里的某个 URL 自动打开；</li>
+<li>在浏览器里手动输地址导航；</li>
+<li>用快捷键——<strong>macOS 是 <code>Cmd+Shift+B</code> ，Windows 是 <code>Ctrl+Shift+B</code></strong> 。</li>
+</ul>
+<h3>让 Codex 自己操作内置浏览器</h3>
+<p>光预览还不够，你可以让 Codex <strong>直接操作</strong>这个内置浏览器：点击、打字、看渲染后的状态、截图、下载页面资源、跑只读的页面检查 JavaScript、或者验证一个修复有没有生效。</p>
+<p>调它的方式：在任务里让它「用浏览器」，或者直接 <code>@Browser</code> 引用。一条官方示例长这样：</p>
+<pre><code class="language-text">用浏览器打开 http://localhost:3000/settings，复现那个布局 bug，
+只修溢出的那几个控件，别动其它。
+</code></pre>
+<h3>它有个「批注」绝活</h3>
+<p>内置浏览器最香的一点，是<strong>批注（comment / annotation）</strong>——当一个 bug <strong>只在渲染出来的页面上才看得见</strong>时，你可以直接在页面元素上圈一下、留句话，给 Codex 一个<strong>精准到具体元素</strong>的目标，比打一堆字描述清楚多了。</p>
+<p>官方给的操作要点（以界面为准）：</p>
+<ul>
+<li>打开<strong>批注模式（Annotation mode）</strong>，选中一个元素或区域，提交评论；</li>
+<li>批注模式里<strong>按住 <code>Shift</code> 点击</strong>可以框选一块区域；</li>
+<li><strong>按住 <code>Cmd</code> 点击</strong>可以立刻把评论发出去。</li>
+</ul>
+<p>留完批注，在对话里发条消息让它来处理就行。好的批注是<strong>具体的</strong>，比如：</p>
+<pre><code class="language-text">这个按钮在手机上会溢出。能放一行就保持一行，
+放不下就换行，但别改卡片的高度。
+</code></pre>
+<p>还有个更精细的入口——<strong>批注上有个 config 图标</strong>，点开后可以直接在界面上调<strong>字体、文字大小、间距、颜色</strong>，并实时预览效果，满意了再提交给 Codex。比纯文字描述「字体改大一点、颜色偏暖一点」精准多了，所见即所得。</p>
+<p>我自己用下来，批注这招对「差一点点」的视觉调整特别灵——上个月调一个定价页，tooltip 老是盖住光标下的数据点，我懒得描述坐标，直接在那个 tooltip 上圈一下写「把它挪到图表范围内、别遮数据点」，Codex 一次就改对了。<strong>关键是把你在意的那个「视觉状态」说清楚</strong>：加载中、空状态、报错、还是成功态。</p>
+<p>一个隔离边界你得记住，官方写得很明确：</p>
+<blockquote>
+<p>内置浏览器<strong>不支持</strong>认证流程、登录后的页面、你日常浏览器的配置、cookie、扩展、或已经打开的标签页。它只用来打开<strong>不用登录就能访问</strong>的页面。</p>
+</blockquote>
+<p>也就是说——<strong>要登录的站，它干不了，那是下一节 Chrome 扩展的活</strong>。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：内置浏览器是「Codex 自带的、干净隔离的浏览器」，装 Browser 插件后用 <code>@Browser</code> 调，专治 localhost / 公开页的预览和验证；<strong>批注（圈元素 + 留话）是它最值钱的绝活</strong>；但它不碰登录态，要登录的站交给 Chrome 扩展。</p>
+</blockquote>
+<hr>
+<h2>04 开起来之二：Chrome 扩展（要登录态时才用）</h2>
+<p>当任务<strong>离不开你已经登录好的浏览器状态</strong>——读你的 LinkedIn、改 Salesforce 里的客户、在 Gmail 里干活、操作公司内网系统——这时候才轮到 <strong>Chrome 扩展</strong>。</p>
+<h3>从 Plugins 装</h3>
+<p>官方给的安装流程是从插件走，照着点就行：</p>
+<ol>
+<li>打开 Codex，进 <strong>Plugins</strong> 。</li>
+<li>添加 <strong>Chrome</strong> 插件。</li>
+<li><strong>跟着安装向导走</strong>——它会引导你装 <strong>Codex 的 Chrome 扩展</strong>（在 Chrome 应用商店里），并批准 Chrome 弹出的权限提示。</li>
+<li>打开 Chrome，确认 Codex 扩展显示 <strong>Connected（已连接）</strong>。</li>
+</ol>
+<blockquote>
+<p>装扩展、访问 Chrome 应用商店在国内一般需要「魔法上网」；具体的扩展页面跟着 Codex 的安装向导走，别自己去搜一个名字相近的装错了。</p>
+</blockquote>
+<p>装好后<strong>开一个新的 Codex 线程</strong>，Codex 在任务需要登录态网站时会主动建议用 Chrome；你也可以直接在提示词里点名它：</p>
+<pre><code class="language-text">@Chrome 打开 Salesforce，根据这些通话记录更新对应的客户。
+</code></pre>
+<p>如果 Chrome 还没开，Codex 能替你开。一个贴心细节：<strong>Chrome 浏览器任务跑在 Chrome 的标签页分组（tab group）里</strong>，一个线程的活会被归到同一组，不至于把你标签栏搅得乱七八糟。</p>
+<h3>网站访问：默认每个新站都先问你</h3>
+<p>这是 Chrome 扩展（也包括内置浏览器）最该搞懂的默认行为——<strong>别想当然以为它装好就能随便乱跑</strong>：</p>
+<blockquote>
+<p><strong>默认情况下，Codex 在操作每一个新网站之前都会先问你。</strong> 它按网站的 host（比如 <code>example.com</code> ）来弹这个确认。</p>
+</blockquote>
+<p>被问到时，你有三个选项，按风险自己挑：</p>
+<ul>
+<li><strong>只在当前对话里允许</strong>这个网站；</li>
+<li><strong>始终允许</strong>这个 host，以后用它就不再问；</li>
+<li><strong>拒绝</strong>这个网站。</li>
+</ul>
+<p>更细的控制在 <strong>Computer Use 设置</strong>里——你可以维护一份 <strong>allowlist（白名单）和 blocklist（黑名单）</strong>：</p>
+<ul>
+<li>白名单里的域名，Codex 用它<strong>不再问</strong>；</li>
+<li>黑名单里的域名，Codex <strong>不许用</strong>；</li>
+<li>把某个域名<strong>从白名单移除</strong>，下次用它会<strong>重新问你</strong>；从黑名单移除，则是从「直接禁掉」变回「会再问一次」。</li>
+</ul>
+<p>这里有两个开关 / 设定，新手最容易栽，单独拎出来强调：</p>
+<table>
+<thead>
+<tr>
+<th>设定</th>
+<th>默认 / 行为</th>
+<th>踩坑提醒</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>每个新站先问</strong></td>
+<td>默认<strong>开着</strong>（会问）</td>
+<td>这是第一道闸，别嫌烦就急着关</td>
+</tr>
+<tr>
+<td><strong>始终允许浏览器内容（always allow browser content）</strong></td>
+<td>你<strong>手动打开后</strong>，Codex <strong>不再</strong>为用网站弹确认</td>
+<td>一旦打开就等于<strong>拆了那道闸</strong>，想清楚再开</td>
+</tr>
+<tr>
+<td><strong>浏览器历史记录（browser history）</strong></td>
+<td>Codex 想用时<strong>会问</strong>，且<strong>没有「始终允许」选项</strong></td>
+<td>历史里可能有内网 URL、搜索词等敏感信息，按需放行、用完即止</td>
+</tr>
+</tbody></table>
+<p>最后那条浏览器历史值得多说一句：官方明确它的历史访问<strong>每次都按请求临时授权、不给永久放行</strong>——因为历史记录里常藏着敏感的内网地址、搜索词、登录设备上的活动痕迹，<strong>一旦被页面里的恶意内容诱导，这些数据可能被抄到不该去的地方</strong>。所以它故意不给「一劳永逸」的口子。</p>
+<h3>连不上怎么办</h3>
+<p>接 Chrome 扩展最常见的就是「连不上」。官方给了一串排查顺序，照着走（先确认你要访问的站<strong>没被黑名单挡着</strong>，再往下）：</p>
+<ol>
+<li>从 Chrome 工具栏或扩展菜单打开 Codex 扩展，看是不是 <strong>Connected</strong> 。要是显示断开、或提示缺 native host，就到 Codex 的 <strong>Plugins</strong> 里<strong>移除再重新添加</strong> Chrome 插件，重走安装向导。</li>
+<li>进 Codex 的 <strong>Plugins</strong> ，确认 Chrome 插件是<strong>开着</strong>的。</li>
+<li>确认你用的是<strong>装了扩展的那个 Chrome 配置文件（profile）</strong>——多 profile 的人最容易栽这条，扩展装在 A、你却在 B 里干活。</li>
+<li><strong>开个新线程</strong>再试，能清掉线程级的连接状态。</li>
+<li>重启 Chrome 和 Codex 再试；还不行就<strong>卸载扩展、移除并重加 Chrome 插件、重走向导</strong>。</li>
+<li>显示 <strong>Connected</strong> 但还是用不了，跑 <code>/feedback</code> 联系支持，<strong>带上线程 ID</strong> 。</li>
+</ol>
+<blockquote>
+<p>还有个独立的小坑：如果 Chrome 任务需要<strong>从你电脑上传文件</strong>，得在扩展详情页里打开 <strong>「Allow access to file URLs（允许访问文件 URL）」</strong> ，否则它够不到本地文件。改完重启那个任务。</p>
+</blockquote>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：要登录态的网站才用 Chrome 扩展，从 <strong>Plugins</strong> 加 Chrome 插件、跟向导装扩展、确认 <strong>Connected</strong> ，用 <code>@Chrome</code> 调；<strong>默认每个新站先问你</strong>，allowlist / blocklist 在 Computer Use 设置里管，「始终允许浏览器内容」一开就等于拆闸——想清楚再开。</p>
+</blockquote>
+<hr>
+<h2>05 开起来之三：电脑操控（碰整个桌面）</h2>
+<p>最重的这条留到最后。电脑操控让 Codex <strong>看屏幕、动鼠标键盘</strong>操作整个 macOS / Windows 桌面，开它有两道门槛——<strong>地区 + 系统权限</strong>——比前两条都硬。</p>
+<h3>先对地区和平台</h3>
+<p>把最扫兴的放最前面：</p>
+<ul>
+<li><strong>平台</strong>：macOS 和 Windows 可用，<strong>Linux 不在此列</strong>（Codex 桌面 App 本身目前就没有 Linux 版，第 07 篇讲过）。</li>
+<li><strong>地区</strong>：<strong>上线时不支持欧洲经济区（EEA）、英国、瑞士</strong>。这三处人在当地可能直接开不了，别以为是 bug。</li>
+</ul>
+<h3>装插件 + 给系统权限</h3>
+<p>第一步，装 <strong>Computer Use 插件</strong>：进 Codex 设置，打开 <strong>Computer Use</strong> ，点 <strong>Install</strong> 装上——<strong>在让它操作桌面应用之前先装好</strong>。</p>
+<p>第二步，给系统权限，两个平台不一样：</p>
+<p><strong>macOS</strong> 要授<strong>两项</strong>权限（首次使用会弹，按提示给）：</p>
+<table>
+<thead>
+<tr>
+<th>权限</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>屏幕录制（Screen Recording）</strong></td>
+<td>让 Codex <strong>看见</strong>目标应用的界面</td>
+</tr>
+<tr>
+<td><strong>辅助功能（Accessibility）</strong></td>
+<td>让 Codex <strong>点击、打字、导航</strong></td>
+</tr>
+</tbody></table>
+<p>要是 Codex 死活看不见或控制不了某个应用，去 <strong>系统设置 &gt; 隐私与安全性</strong> ，把 Codex 应用的「屏幕录制」和「辅助功能」勾上。</p>
+<p><strong>Windows</strong> 没有这两项系统授权那套，但有个<strong>前台规矩</strong>：电脑操控跑在<strong>当前活动桌面</strong>上，任务期间<strong>目标应用必须可见</strong>，而且——</p>
+<blockquote>
+<p>在 Windows 上，电脑操控<strong>无法在后台运行</strong>。任务跑着的时候，Codex 会<strong>移动你的鼠标指针、打字、接管前台</strong>。</p>
+</blockquote>
+<p>说白了：Windows 上它一干活就<strong>抢你的鼠标键盘</strong>，你这会儿别想同时用这台电脑。想让任务在你离开时继续跑，官方给两条路：<strong>保持设备解锁联网 + 用手机远程查看进度</strong>，或者<strong>在 Windows 虚拟机里跑 Codex</strong> ，让它接管虚拟机而不是你主桌面。</p>
+<h3>怎么调起来</h3>
+<p>在提示词里 <code>@Computer</code> ，或者直接 <code>@AppName</code> 点名某个应用，把<strong>具体哪个 App、哪个窗口、哪条流程</strong>说清楚。官方两条示例：</p>
+<pre><code class="language-text">用电脑操控打开这个 App，复现新手引导里的那个 bug，
+修掉导致它的最小代码路径。每改一次，就把同一条 UI 流程重跑一遍。
+</code></pre>
+<pre><code class="language-text">打开 @Chrome，验证最新改动之后结账页面是否还正常。
+</code></pre>
+<p>注意第二条——<code>@Chrome</code> 既能走上一节的 Chrome 扩展（结构化、带登录态），也能在电脑操控语境里让它「视觉地」操作浏览器。<strong>官方的建议是：目标应用有专用插件 / MCP 就优先用那个，只有需要「肉眼看着操作」时才上电脑操控</strong>。</p>
+<h3>权限和审批：和系统权限是两码事</h3>
+<p>这里有个容易混的点，官方专门拆开讲：<strong>电脑操控的「系统权限」和 Codex 里的「应用审批」是两套东西</strong>。</p>
+<ul>
+<li><strong>系统权限</strong>（macOS 的屏幕录制 / 辅助功能）：让 Codex <strong>有能力</strong>看和操作应用。</li>
+<li><strong>应用审批</strong>：决定你<strong>允许</strong> Codex 用哪些应用。任务里它<strong>用某个应用前会先问你</strong>；你可以选 <strong>始终允许（Always allow）</strong> ，以后用这个 App 就不再问——这份「始终允许」清单能在 Codex 设置的 <strong>Computer Use</strong> 板块里移除。</li>
+<li>而<strong>文件读取、文件编辑、shell 命令</strong>，<strong>照旧走线程的沙箱和审批设置</strong>（第 15、16 篇那套），不因为开了电脑操控就放松。</li>
+</ul>
+<p>碰到敏感或破坏性的操作，Codex <strong>可能还会额外再问一次</strong>。</p>
+<h3>锁定使用（macOS 专属，谨慎开）</h3>
+<p>还有个进阶能力叫<strong>锁定使用（Locked use）</strong>，<strong>只在 macOS</strong> 有，而且<strong>默认关着、得你手动开</strong>。它解决的是：你从别的设备发了个 Codex 任务，任务要用桌面应用，但<strong>你的 Mac 已经锁屏了</strong>。</p>
+<p>启用后，Codex 会装一个 <strong>Apple 授权插件（authorization plug-in）</strong>，参与 macOS 的解锁流程，在受信任的电脑操控回合里<strong>临时解锁</strong> Mac、保留锁屏保护。官方列出 4 道安全护栏：</p>
+<ul>
+<li>授权窗口<strong>短时效</strong>，仅限当次解锁尝试有效。</li>
+<li>自动解锁<strong>只对活跃回合</strong>的 Codex 开放。</li>
+<li>解锁期间 <strong>Codex 会盖住所有显示器画面</strong>。</li>
+<li><strong>一旦检测到本地有人动键盘 / 鼠标，立刻重新锁屏</strong>并暂停自动解锁。</li>
+</ul>
+<p>官方把话说得很死：<strong>这是个刻意做窄的能力，不是给你 Mac 的「通用远程解锁」后门</strong>，别的 App 和本地进程都借不到它解锁。<strong>新手别急着开这个</strong>，等你真有「锁屏后还要让它干活」的刚需再说。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：电脑操控碰整个桌面，门槛最高——<strong>地区上 EEA / 英国 / 瑞士不支持、Linux 没有</strong>；macOS 装插件后给「屏幕录制 + 辅助功能」，Windows 会<strong>抢你前台</strong>；系统权限和应用审批是两码事，文件 / shell 照旧走沙箱；锁定使用是 macOS 专属、默认关、刻意做窄，新手先别碰。</p>
+</blockquote>
+<hr>
+<h2>06 安全：它动的是「真桌面 / 真浏览器」，不是沙箱</h2>
+<p>这一节最不能跳——<strong>因为电脑操控和 Chrome 扩展碰的都是你真实的、登录着一切的桌面和浏览器，不是一个用完即焚的沙箱</strong>。这跟前面 Codex 在沙箱里跑命令（第 15 篇）是完全不同的信任边界，第 16 篇那根「便利和风险成正比」的主线，到这儿绷到了最紧。</p>
+<h3>风险到底在哪</h3>
+<p>官方说得直接：用电脑操控时，Codex 能<strong>看屏幕内容、截图、操作目标应用里的窗口 / 菜单 / 键盘输入 / 剪贴板</strong>。把这些「它看得见的东西」都当成它任务期间会处理的上下文。两类风险你得有数：</p>
+<ul>
+<li><strong>登录态等于钥匙串</strong>：它访问网站不用再认证，<strong>你登录了什么，它就够得着什么</strong>。官方的提醒一针见血——</li>
+</ul>
+<blockquote>
+<p>网页可能包含<strong>恶意或误导性内容</strong>，而网站会把已批准的点击、表单提交、登录态下的操作，<strong>当成是你本人发起的</strong>。</p>
+</blockquote>
+<ul>
+<li><strong>提示注入（prompt injection）</strong>：第 16 篇讲过——<strong>网页内容里可能藏着「写给 AI 看」的恶意指令</strong>。操作浏览器 / 桌面时这风险格外真，因为它读的全是<strong>外部的、你控制不了的</strong>页面和界面内容。</li>
+</ul>
+<h3>官方给了哪些护栏</h3>
+<p>好在这不是「敞开了让它乱来」，内置了几道闸：</p>
+<ul>
+<li><strong>每个新网站先问你</strong>（第 04 节那道），是浏览器侧的第一道闸。</li>
+<li><strong>每个新应用先审批</strong>（第 05 节），是桌面侧的第一道闸；敏感 / 破坏性操作还可能再问一次。</li>
+<li><strong>操作随时可中断</strong>——你可以<strong>随时停掉任务、或直接夺回电脑的控制权</strong>。</li>
+<li><strong>有几件事它压根做不了</strong>，这是硬护栏：</li>
+</ul>
+<blockquote>
+<p>电脑操控<strong>无法自动化终端应用、也无法自动化 Codex 自己</strong>（那会绕过 Codex 的安全策略）；它也<strong>无法以管理员身份认证、无法替你批准电脑上的安全和隐私权限提示</strong>。</p>
+</blockquote>
+<p>最后这条特别让人安心——<strong>它没法自己点掉那个「是否授予权限」的系统弹窗</strong>，安全相关的口子始终攥在你手里。</p>
+<h3>你自己该守的几条</h3>
+<p>官方护栏之外，操作真桌面 / 真浏览器还有几条土规矩，我整理成一张「该怎么办」表：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>❌ 别这么干</th>
+<th>✅ 该这么办</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>一次给多少任务</td>
+<td>一口气甩好几个 App / 流程让它乱跑</td>
+<td><strong>一次只给一个</strong>明确的目标应用或流程</td>
+</tr>
+<tr>
+<td>敏感应用</td>
+<td>把网银、密码管理器开着不管</td>
+<td>任务不需要就<strong>关掉</strong>敏感应用</td>
+</tr>
+<tr>
+<td>Windows 上干活</td>
+<td>它抢前台时你还想同时用这台机</td>
+<td>用<strong>第二台设备 / 虚拟机</strong>，或先停任务再自己用</td>
+</tr>
+<tr>
+<td>涉及密钥的任务</td>
+<td>丢给它自己跑、人走开</td>
+<td><strong>你在场、能逐步批准</strong>时才做</td>
+</tr>
+<tr>
+<td>「始终允许」</td>
+<td>见一个点一个，图省事</td>
+<td><strong>只对你确实信任</strong>它自动用的 App / 站点开</td>
+</tr>
+<tr>
+<td>账户 / 支付 / 隐私 / 网络设置</td>
+<td>让它自己点完</td>
+<td>这类操作<strong>全程在场盯着</strong></td>
+</tr>
+<tr>
+<td>它点错了窗口</td>
+<td>等它自己纠正</td>
+<td><strong>立刻取消任务</strong></td>
+</tr>
+</tbody></table>
+<p>还有个数据层面的提醒：通过桌面应用做的改动，<strong>在保存到磁盘、被项目追踪之前，可能不会出现在审查面板（review pane）里</strong>——别以为审查面板空着就等于没改东西。另外，<strong>你的 ChatGPT 数据控制设置</strong>适用于经 Codex 处理的内容，<strong>包括电脑操控截的那些屏</strong>。</p>
+<blockquote>
+<p>想边干活边继续用浏览器？官方给了个干净的办法——<strong>让 Codex 去用另一个不同的浏览器</strong>，把它跟你日常那个隔开，互不打扰。</p>
+</blockquote>
+<p>总原则就一条：<strong>它在桌面 / 浏览器里点的每一下都是「真的」</strong>——不像沙箱里跑错了删个环境重来，浏览器里点了「确认付款」就是真付了。所以<strong>越是不可逆、越是涉钱的操作，越要自己把着方向盘</strong>。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：电脑操控和 Chrome 扩展碰的是<strong>真桌面 / 真浏览器</strong>（非沙箱），风险在「登录态即钥匙」和「页面里的提示注入」；官方护栏有「逐站 / 逐应用先问、随时可中断、终端 / Codex 自身 / 系统权限弹窗它碰不了」，你自己则要<strong>一次一个目标、关掉无关敏感应用、把涉钱和不可逆操作攥在手里</strong>。</p>
+</blockquote>
+<hr>
+<h2>07 动手：用内置浏览器读一次本地页面</h2>
+<p>光看不练假把式。下面带你跑一个<strong>最小实战</strong>：用<strong>内置浏览器</strong>（三条路里最轻、最安全的那条）打开一个本地页面、让 Codex 读点东西回来。<strong>全程不碰你的登录态、不抢你前台</strong>，专门拿来验证「这条路通了没」。</p>
+<blockquote>
+<p>为什么选内置浏览器练手？因为它<strong>不用任何系统权限、不碰你的 Chrome、不受地区限制</strong>，是三条路里门槛最低、翻车面最小的。Chrome 扩展和电脑操控按前面的步骤开，原理一样、只是闸更多。</p>
+</blockquote>
+<p><strong>第一步：起一个本地页面</strong></p>
+<p>随便起个最简单的静态服务，给内置浏览器一个能打开的本地地址。任选其一：</p>
+<pre><code class="language-bash">python3 -m http.server 3000
+</code></pre>
+<p><strong>预期</strong>：终端显示类似 <code>Serving HTTP on :: port 3000 (http://[::]:3000/) ...</code> ，说明本地服务起来了。先用你日常浏览器访问 <code>http://localhost:3000</code> 确认能打开（会列出当前目录的文件）。</p>
+<p><strong>第二步：装并打开内置浏览器</strong></p>
+<p>在 Codex 里进 <strong>Plugins</strong> ，确认 <strong>Browser 插件</strong>已加好、已打开（以界面为准）。然后打开内置浏览器——用快捷键最快：</p>
+<ul>
+<li><strong>macOS</strong>：<code>Cmd+Shift+B</code></li>
+<li><strong>Windows</strong>：<code>Ctrl+Shift+B</code></li>
+</ul>
+<p>✅ 自验：Codex 窗口里弹出一个内置浏览器视图。</p>
+<p><strong>第三步：让 Codex 用内置浏览器读页面</strong></p>
+<p>给它一条「只读、不碰敏感账号」的指令：</p>
+<pre><code class="language-text">用浏览器打开 http://localhost:3000，
+把页面上列出的文件名读给我，并截一张图。
+</code></pre>
+<p><strong>预期</strong>：你会<strong>看见内置浏览器导航到 <code>http://localhost:3000</code></strong> ，Codex 把页面上的内容（这里就是目录里的文件名列表）读回对话，并附一张截图。<strong>看到它真打开、内容真回来了 = 这条路通了。</strong> 第一次操作某个站时，按第 04 节说的，它<strong>可能先弹一个确认问你要不要用这个网站</strong>——允许即可。</p>
+<p><strong>第四步（可选）：试试批注</strong></p>
+<p>想体验第 03 节那个绝活，打开<strong>批注模式</strong>，在页面某个元素上圈一下、留句话（比如「这行字太小，调大两号」），再发条消息让 Codex 处理。<strong>预期</strong>：它能精准定位到你圈的那个元素去改，而不用你描述半天它在哪。</p>
+<p>跑通前三步，你就把「装 Browser 插件 → 打开内置浏览器 → 让它读本地页面」这条最轻的链路走了一遍。<strong>以后无论是换内置浏览器干别的活、还是升级到 Chrome 扩展 / 电脑操控，本质都是这套「装插件 → 给权限 / 确认 → <code>@</code> 调它 → 看它动起来」，无非闸越来越多、动的东西越来越真。</strong></p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：动手就三步——<strong>起本地服务、打开内置浏览器（<code>Cmd/Ctrl+Shift+B</code>）、给一条只读指令看它真把页面读回来</strong>；这是三条路里最轻最安全的入口，跑通它，另外两条照葫芦画瓢、只是多几道闸。</p>
+</blockquote>
+<hr>
+<h2>08 小结</h2>
+<p>这一篇给 Codex 接上了<strong>图形界面</strong>——从「只会摸文件和命令行」，到能开浏览器、点桌面应用、复现只在界面才现形的 bug。但更关键的是，你搞清了<strong>碰界面有三条路、别用错</strong>。</p>
+<p>把核心串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你要做的事</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>理解 Computer Use</td>
+<td>让 Codex<strong>看屏幕、动鼠标键盘</strong>操作桌面，是<strong>最重</strong>的路，本地 Web 先用内置浏览器</td>
+</tr>
+<tr>
+<td>分清三条路</td>
+<td><strong>内置浏览器（localhost）→ Chrome 扩展（登录态网站）→ 电脑操控（整个桌面）</strong>，从轻到重</td>
+</tr>
+<tr>
+<td>开内置浏览器</td>
+<td>装 Browser 插件、<code>@Browser</code> 调、<code>Cmd/Ctrl+Shift+B</code> 打开，<strong>批注是绝活</strong></td>
+</tr>
+<tr>
+<td>开 Chrome 扩展</td>
+<td>Plugins 加 Chrome 插件 + 装扩展、<code>@Chrome</code> 调，<strong>默认每个新站先问你</strong></td>
+</tr>
+<tr>
+<td>开电脑操控</td>
+<td>装 Computer Use 插件，macOS 给「屏幕录制 + 辅助功能」、Windows 抢前台；<strong>EEA / 英国 / 瑞士、Linux 不支持</strong></td>
+</tr>
+<tr>
+<td>守住安全</td>
+<td>碰的是<strong>真桌面 / 真浏览器</strong>：一次一个目标、圈小网站 / 应用范围、涉钱和不可逆操作自己来</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 讲清这三条路各管哪一块、什么活该掏哪条；独立把内置浏览器开起来读本地页面；知道 Chrome 扩展和电脑操控怎么装、有哪些地区 / 平台限制；并且清楚操作真桌面 / 真浏览器的风险在哪、该守哪几道闸。<strong>这一接，Codex 从「本地代码助手」迈出了一大步——能直接替你看屏幕、动界面了。</strong></p>
+<p>这三条路的关系，用一张图收个尾：</p>
+<p><img src="assets/17-ui-routes@2x.png" alt="Codex 电脑操控三条路：公开页用浏览器 / 登录态用 Chrome 扩展 / 桌面 App 才用电脑操控"></p>
+<p>这张图把「任务要碰界面 → 是哪种界面 → 走哪条路 → 各自的脾气」一条线串清楚了，下回拿不准用哪个，照它走一遍就有答案。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：三条路<strong>从轻到重</strong>——内置浏览器管本地和公开页、Chrome 扩展管你登录着的网站、电脑操控管整个桌面；权限越大风险越真，核心安全原则只有一条：<strong>操作真桌面 / 真浏览器时，每一下都是「真的」，涉钱和不可逆的自己把着方向盘</strong>。</p>
+</blockquote>
+<hr>
+<p>下一篇 <strong>18「config.toml 配置详解」</strong>——这一篇里你装了三个插件、调了一堆权限和 allowlist，是不是觉得设置散落在各处、记不住？其实 Codex 把绝大多数行为旋钮都收在一个文件里——<code>config.toml</code> 。下一篇就把这摞旋钮一次拧明白：模型、沙箱、审批、MCP……哪个键控什么、默认是什么、改完要不要重启。留个小思考：这一篇让 Codex「能动手」靠的是装插件 + 给权限，那要是想把「默认用哪个模型、默认多大胆」这些<strong>一开机就生效</strong>的偏好定下来，你猜该写到哪儿？</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/16-security.html"><span class="mono">← 上一篇 · 16</span><b>安全与风险边界：到底该不该放手让它碰你的代码</b></a>
+  <a class="pg nx" href="/library/codex/18-config.html"><span class="mono">下一篇 · 18 →</span><b>config.toml 配置详解：一个文件管住所有旋钮</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

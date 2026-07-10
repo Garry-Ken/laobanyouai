@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>12 斜杠命令与快捷键：会话里的「快捷操作面板」 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 12 篇:斜杠命令与快捷键：会话里的「快捷操作面板」。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/12-slash-commands.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class="cur"><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class="cur"><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 12 篇</p>
+      <h1>斜杠命令与快捷键：会话里的「快捷操作面板」</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇〔<a href="11-agents-md.html">11 项目说明书 AGENTS.md</a> 〕教你把规矩写进文件、让 Codex 每轮开工都先读一遍。那是「事先立规矩」；这一篇讲「<strong>当场拨开关</strong>」——进了会话之后，一个 <code>/</code> 能让你切模型、清上下文、看状态、审改动，再配上一把顺手的快捷键，操作效率直接翻倍。下一篇〔<a href="13-prompting.html">13 提示词（Prompt）写法</a> 〕再回到「怎么把需求说清楚」。</p>
+</blockquote>
+<p>我数了一遍 Codex 官方文档里列的斜杠命令。</p>
+<p>CLI 那张表，整整 <strong>40 多条</strong>；桌面 App 列了 <strong>6 条</strong>；IDE 扩展列了 <strong>8 条</strong>。我第一次翻 CLI 那张表的时候是真有点懵——光一个终端会话里，能用斜杠当场调的开关就这么多，而我之前来回用的，<strong>满打满算不超过五个</strong>。</p>
+<p>更扎心的是后面这件事。我有阵子每次想清空对话重开，都老老实实 <code>Ctrl+C</code> 退出、再敲 <code>codex</code> 重启，等它重新加载一遍项目——一套下来小十秒。这么连着干了快两周，直到某天翻文档撞见 <code>/clear</code>，一句话写着「清掉终端、开一段全新对话」。<strong>原来在输入框打六个字符就行，那两周的重启全是白费功夫。</strong></p>
+<p>说这段是想让你别走我的弯路：<strong>斜杠命令不是「高级玩法」，它是 Codex 会话里最基础的控制台</strong>。你想对 Codex 本身做点啥——不是让它写代码，而是调教它当前这次会话——入口几乎都在这一个 <code>/</code> 后面。这一篇把 CLI、桌面 App、IDE 三处的斜杠命令和常用快捷键一次摊开，给你一张能直接抄的速查。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一句话说清斜杠命令是啥、为什么三个入口的命令数量差这么多</li>
+<li>一张「按你在干哪一步」分组的 CLI 常用命令速查（<code>/model</code>、<code>/status</code>、<code>/diff</code>、<code>/compact</code>、<code>/review</code>、<code>/init</code>……），不用背、按需查</li>
+<li>桌面 App 和 IDE 扩展各自能用哪几个斜杠命令——别拿 CLI 那张大表去套，会扑空</li>
+<li>一份最该记的 CLI 键盘快捷键表（<code>Ctrl+L</code>、<code>Ctrl+O</code>、<code>Tab</code>、<code>Ctrl+G</code>、<code>!</code> 前缀……），全对照官方核对过</li>
+<li>自定义快捷键怎么改（<code>/keymap</code>），以及为什么新手先别急着改</li>
+<li>一个能照着跑、给了预期输出的最小验证流程</li>
+</ul>
+<blockquote>
+<p>⚠️ 下文凡涉及具体命令、快捷键、默认行为，都以 Codex <a href="https://developers.openai.com/codex">官方文档</a> 为准；模型名、版本号、退出键这类随版本或终端变的东西，<strong>以你本地界面实际显示为准</strong>，本篇不写死。桌面 App 的快捷键官方目前<strong>只标了 macOS</strong>，Windows 键位看本机设置面板，下面会专门提醒。</p>
+</blockquote>
+<hr>
+<h2>01 先搞懂：斜杠命令到底是个啥，凭什么只在开头算数</h2>
+<p>先给结论：<strong>斜杠命令就是你在 Codex 会话里打的「控制指令」——不是说给模型听让它干活，而是直接命令 Codex 这个程序：切模型、清上下文、看状态、跑个流程。</strong></p>
+<p>你回想前面几篇，跟 Codex 打交道一直分两种话。一种是<strong>正经需求</strong>：「帮我把这个函数重构一下」「这段报错咋回事」——这是说给模型听的。另一种是<strong>元操作</strong>：「把对话清了重开」「换个更省的模型」「让我看看现在啥配置」——这些不该靠跟模型「聊」，而该有个<strong>直接的开关</strong>。斜杠命令就是这批开关的统一入口。官方对它的定位讲得很干脆——「斜杠命令让你对 Codex 有快速、键盘优先的控制」。</p>
+<p><strong>类比：写字楼前台那块「分机号一览表」。</strong> 你进一栋写字楼办事，不会逮着前台从头解释「我要找三楼那个管报销的」——你扫一眼墙上贴的分机表，财务 8101、人事 8102、IT 8105，直接拨。<strong>每个号通一个确定的部门，拨过去立刻接通，不用绕、不会理解歪。</strong> 斜杠命令就是 Codex 会话的这张分机表：<code>/model</code> 通「换模型」、<code>/status</code> 通「看状态」、<code>/diff</code> 通「审改动」——打下去执行的是程序写死的固定动作，跟「求模型帮忙」是两码事。</p>
+<p>这里有个<strong>新手最容易栽的点</strong>：斜杠命令得让 <code>/</code> 当这条消息的<strong>第一个字符</strong>才算数。你在输入框打 <code>/</code>，菜单立刻弹出来；接着多打几个字母，它实时筛选。官方在三个入口的文档里都是同一句操作——「在输入框打 <code>/</code>，从列表里选，或继续打字来过滤（比如 <code>/status</code> ）」。</p>
+<p>落到你真实会遇到的几个瞬间，体会一下这张「分机表」啥时候拨：</p>
+<ul>
+<li><strong>聊着聊着发现模型不够强</strong>——不用退出重开，CLI 里打 <code>/model</code> 当场换上更强的，对话不断。</li>
+<li><strong>不确定现在是什么配置</strong>——打 <code>/status</code>，当前模型、审批策略、上下文余量一屏看清。</li>
+<li><strong>一个任务干完想换个全新的活儿</strong>——CLI 里打 <code>/clear</code> 把台面擦干净重开。</li>
+</ul>
+<p>这几件事的共同点：<strong>都不是「让 Codex 写代码」，而是「调教这次会话本身」</strong>——这正是斜杠命令的主场。</p>
+<p>那为什么三个入口命令数量差这么大（CLI 四十多、App 六个、IDE 八个）？一句话：<strong>CLI 是 Codex 功能最全的那张脸</strong>（第 08 篇说过），很多偏底层、偏调试的开关只在终端给；桌面 App 和 IDE 是图形界面，该用按钮、菜单、设置面板干的事就不挤进斜杠列表了。所以<strong>别拿 CLI 那张大表去 App 或 IDE 里套</strong>，各认各的，下面分开讲。</p>
+<blockquote>
+<p>💡 一句话总结：斜杠命令是 Codex 会话的「分机号一览表」——管的是程序本身（切模型、清上下文、看状态），不是给模型派活；<strong>它只在消息开头才算数，打一个 <code>/</code> 就能看到你当前入口真正能用的全部命令</strong>。</p>
+</blockquote>
+<hr>
+<h2>02 CLI 常用命令：不用背，按「你在干哪一步」来查</h2>
+<p>CLI 那四十多条，<strong>真要一个个背，纯属跟自己过不去</strong>。好在它们能按「一次会话的典型流程」归类——你处在哪一步，自然就该用哪几个。我把日常高频的按这个思路理成四组，<strong>对着「你现在想干啥」找那一行就行</strong>，全部对照官方 <code>cli/slash-commands</code> 核对过。</p>
+<p>先说清一件事：第 08 篇已经把 CLI 的交互界面、最该记的几个救急命令点过了，这一节是<strong>把那张表铺全、分组</strong>，不是重复——第 08 篇点到为止的，这里给你能查的全集思路。</p>
+<h3>第一组：搭场子、定规矩</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>干啥的</th>
+<th>你啥时候用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/init</code></td>
+<td>在当前目录生成一份 <code>AGENTS.md</code> 脚手架</td>
+<td>第一次在某个仓库里立规矩（详见第 11 篇）</td>
+</tr>
+<tr>
+<td><code>/permissions</code></td>
+<td>设 Codex 不用问就能干哪些事</td>
+<td>想在 Auto / Read Only 之间收紧或放开</td>
+</tr>
+<tr>
+<td><code>/mcp</code></td>
+<td>列出已配置的 MCP 工具（加 <code>verbose</code> 看详情）</td>
+<td>接外部服务、排查工具连没连上</td>
+</tr>
+<tr>
+<td><code>/skills</code></td>
+<td>浏览并选用一个本地 Skill</td>
+<td>想让某个专项 Skill 接管下一轮</td>
+</tr>
+<tr>
+<td><code>/status</code></td>
+<td>看会话配置和 token 用量</td>
+<td>确认当前模型、审批策略、可写目录、上下文余量</td>
+</tr>
+</tbody></table>
+<p>进新项目基本是固定套路：先 <code>/init</code> 让它读一遍代码、吐一份 <code>AGENTS.md</code> 草稿（第 11 篇专讲怎么写好它），再 <code>/permissions</code> 把动手权限调到你舒服的档。</p>
+<h3>第二组：干活干到一半，调状态</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>干啥的</th>
+<th>你啥时候用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/model</code></td>
+<td>切换模型（有的还能调推理强度）</td>
+<td>想换更强或更快的模型</td>
+</tr>
+<tr>
+<td><code>/compact</code></td>
+<td>把可见对话压缩成摘要、腾出 token</td>
+<td>聊太久、上下文快满了</td>
+</tr>
+<tr>
+<td><code>/clear</code></td>
+<td>清掉终端 + 开一段全新对话</td>
+<td>换个全新任务，台面收拾干净</td>
+</tr>
+<tr>
+<td><code>/new</code></td>
+<td>在同一个 CLI 会话里开一段新对话</td>
+<td>换任务，但<strong>不想先清屏</strong></td>
+</tr>
+<tr>
+<td><code>/plan</code></td>
+<td>切到 plan 模式，可顺带带一句提示</td>
+<td>大改动前先让它出方案不动手</td>
+</tr>
+</tbody></table>
+<p>这里有三个<strong>最容易混</strong>的，专门掰一下，差别全来自官方：</p>
+<p><strong><code>/clear</code> 和 <code>/new</code> 都开新对话，区别在「要不要先擦屏幕」。</strong> 官方原话：<code>/new</code> 不像 <code>/clear</code> 那样先清掉当前终端画面。所以<strong>想连旧记录一起眼不见心不烦用 <code>/clear</code>，想留着上面的滚屏只换上下文用 <code>/new</code></strong>。</p>
+<p><strong><code>/clear</code> 和 <code>/compact</code> 又是另一对</strong>——一个清空、一个压缩。换个不相干的新活儿用 <code>/clear</code> （台面全擦），<strong>同一个任务但聊太长了用 <code>/compact</code></strong> （把草稿纸整理成一页要点接着干）。我前面栽的那两周「重启大法」，本质就是没分清「重启」和「清空对话」——其实 <code>/clear</code> 一步就到。</p>
+<h3>第三组：活儿交出去之前，检查</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>干啥的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/diff</code></td>
+<td>看 Git diff，<strong>含 Git 还没开始跟踪的新文件</strong></td>
+</tr>
+<tr>
+<td><code>/review</code></td>
+<td>让 Codex 审一遍你的工作区改动（盯行为变化和漏掉的测试）</td>
+</tr>
+<tr>
+<td><code>/copy</code></td>
+<td>复制 Codex 最近一条<strong>已完成</strong>的输出（也可按 <code>Ctrl+O</code>）</td>
+</tr>
+</tbody></table>
+<p><code>/diff</code> 我几乎每次提交前都按——它连<strong>还没 <code>git add</code>、Git 压根没跟踪的新文件</strong>都列出来，比我自己 <code>git status</code> 加 <code>git diff</code> 两条命令一把抓得还全。官方明说了它会同时显示已暂存、未暂存、和未跟踪三类改动。</p>
+<blockquote>
+<p>⚠️ <code>/diff</code> 默认你的项目已经是 Git 仓库——它本质就是封装 Git 的差异比较。要是当前目录还没 <code>git init</code>，没有可对比的版本，<code>/diff</code> 自然也没的可显示。动手前先 <code>git status</code> 确认仓库能用；不是 Git 仓库，先 <code>git init</code> 打个初始提交再让 Codex 改。</p>
+</blockquote>
+<h3>第四组：杂项里你早晚用得上的</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>干啥的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/keymap</code></td>
+<td>查看并修改 TUI 快捷键绑定，改动可持久化（详见第 05 节）</td>
+</tr>
+<tr>
+<td><code>/statusline</code></td>
+<td>交互式挑选、排序状态栏（页脚）显示哪些字段</td>
+</tr>
+<tr>
+<td><code>/theme</code></td>
+<td>选一个语法高亮主题并存下来</td>
+</tr>
+<tr>
+<td><code>/resume</code></td>
+<td>从会话列表恢复一段存过的对话</td>
+</tr>
+<tr>
+<td><code>/side</code>（别名 <code>/btw</code>）</td>
+<td>开一段「侧聊」临时分支，不污染主线</td>
+</tr>
+<tr>
+<td><code>/fork</code></td>
+<td>把当前对话分叉成一个新线程，原对话不动</td>
+</tr>
+<tr>
+<td><code>/quit</code>（别名 <code>/exit</code>）</td>
+<td>退出 CLI（<strong>退之前先保存或提交重要改动</strong>）</td>
+</tr>
+</tbody></table>
+<p>这四组<strong>没给全</strong>（官方那张表四十多行，要查全的回头翻 <code>cli/slash-commands</code> ），但<strong>覆盖了你日常九成的场景</strong>。剩下的临时想干啥，在输入框打个 <code>/</code> 加几个字母筛一下，比背一张表实在得多。</p>
+<p>还有个 Codex 挺贴心的细节，官方专门写了：<strong>任务正跑着的时候，你可以先把一条斜杠命令打好、按 <code>Tab</code> 排进队列</strong>，等这一轮跑完它自动解析、接着处理——命令菜单和报错会在当前回合结束后才冒出来。我经常在它跑测试的间隙，先把 <code>/review</code> 用 <code>Tab</code> 排好队，一跑完审查无缝衔接，省了来回干等。</p>
+<blockquote>
+<p>💡 一句话总结：CLI 命令别硬背，<strong>按「你在哪一步」分组查</strong>——搭场子（<code>/init</code> <code>/permissions</code> <code>/mcp</code>）、干活中（<code>/model</code> <code>/compact</code> <code>/clear</code>）、交付前（<code>/diff</code> <code>/review</code>）、杂项（<code>/keymap</code> <code>/resume</code> <code>/fork</code>）；记牢 <code>/clear</code>（清屏+换上下文）、<code>/new</code>（不清屏换上下文）、<code>/compact</code>（压缩续聊）这三兄弟的差别。</p>
+</blockquote>
+<hr>
+<h2>03 桌面 App 与 IDE 扩展：命令少得多，别拿 CLI 那张表去套</h2>
+<p>第 08 篇我提醒过一句——<strong>别拿 CLI 四十多条的认知去桌面 App 和 IDE 里套，会扑空</strong>。这一节就把这俩各自的斜杠命令单独列清楚，省得你在 App 里打 <code>/keymap</code> 半天没反应还以为坏了。</p>
+<p>为啥它俩命令少这么多？前面说了：图形界面里很多事是用按钮、菜单、设置面板干的，没必要全塞进斜杠列表。<strong>类比：同一家银行的手机 App 和柜台。</strong> 柜台（CLI）什么业务都能办、连最冷门的也行；手机 App（桌面 App / IDE）只把高频那几样做成首页大按钮，剩下的引导你去别处。<strong>不是 App 残废，是常用动作前置、长尾动作搬走了。</strong></p>
+<h3>桌面 App：官方目前列这 6 条</h3>
+<table>
+<thead>
+<tr>
+<th>斜杠命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/status</code></td>
+<td>看线程 ID、上下文用量、限额情况</td>
+</tr>
+<tr>
+<td><code>/review</code></td>
+<td>开代码审查模式，审未提交改动或跟基线分支比</td>
+</tr>
+<tr>
+<td><code>/plan</code></td>
+<td>切到 plan 模式，做多步规划</td>
+</tr>
+<tr>
+<td><code>/goal</code></td>
+<td>设一个 Codex 要持续达成的目标（先用 <code>/plan</code> 把它捋清楚再设）</td>
+</tr>
+<tr>
+<td><code>/mcp</code></td>
+<td>看已连接的 MCP server 状态</td>
+</tr>
+<tr>
+<td><code>/feedback</code></td>
+<td>提反馈（可附带日志）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>两个补充，都来自官方：① 在输入框打 <code>$</code> 能<strong>显式调用 Skills</strong>，启用的 Skills 也会出现在斜杠列表里；② <code>/goal</code> 要是列表里没有，可能得在 <code>config.toml</code> 里开 <code>features.goals = true</code>，或跑 <code>codex features enable goals</code> 来开启。</p>
+</blockquote>
+<p>桌面 App 真正的「快捷」其实在<strong>键盘快捷键</strong>上——清空对话、新建线程、切面板这些，都走 <code>Cmd</code> 系快捷键而不是斜杠命令（第 07 篇那张快捷键表给过，这里不重复）。所以在 App 里，<strong>斜杠管「下指令式的动作」（审查、规划、看状态），快捷键管「界面操作」（开窗、切栏、搜历史）</strong>，分工和 CLI 不太一样。</p>
+<h3>IDE 扩展（VS Code 等）：官方列这 8 条</h3>
+<table>
+<thead>
+<tr>
+<th>斜杠命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/status</code></td>
+<td>看线程 ID、上下文用量、限额情况</td>
+</tr>
+<tr>
+<td><code>/review</code></td>
+<td>开代码审查模式，审未提交改动或跟基线分支比</td>
+</tr>
+<tr>
+<td><code>/goal</code></td>
+<td>设一个 Codex 要持续达成的持久目标</td>
+</tr>
+<tr>
+<td><code>/auto-context</code></td>
+<td>开 / 关「自动上下文」，自动带上最近文件和 IDE 上下文</td>
+</tr>
+<tr>
+<td><code>/local</code></td>
+<td>切到本地模式，在你的工作区里跑任务</td>
+</tr>
+<tr>
+<td><code>/cloud</code></td>
+<td>切到云端模式，把任务跑到远端（需云端权限）</td>
+</tr>
+<tr>
+<td><code>/cloud-environment</code></td>
+<td>选用哪个云端环境（仅云端模式下可用）</td>
+</tr>
+<tr>
+<td><code>/feedback</code></td>
+<td>提反馈（可附带日志）</td>
+</tr>
+</tbody></table>
+<p>IDE 这套里最有「IDE 特色」的是 <code>/local</code> 和 <code>/cloud</code> 这对——<strong>一句话就能把当前任务从「在我电脑上跑」切到「丢云端跑」</strong>（第 09、10 篇分别讲过本地和云端两条线）。我在 VS Code 里调试一个要跑很久的重构时，常先 <code>/local</code> 验证思路对不对，确认了再 <code>/cloud</code> 扔上去挂着，本机腾出来干别的。</p>
+<p>把三个入口的斜杠命令摆一起对比，差异一目了然：</p>
+<table>
+<thead>
+<tr>
+<th>入口</th>
+<th>斜杠命令数量（官方现列）</th>
+<th>特色命令</th>
+<th>其余操作靠什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>CLI</strong></td>
+<td>40 多条</td>
+<td><code>/keymap</code> <code>/fork</code> <code>/side</code> <code>/statusline</code> 等一大批</td>
+<td>键盘快捷键（第 05 节）</td>
+</tr>
+<tr>
+<td><strong>桌面 App</strong></td>
+<td>6 条</td>
+<td><code>/goal</code> <code>/plan</code></td>
+<td><code>Cmd</code> 系快捷键 + 按钮（第 07 篇）</td>
+</tr>
+<tr>
+<td><strong>IDE 扩展</strong></td>
+<td>8 条</td>
+<td><code>/local</code> <code>/cloud</code> <code>/auto-context</code></td>
+<td>VS Code 命令面板 + 快捷键（第 09 篇）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>⚠️ 这三个数量是官方文档<strong>当前列出的</strong>条目，会随版本变。最靠谱的办法永远是：<strong>在你正用的那个入口打一个 <code>/</code>，看它实际弹出来的列表</strong>——那才是你这台机器、这个版本真能用的全集，别拿别人截图或这张表死磕。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：桌面 App 现列 6 条、IDE 现列 8 条，都比 CLI 那四十多条少得多——<strong>图形界面把高频动作前置成按钮、把界面操作交给快捷键，斜杠只留「下指令式」的那几个</strong>；IDE 独有 <code>/local</code>、<code>/cloud</code> 一键切运行位置；具体能用啥，打 <code>/</code> 当场看。</p>
+</blockquote>
+<hr>
+<h2>04 IDE 里还有一类「命令」：VS Code 命令面板里的 Codex 动作</h2>
+<p>上一节讲的是 IDE <strong>聊天框里</strong>打 <code>/</code> 的斜杠命令。但 IDE 扩展还藏着另一套你容易忽略的「命令」——<strong>VS Code 命令面板（Command Palette）里的 Codex 动作</strong>，这俩不是一回事，得分清。</p>
+<p>先说它解决什么。有些操作发生在<strong>编辑器层面</strong>，不在聊天框里：比如选中一段代码想「丢给当前线程当上下文」、或者光标停在一句 <code>// TODO</code> 上想「让 Codex 把这条实现掉」。这些动作没法用斜杠命令触发（斜杠在聊天框里），得走命令面板或绑成快捷键。</p>
+<p><strong>类比：右键菜单 vs 聊天窗。</strong> 聊天框里的斜杠命令像你在对话里下指令；命令面板里的 Codex 动作像你<strong>在代码上点右键选「交给 Codex」</strong>——一个是「说」，一个是「指着某段代码动手」。两套入口，配合着用。</p>
+<p>官方在 <code>ide/commands</code> 列了这几个扩展命令（命令 ID 给你了，方便绑快捷键）：</p>
+<table>
+<thead>
+<tr>
+<th>命令（面板里搜 <code>Codex</code> 或命令 ID）</th>
+<th>默认快捷键</th>
+<th>干啥的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>chatgpt.newChat</code></td>
+<td>macOS <code>Cmd+N</code> / Win·Linux <code>Ctrl+N</code></td>
+<td>新建一个线程</td>
+</tr>
+<tr>
+<td><code>chatgpt.addToThread</code></td>
+<td>无（可自绑）</td>
+<td>把<strong>选中的文本范围</strong>加进当前线程当上下文</td>
+</tr>
+<tr>
+<td><code>chatgpt.addFileToThread</code></td>
+<td>无（可自绑）</td>
+<td>把<strong>整个文件</strong>加进当前线程当上下文</td>
+</tr>
+<tr>
+<td><code>chatgpt.implementTodo</code></td>
+<td>无（可自绑）</td>
+<td>让 Codex 处理选中的那条 TODO 注释</td>
+</tr>
+<tr>
+<td><code>chatgpt.newCodexPanel</code></td>
+<td>无（可自绑）</td>
+<td>新建一个 Codex 面板</td>
+</tr>
+<tr>
+<td><code>chatgpt.openSidebar</code></td>
+<td>无（可自绑）</td>
+<td>打开 Codex 侧边栏面板</td>
+</tr>
+</tbody></table>
+<p>怎么给它们绑快捷键？官方给的步骤照抄：</p>
+<ol>
+<li>开命令面板（macOS <code>Cmd+Shift+P</code> ，Windows / Linux <code>Ctrl+Shift+P</code> ）。</li>
+<li>跑 <strong>Preferences: Open Keyboard Shortcuts</strong>（偏好设置：打开键盘快捷方式）。</li>
+<li>搜 <code>Codex</code> 或具体命令 ID（比如 <code>chatgpt.newChat</code> ）。</li>
+<li>点那支铅笔图标，输入你想要的快捷键。</li>
+</ol>
+<p>我自己给 <code>chatgpt.addToThread</code> 绑了个顺手的键——选中一段看不懂的代码，一按就丢进侧边栏的线程里，比复制粘贴再切窗口快多了。<strong>这套「编辑器动作」是 IDE 扩展相对 CLI 多出来的便利</strong>，纯终端里没有「选中代码右键交给它」这种操作。</p>
+<blockquote>
+<p>💡 一句话总结：IDE 扩展有<strong>两套</strong>入口——聊天框里的<strong>斜杠命令</strong>（下指令）和命令面板里的 <strong>Codex 动作</strong>（<code>chatgpt.addToThread</code>、<code>implementTodo</code> 等，指着代码动手）；后者默认大多没绑键，按官方四步在「键盘快捷方式」里自己绑一个最顺手。</p>
+</blockquote>
+<hr>
+<h2>05 CLI 键盘快捷键：比斜杠更快的那一层</h2>
+<p>斜杠命令已经够快了，但有一小撮高频操作，<strong>连打斜杠都嫌慢</strong>——按一个键就完事。这一节专讲 CLI 里这些纯键盘动作。第 08 篇给过一张救急表，这里把它和官方 <code>cli/slash-commands</code> 里散落提到的快捷键合并、补全。</p>
+<p><strong>类比：键盘快捷键之于斜杠命令，就像双击之于「右键→打开」。</strong> 右键菜单（斜杠命令）什么都能选，但常用的那几样，你早练成了双击、<code>Ctrl+C</code> 、<code>Ctrl+V</code> 的肌肉记忆——<strong>手指比眼睛快</strong>。</p>
+<p>下面这些就是 Codex 终端里最该练成肌肉记忆的：</p>
+<table>
+<thead>
+<tr>
+<th>键盘动作</th>
+<th>作用</th>
+<th>对应的斜杠命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Ctrl+L</code></td>
+<td><strong>只清屏幕、保留当前对话</strong>（强制重绘）</td>
+<td>无（和 <code>/clear</code> 不一样，见下）</td>
+</tr>
+<tr>
+<td><code>Ctrl+O</code></td>
+<td>复制 Codex 最近一条<strong>已完成</strong>的输出</td>
+<td>等同 <code>/copy</code></td>
+</tr>
+<tr>
+<td><code>Tab</code>（任务跑着时）</td>
+<td>把下一条输入 / 斜杠命令 / <code>!</code> 命令排进队列</td>
+<td>无</td>
+</tr>
+<tr>
+<td><code>Ctrl+G</code></td>
+<td>在外部编辑器里写长提示词，写完带回输入框（编辑器由 <code>VISUAL</code> 或 <code>EDITOR</code> 环境变量决定，没设过的话可能默认是 vi——想用 VS Code 先跑 <code>export VISUAL=code</code>）</td>
+<td>无</td>
+</tr>
+<tr>
+<td><code>Alt+R</code></td>
+<td>切换 raw 滚屏模式（让终端选中、复制更直接）</td>
+<td>等同 <code>/raw</code></td>
+</tr>
+<tr>
+<td><code>!</code> 前缀（行首）</td>
+<td>不打扰 Codex，顺手在终端跑条 shell 命令</td>
+<td>无</td>
+</tr>
+</tbody></table>
+<p>有三处<strong>官方专门强调、最容易按错或用错</strong>的，单独说：</p>
+<p><strong><code>Ctrl+L</code> 不等于 <code>/clear</code>。</strong> 这是 Codex 里最容易混的一对，官方原话写得很直白：<code>Ctrl+L</code> 只清终端画面、<strong>保留当前对话</strong>；而 <code>/clear</code> 是清屏 + <strong>开一段全新对话</strong>（上下文一起没了）。一个是「擦黑板」，一个是「换张新黑板」。另外，任务正在跑的时候这两个都按不了——官方特意说了，两者都会在任务进行中被禁用，等跑完再按。我去年在一台 SSH 连过去的服务器上跑 Codex，网络抖了一下整个界面错位，差点 <code>Ctrl+C</code> 杀掉重来——幸好想起 <code>Ctrl+L</code>，一按就重绘干净，<strong>那一长串上下文一点没丢</strong>。要是真重启，前面攒的全白攒。</p>
+<p><strong><code>!</code> 前缀——顺手跑命令，还让 Codex「看见」结果。</strong> 在输入框行首打 <code>!</code>，后面跟一条命令（比如 <code>!git status</code> ），这条直接在你终端跑。官方说 Codex 会<strong>把它的输出当成「用户提供的命令结果」收进上下文</strong>，而且照样走你的审批和沙箱设置。它香在哪？想瞄一眼仓库状态、又不想让 Codex 专门跑一趟烧 token——<code>!git status</code> 立等可取，下一句它还能接着这个状态聊。</p>
+<pre><code class="language-text">!git status
+</code></pre>
+<p><strong><code>Ctrl+O</code> 复制输出，有两个边界。</strong> 官方说：要是当前回合还在跑，<code>Ctrl+O</code> 复制的是<strong>最近一条已完成</strong>的输出（不是正在生成的那条）；而且在 Codex 出第一条完整输出之前、以及刚回滚之后，这个动作<strong>不可用</strong>。知道这俩边界，就不会纳闷「为啥按了没反应」。</p>
+<h3>想改键？用 <code>/keymap</code>，但新手先别急</h3>
+<p>默认键不顺手能改。CLI 提供了 <code>/keymap</code>——查看、修改、并把自定义绑定持久化进 <code>config.toml</code> 的 <code>tui.keymap</code> 。官方给的用法：打 <code>/keymap</code> → 挑要改的快捷键上下文和动作 → 输入新绑定或清掉旧的。键名长这样：<code>ctrl-a</code> 、<code>shift-enter</code> 、<code>page-down</code> 。</p>
+<p>不过我得劝一句——<strong>新手先把默认的用熟，别一上来就折腾配置</strong>。我自己是用了小半年、确实有两个键和我别的工具冲突了，才去改的。一上来就重绑，回头看文档、问别人，你的键位跟所有教程都对不上，反而给自己添乱。</p>
+<blockquote>
+<p>💡 一句话总结：CLI 键盘动作里 <code>Ctrl+L</code>（清屏不丢对话，<strong>别和 <code>/clear</code> 搞混</strong>）、<code>Ctrl+O</code>（复制输出）、<code>Tab</code>（排队）、<code>Ctrl+G</code>（开编辑器写长指令）、<code>!</code>（顺手跑命令还让 Codex 看见）最常用；想改键有 <code>/keymap</code>，但先把默认的练成肌肉记忆。</p>
+</blockquote>
+<hr>
+<h2>06 动手：把三个入口的斜杠命令各跑一遍</h2>
+<p>光看不练记不住。下面给一套<strong>最小验证流程</strong>，不依赖任何复杂项目，新建个空文件夹就能跑通 CLI 那段；App 和 IDE 那段在你装好的对应入口里点一下即可。</p>
+<blockquote>
+<p>平台差异先说清：下面建目录的 <code>mkdir</code> 在 <strong>Mac / Linux</strong> 直接用；<strong>Windows</strong> 用 PowerShell 把 <code>mkdir -p</code> 换成 <code>mkdir</code>，或在资源管理器里手动建。还没装 Codex CLI 的回第 03 篇装好再来。</p>
+</blockquote>
+<h3>CLI 部分（五步，全程在终端）</h3>
+<p><strong>第一步：建个空目录，进去启动。</strong></p>
+<pre><code class="language-bash">mkdir -p ~/codex-slash-demo &amp;&amp; cd ~/codex-slash-demo &amp;&amp; git init
+codex
+</code></pre>
+<p><strong>预期</strong>：进入全屏 TUI，最底下是输入框，贴着输入框有状态栏小字。</p>
+<p><strong>第二步：打一个 <code>/</code> 看你这台机器的真实命令全集。</strong></p>
+<p>在输入框只打一个斜杠（<strong>别回车</strong>）：</p>
+<pre><code class="language-text">/
+</code></pre>
+<p><strong>预期</strong>：弹出一长串命令菜单，旁边带各自说明。<strong>这张菜单就是你当前版本真能用的全集</strong>——你会看到它比本篇任何一张表都长（官方一直在加命令）。再多打几个字母（比如 <code>/st</code> ），列表会实时筛到 <code>/status</code> 这些上。</p>
+<p><strong>第三步：用 <code>/status</code> 看一眼当前配置。</strong></p>
+<pre><code class="language-text">/status
+</code></pre>
+<p><strong>预期</strong>：Codex 打印当前会话概况——用的哪个模型、审批策略是啥、有哪些可写目录、上下文还剩多少。<strong>心里先有个底。</strong></p>
+<p><strong>第四步：试 <code>Ctrl+L</code> 和 <code>!</code>，体会「快捷键比斜杠还快」。</strong></p>
+<p>先随便让屏幕滚几行（比如打个 <code>!ls</code> 回车），再按 <code>Ctrl+L</code> ：</p>
+<pre><code class="language-text">!ls
+</code></pre>
+<p><strong>预期</strong>：<code>!ls</code> 那条直接在终端列出当前目录内容（这会儿目录是空的，列出来基本没东西很正常），且这条命令和输出被收进了上下文；按 <code>Ctrl+L</code> 后屏幕被清干净重绘，但<strong>你刚才的对话一条没少</strong>（往上滚还在）——这就是它和 <code>/clear</code> 的区别。</p>
+<p><strong>第五步：试 <code>/diff</code>（顺便让它真干件活），再退出。</strong></p>
+<p>先让它干点会改文件的小事：</p>
+<pre><code class="language-text">新建一个文件 hi.txt，里面写一行 hello from codex
+</code></pre>
+<p>它可能停下来请求批准（取决于当前审批策略），同意即可。完事后：</p>
+<pre><code class="language-text">/diff
+</code></pre>
+<p><strong>预期</strong>：Codex 列出 Git 视角的改动，<strong>包括这个还没被 Git 跟踪的新文件 <code>hi.txt</code></strong> ——这正是 <code>/diff</code> 比手敲 <code>git status</code> 全的地方。看完退出：</p>
+<pre><code class="language-text">/exit
+</code></pre>
+<p><strong>预期</strong>：退回普通终端（<code>/quit</code> 同效，<code>Ctrl+C</code> 也能中断）。</p>
+<h3>桌面 App / IDE 部分（各一步，验证「命令表不一样」）</h3>
+<p><strong>桌面 App</strong>：打开 App，在某个线程的输入框打一个 <code>/</code> 。</p>
+<p><strong>预期</strong>：弹出的列表<strong>短得多</strong>，大致就是 <code>/status</code>、<code>/review</code>、<code>/plan</code>、<code>/goal</code>、<code>/mcp</code>、<code>/feedback</code> 这几条（以你本地为准）。亲眼确认它和 CLI 那张大表不是一回事。再打个 <code>$</code> ，会看到它列出可调用的 Skills。</p>
+<p><strong>IDE 扩展（VS Code 等）</strong>：在 Codex 聊天输入框打 <code>/</code> 。</p>
+<p><strong>预期</strong>：列表里能看到 <code>/local</code>、<code>/cloud</code>、<code>/auto-context</code> 这些 <strong>CLI 和 App 都没有</strong>的命令。这就直观证明了第 03 节那句——<strong>三个入口的斜杠命令各认各的</strong>。</p>
+<p>跑完这一圈，你就把本篇最核心的认知——<strong>「打 <code>/</code> 看真实全集」「三个入口命令表不同」「<code>Ctrl+L</code> ≠ <code>/clear</code>」「<code>/diff</code> 连未跟踪文件都看得到」</strong>——亲手验证了一遍，比记十条文档都实在。</p>
+<blockquote>
+<p>⚠️ 小插曲：CLI 第五步它要是没停下来问、直接建好了，说明你当前审批策略比较宽松（Auto 档下在工作区内写文件本就不拦）——这不是 bug，是第 02 篇讲的沙箱 + 审批在按规则放行。想看它「停下来问」那一下，用 <code>/permissions</code> 切到 <code>Read Only</code> 再让它建文件就能复现。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：照着「<code>/</code> 看全集 → <code>/status</code> 看配置 → <code>Ctrl+L</code> / <code>!</code> 体会快捷键 → <code>/diff</code> 审改动 → <code>/exit</code> 退」走一遍 CLI，再分别在 App、IDE 里打个 <code>/</code> 对比命令表——亲手确认「三处不一样」「快捷键和斜杠各管一摊」，记得最牢。</p>
+</blockquote>
+<hr>
+<h2>07 小结</h2>
+<p>这一篇把斜杠命令和快捷键从「你每天敲、却没摸透的入口」给你掀开看了——<strong>它是 Codex 会话的控制台，从切模型、清上下文到审改动，一个 <code>/</code> 全管；再配一把快捷键，操作快上一截</strong>。</p>
+<p>把核心要点串成一张表，揣兜里：</p>
+<table>
+<thead>
+<tr>
+<th>你想搞清的事</th>
+<th>答案</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>斜杠命令是什么</td>
+<td>Codex 会话的控制指令</td>
+<td>管程序本身、不是派活；只在消息开头算数</td>
+</tr>
+<tr>
+<td>CLI 命令怎么记</td>
+<td>按「你在哪一步」分组查</td>
+<td>搭场子 / 干活中 / 交付前 / 杂项；打 <code>/</code> 见真实全集</td>
+</tr>
+<tr>
+<td><code>/clear</code> <code>/new</code> <code>/compact</code> 咋分</td>
+<td>清屏换上下文 / 不清屏换上下文 / 压缩续聊</td>
+<td>换任务用前俩，续任务用 <code>/compact</code></td>
+</tr>
+<tr>
+<td>桌面 App 能用啥</td>
+<td>现列 6 条</td>
+<td><code>/status</code> <code>/review</code> <code>/plan</code> <code>/goal</code> <code>/mcp</code> <code>/feedback</code></td>
+</tr>
+<tr>
+<td>IDE 扩展能用啥</td>
+<td>现列 8 条</td>
+<td>独有 <code>/local</code> <code>/cloud</code> <code>/auto-context</code></td>
+</tr>
+<tr>
+<td>IDE 命令面板那套</td>
+<td>编辑器层动作</td>
+<td><code>chatgpt.addToThread</code>、<code>implementTodo</code> 等，自己绑键</td>
+</tr>
+<tr>
+<td>CLI 快捷键记哪些</td>
+<td><code>Ctrl+L</code> <code>Ctrl+O</code> <code>Tab</code> <code>Ctrl+G</code> <code>!</code></td>
+<td><code>Ctrl+L</code> ≠ <code>/clear</code>（不丢对话）</td>
+</tr>
+<tr>
+<td>想改键</td>
+<td><code>/keymap</code>（CLI）、键盘快捷方式（IDE / App）</td>
+<td>新手先用熟默认的</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 在任意一个入口打 <code>/</code> 就看懂那张菜单、按「你在哪一步」找到该用的命令；分得清 CLI、桌面 App、IDE 三处的斜杠命令为啥不一样、各有哪些；记牢 <code>Ctrl+L</code> 和 <code>/clear</code> 别按混；还知道 IDE 命令面板里那套「指着代码动手」的 Codex 动作怎么绑快捷键。</p>
+<p>回头看开头那两周的「重启大法」——<strong>说到底就是没翻过那个 <code>/</code> 菜单</strong>。这一篇之后，但凡你想对 Codex 本身做点啥，第一反应该是先打个斜杠看看有没有现成的开关。<strong>这点习惯，能帮你省下那一大把白费的时间。</strong></p>
+<hr>
+<p>下一篇 <strong>〔<a href="13-prompting.html">13 提示词（Prompt）写法</a> 〕</strong>——斜杠命令是「拨开关」，可真正决定 Codex 干得好不好的，还是你<strong>怎么把需求说清楚</strong>那句话。同样一个任务，提示词写得糊和写得准，结果可能差出十万八千里。下一篇就把「怎么跟 Codex 说话它才听得懂、干得对」这件最值钱的事讲透。留个小思考：这一篇你学会了用 <code>/plan</code> 让它先出方案——那一句好的提示词，和一句让它返工三遍的提示词，差在哪几个地方？</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/11-agents-md.html"><span class="mono">← 上一篇 · 11</span><b>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</b></a>
+  <a class="pg nx" href="/library/codex/13-prompting.html"><span class="mono">下一篇 · 13 →</span><b>提示词（Prompt）写法：把话说到 Codex 心坎里</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

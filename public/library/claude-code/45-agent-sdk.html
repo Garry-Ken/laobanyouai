@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>45 Agent SDK：把 Claude Code 的能力搬进你自己的程序 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 45 篇:Agent SDK：把 Claude Code 的能力搬进你自己的程序。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/45-agent-sdk.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class="cur"><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class="cur"><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 45 篇</p>
+      <h1>Agent SDK：把 Claude Code 的能力搬进你自己的程序</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="44-github-actions.html">44 GitHub Actions</a> 教你把 Claude 接进 CI，让它在 PR 和流水线里自动干活。这一篇再进一步——<strong>不止接进流水线，而是把 Claude Code 整套能力当成一个库，嵌进你自己写的程序和服务里</strong>。Agent SDK，就是那条让你「用代码调起一个 Claude 代理」的官方通道。</p>
+</blockquote>
+<p>兄弟们，今天聊个让你从「用工具的人」变成「造工具的人」的东西。</p>
+<p>前面四十多篇，你一直是 Claude Code 的<strong>用户</strong>——在终端敲 <code>claude</code>，跟它对话，看它改代码。这是它的「正面」。但它还有个「背面」你大概率没碰过：<strong>它的内核——那套读文件、跑命令、想了再做的代理循环——是可以被你的代码直接调起来的</strong>。</p>
+<p>这就是 Agent SDK（Agent 软件开发工具包，让你在 Python / TypeScript 里编程调用 Claude Code 内核的一套库）。说白了，<strong>它把「Claude Code 是什么」从一个命令行工具，变成了你程序里的一个函数</strong>。你写几行代码，就能在自己的应用里跑出一个会自主读代码、改文件、查网络的 AI 代理。</p>
+<p>这东西的分量，在你想做个「自动审 PR 的小机器人」时最容易体会到。一开始老老实实调原始 API，结果光是「让模型读个文件」就得自己写一大堆代码——把文件内容塞进请求、接住模型说「我要读 X」、真去读、再把结果回传……来回折腾大半天。换成 Agent SDK，<strong>那一坨脏活全没了，三行代码 Claude 自己就把文件读了、bug 也改了</strong>。今天就把这条路给你铺平。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一句话讲清 Agent SDK 是什么、它把 Claude Code 的哪部分「拆出来给你用」</li>
+<li>它和你天天敲的 CLI 到底差在哪——同一个内核，两个不同的「入口」</li>
+<li>它和「原始 API」的本质区别（这条想不通，你会以为自己在重复造轮子）</li>
+<li>TypeScript 和 Python 两套怎么选、装哪个包、要什么前置条件</li>
+<li>一个能照着敲、给了预期输出的最小代理：让它自己找出并修掉一个 bug</li>
+<li>想清楚「这玩意儿到底适合谁、你该不该学」</li>
+</ul>
+<hr>
+<h2>01 先搞懂：Agent SDK 把 Claude Code 的什么「拆出来」了</h2>
+<p>先给结论：<strong>Agent SDK 就是把 Claude Code 的内核做成一个库，让你能用代码（Python 或 TypeScript）调起一个和 CLI 同款的 Claude 代理。</strong></p>
+<p>回想第 03 篇讲的「代理循环」——Claude 干活的本质是「想 → 做 → 看」转圈：想清楚下一步、调个工具去做（读文件、跑命令）、看结果再决定下一步。你在终端里用 <code>claude</code> 时，享受的就是这套循环加一堆内置工具（Read、Edit、Bash 这些，详见第 03 篇）。</p>
+<p><strong>关键认知：这套循环和工具，不是 CLI 独有的，它是可以被你的代码直接调起来的。</strong> 官方把这件事说得很直白：</p>
+<blockquote>
+<p>Agent SDK 为您提供了与 Claude Code 相同的工具、代理循环和上下文管理，可在 Python 和 TypeScript 中编程。</p>
+</blockquote>
+<p><strong>类比：把咖啡馆的那台全自动咖啡机搬回自己家厨房。</strong> 你天天去楼下咖啡馆点咖啡（这是用 CLI），喝得挺顺。但有一天你想在自己开的早餐店里也供应同款咖啡——你不可能让客人都跑去那家咖啡馆。于是你<strong>把同一台机器搬进自己店里</strong>：还是那个磨豆、萃取、打奶的内核，只不过现在嵌在你自己的流程里，你想什么时候出杯、出给谁、配上什么早餐套餐，全由你的代码说了算。Agent SDK 就是这台「搬得走的机器」——<strong>同款内核，装进你自己的程序里跑</strong>。</p>
+<p>那它到底「拆出来」了什么？官方列得很清楚，CLI 里那些让 Claude 强大的东西，SDK 里<strong>一个不少</strong>：</p>
+<ul>
+<li><strong>内置工具</strong>：Read、Write、Edit、Bash、Glob、Grep、WebSearch 这些开箱即用，<strong>你不用自己实现工具怎么执行</strong></li>
+<li><strong>代理循环</strong>：想→做→看那套编排，SDK 帮你转</li>
+<li><strong>上下文管理</strong>：哪些文件读过、对话历史，它替你记着</li>
+<li>再往上，Hook、子代理、MCP、权限控制、会话恢复——<strong>CLI 有的扩展点，SDK 里都能编程调用</strong></li>
+</ul>
+<p>落到真实场景，你什么时候会想起它？举三个常见的念头：</p>
+<ul>
+<li><strong>「我想做个 Slack 机器人，谁发个报错日志进来，它自己去代码库里定位、给个修复建议」</strong>——这得把代理嵌进你的 Slack 服务</li>
+<li><strong>「我想跑个定时任务，每晚自动扫一遍代码库里的 TODO，整理成报告」</strong>——这得用代码调起代理、还得能拿到它的输出</li>
+<li><strong>「我想给我的产品加个『AI 助手』功能，底层是 Claude 直接操作用户的项目文件」</strong>——这更是非 SDK 不可</li>
+</ul>
+<p>这三件事，<strong>用 CLI 都别扭</strong>——CLI 是给「人坐在终端前」设计的；而上面这些，是「程序自动调起、自动收结果」。这正是 SDK 的主场。</p>
+<blockquote>
+<p>💡 一句话总结：Agent SDK 把 Claude Code 的<strong>内核（工具 + 代理循环 + 上下文管理）做成了一个库</strong>，让你用代码调起一个和 CLI 同款的 Claude 代理，<strong>嵌进自己的程序和服务里</strong>。</p>
+</blockquote>
+<hr>
+<h2>02 它和 CLI 到底差在哪：同一个内核，两个入口</h2>
+<p>这是最容易绕进去的一点，先把它彻底说清：<strong>Agent SDK 和你天天敲的 CLI，底下是同一套东西，区别只在「入口」——一个给人手敲，一个给程序调用。</strong></p>
+<p>官方那句话点得最准，我原封不动放这儿：</p>
+<blockquote>
+<p>相同的功能，不同的界面。</p>
+</blockquote>
+<p><strong>类比：同一台咖啡机，店里现点现做 vs 装进自动售卖机批量出杯。</strong> 还是那台咖啡机（同一个内核）。摆在吧台后头，店员看着客人现点现做、随时能问「要不要加糖」——这是 <strong>CLI</strong>，适合人在场、边看边调。把同一台机器装进无人售卖机，投币、按钮、自动出杯、不用人盯——这是 <strong>SDK</strong>，适合「程序自动触发、批量跑、没人值守」。机器没变，<strong>变的是谁来按下那个按钮</strong>。</p>
+<p>什么时候用哪个，官方给了张特别实在的对照表，我照搬过来：</p>
+<table>
+<thead>
+<tr>
+<th>用例</th>
+<th>最佳选择</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>交互式开发（你坐在终端边写边调）</td>
+<td><strong>CLI</strong></td>
+</tr>
+<tr>
+<td>一次性任务（临时让它干件事）</td>
+<td><strong>CLI</strong></td>
+</tr>
+<tr>
+<td>CI/CD 管道（流水线里自动跑）</td>
+<td><strong>SDK</strong></td>
+</tr>
+<tr>
+<td>自定义应用程序（嵌进你自己的产品）</td>
+<td><strong>SDK</strong></td>
+</tr>
+<tr>
+<td>生产自动化（无人值守、长期跑）</td>
+<td><strong>SDK</strong></td>
+</tr>
+</tbody></table>
+<p>看这张表的窍门：<strong>问自己一句「这事儿是我人坐在这儿盯着，还是程序自动跑」</strong>。人盯着、要随时插话——CLI；程序自动起、自动收结果——SDK。</p>
+<p>而且官方特意提了一句很关键的话，打消你「学了一个是不是另一个就白学」的顾虑：</p>
+<blockquote>
+<p>许多团队同时使用两者：CLI 用于日常开发，SDK 用于生产。工作流在它们之间直接转换。</p>
+</blockquote>
+<p>这话很实在。<strong>很多人就是这么用的</strong>：白天写代码，终端里 <code>claude</code> 随手使唤（CLI）；等某个流程被重复手敲到第五遍、烦了，就把它用 SDK 写成一个脚本挂起来自动跑。<strong>两边的「提示词」「该给哪些工具」「权限怎么配」这套思路是完全通的</strong>——你在 CLI 里攒的所有经验，搬到 SDK 里一行都不浪费。</p>
+<p>所以别把它俩对立起来看。<strong>这么说吧：CLI 是你「亲自上手」的入口，SDK 是你「派程序去跑」的入口，背后是同一个 Claude Code。</strong> 一张图把这层关系画清楚：</p>
+<p><img src="assets/45-sdk-routes@2x.png" alt="Agent SDK 同一个内核两条入口：人用 CLI 实时调；程序用 SDK 嵌入自动化；共享代理循环 + 工具集"></p>
+<p>这张图的意思：<strong>上面是两个不同的「入口」——人手敲走 CLI，程序调用走 SDK；但两条路汇到同一个 Claude Code 内核，最后干的活也是同一套</strong>。所以你才会看到「同内核、两入口」这个说法。</p>
+<blockquote>
+<p>💡 一句话总结：CLI 和 SDK <strong>同一个内核、两个入口</strong>——人坐着边看边调用 CLI、程序自动起批量跑用 SDK；<strong>两者常常一起用，你在 CLI 攒的经验搬到 SDK 完全通用</strong>。</p>
+</blockquote>
+<hr>
+<h2>03 别搞混：Agent SDK 不是「原始 API」，差在「谁来跑工具循环」</h2>
+<p>这一节是全篇最值钱的一个区分。<strong>搞不清它，你很可能以为自己在用 SDK，其实在重复造 Claude 早就给你造好的轮子。</strong></p>
+<p>你可能听过「Anthropic 的 API」或者「Client SDK」（直连模型 API 的那套客户端库）。它和 Agent SDK 名字像、都能调 Claude，但<strong>干的活根本不是一回事</strong>。一句话区分：</p>
+<p><strong>Client SDK 给你「会说话的模型」，工具循环你自己写；Agent SDK 给你「会干活的代理」，工具循环它替你跑。</strong></p>
+<p>官方解释得很到位：</p>
+<blockquote>
+<p>Anthropic Client SDK 为您提供直接 API 访问：您发送提示并自己实现工具执行。Agent SDK 为您提供具有内置工具执行的 Claude。</p>
+</blockquote>
+<p><strong>类比：买一堆生豆自己烘焙冲煮 vs 买一台全自动咖啡机。</strong> Client SDK 像是商家只卖给你<strong>生咖啡豆</strong>——豆子是好豆子（模型很强），但想喝上一杯，<strong>烘焙、磨粉、烧水、萃取、打奶，每一步都得你自己动手</strong>。Agent SDK 是直接给你<strong>一台全自动机</strong>——你按一下「美式」，它内部该磨磨、该萃萃，<strong>直接给你出一杯</strong>。模型是同一批豆子，区别在「中间那一堆工序谁来做」。</p>
+<p>落到代码上，差别一眼就能看出来。这是官方给的对比（Python），你感受一下两边的代码量：</p>
+<pre><code class="language-python"># Client SDK：工具循环得你自己写
+response = client.messages.create(...)
+while response.stop_reason == &quot;tool_use&quot;:
+    result = your_tool_executor(response.tool_use)   # 你自己去执行工具
+    response = client.messages.create(tool_result=result, **params)  # 再把结果喂回去
+
+# Agent SDK：Claude 自己把工具跑了
+async for message in query(prompt=&quot;Fix the bug in auth.py&quot;):
+    print(message)
+</code></pre>
+<p>看出来了吗？<strong>Client SDK 那个 <code>while</code> 循环——「模型说要用工具 → 你去执行 → 把结果传回去 → 模型接着想」——就是开头折腾大半天的那一坨。</strong> 模型只会「说」它想读 <code>auth.py</code>，但<strong>真去读这个动作，得你写代码完成</strong>，读完还得手动把内容塞回去。这套「工具循环」你得从头实现。</p>
+<p>Agent SDK 把这一整个 <code>while</code> 循环<strong>收进了那个 <code>query()</code> 里</strong>。你只管说「修掉 auth.py 的 bug」，<strong>它自己决定读哪个文件、自己去读、自己改、自己验</strong>，你坐着收消息流就行。</p>
+<p>这就是开头那个教训的根儿。做 PR 审查机器人时，<strong>很容易头两天就栽在这个 <code>while</code> 循环上</strong>——接模型的 <code>tool_use</code>、自己实现「读文件」「跑 git diff」、再把结果回传，逻辑绕、还老有边界情况漏掉。一旦发现 Agent SDK 把这层全包了，那几百行胶水代码<strong>当场就能删到只剩个 <code>query()</code> 调用</strong>。所以这条得给你钉死：</p>
+<table>
+<thead>
+<tr>
+<th>对比维度</th>
+<th>Client SDK（原始 API）</th>
+<th>Agent SDK</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>给你的是</td>
+<td>会说话的模型</td>
+<td>会干活的代理</td>
+</tr>
+<tr>
+<td>工具谁执行</td>
+<td><strong>你自己写代码执行</strong></td>
+<td><strong>Claude 自动执行</strong></td>
+</tr>
+<tr>
+<td>那个 while 工具循环</td>
+<td>你从头实现</td>
+<td>SDK 替你跑</td>
+</tr>
+<tr>
+<td>内置工具（读写文件、跑命令）</td>
+<td>没有，全自己来</td>
+<td>开箱即用</td>
+</tr>
+<tr>
+<td>适合</td>
+<td>要极致定制、不需要文件系统操作</td>
+<td>要一个能直接动手干活的代理</td>
+</tr>
+</tbody></table>
+<p><strong>判断口诀：你要的是「一个能直接读你文件、跑你命令、动手改代码的代理」——选 Agent SDK，别去碰那个 <code>while</code> 循环。</strong> 只有当你压根不需要它操作文件系统、就想要个纯对话且要极致控制每一步时，才考虑 Client SDK。</p>
+<blockquote>
+<p>💡 一句话总结：Agent SDK ≠ 原始 API——<strong>原始 API（Client SDK）给你模型、工具循环你自己写；Agent SDK 给你代理、工具循环它替你跑</strong>。要「会动手干活的 Claude」，认准 Agent SDK，省下那一大坨胶水代码。</p>
+</blockquote>
+<hr>
+<h2>04 两套语言：TypeScript 和 Python，装哪个、要什么前置</h2>
+<p>Agent SDK 官方提供<strong>两套</strong>，按你顺手的语言挑：<strong>TypeScript</strong> 和 <strong>Python</strong>。功能上<strong>两边对齐</strong>，官方文档每个示例都同时给两种写法，所以别纠结「哪个功能更全」——挑你团队和项目本来就在用的那门语言就对了。</p>
+<p><strong>怎么选，就一句话：你的程序用什么写，就用哪套 SDK。</strong> 后端是 Node / 前端工程化栈——TypeScript；做数据、脚本、AI 工程——Python。没有对错，跟着你的项目走。</p>
+<h3>装哪个包、要什么前置条件</h3>
+<p>两套的安装命令和前置要求不一样，我对照列清楚（<strong>全部照官方文档，没编造</strong>）：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>TypeScript</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>安装命令</td>
+<td><code>npm install @anthropic-ai/claude-agent-sdk</code></td>
+<td><code>pip install claude-agent-sdk</code></td>
+</tr>
+<tr>
+<td>前置环境</td>
+<td><strong>Node.js 18+</strong></td>
+<td><strong>Python 3.10+</strong></td>
+</tr>
+<tr>
+<td>要单独装 Claude Code 吗</td>
+<td><strong>不用</strong>（SDK 自带一个二进制）</td>
+<td>见下方说明</td>
+</tr>
+</tbody></table>
+<p>TypeScript 这边有个很省心的细节，官方专门标了出来：</p>
+<blockquote>
+<p>TypeScript SDK 为您的平台捆绑了一个本地 Claude Code 二进制文件作为可选依赖项，因此您无需单独安装 Claude Code。</p>
+</blockquote>
+<p>也就是说，<strong>TS SDK 装上就能跑，不用你先去装 Claude Code 本体</strong>。</p>
+<p>Python 这边有个版本坑，官方也点了——<strong>包要求 Python 3.10 或更高</strong>。如果 <code>pip</code> 报 <code>No matching distribution found for claude-agent-sdk</code>，八成是你的 Python 太老了。先查版本：</p>
+<pre><code class="language-bash">python3 --version        # macOS / Linux
+py --version             # Windows
+</code></pre>
+<p>低于 3.10 就升级。在一台老 Mac 上装很容易栽在这儿——系统自带的 <code>python</code> 还是 3.9，报的就是那个 <code>No matching distribution</code>，升到 3.11 就能秒装上。</p>
+<h3>还得有 API 密钥</h3>
+<p>不管哪套，跑之前都得有个 Anthropic 的 API 密钥（API key，调用模型的身份凭证）。官方建议在项目目录建个 <code>.env</code> 文件放进去：</p>
+<pre><code class="language-bash">ANTHROPIC_API_KEY=your-api-key
+</code></pre>
+<blockquote>
+<p>密钥从 Claude 控制台（platform.claude.com ）拿；<strong>它是凭证，千万别提交进 git</strong>——记得加进 <code>.gitignore</code>。这套 API 配置的来龙去脉，第 04 篇讲透过，不熟的回去翻。</p>
+</blockquote>
+<p>这里有个<strong>计费上的重要提醒</strong>，官方在文档开头用醒目框标了出来，我原话搬给你（涉及你的钱，不能含糊）：</p>
+<blockquote>
+<p>从 2026 年 6 月 15 日开始，订阅计划上的 Agent SDK 和 <code>claude -p</code> 使用将从一项新的每月 Agent SDK 额度中扣除，该额度与您的交互式使用限额分开。</p>
+</blockquote>
+<p>翻成人话：<strong>你订阅套餐里那份「交互式额度」（你在终端聊天用的），和「Agent SDK 额度」从这天起是分开两本账</strong>。所以别以为「我有订阅了，SDK 随便跑」——SDK 这边走的是单独的额度。具体规则以官方那篇说明为准。</p>
+<blockquote>
+<p>💡 一句话总结：两套 SDK <strong>功能对齐、按语言挑</strong>——TS 用 <code>npm install @anthropic-ai/claude-agent-sdk</code>（Node 18+，自带二进制免装本体），Python 用 <code>pip install claude-agent-sdk</code>（<strong>要 3.10+</strong>）；都得配 <code>ANTHROPIC_API_KEY</code>，且注意 SDK 额度和交互式额度分开计费。</p>
+</blockquote>
+<hr>
+<h2>05 一段代码看懂它长啥样：query() 是入口</h2>
+<p>讲了半天，上代码你才有体感。<strong>Agent SDK 的主入口就一个东西：<code>query()</code>。</strong> 把它搞懂，整套 SDK 的门就推开了。</p>
+<p>官方那个最小例子，我们逐行拆。先看 Python 版：</p>
+<pre><code class="language-python">import asyncio
+from claude_agent_sdk import query, ClaudeAgentOptions
+
+
+async def main():
+    async for message in query(
+        prompt=&quot;Find and fix the bug in auth.py&quot;,
+        options=ClaudeAgentOptions(allowed_tools=[&quot;Read&quot;, &quot;Edit&quot;, &quot;Bash&quot;]),
+    ):
+        print(message)  # Claude 读文件、找到 bug、改掉它
+
+
+asyncio.run(main())
+</code></pre>
+<p>TypeScript 版是一模一样的逻辑：</p>
+<pre><code class="language-typescript">import { query } from &quot;@anthropic-ai/claude-agent-sdk&quot;;
+
+for await (const message of query({
+  prompt: &quot;Find and fix the bug in auth.ts&quot;,
+  options: { allowedTools: [&quot;Read&quot;, &quot;Edit&quot;, &quot;Bash&quot;] }
+})) {
+  console.log(message); // Claude 读文件、找到 bug、改掉它
+}
+</code></pre>
+<p>就这么点。拆开看三个关键部分（官方原话归纳）：</p>
+<p><strong>① <code>query()</code>——代理循环的主入口。</strong> 它返回一个「异步迭代器」（async iterator，可以一条条往外吐消息的对象），所以你用 <code>async for</code>（TS 里是 <code>for await</code>）来<strong>流式接住 Claude 干活过程中冒出来的每一条消息</strong>：它的思考、它调了哪个工具、工具返回了啥、最终结果。</p>
+<p><strong>② <code>prompt</code>——你想让它干啥。</strong> 跟你在 CLI 里敲的那句话没区别。这里是「找出并修掉 auth.py 里的 bug」。Claude 自己判断要用哪些工具。</p>
+<p><strong>③ <code>options</code>——这个代理的配置。</strong> 最常用的就是 <code>allowed_tools</code>（TS：<code>allowedTools</code>），<strong>预先批准它能用哪些工具</strong>。上面给了 <code>Read</code>、<code>Edit</code>、<code>Bash</code>，意思是「准你读文件、改文件、跑命令」。</p>
+<p>注意那个 <code>async for</code> / <code>for await</code> 循环——<strong>它会一直转，直到 Claude 把活干完或出错</strong>。每转一圈吐一条消息，SDK 在背后默默处理工具执行、上下文管理、重试这些脏活，你只管消费这个消息流。官方原话：</p>
+<blockquote>
+<p>SDK 处理编排（工具执行、上下文管理、重试），所以你只需使用流。</p>
+</blockquote>
+<p><strong>这就是它跟原始 API 最爽的地方</strong>——你看这段代码里<strong>根本没有那个 <code>while</code> 工具循环</strong>，全被 <code>query()</code> 吞了。</p>
+<p>再说一个<strong>给工具就是给权限</strong>的关键点（呼应第 20 篇的权限）。你在 <code>allowed_tools</code> 里给什么，直接决定这代理能干多少事。官方给了张特别清楚的对照：</p>
+<table>
+<thead>
+<tr>
+<th>你给的工具</th>
+<th>这个代理能干啥</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Read</code>、<code>Glob</code>、<code>Grep</code></td>
+<td><strong>只读分析</strong>（能看不能改）</td>
+</tr>
+<tr>
+<td><code>Read</code>、<code>Edit</code>、<code>Glob</code></td>
+<td><strong>分析 + 改代码</strong></td>
+</tr>
+<tr>
+<td><code>Read</code>、<code>Edit</code>、<code>Bash</code>、<code>Glob</code>、<code>Grep</code></td>
+<td><strong>完全自动化</strong>（能看、能改、能跑命令）</td>
+</tr>
+</tbody></table>
+<p><strong>想做个「只许看不许动」的安全代理？只给它 <code>Read</code>、<code>Glob</code>、<code>Grep</code> 就行。</strong> 这比 CLI 里临时把关更彻底——代理压根没拿到 <code>Edit</code>，它想改也改不了。</p>
+<blockquote>
+<p>补一句给 Python 用户的：除了一次性的 <code>query()</code>，Python SDK 还有个 <code>ClaudeSDKClient</code>——它是对 <code>query()</code> 的封装，让多次调用自动共享同一个 session，不用手动传 <code>resume</code> 参数。适合聊天界面、REPL 这类多轮对话场景；一次性任务用 <code>query()</code> 就够，刚上手先把它吃透。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：Agent SDK 的入口是 <code>query()</code>——给它 <code>prompt</code>（干啥）和 <code>options</code>（配置，最关键是 <code>allowed_tools</code> 决定它能用哪些工具），它返回一个<strong>消息流</strong>让你 <code>async for</code> 接住；<strong>那个原始 API 里的 <code>while</code> 工具循环，被 <code>query()</code> 整个吞掉了</strong>。</p>
+</blockquote>
+<hr>
+<h2>06 动手：5 分钟跑一个「自己找 bug、自己修」的代理</h2>
+<p>光看不练假把式。这一节带你<strong>亲手跑通官方那个最经典的入门代理</strong>——故意写段有 bug 的代码，让代理自己找出来、自己修掉。<strong>全程不依赖你已有的任何复杂项目</strong>，照着敲就行。下面用 Python 演示（TS 流程一样，命令在每步标了）。</p>
+<blockquote>
+<p>前置：Node.js 18+ <strong>或</strong> Python 3.10+，外加一个 Anthropic API 密钥。装 SDK、调用模型都要联网；国内访问如果不通，先开「魔法上网」再试。</p>
+</blockquote>
+<p><strong>第一步：建个空目录，进去</strong></p>
+<pre><code class="language-bash">mkdir my-agent
+cd my-agent
+</code></pre>
+<p><strong>第二步：装 SDK 并配密钥</strong></p>
+<p>Python（用自带的 venv）：</p>
+<pre><code class="language-bash">python3 -m venv .venv
+source .venv/bin/activate
+pip install claude-agent-sdk
+</code></pre>
+<blockquote>
+<p>TypeScript 就改成 <code>npm install @anthropic-ai/claude-agent-sdk</code>。</p>
+</blockquote>
+<p>然后在 <code>my-agent</code> 目录里建个 <code>.env</code>，写进你的密钥：</p>
+<pre><code class="language-bash">ANTHROPIC_API_KEY=your-api-key
+</code></pre>
+<p><strong>预期</strong>：<code>pip install</code> 末尾打印 <code>Successfully installed claude-agent-sdk-...</code>。<strong>看到 <code>Successfully installed</code> = SDK 装好了。</strong> 如果报 <code>No matching distribution found</code>，是 Python 版本低于 3.10，先升级（见第 04 节）。</p>
+<p><strong>第三步：造一个有 bug 的文件</strong></p>
+<p>在 <code>my-agent</code> 里新建 <code>utils.py</code>，原样粘进这段（这是官方的示例代码，里面<strong>埋了两个会崩的 bug</strong>）：</p>
+<pre><code class="language-python">def calculate_average(numbers):
+    total = 0
+    for num in numbers:
+        total += num
+    return total / len(numbers)
+
+
+def get_user_name(user):
+    return user[&quot;name&quot;].upper()
+</code></pre>
+<p>两个 bug 是：<code>calculate_average([])</code> 传空列表会<strong>除以零崩掉</strong>；<code>get_user_name(None)</code> 会<strong>报 TypeError</strong>。</p>
+<p><strong>第四步：写那个代理</strong></p>
+<p>新建 <code>agent.py</code>，粘进这段（官方快速入门版，我加了中文注释）：</p>
+<pre><code class="language-python">import asyncio
+from claude_agent_sdk import query, ClaudeAgentOptions, AssistantMessage, ResultMessage
+
+
+async def main():
+    # 代理循环：Claude 边干活边把消息流式吐出来
+    async for message in query(
+        prompt=&quot;Review utils.py for bugs that would cause crashes. Fix any issues you find.&quot;,
+        options=ClaudeAgentOptions(
+            allowed_tools=[&quot;Read&quot;, &quot;Edit&quot;, &quot;Glob&quot;],  # 预先批准这几个工具
+            permission_mode=&quot;acceptEdits&quot;,            # 自动批准文件编辑
+        ),
+    ):
+        # 只打印人类看得懂的部分
+        if isinstance(message, AssistantMessage):
+            for block in message.content:
+                if hasattr(block, &quot;text&quot;):
+                    print(block.text)              # Claude 的思考
+                elif hasattr(block, &quot;name&quot;):
+                    print(f&quot;Tool: {block.name}&quot;)   # 它正在调用的工具
+        elif isinstance(message, ResultMessage):
+            print(f&quot;Done: {message.subtype}&quot;)      # 最终结果
+
+
+asyncio.run(main())
+</code></pre>
+<p>这里多了个第 05 节没细讲的选项：<code>permission_mode=&quot;acceptEdits&quot;</code>——<strong>自动批准文件编辑</strong>，这样代理改文件时不会停下来等你点头（适合这种你信任的脚本）。权限模式官方给了好几档，挑你眼熟的看：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>行为</th>
+<th>用在哪</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>acceptEdits</code></td>
+<td>自动批准文件编辑和常见文件系统命令，其他操作仍问你</td>
+<td>受信任的开发工作流（<strong>本例用的就是它</strong>）</td>
+</tr>
+<tr>
+<td><code>bypassPermissions</code></td>
+<td>每个工具都不问、直接跑</td>
+<td>沙箱 CI、完全受信任的环境</td>
+</tr>
+<tr>
+<td><code>default</code></td>
+<td>需要你提供回调来处理批准</td>
+<td>要自定义批准流程</td>
+</tr>
+<tr>
+<td><code>dontAsk</code></td>
+<td>未预批准的工具直接拒绝，不提示</td>
+<td>锁定的 CI、无头脚本</td>
+</tr>
+<tr>
+<td><code>plan</code></td>
+<td>只允许只读工具，Claude 只分析不改文件</td>
+<td>先规划后再批准执行</td>
+</tr>
+</tbody></table>
+<p><strong>第五步：跑起来</strong></p>
+<pre><code class="language-bash">python agent.py
+</code></pre>
+<blockquote>
+<p>TypeScript 是 <code>npx tsx agent.ts</code>。</p>
+</blockquote>
+<p><strong>预期</strong>：终端会<strong>流式滚出</strong>代理的工作过程——先是它的思考（比如说要先读 <code>utils.py</code>）、然后 <code>Tool: Read</code>、<code>Tool: Edit</code> 这类工具调用行，最后一行 <code>Done: success</code>。<strong>看到 <code>Done: success</code> = 代理跑完了。</strong></p>
+<p><strong>第六步：验收——看 <code>utils.py</code> 被改成啥样了</strong></p>
+<p>重新打开 <code>utils.py</code>。<strong>预期</strong>：你会看到代理<strong>自己加了防御性代码</strong>——比如 <code>calculate_average</code> 里多了「空列表就返回 0（或抛个清楚的错）」的判断，<code>get_user_name</code> 里多了「<code>user</code> 为 None / 没有 name 字段时的处理」。</p>
+<p>这就是 Agent SDK 的精髓，官方原话点破：</p>
+<blockquote>
+<p>这就是 Agent SDK 的与众不同之处：Claude 直接执行工具，而不是要求你实现它们。</p>
+</blockquote>
+<p>整个过程里，代理<strong>自主地</strong>：读了 <code>utils.py</code> 理解代码 → 分析出会崩的边界情况 → 编辑文件加上错误处理。<strong>你一行业务逻辑没写，全是它干的。</strong></p>
+<p>跑通这一趟，你就把「装 SDK → 配密钥 → 写 <code>query()</code> → 给工具和权限 → 收消息流 → 验结果」这条完整链路亲手走了一遍。<strong>以后做任何 SDK 代理，骨架都是这套</strong>——无非换个 <code>prompt</code>、调整 <code>allowed_tools</code>、按需配权限和 MCP。</p>
+<blockquote>
+<p>顺带一提，官方还建议你换些 prompt 玩玩，体会同一套代码干不同的活：<code>&quot;Add type hints to all functions in utils.py&quot;</code>（加类型标注）、<code>&quot;Write unit tests for utils.py, run them, and fix any failures&quot;</code>（写测试、跑、修挂的——这个得在 <code>allowed_tools</code> 里加上 <code>Bash</code>）。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：跑通入门代理就六步——<strong>建目录、装 SDK 配密钥、造个带 bug 的文件、写 <code>query()</code> 代理、<code>python agent.py</code> 跑、看文件被自动修好</strong>；亲手走一遍，比记十个 API 参数都管用。</p>
+</blockquote>
+<hr>
+<h2>07 这玩意儿适合谁：你该不该现在就上手</h2>
+<p>最后掏心窝子说一句：<strong>Agent SDK 不是每个人都得马上学的东西，但「想拿 Claude 干点自动化」的人迟早绕不开它。</strong> 帮你对号入座，省得学错方向。</p>
+<p><strong>先说什么时候你压根用不上它。</strong> 如果你就是想在终端里让 Claude 帮你写代码、改 bug、跑命令——<strong>老老实实用 CLI，别碰 SDK</strong>。SDK 是「写程序去调 Claude」，你要是没有「写程序」这个需求，它对你就是多余的复杂度。有人刚学会 CLI 就急着上 SDK，结果在 <code>async</code> / 异步迭代器上卡半天，<strong>正经活儿一件没干</strong>——这就是典型的方向错了。</p>
+<p><strong>那什么时候你该上？</strong> 三类信号，中一条就值得学：</p>
+<table>
+<thead>
+<tr>
+<th>信号（你心里冒出的念头）</th>
+<th>该不该上 SDK</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>「我就想终端里让它帮我写代码」</td>
+<td>❌ 用 CLI 就够，别碰 SDK</td>
+</tr>
+<tr>
+<td>「同一个流程我已经手敲第 N 遍了，想自动化」</td>
+<td>✅ 该上，写成 SDK 脚本挂起来</td>
+</tr>
+<tr>
+<td>「我想给自己的产品/服务加个能动手干活的 AI 功能」</td>
+<td>✅ 必须上，这是 SDK 主场</td>
+</tr>
+<tr>
+<td>「我想做个机器人 / 定时任务，自动跑代理」</td>
+<td>✅ 该上，CLI 干这个很别扭</td>
+</tr>
+</tbody></table>
+<p>官方还给了一条很实在的「成长路径」建议，适合你心里有个谱：</p>
+<blockquote>
+<p>一个常见的路径是先使用 Agent SDK 在本地进行原型设计，然后为生产环境迁移到 Managed Agents。</p>
+</blockquote>
+<p>这里冒出个新名词 <strong>Managed Agents（托管代理）</strong>——简单说，它是 Anthropic <strong>替你托管运行</strong>代理和沙箱的一套 REST API，你的程序发事件、收结果，<strong>不用自己操心跑在哪、会话怎么存</strong>。而 Agent SDK 是<strong>在你自己的进程里跑</strong>代理循环。两者的取舍，官方一张表说清（我精简了关键几行）：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Agent SDK</th>
+<th>Managed Agents</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>跑在哪</td>
+<td><strong>你自己的进程、你的基础设施</strong></td>
+<td>Anthropic 托管的基础设施</td>
+</tr>
+<tr>
+<td>界面</td>
+<td>Python / TypeScript 库</td>
+<td>REST API</td>
+</tr>
+<tr>
+<td>代理操作的文件</td>
+<td><strong>你机器上的真实文件</strong></td>
+<td>每个会话一个托管沙箱</td>
+</tr>
+<tr>
+<td>最适合</td>
+<td><strong>本地原型、直接操作你文件系统的代理</strong></td>
+<td>生产级、不想自己运维沙箱和会话</td>
+</tr>
+</tbody></table>
+<p><strong>对小白和大多数人来说，路径很清晰：先用 Agent SDK 在本地把想法跑通</strong>（就像第 06 节那样），<strong>等真要上线、要扛流量、不想自己运维了，再考虑迁到 Managed Agents</strong>。前者是你学习和原型的起点，后者是生产化的进阶——<strong>现在，把 Agent SDK 这一步走扎实就够了。</strong></p>
+<p>最后说一句。把好几个重复的手工流程改成 SDK 脚本——比如每周扫一遍几个仓库的过期依赖、自动整理成一份清单。<strong>头一回把它挂上定时任务、第二天早上看到报告自己生成好躺在那儿的时候，那种「造了个会自己干活的东西」的感觉，是用 CLI 给不了的。</strong> 如果你也有那种「同一件事手敲烦了」的时刻——那就是 SDK 在向你招手了。</p>
+<blockquote>
+<p>💡 一句话总结：<strong>只想终端里使唤 Claude → 用 CLI 别碰 SDK；想自动化某个重复流程、或给产品加个会干活的 AI → 上 SDK</strong>；路径是「先用 Agent SDK 本地跑通，要生产化再迁 Managed Agents」，现在把第一步走扎实就行。</p>
+</blockquote>
+<hr>
+<h2>08 小结</h2>
+<p>这一篇我们掀开了 Claude Code 的「背面」——<strong>它的内核可以被你的代码当成一个库调起来，这就是 Agent SDK</strong>。</p>
+<p>把核心要点串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你想搞清的事</th>
+<th>答案</th>
+<th>一句话关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Agent SDK 是什么</td>
+<td>Claude Code 内核做成的库</td>
+<td>同款工具+代理循环+上下文管理，可编程调用</td>
+</tr>
+<tr>
+<td>和 CLI 啥关系</td>
+<td>同一个内核，两个入口</td>
+<td>人手敲用 CLI、程序调用 SDK，经验通用</td>
+</tr>
+<tr>
+<td>和原始 API 啥区别</td>
+<td>工具循环谁来跑</td>
+<td>原始 API 你自己写 <code>while</code>，SDK 替你跑</td>
+</tr>
+<tr>
+<td>两套语言怎么选</td>
+<td>按你的项目语言挑</td>
+<td>TS（Node 18+）/ Python（3.10+），功能对齐</td>
+</tr>
+<tr>
+<td>入口是啥</td>
+<td><code>query()</code></td>
+<td>给 prompt + options，收消息流</td>
+</tr>
+<tr>
+<td>该不该学</td>
+<td>看你有没有「自动化/嵌产品」需求</td>
+<td>只用 CLI 别碰，想自动化就上</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 一句话讲清 Agent SDK 把 Claude Code 的什么拆出来给你用、说明白它和 CLI 是「同内核两入口」、分清它和原始 API 差在「谁跑工具循环」、知道 TS 和 Python 两套怎么选和装、看懂 <code>query()</code> 那段最小代码在干嘛，并且亲手跑通了一个「自己找 bug 自己修」的代理。<strong>更重要的是，你想清楚了自己该不该现在就上手——这比急着写代码重要得多。</strong></p>
+<p>到这儿，你对 Claude Code 的认知已经从「一个命令行工具」升级成了「一套既能亲自用、又能编程嵌入的代理能力」。<strong>它不再只是你手里的工具，而是你能拿去造东西的零件。</strong></p>
+<hr>
+<p>下一篇 <strong>46「开发配置」</strong>——你刚学会用 SDK 写代理，但真要动手开发，光会 <code>query()</code> 还不够：<strong>API 密钥怎么管才安全、不同环境（开发 / 生产）的配置怎么分、用第三方模型供应商时环境变量怎么设</strong>……这些「开发前要先安顿好的事」，下一篇集中给你理清。想想看：同一份代理代码，<strong>在你本地能跑、推到服务器上却连不上模型</strong>，十有八九就栽在配置上——下一篇帮你提前避开这些坑。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/44-github-actions.html"><span class="mono">← 上一篇 · 44</span><b>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</b></a>
+  <a class="pg nx" href="/library/claude-code/46-dev-config.html"><span class="mono">下一篇 · 46 →</span><b>开发配置：把 Claude 干活的「工作环境」调顺</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

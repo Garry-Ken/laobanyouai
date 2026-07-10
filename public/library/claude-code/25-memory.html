@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>25 记忆系统（memory）：让它跨会话记住你 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 25 篇:记忆系统（memory）：让它跨会话记住你。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/25-memory.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class="cur"><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class="cur"><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 25 篇</p>
+      <h1>记忆系统（memory）：让它跨会话记住你</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 [24 插件（Plugins）] 教你把一堆零碎配置打包成一键装、一键停的插件。这一篇聊一件更底层的事——<strong>怎么让 Claude 跨会话记住你</strong>。不只是你手写的 CLAUDE.md，还有它工作时自己攒下的那本「私人笔记」，你纠正它一句，它就悄悄记下来，下次开工自动想起。</p>
+</blockquote>
+<p>先说个新手特别容易踩的坑。</p>
+<p>刚摸到「能让 Claude 记东西」这功能时，很容易跟捡到宝似的，<strong>啥都往里塞</strong>：今天调通了一个端口号塞进去、改了个临时变量名塞进去、连「这次先用 8081 别用 8080」这种一次性的破事也塞。背后的逻辑往往是「记得越多越聪明」。</p>
+<p>结果呢？两周后再开项目，它张口就跟你提那个早就废弃的 8081 端口，还有几条连你自己都忘了为啥写的「偏好」。<strong>它记了一脑子没用的，真正该记的反倒被淹了。</strong></p>
+<p>这时候才会搞明白：<strong>记忆这东西，不是塞得越多越好，是「该记的记准、不该记的别碰」。</strong> 记错了比不记还坑——它会拿着过时的信息一本正经地误导你。</p>
+<p>前面 [18 CLAUDE.md 使用指南] 我们专门讲过 CLAUDE.md 怎么写，[19 上下文管理] 也反复提到「自动记忆会占上下文」。但这两块到底怎么咬合成一套完整的「记忆系统」、那本 Claude 自己写的笔记又是怎么运转的，一直没讲透。今天补上。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>Claude Code 的记忆到底分哪两套：你写的 CLAUDE.md vs 它自己写的「自动记忆」，谁管啥一张表看明白</li>
+<li>「自动记忆」存在哪个文件、怎么被加载进上下文、怎么用 <code>/memory</code> 审计和删改</li>
+<li>怎么让它记一条、记完落到哪、下次怎么自动生效，一步步带你跑通</li>
+<li>一张「该记 vs 不该记」清单，帮你避开「啥都塞」那个坑</li>
+<li><code>#</code> 这个老快捷键现在还能不能用，官方现在的正确做法是什么</li>
+</ul>
+<hr>
+<h2>01 先分清：记忆其实是两套，不是一套</h2>
+<p>先给结论：<strong>Claude Code 的「记忆」是两套并行的系统，一套你写、一套它写，各管各的。</strong> 很多人一提「记忆」只想到 CLAUDE.md，其实那只是一半。</p>
+<p><strong>类比：贴在显示器边上的便利贴。</strong> 你桌上常有两种纸。一种是你正经打印出来、用图钉钉在隔板上的「工作守则」——项目规矩、提交流程，写得规规整整，谁来都照着办，这是 <strong>CLAUDE.md</strong>。另一种是你随手撕一张便利贴，写句「上次那个 bug 是缓存没清」往显示器边一贴，下次扫一眼就想起来——这种<strong>它自己随手记的小条</strong>，就是「自动记忆（auto-memory）」。两种纸都在你眼前，但一种是「我定的规矩」，一种是「我顺手记的心得」。</p>
+<p>官方把这两套的分工讲得很清楚，整理成一张对照表——<strong>这是本篇最该先记住的一张</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>CLAUDE.md 文件</th>
+<th>自动记忆（auto-memory）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>谁写的</strong></td>
+<td>你（手动写）</td>
+<td>Claude（自己写）</td>
+</tr>
+<tr>
+<td><strong>装什么</strong></td>
+<td>指令和规则</td>
+<td>它学到的经验和模式</td>
+</tr>
+<tr>
+<td><strong>典型内容</strong></td>
+<td>编程标准、工作流、项目架构</td>
+<td>构建命令、调试心得、它发现的你的偏好</td>
+</tr>
+<tr>
+<td><strong>什么时候加载</strong></td>
+<td>每次会话，<strong>全量加载</strong></td>
+<td>每次会话，但<strong>只加载前 200 行或 25KB</strong></td>
+</tr>
+<tr>
+<td><strong>范围</strong></td>
+<td>用户 / 项目 / 本地级</td>
+<td>每个 git 仓库一份（所有 worktree 共享）</td>
+</tr>
+</tbody></table>
+<p>看出关键区别没？<strong>CLAUDE.md 是「你想让它怎么干」，自动记忆是「它自己摸索出来的怎么干」。</strong> 你纠正它「这个项目跑测试得先起本地 Redis」，它下次就记得了——这条不用你手动写进任何文件，它自己存。</p>
+<p>还有一条官方反复强调、你必须先吃透的认知：</p>
+<blockquote>
+<p>Claude 将它们视为上下文，而不是强制配置。要阻止某个操作，无论 Claude 决定什么，请改用 PreToolUse hook。</p>
+</blockquote>
+<p>什么意思？<strong>记忆（不管哪一套）都只是「影响它想干啥」的软提示，不是「锁死它能干啥」的硬约束。</strong> 这跟 [20 权限配置] 那篇的结论一脉相承——真要拦死某个操作，得靠权限规则或 hook，光在记忆里写一句「不要 push」是拦不住的。记忆负责「让它更懂你」，不负责「替你把关」。</p>
+<blockquote>
+<p>💡 一句话总结：记忆分两套——<strong>CLAUDE.md 你手写规矩、自动记忆它自己记心得</strong>；两套都只是软提示，想真正拦死操作得靠权限或 hook，不是写进记忆就万事大吉。</p>
+</blockquote>
+<p><img src="assets/25-memory-system@2x.png" alt="Claude Code 两套记忆系统：你写的 CLAUDE.md 与它自己写的自动记忆"></p>
+<p>这张图把两条记忆通路并排画出来：左边是你手写、全量加载进上下文的 CLAUDE.md（项目守则）；右边是 Claude 工作时自己往 <code>MEMORY.md</code> 里记、下次会话自动读回前 200 行的自动记忆（私人笔记）。两条线最后都汇进「新会话的上下文窗口」，让它一开工就「记得你」。</p>
+<hr>
+<h2>02 CLAUDE.md 在记忆体系里的位置</h2>
+<p>CLAUDE.md 的写法 [18] 已经讲细了，这里只补一句它在「记忆系统」里扮演的角色——<strong>它是那张钉死的、人人都得看的「工作守则」</strong>。</p>
+<p><strong>类比：还是显示器旁那两种纸，CLAUDE.md 是钉死的那张。</strong> 它不是随手撕的便利贴，是你认真打印、图钉钉牢的正式守则。所以它有几个特点和自动记忆完全不同：<strong>你写的、进版本控制全队共享、每次会话全量加载、内容是「规则」不是「心得」</strong>。</p>
+<p>官方给 CLAUDE.md 划了清晰的分层，按加载顺序（从最广到最具体）是这样：</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>位置</th>
+<th>管谁</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>托管策略级</strong></td>
+<td>macOS: <code>/Library/Application Support/ClaudeCode/CLAUDE.md</code><br>Linux/WSL: <code>/etc/claude-code/CLAUDE.md</code></td>
+<td>企业 IT 统一下发，个人一般不涉及</td>
+</tr>
+<tr>
+<td><strong>用户级</strong></td>
+<td><code>~/.claude/CLAUDE.md</code></td>
+<td>你所有项目的个人偏好</td>
+</tr>
+<tr>
+<td><strong>项目级</strong></td>
+<td><code>./CLAUDE.md</code> 或 <code>./.claude/CLAUDE.md</code></td>
+<td>这个项目、全队共享（进 git）</td>
+</tr>
+<tr>
+<td><strong>本地级</strong></td>
+<td><code>./CLAUDE.local.md</code></td>
+<td>这个项目、只你自己（进 <code>.gitignore</code>）</td>
+</tr>
+</tbody></table>
+<p>这里有个跟自动记忆的<strong>关键差别，新手最该记牢</strong>：</p>
+<p><strong>CLAUDE.md 无论多长都全量加载，自动记忆有上限。</strong> 官方原话——「CLAUDE.md 文件无论长度如何都完整加载」。所以 [18] 才反复劝你把它压在 200 行以内：不是加载不进去，是<strong>写越长越占上下文、它遵守得反而越差</strong>。自动记忆则相反，它有硬上限（下一节细说），超了的部分根本不加载。</p>
+<p>实操里分工可以很清楚：<strong>「这是你定的死规矩」就写 CLAUDE.md，「这是让它自己摸索积累的」就交给自动记忆。</strong> 比如「依赖只用 pnpm」这种铁律手写进 CLAUDE.md；而「这个项目的测试得起 Redis」这种它能自己发现的，不必手写，纠正它一次让它自己记。</p>
+<blockquote>
+<p>💡 一句话总结：CLAUDE.md 是记忆体系里那张「钉死的正式守则」——你写、全队共享、全量加载、装的是规则；和「它自己随手记心得」的自动记忆，定位完全不同。</p>
+</blockquote>
+<hr>
+<h2>03 自动记忆：它自己写的那本笔记</h2>
+<p>重点来了，也是 [18] 留给本篇的正题——<strong>自动记忆（auto-memory），Claude 工作时给自己记的那本笔记</strong>。</p>
+<blockquote>
+<p>ℹ️ 自动记忆需要 Claude Code v2.1.59 或更高版本，默认是开着的。敲 <code>claude --version</code> 看一眼你的版本；太老就升一下（升级方法见 [02 安装]）。</p>
+</blockquote>
+<p><strong>类比：干活久了的老搭档。</strong> 一个跟你配合了一段时间的搭档，有些事你压根不用反复交代——他自己会在脑子里记下来：「这项目构建得跑 <code>make build</code> 不是 <code>npm build</code>」「上次那个偶发 bug 是时区没设对」。下次遇到类似的，他自己就想起来了。<strong>你不用交代，他边干边积累——自动记忆就是 Claude 的这种「主动学习」能力。</strong></p>
+<p>它具体记些什么？官方给的清单：<strong>构建命令、调试见解、架构笔记、代码样式偏好、工作流习惯。</strong> 注意一个关键设计——<strong>它不是每次会话都往里记</strong>，而是「<strong>根据这条信息未来对话还用不用得上，来决定值不值得记</strong>」。一次性的破事它一般不会记（这点正好治了「啥都塞」的病）。</p>
+<p>那它怎么实际写进去的？两种触发方式：</p>
+<p><strong>第一种，你直接让它记。</strong> 在对话里说一句「以后这个项目都用 pnpm，别用 npm」或者「记住 API 测试要本地起 Redis」，它就把这条存进自动记忆。官方原文：</p>
+<blockquote>
+<p>当你要求 Claude 记住某些内容时，如「总是使用 pnpm，而不是 npm」或「记住 API 测试需要本地 Redis 实例」，Claude 将其保存到自动记忆。</p>
+</blockquote>
+<p><strong>第二种，它从你的纠正里自己学。</strong> 你不用明说「记住」，只要你纠正了它一次——比如它用 <code>npm test</code> 你说「这项目是 <code>pnpm test</code>」——它判断这条以后还用得上，就自己记下来了。这是自动记忆最香的地方：<strong>你正常干活、正常纠正，它在背后默默积累，零额外动作。</strong></p>
+<p>你怎么知道它正在记？<strong>看界面提示。</strong> 官方说，当你看到 Claude Code 界面里冒出「Writing memory」或「Recalled memory」，就是它在往那本笔记里写、或者从里面读了。</p>
+<blockquote>
+<p>💡 一句话总结：自动记忆是 Claude 自己写的便利贴——<strong>你让它记、或它从你的纠正里自学</strong>，只记「以后还用得上」的；看到界面提示「Writing/Recalled memory」就是它在记或在翻笔记。</p>
+</blockquote>
+<hr>
+<h2>04 它存在哪、又怎么被加载进上下文</h2>
+<p>这节解决两个最实际的问题：<strong>这本笔记到底存哪个文件？它又是怎么塞进上下文让 Claude「想起来」的？</strong> 后半截正好呼应 [19] 讲的上下文管理。</p>
+<p><strong>存放位置</strong>，官方定死了——每个项目一个独立的记忆目录：</p>
+<pre><code class="language-text">~/.claude/projects/&lt;project&gt;/memory/
+├── MEMORY.md          # 简洁索引，每次会话都加载
+├── debugging.md       # 调试相关的详细笔记
+├── api-conventions.md # API 设计决策
+└── ...                # Claude 自己创建的其他主题文件
+</code></pre>
+<p>几个要点拆开说：</p>
+<p><strong><code>MEMORY.md</code> 是入口和索引。</strong> 它像便利贴里的「目录页」，Claude 用它跟踪「我都记了些啥」。详细内容它会拆到 <code>debugging.md</code>、<code>api-conventions.md</code> 这种<strong>主题文件</strong>里，免得 <code>MEMORY.md</code> 越滚越长。</p>
+<p><strong><code>&lt;project&gt;</code> 这个名字按 git 仓库算。</strong> 所以——<strong>同一个仓库的所有 worktree 和子目录，共用这一份自动记忆</strong>。这点跟 CLAUDE.md 不一样（CLAUDE.md 是按目录树拼接的）。</p>
+<p><strong>它是机器本地的，不跨设备同步。</strong> 你这台电脑记的，换台电脑不会有。也别指望它进 git——它就在你 <code>~/.claude</code> 下待着。</p>
+<p>接下来是<strong>最该理解的机制——它怎么被加载进上下文</strong>，官方写得很死：</p>
+<blockquote>
+<p><code>MEMORY.md</code> 的前 200 行或前 25KB（以先到者为准）在每次对话开始时加载。超过该阈值的内容在会话开始时不加载。</p>
+</blockquote>
+<p>翻译成人话，三层意思：</p>
+<ol>
+<li><strong>每次新会话，自动读回 <code>MEMORY.md</code> 的前 200 行</strong>（或 25KB，哪个先到算哪个）。这就是它「跨会话还记得」的原理——上次记的，这次开局自动进上下文。</li>
+<li><strong>超过 200 行 / 25KB 的部分，开局不加载。</strong> 所以 Claude 会主动把 <code>MEMORY.md</code> 保持精简，详细的甩进主题文件。</li>
+<li><strong>主题文件（<code>debugging.md</code> 这些）开局也不加载</strong>，它需要时用文件工具按需读——跟 [18] 讲的「子目录 CLAUDE.md 按需加载」一个道理。</li>
+</ol>
+<p>把 CLAUDE.md 和自动记忆的加载规则放一起对比，差别一目了然：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CLAUDE.md</th>
+<th>自动记忆 <code>MEMORY.md</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>加载多少</td>
+<td><strong>全量</strong>，多长都加载</td>
+<td><strong>只前 200 行 / 25KB</strong></td>
+</tr>
+<tr>
+<td>超出部分</td>
+<td>照样全加载（所以劝你写短）</td>
+<td><strong>开局不加载</strong>，按需才读</td>
+</tr>
+<tr>
+<td>谁维护精简</td>
+<td>你手动删</td>
+<td>Claude 自动拆分</td>
+</tr>
+</tbody></table>
+<p>理解这个上限，你就懂为啥它不会被记忆「撑爆」上下文——<strong>自动记忆天生带了个 200 行的闸</strong>，而 CLAUDE.md 那个闸得你自己把。</p>
+<blockquote>
+<p>💡 一句话总结：自动记忆存在 <code>~/.claude/projects/&lt;project&gt;/memory/MEMORY.md</code>，按 git 仓库分、机器本地、worktree 共享；<strong>每次开局只读回前 200 行 / 25KB</strong>，超出的拆进主题文件按需读——所以它有天生的上限，不会撑爆上下文。</p>
+</blockquote>
+<hr>
+<h2>05 <code>/memory</code>：审计、编辑、开关，一个命令全包</h2>
+<p>自动记忆最让人不放心的一点是——<strong>它自己记的，万一记错了、记了过时的怎么办？</strong>（开头那个 8081 端口的坑就是这么来的。）官方给的答案是一个命令：<code>/memory</code>。</p>
+<p><strong>类比：随时能掀开看的那叠便利贴。</strong> 它自己记的笔记不是黑箱，你想看随时掀开、想撕随时撕。<code>/memory</code> 就是「掀开看」这个动作。</p>
+<p>在会话里敲 <code>/memory</code>，它干三件事：</p>
+<ol>
+<li><strong>列出当前会话加载的所有记忆文件</strong>——包括 CLAUDE.md、CLAUDE.local.md、规则文件，以及自动记忆。怀疑它「记错了什么」，先用这个查到底加载了啥。</li>
+<li><strong>提供打开自动记忆文件夹的入口</strong>——点一下就能进 <code>memory/</code> 目录，那些文件<strong>全是纯 markdown，你随时能读、能改、能删</strong>。记岔了的那条，直接删掉就行。</li>
+<li><strong>切换自动记忆的开关</strong>——不想让它自动记了，这里能关。</li>
+</ol>
+<p>除了在会话里用 <code>/memory</code>，还有两个「钉死开关」的官方办法：</p>
+<p><strong>在 <code>settings.json</code> 里关掉自动记忆</strong>（项目级，进配置文件长期生效）：</p>
+<pre><code class="language-json">{
+  &quot;autoMemoryEnabled&quot;: false
+}
+</code></pre>
+<p><strong>或者用环境变量临时关掉</strong>（设 <code>CLAUDE_CODE_DISABLE_AUTO_MEMORY=1</code> 即可）。</p>
+<p>值得养成一个习惯：<strong>每隔一阵子，敲一次 <code>/memory</code> 掀开自己项目那本笔记扫一遍。</strong> 经常能清出几条早该删的——一个换掉的端口、一个废弃的接口约定、一条自己都看不懂的「偏好」。<strong>两分钟的事，省得它哪天拿着过时信息误导你。</strong> 这正是从 8081 那个坑里能学到的教训。</p>
+<blockquote>
+<p>💡 一句话总结：<code>/memory</code> 一个命令把记忆系统全摊开——列出加载了哪些文件、点开自动记忆文件夹随时读改删、还能开关自动记忆；<strong>定期掀开扫一遍、清掉过时的那几条</strong>，是治「它记错」的最简单办法。</p>
+</blockquote>
+<hr>
+<h2>06 该记什么、不该记什么：别重蹈「啥都塞」的覆辙</h2>
+<p>机制讲完，落到最实在的判断——<strong>啥值得让它记，啥碰都别碰。</strong> 这节全是用真金白银的坑换来的经验。</p>
+<p>好消息是，自动记忆默认就比较克制（只记「以后用得上」的）。但<strong>你主动让它记的时候，得自己把关</strong>——你说「记住 xxx」，它一般就真记了，把不把关全看你。</p>
+<p>直接上对照表，<strong>左边是塞了会后悔的，右边是真该记的</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>❌ 别让它记（一次性 / 会变 / 敏感）</th>
+<th>✅ 值得记（稳定 / 复用 / 项目特有）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>「这次先用 8081 端口」（一次性）</td>
+<td>「构建命令是 <code>make build</code> 不是 <code>npm build</code>」</td>
+</tr>
+<tr>
+<td>「临时把这个变量改成 <code>tmp</code>」（临时）</td>
+<td>「这项目测试要先本地起 Redis」</td>
+</tr>
+<tr>
+<td>「这版先这么跑着」（马上要变）</td>
+<td>「上次那个偶发 bug 根因是时区没设」（调试心得）</td>
+</tr>
+<tr>
+<td>数据库密码 / API key / token（敏感！）</td>
+<td>「日期统一用 ISO 8601 格式」（约定偏好）</td>
+</tr>
+<tr>
+<td>「我现在在调登录页」（这次的临时状态）</td>
+<td>「认证逻辑都在 <code>src/auth/</code>」（架构事实）</td>
+</tr>
+</tbody></table>
+<p>三条判断原则，记住这三个词就够：</p>
+<p><strong>一是「会不会变」。</strong> 一次性的、马上要改的、「先这么着」的，全别记——它们的保质期比你这次会话还短，记下来就是给未来挖坑。那个 8081 就是典型，调通的当下有用，过两天就是误导。</p>
+<p><strong>二是「能不能复用」。</strong> 只有这次用得上的（「我现在在调 X」），别记；下次、下下次还用得上的（构建命令、架构事实、踩过的坑），才值得记。</p>
+<p><strong>三是「敏不敏感」。</strong> 这条是<strong>红线</strong>——密码、token、API key 这类<strong>绝对不能进任何记忆文件</strong>。自动记忆是纯 markdown 明文存在你硬盘上的，把密钥记进去等于明文落盘。这跟全局安全约束一致：<strong>敏感信息不进代码、不进 commit、不进日志，自然也不进记忆。</strong></p>
+<p>让它记之前，脑子里就过这三关：<strong>会变吗？以后还用吗？敏感吗？</strong> 三关都过了才让它记。<strong>这么把关之后，它那本笔记会干净得多，也不会再拿过时信息误导你。</strong></p>
+<blockquote>
+<p>💡 一句话总结：记之前过三关——<strong>会变的别记、只用一次的别记、敏感的绝对别记</strong>；只记那些「稳定、复用、项目特有」的事实和心得，别啥都往里塞。</p>
+</blockquote>
+<hr>
+<h2>07 <code>#</code> 这个老快捷键，现在还能用吗</h2>
+<blockquote>
+<p>ℹ️ <strong><code>#</code> 是早期老做法，新版本已不用这套交互。</strong> 不少老教程和视频还在教「用 <code>#</code> 开头快速追加记忆」，忘掉它就好。现在的正确入口：说「记住 xxx」存进自动记忆、说「加进 CLAUDE.md」存进 git 守则、查改删用 <code>/memory</code>。</p>
+<p>新手最容易踩的一个坑：光说「记住 xxx」，它<strong>默认存进自动记忆</strong>（机器本地），<strong>不等于进了 CLAUDE.md</strong>（进 git、全队共享）。要全队都能看到某条规矩，必须明说「<strong>加进 CLAUDE.md</strong>」。一句话之差，共享范围天差地别。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：<code>#</code> 过时别用；「记住 xxx」进自动记忆、「加进 CLAUDE.md」进 git——<strong>两者不是一回事，想共享得说全</strong>。</p>
+</blockquote>
+<hr>
+<h2>08 动手：记一条、看它落哪、下次自动生效</h2>
+<p>光看不练不算会。下面带你完整走一遍：<strong>让它记一条 → 确认落到了自动记忆文件 → 验证下次会话自动想起。</strong> 全程最小示例，不依赖任何复杂环境。</p>
+<blockquote>
+<p>ℹ️ 前提：<code>claude --version</code> ≥ v2.1.59，且自动记忆没被关（默认开着）。</p>
+</blockquote>
+<p><strong>第一步：建个玩具项目，启动 Claude</strong>（Mac / Linux）</p>
+<pre><code class="language-bash">mkdir memory-demo
+cd memory-demo
+claude
+</code></pre>
+<p><strong>预期</strong>：进入 Claude Code 会话界面，底部有输入框。</p>
+<p><strong>第二步：让它记一条</strong></p>
+<p>在输入框里敲（用一条典型的、值得记的「构建命令」）：</p>
+<pre><code class="language-text">记住：这个项目的构建命令是 make build，不是 npm build
+</code></pre>
+<p><strong>预期</strong>：Claude 回应说它记下了，并且界面上会闪过一个 <strong>「Writing memory」</strong> 之类的提示——<strong>看到这个提示，就是它正在往那本笔记里写。</strong></p>
+<p><strong>第三步：用 <code>/memory</code> 确认它落到了哪个文件</strong></p>
+<p>紧接着敲：</p>
+<pre><code class="language-text">/memory
+</code></pre>
+<p><strong>预期</strong>：弹出记忆管理界面，列出当前加载的所有记忆文件。你能看到自动记忆的入口，点进去能看到 <code>MEMORY.md</code>，里面<strong>有刚才那条 <code>make build</code> 的记录</strong>。看到它在文件里 = 这条已经从「对话里说说」变成「落盘的笔记」了。</p>
+<p>想从命令行直接确认也行，<strong>另开一个终端</strong>敲：</p>
+<pre><code class="language-bash">cat ~/.claude/projects/*memory-demo*/memory/MEMORY.md
+</code></pre>
+<p><strong>预期</strong>：输出里能看到刚记的那条构建命令（具体路径里的 <code>&lt;project&gt;</code> 名按你的目录算，用 <code>*</code> 通配即可）。<strong>纯 markdown，一眼能读。</strong></p>
+<p><strong>第四步：验证下次会话自动生效</strong></p>
+<p>这步是关键——<strong>记忆的意义就在「跨会话」</strong>。退出当前会话：</p>
+<pre><code class="language-text">/exit
+</code></pre>
+<p>然后重新启动，再问它一个会用到那条记忆的问题：</p>
+<pre><code class="language-bash">claude
+</code></pre>
+<p>进去后敲：</p>
+<pre><code class="language-text">这个项目怎么构建？
+</code></pre>
+<p><strong>预期</strong>：它会直接告诉你用 <code>make build</code>（而不是瞎猜 <code>npm build</code>）——而且你可能看到 <strong>「Recalled memory」</strong> 的提示，表示它<strong>从笔记里读回了上次记的内容</strong>。<strong>它在全新会话里答对了 = 跨会话记忆完整跑通，恭喜！</strong></p>
+<p><strong>第五步（可选）：清掉这条，验证删除也生效</strong></p>
+<p>敲 <code>/memory</code>，进自动记忆文件夹，把那条 <code>make build</code> 删掉存盘。下次再问「怎么构建」，它就不会再笃定地报 <code>make build</code> 了——<strong>记错的那条，删了就干净，这正是 <code>/memory</code> 给你的「掀开撕掉」的权力</strong>。</p>
+<p>跑通这五步，你就把「记一条 → 落盘 → 跨会话自动想起 → 随时审计删改」整条链路亲手验证了一遍。<strong>以后所有记忆相关的玩法，本质都在这套机制上。</strong></p>
+<blockquote>
+<p>💡 一句话总结：让它「记住 xxx」→ 看「Writing memory」提示 → <code>/memory</code> 或 <code>cat</code> 确认落进了 <code>MEMORY.md</code> → 退出重进、它「Recalled memory」自动答对 → 需要时 <code>/memory</code> 删改。<strong>亲手跑通这条链路，比记十条概念都管用。</strong></p>
+</blockquote>
+<hr>
+<h2>09 小结</h2>
+<p>这一篇把 Claude Code 的「记忆系统」从头捋清了——<strong>它不是一套，是两套并行；不是塞得越多越好，是该记的记准。</strong></p>
+<p>把核心要点串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你要搞清的事</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>记忆分几套</td>
+<td>两套：<strong>CLAUDE.md 你手写规矩</strong> + <strong>自动记忆它自己记心得</strong></td>
+</tr>
+<tr>
+<td>两套怎么区分</td>
+<td>谁写的、装规则还是装心得、全量加载还是有上限——一张表分清</td>
+</tr>
+<tr>
+<td>自动记忆存哪</td>
+<td><code>~/.claude/projects/&lt;project&gt;/memory/MEMORY.md</code>，按 git 仓库分、机器本地</td>
+</tr>
+<tr>
+<td>怎么被加载</td>
+<td>开局只读回 <code>MEMORY.md</code> <strong>前 200 行 / 25KB</strong>，超出的拆主题文件按需读</td>
+</tr>
+<tr>
+<td>怎么审计删改</td>
+<td><code>/memory</code>：列加载文件、开文件夹读改删、开关自动记忆</td>
+</tr>
+<tr>
+<td>该记 vs 不该记</td>
+<td>过三关：<strong>会变的、只用一次的、敏感的——都别记</strong></td>
+</tr>
+<tr>
+<td><code>#</code> 还能用吗</td>
+<td>过时了；现在说「记住 xxx」进自动记忆、说「加进 CLAUDE.md」进 git</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 分清 CLAUDE.md 和自动记忆各管什么、各存哪、各怎么加载；让 Claude 记一条并确认它落到了哪个文件；用 <code>/memory</code> 把记错、记旧的笔记清掉；以及判断一条信息到底该不该记。<strong>说白了——你能让 Claude「记住该记的、忘掉该忘的」，而不是任它攒一脑子没用的把你自己绕进去。</strong></p>
+<p>记忆这东西，本质是 Claude 在「被动地记住事实」——你纠正它、它积累。<strong>但它能为你做的，远不止记住。</strong></p>
+<hr>
+<p>下一篇 <strong>26「Agent Skills」</strong>——记忆是「被动记住事实」，Skills 则是「主动封装能力」：把一套你反复要它干的活儿，打包成一个它能按需调出的「专项本事」。如果说记忆让它「更懂你」，Skills 就是让它「会的更多」。留个小思考：同样是「让 Claude 提前准备好」，你觉得「记住一条规矩」和「学会一项技能」，该在什么时候各用哪个？</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/24-plugins.html"><span class="mono">← 上一篇 · 24</span><b>插件（Plugins）：把一堆零碎配置一键打包</b></a>
+  <a class="pg nx" href="/library/claude-code/26-agent-skills.html"><span class="mono">下一篇 · 26 →</span><b>Agent Skills：给 Claude 装一身随叫随到的专项本事</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

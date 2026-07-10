@@ -19,19 +19,8 @@
     <meta property="og:url" content="https://laobanyouai.com/" />
     <meta property="og:locale" content="zh_CN" />
     <meta name="twitter:card" content="summary" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafafc" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#09090c" />
+    <meta name="theme-color" content="#fbfaf7" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <script>
-      // 首帧前定好主题，避免暗色闪白
-      ;(function () {
-        try {
-          var s = localStorage.getItem('lby-theme')
-          var d = s ? s === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
-          if (d) document.documentElement.classList.add('dark')
-        } catch (e) {}
-      })()
-    </script>
   </head>
   <body class="h-full">
     <div id="root" class="h-full"></div>

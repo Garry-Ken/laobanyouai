@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>23 子代理（Subagents）：把活儿外包出去，别什么都自己扛 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 23 篇:子代理（Subagents）：把活儿外包出去，别什么都自己扛。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/23-subagents.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class="cur"><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class="cur"><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 23 篇</p>
+      <h1>子代理（Subagents）：把活儿外包出去，别什么都自己扛</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="22-mcp.html">22 MCP</a> 教你给 Claude 接上外部工具，让它能查数据库、连 GitHub。这一篇换个思路——不是给它「加工具」，而是教你把活儿<strong>外包出去</strong>：子代理（Subagent），一个带独立上下文、独立权限、独立人设的专项助手，干完只把结论交回来。</p>
+</blockquote>
+<p>都说 subagent 强，是 Claude Code 的「高级玩法」。很多人刚知道这功能那会儿，也兴奋得不行，恨不得把一个任务拆成五六个子代理同时跑，觉得这样「更专业、更高效」。</p>
+<p><strong>但说句实话：多数人一上来就拆，是错的。</strong></p>
+<p>这事得用一阵子才能想明白。后面会专门讲为什么——这里先把结论撂这儿：<strong>子代理不是「任务越多越该拆」，它是个有明确适用场景的工具，用对了省心，用错了又慢又贵。</strong> 想清楚「该不该拆」，比学会「怎么拆」重要得多。</p>
+<p>这一篇我不光教你建子代理、触发子代理，更重要的是帮你建立那条判断线：<strong>什么时候该外包，什么时候自己干更快。</strong></p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>子代理到底是什么——独立上下文、独立工具、独立人设，一句话讲透它和主对话的区别</li>
+<li>它真正解决的三个问题（隔离上下文、专精任务、可并行），以及那个反共识的坑：什么时候<strong>不该</strong>拆</li>
+<li>用 <code>/agents</code> 交互式建，或手写 <code>.claude/agents/name.md</code> 配置文件，各字段是干嘛的</li>
+<li>两种触发方式：靠 <code>description</code> 自动委派 vs 你直接点名</li>
+<li>一个能照着跑、给了预期输出的实战：亲手建一个最小子代理并让它干活</li>
+</ul>
+<hr>
+<h2>01 先搞懂：子代理到底是什么</h2>
+<p>先给结论：<strong>子代理就是 Claude 临时雇来的一个专项小弟——它在自己的房间里干活，干完只把结论交给你，过程中翻的一堆资料不占你的桌面。</strong></p>
+<p><strong>类比：把一个活儿外包给专项小弟。</strong> 你手上一堆事，其中「把这一千行日志翻一遍，挑出报错的那几条」这种又脏又占地方的活，你不想自己在主工作台上摊开干——那会把你桌面堆满。于是你把它外包给一个专门干这个的小弟：<strong>他在自己的房间里，自己的桌子上，翻完那一千行日志</strong>；翻完了，他不会把一千行原始日志搬回来给你，只递给你一张纸条：「报错就这三条，分别在第 207、589、903 行」。你的桌面始终干干净净。</p>
+<p>这个小弟有三样东西是「他自己的」，跟你（主对话）完全隔开。官方文档把这句话讲得很死，值得记住：</p>
+<blockquote>
+<p>每个 subagent 在自己的 context window 中运行，具有自定义系统提示、特定的工具访问权限和独立的权限。</p>
+</blockquote>
+<p>拆开看就是三件「独立」：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>主对话（你）</th>
+<th>子代理（外包小弟）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>上下文</strong></td>
+<td>你和 Claude 一路聊下来的全部历史</td>
+<td>一片空白，只收到一句「任务交代」，看不到你们之前聊了啥</td>
+</tr>
+<tr>
+<td><strong>系统提示（人设）</strong></td>
+<td>Claude Code 的默认设定</td>
+<td>你给它写的专属人设，比如「你是一个只挑刺的代码审查员」</td>
+</tr>
+<tr>
+<td><strong>工具 / 权限</strong></td>
+<td>你授权过的所有工具</td>
+<td>可以单独砍掉，比如「只准读、不准写」</td>
+</tr>
+</tbody></table>
+<p>最关键、也最容易被忽略的是第一行：<strong>子代理是从一张白纸开始的</strong>。官方说得很直接——它「看不到您的对话历史、您已经调用的技能或 Claude 已经读取的文件」。Claude 会写一段「任务交代」丢给它，它就从这句话开始干。</p>
+<p>这一点决定了子代理「擅长什么、不擅长什么」，下一节就靠它来判断。</p>
+<blockquote>
+<p>💡 一句话总结：子代理 = 独立上下文 + 独立人设 + 独立工具的外包小弟，<strong>在自己房间干活、只交结论回来</strong>；记住它从白纸起步，看不到你们之前的对话。</p>
+</blockquote>
+<hr>
+<h2>02 它解决什么——和那个反共识的坑</h2>
+<p>知道了「是什么」，得搞清「为什么要有它」。子代理真正解决三个问题，我一个个说，<strong>第三点我会顺手把开头那个反共识的坑挖开</strong>。</p>
+<h3>问题一：隔离上下文，不污染主线</h3>
+<p>这是子代理最核心、最值钱的用途。</p>
+<p>上下文——Claude 的「工作台」是有限的，你跟它聊得越久、读的文件越多，台面越挤，挤满了它就开始忘事、变笨。<strong>有些活会疯狂占台面，但产出的中间垃圾你压根不会再看第二眼。</strong></p>
+<p>比如「把整个测试套件跑一遍，告诉我哪些挂了」。跑测试会刷出几百上千行输出，但你真正要的就一句：「这三个测试挂了，错误是 XXX」。要是在主对话里直接跑，那几百行全糊你台面上了。</p>
+<p><strong>这时候外包给子代理：它在自己房间里把这几百行扛了，只把「挂了哪几个」这一句交回来。</strong> 你的主对话台面，干净如初。官方把这个用途列为子代理「最有效的用途之一」：</p>
+<blockquote>
+<p>运行测试、获取文档或处理日志文件可能会消耗大量上下文。通过将这些委托给 subagent，详细输出保留在 subagent 的上下文中，而只有相关摘要返回到您的主对话。</p>
+</blockquote>
+<p><strong>真实场景</strong>：调一个第三方 SDK 时，得反复 <code>curl</code> 它的 API 看返回，每次刷一屏 JSON。聊到第十几轮，主对话被 JSON 塞得开始记不住最初的需求了。换个做法——让一个子代理专门去「试调这个接口、只告诉我字段长啥样」，主对话瞬间清爽，你自己的思路也不断了。</p>
+<h3>问题二：专精某类任务</h3>
+<p>第二个用途：给某类反复出现的活，定一个「专门干这个的人」。</p>
+<p>你要是发现自己老在重复同一种指令——每次写完代码都让 Claude「以资深审查员的视角挑挑刺，重点看安全和命名」——那不如把这套指令固化成一个子代理，叫它 <code>code-reviewer</code>，以后一句话就能唤起。官方原话：「当您不断生成相同类型的工作者并使用相同的指令时，定义一个自定义 subagent。」</p>
+<p>它「专」在两处：一是<strong>专属人设</strong>（系统提示里写死「你是只挑刺的审查员」），二是<strong>专属工具</strong>（审查员就该只读不写，那就把 Write、Edit 砍掉，它想改也改不了）。</p>
+<h3>问题三：可并行</h3>
+<p>第三个用途：几件<strong>互不相干</strong>的活，可以同时甩给好几个子代理一起跑。</p>
+<p>比如「把认证、数据库、API 这三个模块分别调研一下」——这三块互不依赖，那就开三个子代理同时探索，最后 Claude 把三份结论汇总给你。串行得等三趟，并行一趟搞定。</p>
+<h3>反共识的坑：不是越多越该拆</h3>
+<p>好，铺垫完三个用途，回到开头那句——<strong>为什么「一上来就拆」是错的？</strong></p>
+<p>因为新手普遍有个误解：「拆得越细 = 越专业 = 越快」。<strong>完全反了。</strong> 子代理有三个隐性成本，简单活儿一拆，成本全冒出来：</p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>简单活儿<strong>直接在主对话干</strong></th>
+<th>简单活儿<strong>硬拆给子代理</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>启动开销</strong></td>
+<td>没有，张嘴就干</td>
+<td>子代理从白纸起步，得先花时间「收集上下文」摸清状况</td>
+</tr>
+<tr>
+<td><strong>来回沟通</strong></td>
+<td>你一句它一句，随时改</td>
+<td>交代不清就得返工，子代理看不到你们之前的对话</td>
+</tr>
+<tr>
+<td><strong>花费</strong></td>
+<td>一份 token</td>
+<td>多开一个上下文 = 多烧 token，开越多烧越多</td>
+</tr>
+<tr>
+<td><strong>结果回灌</strong></td>
+<td>不存在</td>
+<td>每个子代理都把详细结果塞回主对话，开太多反而把台面又堆满了</td>
+</tr>
+</tbody></table>
+<p>官方专门给了一张「该用主对话还是子代理」的判断清单，我提炼成一句话：<strong>频繁来回、共享上下文、快速小改、在意速度的活，留在主对话；产出一堆你不想看的中间垃圾、要锁死工具权限、能自包含只回一句结论的活，才外包。</strong></p>
+<p>官方还点了个反直觉的细节——子代理在意「延迟」的场合反而是劣势：</p>
+<blockquote>
+<p>延迟很重要。Subagents 从头开始，可能需要时间来收集上下文。</p>
+</blockquote>
+<p><strong>真实场景</strong>：要是犯轴，连「改个变量名」都要开个子代理，「显得专业」。结果呢？它得先把文件重新读一遍（因为它没你刚才的上下文），慢吞吞改完再回灌结果，比在主对话直接说「把这个变量名改了」慢了一大截，还多烧了 token。所以有条铁规矩值得记住：<strong>一句话能说清、改动就在眼前的活，绝不外包。</strong></p>
+<blockquote>
+<p>💡 一句话总结：子代理解决「隔离上下文、专精任务、可并行」三件事；但<strong>简单活儿直接干更快更省</strong>——拆得多 ≠ 专业，过度拆只会又慢又贵又把台面堆回去。</p>
+</blockquote>
+<p><img src="assets/23-subagent-isolation@2x.png" alt="主对话与子代理的上下文隔离：脏活在子代理房间里干，只有结论回到主线"></p>
+<p>这张图把「外包」这件事画清楚了：主对话是你的工作台，把一个会刷出大量中间输出的脏活（跑测试 / 翻日志）甩给子代理；子代理在自己<strong>独立的上下文房间</strong>里扛下全部细节，最后只有一行「结论摘要」回到主线，你的台面始终干净。</p>
+<hr>
+<h2>03 怎么建：/agents 交互式建</h2>
+<p>讲完「该不该用」，来动手建一个。<strong>最省事的方式是用 <code>/agents</code> 命令，全程交互式，不用手写一个字的配置。</strong></p>
+<p>在 Claude Code 会话里敲：</p>
+<pre><code class="language-text">/agents
+</code></pre>
+<p>会弹出一个管理界面。建一个新的，官方推荐的流程是这样几步（我按官方演练复述，你照着走就行）：</p>
+<ol>
+<li><strong>选位置</strong>：切到 <strong>Library</strong> 标签 → <strong>Create new agent</strong> → 选 <strong>Personal</strong>。选 Personal 会把它存到 <code>~/.claude/agents/</code>，<strong>所有项目都能用</strong>；选 Project 则只在当前项目用、还能跟着 git 提交给团队（这俩的区别下一节细说）。</li>
+<li><strong>让 Claude 帮你生成</strong>：选 <strong>Generate with Claude</strong>，然后用大白话描述你要个啥样的助手。比如：「一个代码审查助手，扫描文件、从可读性、性能、最佳实践三个角度提改进建议，每条都说清问题、贴出当前代码、再给改进版。」Claude 会自动帮你写好名字、描述和那段人设系统提示。</li>
+<li><strong>选工具</strong>：审查员只该读、不该写，那就<strong>只勾 Read-only tools，其他全取消</strong>。官方提醒了一句关键的：「如果您保持所有工具被选中，subagent 会继承主对话可用的所有工具。」——不主动砍，它就什么都能干。</li>
+<li><strong>选模型</strong>：给它单独挑个模型。审查这种活，官方示例选的是 <strong>Sonnet</strong>（分析能力和速度平衡）。</li>
+<li><strong>保存</strong>：看一眼配置摘要，按 <code>s</code> 或 <code>Enter</code> 存下，立马就能用。（实际界面还会让你选背景颜色和内存范围 memory scope；颜色随意，内存默认 None 即可，新手跳过。）</li>
+</ol>
+<p><strong>类比：填一张「外包岗位申请单」。</strong> 你不用懂怎么写合同，前台（<code>/agents</code> 界面）拿张表一项项问你：这岗位叫啥、干啥活、能动哪些工具、用哪个档次的人——你填完，它把这个「岗位」给你建好了。<code>Generate with Claude</code> 就像旁边有个 HR 帮你把表填得漂漂亮亮。</p>
+<p><strong>真实场景</strong>：一个很值的常驻子代理就是这么建出来的——一个 <code>test-runner</code>，专门「跑测试、只回报挂了哪些 + 错误信息」。建的时候特意只给它 Read 和 Bash，不给 Write，<strong>就是怕它跑着跑着手痒去改你的代码</strong>。建一次，之后天天用。</p>
+<blockquote>
+<p>💡 一句话总结：<code>/agents</code> 是建子代理的推荐方式，全程交互式填表、还能让 Claude 帮你生成人设；<strong>记住主动砍工具，不砍它就继承主对话的全部权限</strong>。</p>
+</blockquote>
+<hr>
+<h2>04 怎么建：手写一个配置文件</h2>
+<p>交互式建好之后，它落到磁盘上其实就是<strong>一个 Markdown 文件</strong>。看懂这个文件，你也能直接手写、或者改别人的。</p>
+<p>子代理文件长这样——<strong>上面一段 YAML 头（frontmatter）管配置，下面的正文就是它的人设（系统提示）</strong>：</p>
+<pre><code class="language-markdown">---
+name: code-reviewer
+description: Reviews code for quality and best practices
+tools: Read, Glob, Grep
+model: sonnet
+---
+
+You are a code reviewer. When invoked, analyze the code and provide
+specific, actionable feedback on quality, security, and best practices.
+</code></pre>
+<p><strong>类比：给外包小弟的一张工牌 + 一份岗位说明书。</strong> YAML 头是工牌上的硬信息——叫什么名、是干什么的、能动哪些工具、什么档次（<code>name</code>/<code>description</code>/<code>tools</code>/<code>model</code>）；横线下面那段正文，是塞给他的岗位说明书，「你是谁、来了先干嘛、按什么标准干」。<strong>他上岗只看这两样</strong>，看不到你公司其他乱七八糟的事。</p>
+<p>官方明确，<strong>只有 <code>name</code> 和 <code>description</code> 是必填的</strong>，其余都可省。把常用字段拎出来说清楚：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>必填</th>
+<th>干嘛的</th>
+<th>小白要点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name</code></td>
+<td>是</td>
+<td>唯一标识，小写字母加连字符（如 <code>code-reviewer</code>）</td>
+<td>全项目别重名，重了会被悄悄丢掉一个</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>是</td>
+<td>告诉 Claude「什么任务该派给它」</td>
+<td><strong>写得越清楚，自动委派越准</strong>，这是触发的关键</td>
+</tr>
+<tr>
+<td><code>tools</code></td>
+<td>否</td>
+<td>它能用哪些工具</td>
+<td><strong>省略 = 继承主对话全部工具</strong>；想限权就在这列允许清单</td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td>否</td>
+<td>用哪个模型</td>
+<td><code>sonnet</code>/<code>opus</code>/<code>haiku</code>/<code>inherit</code>，<strong>默认 <code>inherit</code></strong>（跟主对话同款）</td>
+</tr>
+<tr>
+<td><code>permissionMode</code></td>
+<td>否</td>
+<td>它的权限模式</td>
+<td>可选：<code>default</code>/<code>acceptEdits</code>/<code>auto</code>/<code>dontAsk</code>/<code>bypassPermissions</code>/<code>plan</code></td>
+</tr>
+</tbody></table>
+<p>放文件的位置有讲究，<strong>位置决定了「谁能用到它」</strong>。官方列了好几档，小白只需记住最常用的两档：</p>
+<table>
+<thead>
+<tr>
+<th>放哪</th>
+<th>谁能用</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>~/.claude/agents/</code></td>
+<td><strong>你的所有项目</strong></td>
+<td>个人通用助手，比如你到哪都想用的代码审查员</td>
+</tr>
+<tr>
+<td><code>.claude/agents/</code></td>
+<td><strong>仅当前项目</strong></td>
+<td>项目专属助手；<strong>能跟着 git 提交，团队共享</strong></td>
+</tr>
+</tbody></table>
+<p>官方对项目级这档的建议很实在：</p>
+<blockquote>
+<p><strong>项目 subagents</strong>（<code>.claude/agents/</code>）非常适合特定于代码库的 subagents。将它们检入版本控制，以便您的团队可以协作使用和改进它们。</p>
+</blockquote>
+<p>最后一个<strong>新手必踩的坑</strong>，官方用了个 Note 专门提醒——手写或直接改磁盘上的文件后，<strong>得重启会话才会加载</strong>；但通过 <code>/agents</code> 界面建的，不用重启、立即生效。第一次手写完一个子代理，很容易碰到叫它半天没反应、还以为写错了的情况，其实就是忘了重启。</p>
+<blockquote>
+<p>💡 一句话总结：子代理就是个 Markdown 文件，YAML 头管配置（必填只有 <code>name</code>/<code>description</code>）、正文是人设；<strong>放 <code>~/.claude/agents/</code> 全局可用、放 <code>.claude/agents/</code> 项目内共享</strong>；手改文件记得重启会话。</p>
+</blockquote>
+<hr>
+<h2>05 怎么触发：自动委派 vs 直接点名</h2>
+<p>子代理建好了，怎么让它干活？两条路：<strong>Claude 看「岗位描述」自动派单，或者你直接点名叫它。</strong></p>
+<h3>路子一：description 驱动的自动委派</h3>
+<p>你正常提你的需求，<strong>Claude 会拿你这句话去比对每个子代理的 <code>description</code>，觉得对得上就自动把活派过去。</strong> 你甚至不用知道有这么个子代理存在。</p>
+<p>这就是为什么上一节反复强调 <strong><code>description</code> 要写清楚</strong>——它是 Claude 派单的唯一依据。官方给了个提升「主动性」的小技巧：在 description 里加上「use proactively」（主动使用）这类话，Claude 就更愿意主动委派。比如那个审查员的描述写成「写完或改完代码后立即主动审查」，你一改完代码它可能就自己唤起审查员了。</p>
+<p><strong>类比：岗位描述写得好不好，决定 HR 会不会把对的活派给他。</strong> description 就是这个外包岗位的「招聘启事」。启事写得含糊（「处理一些任务」），HR（Claude）根本不知道啥活该找他；写得精准（「专门审查代码安全和命名，写完代码后主动上」），对口的活一来，HR 自然就想到他。</p>
+<h3>路子二：你直接点名</h3>
+<p>自动委派不靠谱、或者你就想指定某个子代理时，<strong>自己点名</strong>。官方给了几种由轻到重的方式，小白记住前两种够用：</p>
+<p><strong>自然语言点名</strong>——直接在话里叫它的名字，没有特殊语法：</p>
+<pre><code class="language-text">用 code-reviewer 子代理看看我最近的改动
+</code></pre>
+<p><strong><code>@</code> 点名</strong>——输入 <code>@</code> 从弹出的列表里选（选中后会插入形如 <code>@&quot;code-reviewer (agent)&quot;</code> 的写法），也可以不走列表、直接手敲 <code>@agent-</code> 加名字。<strong>这种是「保证」用它</strong>，不把选择权留给 Claude：</p>
+<pre><code class="language-text">@agent-code-reviewer 看看这次认证相关的改动
+</code></pre>
+<p>两者的区别官方讲得很清楚：自然语言是「Claude 通常会委托」，而 <code>@</code> 是「确保特定 subagent 运行」。一个稳妥的习惯——<strong>新建、还没摸透脾气的子代理，一律用 <code>@</code> 点名</strong>，免得 Claude 自作主张没派给它，你还以为子代理坏了。</p>
+<h3>结论怎么交回来</h3>
+<p>不管哪种方式触发，<strong>子代理干完，只把「结论」交回主对话，过程全留在它自己房间。</strong> 这正是第 01 节那个比喻的兑现：小弟翻完一千行日志，只递回一张「报错在这三行」的纸条。官方原话：它「独立工作并返回结果」，且「详细输出保留在 subagent 的上下文中，而只有相关摘要返回到您的主对话」。</p>
+<blockquote>
+<p>⚠️ 但这里有个量的陷阱，官方专门警告过：<strong>开太多子代理、每个都回灌一大坨详细结果，照样会把你主对话的台面堆满。</strong> 所以并行也别贪多——回到第 02 节那条线：能自包含、只回一句结论的活才值得外包。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：触发分两路——靠 <code>description</code> 让 Claude 自动派单（描述要精准），或用自然语言 / <code>@</code> 直接点名（<code>@</code> 是保证用它）；<strong>子代理只把结论交回主线，但回灌太多照样堆台面</strong>。</p>
+</blockquote>
+<hr>
+<h2>06 动手：5 分钟建一个最小子代理并让它干活</h2>
+<p>光看不练假把式。下面带你<strong>手写一个最小子代理，再让它真的跑起来</strong>，亲眼看到「外包 → 只回结论」这条链路。全程不依赖任何复杂环境。</p>
+<p>我们建一个最简单的：一个<strong>只读的「代码点评员」</strong>，专门读文件、给改进建议，但<strong>一个字都不准改</strong>（只给 Read，不给 Write/Edit）。</p>
+<p><strong>第一步：建一个玩具项目和子代理目录</strong>（Mac / Linux）</p>
+<pre><code class="language-bash">mkdir sub-demo
+cd sub-demo
+mkdir -p .claude/agents
+</code></pre>
+<p><strong>预期</strong>：<code>sub-demo</code> 文件夹里有了 <code>.claude/agents/</code> 这层目录。敲 <code>ls .claude</code> 能看到 <code>agents</code> 在。</p>
+<p><strong>第二步：手写子代理配置文件</strong></p>
+<p>用你顺手的编辑器，新建 <code>sub-demo/.claude/agents/code-reviewer.md</code>，贴入：</p>
+<pre><code class="language-markdown">---
+name: code-reviewer
+description: 只读的代码点评员，读指定文件并从可读性、命名、潜在 bug 角度给改进建议。审查任何代码时主动使用。
+tools: Read, Grep, Glob
+---
+
+你是一个资深代码审查员，只挑刺、不改代码。
+被调用时：
+1. 读用户指定的文件
+2. 按可读性、命名、潜在 bug 三类列出问题
+3. 每条问题给出具体的改进建议，但不要直接修改文件
+
+按严重程度分组：必须改、建议改、可以考虑。
+</code></pre>
+<p>注意这里<strong>没给 <code>model</code> 字段</strong>——按官方默认，它会 <code>inherit</code>（用你主对话同款模型）。<code>tools</code> 只列了三个只读工具，<strong>它想写也写不了</strong>。</p>
+<p><strong>第三步：造一段「有改进空间」的代码给它点评</strong></p>
+<pre><code class="language-bash">echo &#39;def f(a, b):
+    return a / b&#39; &gt; calc.py
+</code></pre>
+<p>这个函数名 <code>f</code>、参数名 <code>a</code>/<code>b</code> 都很烂，还没处理除以 0——正好让点评员逮。</p>
+<p><strong>预期</strong>：<code>sub-demo</code> 里有了 <code>calc.py</code>，内容是上面那两行。</p>
+<p><strong>第四步：启动 Claude，点名让子代理干活</strong></p>
+<pre><code class="language-bash">claude
+</code></pre>
+<p>进去后，<strong>用 <code>@</code> 直接点名</strong>（保证用它，别让 Claude 自作主张）。手敲 <code>@agent-code-reviewer</code>，或者敲 <code>@</code> 后从弹出列表里选 code-reviewer：</p>
+<pre><code class="language-text">@agent-code-reviewer 点评一下 calc.py
+</code></pre>
+<p><strong>预期</strong>：你会看到 Claude <strong>委派给 code-reviewer 子代理</strong>（界面上会标出这个子代理正在跑，可能带个颜色块）。它在自己的上下文里读完 <code>calc.py</code>，然后<strong>只把一份「点评结论」交回主对话</strong>——大致会指出：函数名 <code>f</code> 和参数 <code>a</code>/<code>b</code> 不达意、缺少除数为 0 的处理、建议改成更清楚的命名并加边界判断。<strong>注意它只给建议、没动你的文件</strong>（因为你没给它 Write 工具）。</p>
+<p><strong>第五步：验证它真的没改文件</strong></p>
+<p>退出 Claude（敲 <code>exit</code> 或按 <code>Ctrl+D</code>），回终端看：</p>
+<pre><code class="language-bash">cat calc.py
+</code></pre>
+<p>（Windows PowerShell 用 <code>type calc.py</code>）</p>
+<p><strong>预期</strong>：<code>calc.py</code> <strong>原封不动</strong>，还是那两行——<strong>这就是「限权」的威力</strong>：你只给了只读工具，它就算想帮你改也无能为力，只能动嘴。</p>
+<p>跑通这五步，你就把「写配置 → 加载 → 点名触发 → 子代理在独立上下文干活 → 只回结论、不越权」这条完整链路亲手验证了一遍。<strong>以后任何子代理，本质都是在这套机制上换人设、调工具。</strong></p>
+<blockquote>
+<p>⚠️ 如果敲 <code>@agent-code-reviewer</code> 时列表里没有它，多半是<strong>子代理文件加载没生效</strong>——手写的文件需要重启会话（第 04 节那个坑）。退出重进，或者干脆用 <code>/agents</code> 界面建（免重启）。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：手写一个只给 Read 的点评员、用 <code>@</code> 点名让它跑、再 <code>cat</code> 确认文件没被动——<strong>亲手跑通「独立干活 + 限权不越界」这条链路，比记十条字段都管用</strong>。</p>
+</blockquote>
+<hr>
+<h2>07 小结</h2>
+<p>这一篇我们把「子代理」从「该不该用」一路讲到「怎么建、怎么触发、怎么验证」——<strong>核心不是教你拆得多花哨，而是帮你建立那条「该外包还是自己干」的判断线</strong>。</p>
+<p>把要点串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你想搞清的事</th>
+<th>答案</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>子代理是什么</td>
+<td>独立上下文 + 人设 + 工具的外包小弟</td>
+<td>从白纸起步，看不到你们之前的对话</td>
+</tr>
+<tr>
+<td>它解决什么</td>
+<td>隔离上下文、专精任务、可并行</td>
+<td>最值钱的是「脏活留它房间、只回结论」</td>
+</tr>
+<tr>
+<td>什么时候<strong>别</strong>用</td>
+<td>简单活、要频繁来回、在意速度</td>
+<td>拆得多 ≠ 专业，过度拆又慢又贵</td>
+</tr>
+<tr>
+<td>怎么建</td>
+<td><code>/agents</code> 交互式，或手写 <code>.claude/agents/name.md</code></td>
+<td>必填只有 <code>name</code>/<code>description</code>；手改要重启</td>
+</tr>
+<tr>
+<td>怎么触发</td>
+<td><code>description</code> 自动派单 / 自然语言 / <code>@</code> 点名</td>
+<td><code>@</code> 保证用它；description 写清楚才派得准</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 判断一个任务该不该外包给子代理（而不是一激动就拆），用 <code>/agents</code> 或手写文件建一个带专属人设、限定工具的子代理，并用自动委派或 <code>@</code> 点名让它干活、把结论干净地交回主线。<strong>这套「该外包就外包、该自己干就自己干」的分寸感，才是子代理真正的门槛——功能十分钟学会，分寸得用出来。</strong></p>
+<p>记住开头那句反共识的话：<strong>子代理强，但强在「用对场景」，不在「拆得多」。</strong></p>
+<blockquote>
+<p>💡 一句话总结：子代理的门槛不是「会建」，是「知道什么时候该建」——脏活、可自包含、要锁权的，外包；简单、快速、来回频繁的，自己干。</p>
+</blockquote>
+<hr>
+<p>下一篇 <strong>24「插件（Plugins）」</strong>——到这儿你手里的「配件」越来越多了：CLAUDE.md、斜杠命令、Skill、现在又加了 Subagent。一个个单独配，是不是有点碎？下一篇就教你把这些打包成一个<strong>插件</strong>，一键安装、一键分享，甚至直接从「插件市场」拿现成的来用。想想看：别人调教好的子代理和命令，能不能一键搬到你这儿？</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/22-mcp.html"><span class="mono">← 上一篇 · 22</span><b>MCP：给 Claude 接上外部世界</b></a>
+  <a class="pg nx" href="/library/claude-code/24-plugins.html"><span class="mono">下一篇 · 24 →</span><b>插件（Plugins）：把一堆零碎配置一键打包</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

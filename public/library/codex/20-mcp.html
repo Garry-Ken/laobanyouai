@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>20 用 MCP 接外部工具：给 Codex 装上「外接口」 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 20 篇:用 MCP 接外部工具：给 Codex 装上「外接口」。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/20-mcp.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class="cur"><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class="cur"><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 20 篇</p>
+      <h1>用 MCP 接外部工具：给 Codex 装上「外接口」</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇〔<a href="19-memory.html">19 记忆系统 Chronicle</a> 〕讲的是让 Codex「记住跨会话的东西」——那是往里灌记忆。这一篇换个方向往外接：<strong>Codex 默认只能摸你本地的文件和命令行，碰不到你的数据库、Figma、第三方文档。MCP，就是让它一次接上一堆外部工具和数据源的那个统一对接口。</strong> 下一篇〔<a href="21-subagents.html">21 子代理（Subagents）</a> 〕再讲怎么把活拆给一队带独立上下文的小弟去并行干。</p>
+</blockquote>
+<p>说个我刚接 MCP 时栽的跟头，挺典型的。</p>
+<p>我是从 Claude Code 那边过来的，手里早练出了肌肉记忆——加个 server 就 <code>claude mcp add --scope user xxx</code>，<code>--scope</code> 决定它在哪些项目生效。换到 Codex，我想都没想就敲了句类似的，加了个 <code>--scope</code>，终端直接给我报参数不认。我第一反应是「版本太老」，跑去升级，没用；又怀疑是拼写，把命令翻来覆去改了好几遍，<strong>还是不认</strong>。</p>
+<p>折腾了快二十分钟，翻官方文档才反应过来：<strong>Codex 根本没有 <code>--scope</code> 这个概念。</strong> 它把所有 MCP 配置统一写进一个 <code>config.toml</code> 文件，「在哪些项目生效」是靠这个文件放在哪决定的——放全局的 <code>~/.codex/config.toml</code> 就处处生效，放项目里的 <code>.codex/config.toml</code> 就只在那个项目生效。<strong>我是拿 Claude Code 的脑子去套 Codex 的命令，自然处处碰壁。</strong></p>
+<p>说这个坑是想让你少走那二十分钟弯路：<strong>MCP 这个协议本身两边是同一个，但 Codex 怎么配，跟 Claude Code 是两套写法。</strong> 今天就把 Codex 这套讲透，最后带你亲手接一个真 server 跑通。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一句话讲明白 MCP 是什么、它到底补上了 Codex 的哪块短板</li>
+<li>两种 server 形态（本地 STDIO、远程 Streamable HTTP）分别什么时候用，一张表说清</li>
+<li>两条配置路子——<code>codex mcp add</code> 命令式 vs 手写 <code>config.toml</code>，以及配置文件放哪决定「全局还是项目级」</li>
+<li><code>enabled</code> / <code>disabled_tools</code> / <code>default_tools_approval_mode</code> 这些字段怎么收口一个 server 的工具和权限</li>
+<li>一个能照着跑、给了预期输出的实战：几分钟接上 Context7 文档 server 并验证</li>
+</ul>
+<blockquote>
+<p>⚠️ 下文凡涉及具体命令、配置项、默认值，都以 Codex <a href="https://developers.openai.com/codex/mcp">官方文档</a> 为准；包名、模型名这类会随更新变的东西，看到时以你本地实际显示为准，本篇不写死。</p>
+</blockquote>
+<hr>
+<h2>01 先搞懂：MCP 到底补上了 Codex 哪块短板</h2>
+<p>先给结论：<strong>Codex 默认是个「只会本地干活」的助手，MCP 就是给它统一外接各路工具和数据源的那个口子。</strong></p>
+<p>你回想一下前面十几篇里 Codex 都在干啥——读你的文件、改你的代码、跑你的命令。<strong>全是本地的事。</strong> 它再聪明，也碰不到设计师在 Figma 上画的稿、查不了某个库最新版的 API 文档、控制不了你的浏览器去点一个页面。这些东西它够不着，你只能自己复制粘贴、截图描述，再喂给它。</p>
+<p><strong>类比：给手机插上一个多功能转接头。</strong> 现在的手机机身上可能就剩一个 Type-C 口，想插 U 盘、接 HDMI 投屏、插 SD 卡读照片，全都插不上。怎么办？买个多功能转接头——<strong>一头插进手机，另一头 USB、HDMI、读卡器全冒出来了。</strong> MCP（Model Context Protocol，模型上下文协议，一套规定「AI 怎么调外部工具」的开放标准）之于 Codex 就是这个转接头：<strong>接一次，一堆外部工具就全摆到了它面前。</strong></p>
+<p>官方对它的定义很直白：</p>
+<blockquote>
+<p>Model Context Protocol（MCP） 把模型连到工具和上下文。用它给 Codex 接上第三方文档，或者让它跟你的浏览器、Figma 这类开发者工具交互。</p>
+</blockquote>
+<p>这里有个关键词——<strong>标准</strong>。MCP 不是 OpenAI 关起门来自己玩的私有协议，而是一套公开规范。<strong>好处是「一次对接，到处能用」</strong>：你给某个工具写的 MCP server，Codex 能用，别的支持 MCP 的客户端（Claude Code、Cursor……）也能用。<strong>同一个 MCP 协议，Codex 这边也认</strong>，只是配法不同（这正是开头我栽跟头的地方，下面第 03 节专门讲）。</p>
+<p>还有一个 Codex 特有、值得记一句的细节：<strong>Codex 会读 server 在初始化时返回的 <code>instructions</code>（说明）字段，当成这个 server 的「使用须知」</strong>——里面通常写着这个 server 跨工具的工作流、约束、限流提示。说白了，<strong>好的 server 会自带一份「该怎么用我」的说明书</strong>，Codex 会一并读进去。</p>
+<p>什么时候你该想起 MCP？判断特别朴素：<strong>当你发现自己又在「从另一个工具里复制东西、再贴给 Codex」时，就该给它接个 server 了。</strong> 举几个你大概率会遇到的场景：</p>
+<ul>
+<li><strong>「照 Figma 上那版新设计，把这个登录页的样式改一下」</strong>——它自己去读设计稿，不用你一张张截图</li>
+<li><strong>「用最新版的某个库的 API 把这段代码重写一遍」</strong>——它直接查最新文档，不用你担心它记的是过时写法</li>
+<li><strong>「打开浏览器，把这个页面在手机尺寸下的样子截下来看看」</strong>——它直接驱动浏览器，不用你手动点</li>
+</ul>
+<blockquote>
+<p>💡 一句话总结：Codex 默认只会碰本地文件和命令，<strong>够不着你的设计稿、最新文档、浏览器</strong>；MCP 是那个统一外接口，接一次就把一堆外部工具摆到它面前，而且会读 server 自带的 <code>instructions</code> 当使用须知。</p>
+</blockquote>
+<p><img src="assets/20-mcp-hub@2x.png" alt="MCP：统一对接外部工具"></p>
+<blockquote>
+<p>图：Codex 本地只能碰文件和命令；MCP 像 USB hub，一头插进 Codex，另一头把 GitHub、数据库、Figma 这类外部 server 统一接进来。</p>
+</blockquote>
+<hr>
+<h2>02 两种 server 形态：跑在本地，还是连到云上</h2>
+<p>MCP server 不止一种。理解它们的区别，你才知道抄来的配置该往哪填。<strong>核心就一个问题：这个 server 是跑在你自己机器上，还是托管在某个网址上？</strong></p>
+<p><strong>类比：你家里的电器，有的靠插座供电，有的靠 Wi-Fi 联网。</strong> 台灯、风扇是插在你家插座上、就在屋里的本地设备；而智能音箱要查天气、放歌，得连到云端的服务器上。MCP server 也分这两类——<strong>一类作为本地进程跑在你机器上，一类是远端托管、你连过去。</strong></p>
+<p>官方明确支持两种 server 形态：</p>
+<table>
+<thead>
+<tr>
+<th>形态</th>
+<th>跑在哪</th>
+<th>怎么启动</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>STDIO</strong>（本地进程）</td>
+<td>你自己机器上，由一条命令拉起来</td>
+<td>给一条启动命令（如 <code>npx ...</code>）</td>
+<td>要直接读本地文件、控制本地浏览器、连本地工具的 server</td>
+</tr>
+<tr>
+<td><strong>Streamable HTTP</strong>（远程托管）</td>
+<td>某个网址上</td>
+<td>给一个 URL</td>
+<td>云服务、远程托管的文档 / 设计 server，<strong>带鉴权</strong></td>
+</tr>
+</tbody></table>
+<p>几个新手最容易踩的点，挑出来说清楚：</p>
+<p><strong>STDIO server 的精髓是那条「启动命令」。</strong> 它本质是「Codex 帮你在后台拉起一个小程序」——你给它一条命令（比如 <code>npx -y @upstash/context7-mcp</code>），Codex 启动会话时就照着这条命令把 server 跑起来。<strong>所以它能跑的前提是你机器上有对应环境</strong>（比如用 <code>npx</code> 启动的就需要装了 Node.js）。STDIO server 还能给它单独传环境变量（<code>--env</code> 或配置里的 <code>env</code>），用来塞 token 之类的东西。</p>
+<p><strong>HTTP server 是连云服务的路子，鉴权方式有两种。</strong> 官方写明 Streamable HTTP server 支持两种认证：</p>
+<ul>
+<li><strong>Bearer token</strong>：在配置里指定一个存 token 的环境变量名</li>
+<li><strong>OAuth（授权登录）</strong>：对支持 OAuth 的 server，跑一句 <code>codex mcp login &lt;server-name&gt;</code> 走授权流程</li>
+</ul>
+<p>像 Figma 的远程 server、各家云端文档 server，都是给个 URL、配好鉴权就连上，<strong>本地不用装任何东西</strong>。</p>
+<p>这里点一句<strong>容易想当然的差异</strong>：有些工具（比如 Claude Code）还留着「已弃用的 SSE 传输」要提防，<strong>Codex 官方文档列的就 STDIO 和 Streamable HTTP 两种</strong>，干净利落，你不用纠结 SSE。记住这两种就够了。</p>
+<p>把两种形态怎么把 Codex 接到外部世界，画成一张图：</p>
+<p><img src="assets/20-mcp-route@2x.png" alt="MCP 给 Codex 接外部工具的两条路：本地 server 走 STDIO（拉进程）/ 远程 server 走 Streamable HTTP（连网址）"></p>
+<p>这张图在说：<strong>Codex 自带的本能只够得着左边的本地文件和命令</strong>；中间的 MCP 接口用 STDIO（在本地拉起一个进程）和 Streamable HTTP（连到一个网址、带鉴权）两种线，把右边它本来够不着的外部工具接进来。</p>
+<blockquote>
+<p>💡 一句话总结：本地工具用 <strong>STDIO</strong>（给一条启动命令，需本地装好对应环境），云服务用 <strong>Streamable HTTP</strong>（给 URL，配 Bearer token 或跑 <code>codex mcp login</code> 走 OAuth）；Codex 就这两种形态，不用操心别的传输方式。</p>
+</blockquote>
+<hr>
+<h2>03 怎么加一个 server：命令式 vs 手写 config.toml</h2>
+<p>知道了形态，来看具体怎么配。<strong>Codex 给了两条路，先把一件最关键的事说死：所有 MCP 配置都存在 <code>config.toml</code> 里。</strong></p>
+<p>官方原话：</p>
+<blockquote>
+<p>Codex 把 MCP 配置和其它 Codex 配置一起存在 <code>config.toml</code>。默认是 <code>~/.codex/config.toml</code>，但你也可以用 <code>.codex/config.toml</code> 把 MCP server 限定到某个项目（仅限受信任的项目）。</p>
+</blockquote>
+<p>这句话里藏着 Codex 跟 Claude Code 最大的不同——<strong>开头我栽的那个跟头</strong>：Claude Code 用 <code>--scope</code> 参数决定 server 的作用范围，<strong>Codex 没有这玩意儿</strong>，它靠「配置文件放在哪」来决定：</p>
+<table>
+<thead>
+<tr>
+<th>配置写在哪</th>
+<th>在哪些项目生效</th>
+<th>相当于</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>~/.codex/config.toml</code>（全局）</td>
+<td>你所有项目</td>
+<td>「我自己跨项目天天用的」</td>
+</tr>
+<tr>
+<td>项目里的 <code>.codex/config.toml</code></td>
+<td>仅当前项目（<strong>且需是受信任项目</strong>）</td>
+<td>「这个 server 是这个项目专属的」</td>
+</tr>
+</tbody></table>
+<p>而且官方专门强调一句：<strong>CLI 和 IDE 扩展共用这份配置。</strong> 你在终端配好的 MCP server，切到 VS Code 里的 Codex 扩展直接就有，不用重配一遍——这点挺省心。</p>
+<blockquote>
+<p>「受信任的项目」是 Codex 安全机制里的概念（第 15、16 篇讲权限和安全时提过它对工作目录的「信任」判定）。<strong>项目级 <code>.codex/config.toml</code> 只在你信任了这个目录时才会被加载</strong>，防的就是「克隆个陌生仓库，里面藏着个偷偷启动的 server」。</p>
+</blockquote>
+<h3>路子一：用 <code>codex mcp</code> 命令（最快）</h3>
+<p>加一个 STDIO server，用 <code>codex mcp add</code>，<strong>注意 <code>--</code> 后面跟的才是启动 server 的命令</strong>：</p>
+<pre><code class="language-bash">codex mcp add &lt;server-name&gt; --env VAR1=VALUE1 -- &lt;stdio 启动命令&gt;
+</code></pre>
+<p>官方给的现成例子——加 Context7（一个免费的、专门给开发文档用的 MCP server）：</p>
+<pre><code class="language-bash">codex mcp add context7 -- npx -y @upstash/context7-mcp
+</code></pre>
+<p><code>--</code> 后面的 <code>npx -y @upstash/context7-mcp</code> 就是启动命令，<code>-y</code> 是告诉 <code>npx</code> 别弹确认、直接装。想看 <code>codex mcp</code> 还能干啥，一句 <code>codex mcp --help</code> 把所有子命令列全。对支持 OAuth 的 HTTP server，加完用 <code>codex mcp login &lt;server-name&gt;</code> 走授权登录。</p>
+<p>进了 TUI（终端会话）之后，想看当前挂着哪些 MCP server，敲斜杠命令：</p>
+<pre><code class="language-text">/mcp
+</code></pre>
+<h3>路子二：手写 config.toml（控制更细）</h3>
+<p>想要更精细的控制（限工具、调超时、设权限），就直接编辑 <code>config.toml</code>。每个 server 配成一张 <code>[mcp_servers.&lt;server-name&gt;]</code> 表。</p>
+<p><strong>STDIO server</strong> 长这样（对应上面那个 Context7）：</p>
+<pre><code class="language-toml">[mcp_servers.context7]
+command = &quot;npx&quot;
+args = [&quot;-y&quot;, &quot;@upstash/context7-mcp&quot;]
+</code></pre>
+<p>字段对应关系很直观——<code>command</code> 是启动命令、<code>args</code> 是参数数组。STDIO server 还有几个可选字段：<code>env</code>（设环境变量）、<code>cwd</code>（指定工作目录）、<code>env_vars</code>（声明允许转发哪些环境变量）。</p>
+<p><strong>Streamable HTTP server</strong> 写 <code>url</code>，鉴权按需配（这是官方给的 Figma 例子）：</p>
+<pre><code class="language-toml">[mcp_servers.figma]
+url = &quot;https://mcp.figma.com/mcp&quot;
+bearer_token_env_var = &quot;FIGMA_OAUTH_TOKEN&quot;
+</code></pre>
+<p><code>url</code> 是必填的 server 地址；<code>bearer_token_env_var</code> 指定「从哪个环境变量取 Bearer token」——<strong>token 本身不写进配置文件，只写环境变量名</strong>，这是个好习惯（密钥别进配置、别进 git）。需要自定义请求头还能用 <code>http_headers</code>（静态值）和 <code>env_http_headers</code>（从环境变量取值）。</p>
+<blockquote>
+<p>ℹ️ 这份 <code>config.toml</code> 就是第 18 篇「config.toml 配置详解」讲的那个总配置文件，MCP 只是它众多板块里的一块（<code>mcp_servers</code>）。两条路子改的是同一个文件——<code>codex mcp add</code> 帮你把这张表写进去，手写就是你自己写。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：Codex 所有 MCP 配置都在 <code>config.toml</code>——<strong>没有 <code>--scope</code>，靠「放全局 <code>~/.codex/</code> 还是放项目 <code>.codex/</code>」决定作用范围</strong>（项目级需受信任）；加 server 要么 <code>codex mcp add</code>（<code>--</code> 后跟启动命令），要么手写 <code>[mcp_servers.&lt;name&gt;]</code> 表，且 CLI 和 IDE 共用这份配置。</p>
+</blockquote>
+<hr>
+<h2>04 收口一个 server：开关、限工具、调权限</h2>
+<p>server 加进来了，但不等于什么都放开——接下来讲怎么收口。<strong>Codex 在 <code>config.toml</code> 里给了一组字段，让你对单个 server 精细收口</strong>——哪些工具能用、超时多久、调用要不要先问你。</p>
+<p><strong>类比：给新来的实习生发门禁卡时设权限。</strong> 你不会给实习生一张能刷遍整栋楼的万能卡——你会勾选「这几个会议室能进、机房不行」「下班后自动失效」「进财务室得先打电话报备」。给 MCP server 配工具权限就是这么个事：<strong>这个 server 带一堆工具，你逐个圈定哪些放行、哪些拦死、哪些每次得问你。</strong></p>
+<p>下面这几个字段最常用，对照官方挑出来：</p>
+<table>
+<thead>
+<tr>
+<th>配置字段</th>
+<th>干啥的</th>
+<th>默认 / 取值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>enabled</code></td>
+<td>临时禁用一个 server（不删配置）</td>
+<td>设 <code>false</code> 即关</td>
+</tr>
+<tr>
+<td><code>enabled_tools</code></td>
+<td>工具白名单（只放这些）</td>
+<td>不写则全放</td>
+</tr>
+<tr>
+<td><code>disabled_tools</code></td>
+<td>工具黑名单（在白名单之后再减）</td>
+<td>——</td>
+</tr>
+<tr>
+<td><code>default_tools_approval_mode</code></td>
+<td>这个 server 工具的默认审批行为</td>
+<td><code>auto</code> / <code>prompt</code> / <code>approve</code></td>
+</tr>
+<tr>
+<td><code>startup_timeout_sec</code></td>
+<td>server 启动超时（秒）</td>
+<td>默认 <code>10</code></td>
+</tr>
+<tr>
+<td><code>tool_timeout_sec</code></td>
+<td>单个工具调用超时（秒）</td>
+<td>默认 <code>60</code></td>
+</tr>
+</tbody></table>
+<p>几个最容易写错或想当然的点，钉死：</p>
+<p><strong>白名单先于黑名单。</strong> 官方写得很明确——<code>disabled_tools</code> 是「在 <code>enabled_tools</code> 之后再应用」。也就是说你可以「先用白名单圈出一批，再用黑名单从里头剔掉个别危险的」。官方那个 Chrome DevTools 的例子就演示了这个：<code>enabled_tools = [&quot;open&quot;, &quot;screenshot&quot;]</code> 放了俩，后面 <code>disabled_tools = [&quot;screenshot&quot;]</code> 又把 <code>screenshot</code> 减掉，<strong>最终只剩 <code>open</code> 能用</strong>。</p>
+<p><strong><code>default_tools_approval_mode</code> 三个值，别跟权限篇的沙箱模式搞混。</strong> 这是专门管「这个 server 的工具调用要不要审批」的：</p>
+<ul>
+<li><code>auto</code>：让 Codex 按常规审批逻辑自己定</li>
+<li><code>prompt</code>：每次调用都先问你</li>
+<li><code>approve</code>：自动批准（等于信任，放行不问）</li>
+</ul>
+<p>还能用 <code>tools.&lt;工具名&gt;.approval_mode</code> 给<strong>单个工具</strong>单独覆盖。比如「这个 server 整体自动放行，但唯独那个会改东西的工具每次都得我点头」。</p>
+<p><strong>两个超时的默认值容易记反：启动 <code>10</code> 秒、单次工具调用 <code>60</code> 秒。</strong> 我自己接一个跑得慢的本地 server 时就被启动超时坑过——它冷启动要十几秒，默认 10 秒等不及就报失败，我还以为是 server 装坏了，排查半天才发现是 <code>startup_timeout_sec</code> 太短。把它调大就好：</p>
+<pre><code class="language-toml">[mcp_servers.slow_server]
+command = &quot;python&quot;
+args = [&quot;-m&quot;, &quot;slow_server&quot;]
+startup_timeout_sec = 30   # 启动慢的 server 把这个调大
+tool_timeout_sec = 120     # 工具跑得久的把这个调大
+</code></pre>
+<p>把一个收口比较全的 HTTP server 配置摆出来感受一下（综合官方字段）：</p>
+<pre><code class="language-toml">[mcp_servers.chrome_devtools]
+url = &quot;http://localhost:3000/mcp&quot;
+enabled_tools = [&quot;open&quot;, &quot;screenshot&quot;]
+disabled_tools = [&quot;screenshot&quot;]          # 在白名单之后应用，最终只剩 open
+default_tools_approval_mode = &quot;prompt&quot;   # 这个 server 的工具默认每次问我
+startup_timeout_sec = 20
+enabled = true
+
+[mcp_servers.chrome_devtools.tools.open]
+approval_mode = &quot;approve&quot;                # 但 open 这个工具单独放行、不问
+</code></pre>
+<blockquote>
+<p>💡 一句话总结：手写 <code>config.toml</code> 能精细收口一个 server——<code>enabled</code> 临时开关、<code>enabled_tools</code> / <code>disabled_tools</code> 白名单优先黑名单其次、<code>default_tools_approval_mode</code>（<code>auto</code>/<code>prompt</code>/<code>approve</code>，可按单工具覆盖）管审批、两个超时默认 <code>10</code> / <code>60</code> 秒按需调大。</p>
+</blockquote>
+<hr>
+<h2>05 第三方 server 的信任问题：别什么都往上接</h2>
+<p>这一节最短，但<strong>最不能跳过</strong>——它直接接上第 16 篇「安全与风险边界」那条主线。</p>
+<p>先把道理讲明白：<strong>MCP server 是第三方写的代码 / 服务，OpenAI 不会替你做安全审计。</strong> 你接一个 STDIO server，等于让 Codex 在你机器上跑一段别人写的程序；你接一个抓外部内容的 HTTP server，等于把「外面的内容」引进了 Codex 的视野。这两件事都得过脑子。</p>
+<p><strong>类比：往生产项目里装一个第三方依赖包。</strong> 你不会随手 <code>npm install</code> 一个没听过、维护者是谁都不清楚的包，就让它跑进你的线上代码——你会先看看谁在维护、多少人在用、口碑如何。MCP server 本质就是这么个「第三方依赖」：<strong>装之前先掂量来路</strong>，尤其是会去抓外部内容（网页、工单、文档）的那种。</p>
+<p>为啥抓外部内容的 server 风险更高？因为那是<strong>提示注入（prompt injection，藏在内容里的恶意指令冒充你的命令）的温床</strong>——第 16 篇专门讲过这个坑。简单说：server 抓回来的网页 / 文档里，可能藏着一段「写给 AI 看」的恶意指令，Codex 读进去就可能被带偏。<strong>这也正是为什么第 04 节那套「限工具 + 调审批」有用</strong>——给陌生 server 的工具设成 <code>prompt</code>（每次问）、把危险工具用 <code>disabled_tools</code> 拦死，就是在源头收口。</p>
+<p>这里有几条接 server 的土规矩，可以拿去用：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>接不接</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>官方文档点名推荐的 server（OpenAI Docs、Context7、Figma、Playwright 这些）</td>
+<td>✅ 相对放心</td>
+</tr>
+<tr>
+<td>大厂官方出的 server（GitHub、Sentry 官方）</td>
+<td>✅ 相对放心</td>
+</tr>
+<tr>
+<td>GitHub 上随便一个 star 不多的第三方 server</td>
+<td>⚠️ 先看源码、想清楚再接</td>
+</tr>
+<tr>
+<td>给某个 server 设成 <code>default_tools_approval_mode = &quot;approve&quot;</code>（全自动放行）</td>
+<td>⚠️ 只对你彻底信任的 server 这么干</td>
+</tr>
+<tr>
+<td>让某个 server 拿到你生产数据的写权限</td>
+<td>❌ 能只读就只读，别给写</td>
+</tr>
+</tbody></table>
+<p>最后一条尤其重要：<strong>能用只读 / 最小权限就别给大权限</strong>，这是把风险摁到最低最实在的一招。再叠加 Codex 自身的沙箱和审批（第 15、16 篇），MCP server 也跑在那道护栏里——<strong>但护栏挡不住你亲手把一个恶意 server 设成自动放行</strong>，这一脚得你自己收着。</p>
+<blockquote>
+<p>💡 一句话总结：MCP server 是第三方代码，<strong>OpenAI 不替你审计</strong>；接之前先验证信任、优先用官方推荐和大厂官方 server，抓外部内容的 server 当心提示注入，<strong>陌生 server 的工具默认设 <code>prompt</code>、危险工具拦死、给数据一律先只读</strong>。</p>
+</blockquote>
+<hr>
+<h2>06 动手：几分钟接上 Context7 文档 server 并跑通</h2>
+<p>光看不练假把式。下面带你接上 <strong>Context7</strong>——它是官方点名的免费 server，专门给「查最新开发文档」用，<strong>不要付费、配置极简</strong>，拿来练手最合适。全程不依赖你已有的任何复杂项目。</p>
+<blockquote>
+<p>⚠️ 前提：Context7 用 <code>npx</code> 启动，所以你机器上得先装好 <strong>Node.js</strong>（命令行敲 <code>node -v</code> 能打出版本号就行）。它要联网拉文档，国内访问如果不通，先开「魔法上网」再试。<strong>包名、参数以官方为准</strong>，本篇按官方文档当前写法给。</p>
+</blockquote>
+<p><strong>第一步：加 server</strong>（在终端，不是在 <code>codex</code> 会话里）</p>
+<pre><code class="language-bash">codex mcp add context7 -- npx -y @upstash/context7-mcp
+</code></pre>
+<p><strong>预期</strong>：打印一行确认，提示 <code>context7</code> 这个 MCP server 已经加好。<strong>这条命令做的事，等同于往 <code>~/.codex/config.toml</code> 写了一张 <code>[mcp_servers.context7]</code> 表</strong>（第 03 节那张），你愿意的话可以打开那个文件核对一眼。</p>
+<p><strong>第二步：进会话，看它有没有挂上</strong></p>
+<pre><code class="language-bash">codex
+</code></pre>
+<p>进去后敲斜杠命令，看当前活跃的 MCP server：</p>
+<pre><code class="language-text">/mcp
+</code></pre>
+<p>你会看到列表里出现 <code>context7</code>——<strong>在就说明配置生效、server 挂上了。</strong> 如果没出现或报错，多半是 Node 没装好、或网络没通——按上面那条前提排查。</p>
+<p><strong>第三步：点名让它用这个 server 查文档</strong></p>
+<p>直接丢一句需求，<strong>特意点名让它查最新文档</strong>（这样它才会走 Context7，而不是用脑子里可能过时的记忆答）：</p>
+<pre><code class="language-text">用 Context7 查一下某个库（比如 React Router）最新版的路由配置该怎么写，把官方文档里的写法贴给我。
+</code></pre>
+<p>这时候 Codex 会<strong>调用 Context7 的工具去拉那个库的最新文档</strong>——按你的审批设置，<strong>第一次调用这个 server 的工具时，它通常会停下来请求你批准</strong>（这正是第 04、05 节讲的工具审批），批准它。然后它返回的是从文档 server 实时查来的写法，而不是它记忆里的老版本。<strong>执行过程里能看到这一步走了 Context7</strong>，这是你确认「答案真从外部文档来、不是模型瞎诌」的依据。</p>
+<p><strong>第四步：清理（可选）</strong></p>
+<p>练完想拆掉这个 server，两个办法二选一：</p>
+<pre><code class="language-bash">codex mcp --help
+</code></pre>
+<p>先用这条看官方提供的移除子命令的确切拼写（<code>codex mcp</code> 下的管理命令以你本地 <code>--help</code> 输出为准），照它给的命令删；或者干脆<strong>打开 <code>~/.codex/config.toml</code>，把那张 <code>[mcp_servers.context7]</code> 表删掉、或给它加一行 <code>enabled = false</code> 先禁用</strong>——配置即文件，手动改一样干净。</p>
+<p>跑通这几步，你就把「加 server → 看挂没挂上 → 点名调用并批准 → 拆掉」这条完整链路亲手走了一遍。<strong>以后接任何 server，本质都是这套流程，无非换个名字、换条启动命令或 URL、按需在 <code>config.toml</code> 里加鉴权和工具权限。</strong></p>
+<blockquote>
+<p>💡 一句话总结：接 Context7 练手最稳——<strong><code>codex mcp add</code> 加、<code>/mcp</code> 看挂上没、会话里点名让它查最新文档并批准首次调用、改 <code>config.toml</code> 拆掉</strong>；亲手跑通这条链路，比记十条命令都管用。</p>
+</blockquote>
+<hr>
+<h2>07 小结</h2>
+<p>这一篇我们给 Codex 接上了外部世界——<strong>从「只会本地干活」到「一个口子外接一堆工具」，全靠 MCP 这个转接头。</strong></p>
+<p>把核心要点串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你要做的事</th>
+<th>用什么</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>理解 MCP 干嘛的</td>
+<td>一个开放对接标准</td>
+<td>Codex 默认够不着外部工具，MCP 统一外接；还会读 server 的 <code>instructions</code></td>
+</tr>
+<tr>
+<td>接本地工具</td>
+<td>STDIO server</td>
+<td>给一条启动命令（<code>npx ...</code>），需本地装好对应环境</td>
+</tr>
+<tr>
+<td>接云服务</td>
+<td>Streamable HTTP server</td>
+<td>给 URL，配 Bearer token 或跑 <code>codex mcp login</code> 走 OAuth</td>
+</tr>
+<tr>
+<td>决定 server 在哪用</td>
+<td><strong>配置文件放哪</strong>（没有 <code>--scope</code>）</td>
+<td>全局 <code>~/.codex/config.toml</code> / 项目 <code>.codex/config.toml</code>（需受信任）</td>
+</tr>
+<tr>
+<td>加 server</td>
+<td><code>codex mcp add</code> 或手写 <code>[mcp_servers.&lt;name&gt;]</code></td>
+<td><code>--</code> 后跟启动命令；CLI 和 IDE 共用配置</td>
+</tr>
+<tr>
+<td>收口工具和权限</td>
+<td><code>config.toml</code> 字段</td>
+<td><code>enabled</code> / 白黑名单 / <code>default_tools_approval_mode</code> / 两个超时</td>
+</tr>
+<tr>
+<td>接第三方前</td>
+<td>掂量信任</td>
+<td>OpenAI 不审计；抓外部内容的当心提示注入，默认设 <code>prompt</code>、给只读</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 看懂 MCP 补上了 Codex 的哪块短板、分清 STDIO 和 HTTP 两种 server 该怎么配、知道 Codex 靠「配置文件放哪」而不是 <code>--scope</code> 决定作用范围，会用 <code>codex mcp add</code> 或手写 <code>config.toml</code> 加 server、用 <code>/mcp</code> 看状态，能用 <code>enabled_tools</code> / <code>default_tools_approval_mode</code> 这些字段收口一个 server 的工具和权限，并且懂得在接第三方 server 前先验证信任、源头收口。<strong>这套「外接能力」，是你让 Codex 从「本地代码助手」升级成「能直接操作你整套工具链」的那把钥匙。</strong></p>
+<p>回头看开头那个跟头——<strong>记住「Codex 没有 <code>--scope</code>、一切配置进 <code>config.toml</code>、<code>--</code> 后才是启动命令」这一条</strong>，你就能少走我那二十分钟的弯路。</p>
+<hr>
+<p>下一篇 <strong>〔<a href="21-subagents.html">21 子代理（Subagents）</a> 〕</strong>——MCP 让一个 Codex 能干的事变多了，但活一多，<strong>一个 Codex 也会忙不过来、上下文越塞越满</strong>。下一篇换个思路：不让一个 Codex 硬扛，而是<strong>派一队带独立上下文的专项小弟分活</strong>——主代理派活、子代理各干各的、各自的上下文互不污染。想想看：如果能把「查文档」「写测试」「跑构建」拆给几个互不打扰的小弟同时干，是不是比一个 Codex 来回切省心多了？</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/19-memory.html"><span class="mono">← 上一篇 · 19</span><b>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</b></a>
+  <a class="pg nx" href="/library/codex/21-subagents.html"><span class="mono">下一篇 · 21 →</span><b>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

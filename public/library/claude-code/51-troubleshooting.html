@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>51 常见问题排查（FAQ / Troubleshooting） — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 51 篇:常见问题排查（FAQ / Troubleshooting）。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/51-troubleshooting.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class="cur"><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class="cur"><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 51 篇</p>
+      <h1>常见问题排查（FAQ / Troubleshooting）</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="50-anti-patterns.html">50 反模式：常见的错误用法</a> 把那些「看着没错、其实在挖坑」的用法挨个点名。这一篇接着聊排查——<strong>当 Claude Code 真出毛病的时候，怎么按图索骥、一步步排查到根</strong>。装不上、登不进、权限拦你、MCP 不连、跑得卡、蹦个红字报错……这篇给你一套「症状 → 该翻哪、该敲啥」的查问题地图。</p>
+</blockquote>
+<p>先说一个特别典型、又特别容易把人坑进去的场景，理解它你就明白这一篇要解决什么。</p>
+<p>设想这么个情况：刚换了台新 Mac，从公司项目里把 Claude Code 装好，一启动就弹 <code>This organization has been disabled</code>。第一反应往往是「完了，是不是账号被封了」，赶紧登 claude.ai 查订阅——好好的，Max 还在。又怀疑是网络，挂了魔法上网重试，还是那行字。这么前前后后折腾<strong>快四十分钟</strong>，重装了两遍 Claude Code，差点就去开工单了。</p>
+<p>结果根因是啥？那台老 Mac 迁移配置过来的时候，<code>~/.zshrc</code> 里躺着一行<strong>早就忘了的 <code>export ANTHROPIC_API_KEY=...</code></strong>，是半年前接的一个已经注销了的公司项目留下的旧 key。<strong>环境变量优先级压过了订阅登录</strong>，Claude Code 老老实实拿那把作废的 key 去认证，可不就被告知「这个组织已禁用」么。一行 <code>unset ANTHROPIC_API_KEY</code>，秒好。</p>
+<p>说这个例子是想让你记住一件事：<strong>排查问题最忌讳「靠猜」。</strong> 那四十分钟全花在瞎猜上了——猜账号、猜网络、猜得越多离真相越远。其实 Claude Code 自己就带着体检工具，一句 <code>/status</code> 就能告诉你「当前用的是哪套凭证」，根本不用猜。这一篇就教你<strong>不靠猜、按流程</strong>把问题逼到墙角。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一张「症状 → 去哪查」的总路由表：报错先对号入座，别一上来乱试</li>
+<li>两个最该先敲的自助命令——<code>/doctor</code> 体检、<code>/feedback</code> 上报——分别什么时候用</li>
+<li>按六大类（安装、登录认证、权限、MCP、性能、报错信息）整理的「问题 → 解决」对照</li>
+<li><code>--debug</code> 系列调试开关怎么用，以及「干净配置对照法」这个排查杀手锏</li>
+<li>一个能照着跑、给了预期输出的实战：亲手用 <code>/doctor</code> 给自己的安装做一次体检</li>
+</ul>
+<hr>
+<h2>01 排查的第一原则：先定位「这是哪一类问题」，别瞎试</h2>
+<p>先给结论，这条原则比后面所有具体命令都重要：<strong>遇到问题，第一步不是动手修，是先搞清楚「它属于哪一类」——是装的问题、登录的问题、配置的问题，还是 API 那头的问题。</strong> 类别定错，后面全白忙。</p>
+<p><strong>类比：水管漏水先关阀门，别先撬地砖。</strong> 家里某处渗水，老师傅来了不会上来就砸墙——他先判断「是水龙头的、是接头的、还是楼上漏下来的」。判断错了，地砖撬一地也找不着漏点。排查 Claude Code 一个道理：<strong>先分诊，再下手。</strong></p>
+<p>为什么这条最重要？因为 Claude Code 的官方文档<strong>本身就是按类别拆开的</strong>——安装登录一页、运行时报错一页、配置调试一页、性能一页。你要是连「我这属于哪类」都没分清，翻文档都不知道翻哪页。官方故障排除页开头直接甩了一张路由表，我把它翻成你最可能撞上的样子：</p>
+<table>
+<thead>
+<tr>
+<th>你看到的症状</th>
+<th>这属于哪类 / 去翻哪篇</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>command not found: claude</code>、装不上、PATH 问题、<code>EACCES</code></td>
+<td><strong>安装类</strong>（详见第 02 篇 + 本篇 02 节）</td>
+</tr>
+<tr>
+<td>反复让你登录、<code>403 Forbidden</code>、<code>organization disabled</code></td>
+<td><strong>登录认证类</strong>（本篇 03 节）</td>
+</tr>
+<tr>
+<td>设置没生效、hooks 没触发、MCP server 没加载、权限规则没拦住</td>
+<td><strong>配置类</strong>（本篇 04 节 + 调试你的配置）</td>
+</tr>
+<tr>
+<td><code>API Error: 5xx</code>、<code>529 Overloaded</code>、<code>429</code></td>
+<td><strong>API 报错类</strong>（本篇 06 节，多半不是你的错）</td>
+</tr>
+<tr>
+<td><code>model not found</code> / <code>you may not have access to it</code></td>
+<td><strong>报错类</strong>（本篇 06 节，模型选错或没权限）</td>
+</tr>
+<tr>
+<td>卡顿、高 CPU / 内存、搜索找不到文件</td>
+<td><strong>性能类</strong>（本篇 05 节）</td>
+</tr>
+</tbody></table>
+<p><strong>用法很简单：左列找一句最像你屏幕上那句的，右列告诉你该往哪个方向查。</strong> 这一篇后面每一节，就是把这张表的每一类掰开细讲。</p>
+<blockquote>
+<p>这里插一句官方的话，值得你刻在脑子里：<strong>「如果你不确定哪个适用，请在 Claude Code 内运行 <code>/doctor</code> 来自动检查你的安装、设置、MCP 服务器和上下文使用情况。如果 <code>claude</code> 根本无法启动，请从你的 shell 运行 <code>claude doctor</code>。」</strong></p>
+</blockquote>
+<p>也就是说——<strong>分不清类别？别纠结，先 <code>/doctor</code> 跑一遍</strong>，它会替你把大半个方向指出来。下一节就专门讲这俩自助命令。</p>
+<blockquote>
+<p>💡 一句话总结：排查第一步永远是<strong>先分诊、不瞎试</strong>——对着症状路由表认清「这是哪一类」，再去对应章节下手；实在分不清就先 <code>/doctor</code>。</p>
+</blockquote>
+<hr>
+<h2>02 两个自助命令：<code>/doctor</code> 体检、<code>/feedback</code> 上报</h2>
+<p>在你翻任何文档、问任何人之前，Claude Code 自带两个「自助」入口。<strong>九成的问题，要么 <code>/doctor</code> 直接给你指出来，要么实在解决不了用 <code>/feedback</code> 上报。</strong> 先把这俩用熟，能省你大把时间。</p>
+<p><strong>类比：身上不舒服，先去做个全身体检。</strong> 你哪儿疼了不会一上来就开刀，先做个体检——血压、心率、各项指标一拉，医生扫一眼报告就知道大概问题出在哪。<code>/doctor</code> 就是 Claude Code 的体检仪：<strong>一条命令，把安装是否健康、配置有没有语法错、MCP 连没连上、上下文占了多少，一次性给你查个遍。</strong></p>
+<h3><code>/doctor</code>：一键体检</h3>
+<p><code>/doctor</code> 是你排查时最该先敲的命令。它检查的东西，官方列得很清楚——<strong>安装健康状况、设置有效性（有没有无效的键、schema 错误）、MCP 配置、上下文使用情况</strong>。</p>
+<p>关键看你能不能启动：</p>
+<ul>
+<li><strong>能进会话</strong>：直接在 Claude 里敲 <code>/doctor</code>。</li>
+<li><strong><code>claude</code> 根本起不来</strong>（比如 <code>command not found</code>、一启动就崩）：在你的终端（shell）里敲 <code>claude doctor</code>——注意这个<strong>没有斜杠</strong>，是个独立的命令行子命令。</li>
+</ul>
+<p><code>/doctor</code> 还有个贴心设计：<strong>当它报出问题时，按 <code>f</code> 能把这份诊断报告直接发给 Claude，让它陪你一步步解决。</strong> 等于体检完，医生就在旁边给你读报告。</p>
+<h3><code>/feedback</code>：实在搞不定，上报</h3>
+<p>如果你按文档查了、<code>/doctor</code> 也跑了，问题还在——<strong>别自己死磕，用 <code>/feedback</code> 上报给 Anthropic</strong>。它会把你的对话记录连同描述一起发过去，这是官方诊断真实问题（尤其是「响应质量莫名变差」这种没有报错的玄学问题）<strong>最快的方式</strong>。这个命令还提供一个选项：<strong>帮你打开一个预填好内容的 GitHub issue</strong>。注意：如果你用的是 Bedrock、Vertex 等第三方提供商，<code>/feedback</code> 不会把信息发给 Anthropic，而是保存到本地存档，需要你手动发给 Anthropic 的账户代表。</p>
+<blockquote>
+<p>你可能在别处听过 <code>/bug</code> 这个说法——它就是「上报问题」这件事的旧叫法。现在官方统一用 <strong><code>/feedback</code></strong>：在会话里把记录和描述发给 Anthropic，或顺带开一个预填的 GitHub issue。记 <code>/feedback</code> 这一个就够。</p>
+</blockquote>
+<p>这里给你整理一张「先敲啥」对照表：</p>
+<table>
+<thead>
+<tr>
+<th>你的处境</th>
+<th>先敲这个</th>
+<th>它干嘛</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不确定问题属于哪一类</td>
+<td><code>/doctor</code></td>
+<td>一次性体检，指出大方向</td>
+</tr>
+<tr>
+<td><code>claude</code> 压根起不来</td>
+<td><code>claude doctor</code>（在终端）</td>
+<td>启动前就能跑的诊断</td>
+</tr>
+<tr>
+<td><code>/doctor</code> 报了问题、想让 Claude 帮我解</td>
+<td>在 <code>/doctor</code> 结果里按 <code>f</code></td>
+<td>把诊断报告甩给 Claude</td>
+</tr>
+<tr>
+<td>查完文档也解不了</td>
+<td><code>/feedback</code></td>
+<td>把记录 + 描述上报 Anthropic</td>
+</tr>
+<tr>
+<td>想看看是不是官方在挂</td>
+<td>浏览器开 <a href="https://status.claude.com">status.claude.com</a></td>
+<td>查 API 是否有线上事故</td>
+</tr>
+</tbody></table>
+<p>最后那条 <code>status.claude.com</code> 特别值得记住：<strong>遇到一堆 <code>5xx</code>、<code>529</code> 这种服务器错误时，第一件事是去这个状态页看一眼，而不是怀疑自己</strong>——很多时候是 Anthropic 那头在抖，跟你的配置一毛钱关系没有。这点第 06 节还会细说。</p>
+<blockquote>
+<p>💡 一句话总结：排查前先动两个自助命令——<strong><code>/doctor</code>（或终端 <code>claude doctor</code>）做体检指方向、<code>/feedback</code> 在搞不定时上报</strong>；服务器疑似挂了先看 <code>status.claude.com</code>。</p>
+</blockquote>
+<hr>
+<h2>03 登录认证类：被反复要求登录、组织被禁用</h2>
+<p>从这节起，咱们按类别过具体问题。先说<strong>登录认证</strong>——这类最容易让新手慌，因为报错字眼一个比一个吓人（<code>disabled</code>、<code>Forbidden</code>、<code>revoked</code>），但<strong>真相往往特别朴素</strong>。</p>
+<p><strong>类比：进公司刷门禁卡，刷不开未必是你被开除了。</strong> 可能是卡消磁了、可能是你拿错了一张旧工牌、可能是门禁系统时间没对上。报错说「拒绝进入」，不等于「你没资格」。认证问题也一样——<strong>先看「Claude Code 到底拿哪套凭证去认证的」，别一上来就往最坏处想。</strong></p>
+<h3>第一招：看清「当前用的是哪套凭证」</h3>
+<p>这是认证类问题的<strong>万能第一步</strong>，也是开头那四十分钟弯路的解药。在会话里敲：</p>
+<pre><code class="language-text">/status
+</code></pre>
+<p><strong>预期</strong>：它会显示当前活跃的身份验证方式——是你的订阅（OAuth 登录），还是某个 API key。<strong>如果你明明是订阅用户，这里却显示在用 API key，问题基本就锁定了。</strong></p>
+<h3>最经典的坑：<code>ANTHROPIC_API_KEY</code> 偷偷压过订阅</h3>
+<p>开头栽的就是这个。官方把机制讲得明明白白：</p>
+<blockquote>
+<p>环境变量优先于 <code>/login</code>，因此在你的 shell 配置文件中导出或从 <code>.env</code> 文件加载的密钥，即使你有有效的 Pro 或 Max 订阅也会被使用。在非交互模式（<code>-p</code>）中，当存在密钥时总是使用该密钥。</p>
+</blockquote>
+<p>所以只要你环境里有个 <code>ANTHROPIC_API_KEY</code>（哪怕是几个月前某项目留下、你早忘了的），Claude Code 就会拿它去认证。这个 key 一旦失效或属于被禁用的组织，就报 <code>This organization has been disabled</code>。解药：</p>
+<pre><code class="language-bash">unset ANTHROPIC_API_KEY
+claude
+</code></pre>
+<p>但 <code>unset</code> 只对当前终端窗口有效，<strong>要彻底根治，得去 <code>~/.zshrc</code>、<code>~/.bashrc</code> 或 <code>~/.profile</code> 里把那行 <code>export ANTHROPIC_API_KEY=...</code> 删掉</strong>（Windows 上查 PowerShell 配置文件 <code>$PROFILE</code> 和用户环境变量）。删完重启 <code>claude</code>，再 <code>/status</code> 确认已经切回订阅。这套「凭证优先级」第 04 篇（API 配置）讲过，认证出问题时记得回去对一眼。</p>
+<h3>其它几个常见认证报错，对症下药</h3>
+<table>
+<thead>
+<tr>
+<th>报错</th>
+<th>啥意思</th>
+<th>怎么修</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Not logged in · Please run /login</code></td>
+<td>这个会话没有效凭证</td>
+<td>敲 <code>/login</code> 登录；若指望环境变量认证，确认 <code>ANTHROPIC_API_KEY</code> 真的导出了</td>
+</tr>
+<tr>
+<td><code>OAuth token revoked</code> / <code>has expired</code></td>
+<td>保存的登录失效了</td>
+<td><code>/login</code> 重登；同会话又报就先 <code>/logout</code> 再 <code>/login</code></td>
+</tr>
+<tr>
+<td>反复被要求登录（跨多次启动）</td>
+<td>令牌总是失效</td>
+<td><strong>查系统时钟准不准</strong>（令牌校验依赖正确时间戳）；macOS 上 Keychain 锁了也会这样，跑 <code>claude doctor</code> 查 Keychain 访问</td>
+</tr>
+<tr>
+<td><code>403 Forbidden</code>（登录后）</td>
+<td>订阅 / 角色 / 代理问题</td>
+<td>Pro/Max 去 claude.ai/settings 看订阅；Console 用户确认账户有 <code>Claude Code</code> 或 <code>Developer</code> 角色</td>
+</tr>
+<tr>
+<td><code>Invalid API key</code></td>
+<td>key 被拒</td>
+<td>查拼写、确认没在 Console 撤销；<code>env | grep ANTHROPIC</code> 看是不是 <code>.env</code> 加载了过时 key</td>
+</tr>
+</tbody></table>
+<p>那个「<strong>反复登录就查系统时钟</strong>」是真容易被忽略——一台长期没联网的虚拟机上常会死活登不上，最后往往发现是机器时间慢了三天，令牌一签发就被判过期。对一下时间，秒好。</p>
+<blockquote>
+<p>💡 一句话总结：认证问题先 <code>/status</code> 看「在用哪套凭证」；最坑的是 <strong>shell 里残留的 <code>ANTHROPIC_API_KEY</code> 压过订阅</strong>（<code>unset</code> + 删配置文件）；反复掉登录优先查<strong>系统时钟和 macOS Keychain</strong>。</p>
+</blockquote>
+<hr>
+<h2>04 配置类：设置 / hooks / MCP「写了没生效」</h2>
+<p>第二类是<strong>配置不生效</strong>——你明明在 <code>settings.json</code> 里写了规则、配了 hook、加了 MCP server，结果 Claude 跟没看见似的。这类问题官方专门有一页叫「调试你的配置」，核心就一句话：<strong>先确认 Claude Code 到底「实际加载了什么」，别假设你写的就生效了。</strong></p>
+<p><strong>类比：交了作业不等于老师收到了。</strong> 你把作业放讲台上就走了，没生效可能是放错了桌子、夹在别人本子里了、或者被另一份覆盖了。配置一个道理——<strong>没生效，先去查「它实际读进去的是哪份」，而不是反复改你以为对的那份。</strong></p>
+<h3>一组「查实际加载了啥」的命令</h3>
+<p>这是配置类的核心工具箱，每个命令查一类东西，对症用：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>查什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/context</code></td>
+<td>当前会话里上下文都被谁占了（系统提示、内存文件、skills、MCP 工具、消息）</td>
+</tr>
+<tr>
+<td><code>/memory</code></td>
+<td>加载了哪些 <code>CLAUDE.md</code> 和规则文件</td>
+</tr>
+<tr>
+<td><code>/skills</code></td>
+<td>来自项目 / 用户 / 插件的可用 skills</td>
+</tr>
+<tr>
+<td><code>/agents</code></td>
+<td>配置的子代理及其设置</td>
+</tr>
+<tr>
+<td><code>/hooks</code></td>
+<td>当前会话注册了哪些 hook</td>
+</tr>
+<tr>
+<td><code>/mcp</code></td>
+<td>连上的 MCP server 及其状态</td>
+</tr>
+<tr>
+<td><code>/permissions</code></td>
+<td>当前生效的允许 / 拒绝规则</td>
+</tr>
+<tr>
+<td><code>/debug [问题描述]</code></td>
+<td>为会话启用调试日志，并提示 Claude 用日志输出和设置路径来诊断</td>
+</tr>
+<tr>
+<td><code>/status</code></td>
+<td>哪些设置源是活跃的（含是否启用了托管设置）</td>
+</tr>
+</tbody></table>
+<p><strong>用法是「我配了啥没生效，就敲对应那个命令看它在不在」</strong>。比如你写了 hook 没触发，先 <code>/hooks</code> 看它有没有被注册——<strong>没出现，说明压根没被读到；出现了却不触发，那是匹配器（matcher）的问题</strong>。</p>
+<h3>几个新手最常踩的配置坑</h3>
+<p>官方那张「症状 → 原因 → 修复」表里，我挑出小白最高频的几条：</p>
+<table>
+<thead>
+<tr>
+<th>症状</th>
+<th>多半是因为</th>
+<th>怎么修</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hook 永远不触发</td>
+<td><code>matcher</code> 写成了小写（如 <code>&quot;bash&quot;</code>）</td>
+<td>工具名<strong>区分大小写且首字母大写</strong>：<code>Bash</code>、<code>Edit</code>、<code>Write</code>、<code>Read</code></td>
+</tr>
+<tr>
+<td>hook 永远不触发</td>
+<td>hook 写进了独立文件</td>
+<td>项目 / 用户的 hook 必须放在 <code>settings.json</code> 的 <code>&quot;hooks&quot;</code> 键下</td>
+</tr>
+<tr>
+<td><code>settings.json</code> 的值好像被忽略</td>
+<td>同一个键在 <code>settings.local.json</code> 里也设了</td>
+<td><code>settings.local.json</code> 覆盖 <code>settings.json</code>，两者都覆盖 <code>~/.claude/settings.json</code>（详见第 31 篇）</td>
+</tr>
+<tr>
+<td><code>.mcp.json</code> 里的 MCP server 从不加载</td>
+<td>文件放进了 <code>.claude/</code> 目录下</td>
+<td>项目 MCP 配置要放在<strong>仓库根目录</strong>的 <code>.mcp.json</code>，不在 <code>.claude/</code> 里</td>
+</tr>
+<tr>
+<td>项目 MCP server 没出现</td>
+<td>一次性批准提示被关掉了</td>
+<td>项目级 server 需要批准，敲 <code>/mcp</code> 查状态并批准（详见第 22 篇）</td>
+</tr>
+<tr>
+<td>子目录的 <code>CLAUDE.md</code> 指令没生效</td>
+<td>它是「按需加载」的</td>
+<td>只在 Claude 用 Read 读那个目录文件时才加载，不是启动时（详见第 18 篇）</td>
+</tr>
+</tbody></table>
+<p>那个「<strong>hook 的 matcher 大小写</strong>」最容易踩：第一次写 <code>PostToolUse</code> hook，matcher 填了 <code>&quot;edit|write&quot;</code>，怎么改文件都不跑。<code>/hooks</code> 里明明显示注册了，对着配置看半天也看不出毛病——最后才反应过来工具名得大写成 <code>&quot;Edit|Write&quot;</code>。<strong>官方原文：「匹配是区分大小写的。」</strong> 这种坑不知道就是死活查不出，知道了就一秒解决。</p>
+<h3>权限相关：「明明配了规则，怎么还是拦不住 / 老来问我」</h3>
+<p>权限（permission）问题也归在配置这一类，新手常撞两种：</p>
+<p><strong>一种是「我写进 CLAUDE.md 的禁令没拦住」。</strong> 关键认知：<strong>CLAUDE.md 里的「永远不要编辑 <code>.env</code>」是一句「请求」，不是「保证」</strong>。官方把这点说得很透——要 Claude「做好决定」用 CLAUDE.md，要「无论它怎么决定都强制执行」的硬约束，得用权限规则或 hook（详见第 20、21 篇）。所以真要拦死某个操作，<strong>别指望 CLAUDE.md，去写 <code>deny</code> 权限规则或 <code>PreToolUse</code> hook</strong>。</p>
+<p><strong>另一种更隐蔽：<code>deny</code> 规则写了，却拦不住等效命令。</strong> 比如你写了 <code>Bash(rm *)</code> 想禁删除，结果 Claude 用 <code>/bin/rm</code> 或 <code>find . -delete</code> 照样删得掉。原因是——<strong>前缀规则匹配的是「字面命令字符串」，不是底层那个可执行文件</strong>。解法是为每个变体都加显式规则，或者干脆上 <code>PreToolUse</code> hook / 沙箱来拿「硬保证」。排查权限时，先敲 <code>/permissions</code> 看<strong>当前实际生效的允许 / 拒绝规则</strong>，对一眼是不是你以为的那套。</p>
+<blockquote>
+<p>这背后是第 50 篇反模式讲过的同一个道理：<strong>把「安全边界」托付给一句自然语言指令，本身就是个反模式</strong>——指令是软的，规则和 hook 才是硬的。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：配置没生效，先用 <code>/context</code>、<code>/memory</code>、<code>/hooks</code>、<code>/mcp</code>、<code>/permissions</code> 这组命令查 <strong>「实际加载了什么」</strong>；高频坑是 <strong>hook matcher 大小写写错、配置被优先级更高的 <code>settings.local.json</code> 覆盖、<code>.mcp.json</code> 放错目录、以及把「安全禁令」错写进 CLAUDE.md 而不是 <code>deny</code> 规则</strong>。</p>
+</blockquote>
+<hr>
+<h2>05 性能类：卡顿、高内存、搜索找不到文件</h2>
+<p>第三类是<strong>跑得不舒服</strong>——响应越来越慢、内存吃得吓人、<code>@file</code> 死活补全不出来。这类官方归在「性能和稳定性」里，<strong>大多跟「上下文塞太满」和「环境小问题」有关，很少是 bug。</strong></p>
+<p><strong>类比：电脑越用越卡，多半是后台开太多，不是硬件坏了。</strong> 你不会一卡就送修，先关几个吃内存的程序、清一波缓存。Claude Code 卡顿一个道理——<strong>先收拾「工作台」，别急着重装。</strong></p>
+<h3>卡顿 / 高内存：先收拾上下文</h3>
+<p>官方给的处理顺序很务实：</p>
+<ol>
+<li>定期用 <strong><code>/compact</code></strong> 压缩上下文（把对话整理成一页要点，详见第 19 篇）。</li>
+<li><strong>在主要任务之间关掉再重启</strong> Claude Code。</li>
+<li>把大型构建目录加进 <code>.gitignore</code>，别让它去扫。</li>
+</ol>
+<p>如果这么做内存还是高，可以跑 <strong><code>/heapdump</code></strong>——它会把一份 JavaScript 堆快照写到 <code>~/Desktop</code>（Linux 上没桌面就写主目录），报内存问题时把它附在 GitHub issue 上。这命令你日常用不到，知道有这么个东西就行。</p>
+<blockquote>
+<p><strong>关于「卡死、转圈不动」</strong>：官方说得很干脆——先按 <strong>Ctrl+C</strong> 试着取消当前操作；要是彻底没反应，关掉终端重启。<strong>重启不会丢对话</strong>，在同一目录跑 <code>claude --resume</code> 就能接着上次的会话往下走。</p>
+</blockquote>
+<h3>自动压缩「抖动」：一个新手会被吓到的报错</h3>
+<p>你可能撞见这行：<code>Autocompact is thrashing: the context refilled to the limit...</code>。别慌——意思是<strong>自动压缩成功了，但有个超大文件或工具输出立刻又把上下文塞满了</strong>，Claude Code 为了不空转烧 API 调用，主动停了重试。恢复办法：让它<strong>分块读那个超大文件</strong>（指定行范围或某个函数，别整文件读），或者 <code>/compact</code> 时点名「只保留计划和 diff」，再不行就 <code>/clear</code> 重开。</p>
+<h3>搜索 / <code>@file</code> 补全失灵：换个 ripgrep</h3>
+<p>如果搜索工具、<code>@file</code> 提及、自定义 skill 找不到文件，<strong>多半是 Claude Code 自带的那个 <code>ripgrep</code>（一个高速搜索工具）在你系统上跑不起来</strong>。官方解法是装系统版的 <code>ripgrep</code> 再让 Claude Code 改用它：</p>
+<pre><code class="language-bash"># macOS
+brew install ripgrep
+</code></pre>
+<p>然后在环境变量里设 <code>USE_BUILTIN_RIPGREP=0</code>（环境变量怎么配详见第 42 篇）。</p>
+<p>这里给一张性能类的「症状 → 先做啥」速查：</p>
+<table>
+<thead>
+<tr>
+<th>症状</th>
+<th>先做这个</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>越用越慢、内存高</td>
+<td><code>/compact</code>，然后重启 Claude Code</td>
+</tr>
+<tr>
+<td>彻底卡死、转圈不动</td>
+<td>Ctrl+C；不行就关终端，<code>claude --resume</code> 续上</td>
+</tr>
+<tr>
+<td>看到 <code>Autocompact is thrashing</code></td>
+<td>让它分块读大文件 + <code>/compact keep only ...</code></td>
+</tr>
+<tr>
+<td><code>@file</code> 补全 / 搜索找不到文件</td>
+<td>装系统 <code>ripgrep</code>，设 <code>USE_BUILTIN_RIPGREP=0</code></td>
+</tr>
+<tr>
+<td>集成终端里文字乱码、糊成方块</td>
+<td>在 Claude 里跑 <code>/terminal-setup</code> 关掉 GPU 渲染</td>
+</tr>
+</tbody></table>
+<p>最后那条「乱码」在 VS Code 内置终端里偶尔会撞见，整屏字符糊成豆腐块，挺唬人。跑个 <code>/terminal-setup</code> 把终端的 GPU 加速关掉，重载窗口就清爽了——<strong>纯渲染问题，跟 Claude 本身没关系</strong>。</p>
+<blockquote>
+<p>💡 一句话总结：性能问题先怀疑「上下文太满」——<strong><code>/compact</code> + 重启</strong>是万金油；卡死按 <strong>Ctrl+C / <code>claude --resume</code></strong>；搜索失灵换系统 <strong><code>ripgrep</code></strong>；终端乱码跑 <strong><code>/terminal-setup</code></strong>。</p>
+</blockquote>
+<hr>
+<h2>06 API 报错类：蹦红字了，先分清「是不是你的锅」</h2>
+<p>第四类是会话里<strong>直接蹦出一行 <code>API Error: ...</code></strong>。新手一看红字就慌，其实这类最该做的，是<strong>先分清这报错是「服务器那头的事」还是「你这头的事」</strong>——两者的处理方式完全相反。</p>
+<p><strong>类比：网页打不开，先分清是网站挂了还是你断网了。</strong> 网站挂了你刷新一百遍也没用，等它修；你断网了那才该去查自己的路由器。API 报错一个逻辑——<strong>先判断锅在谁那儿，再决定是「等」还是「改」。</strong></p>
+<h3>先记住：Claude Code 早就帮你自动重试过了</h3>
+<p>官方有个机制值得先知道：<strong>服务器错误、过载、超时、临时限流、断连，Claude Code 都会自动以指数退避重试最多 10 次</strong>，重试时你会看到转圈旁边显示 <code>Retrying in Ns · attempt x/y</code> 的倒计时。所以——<strong>当你真看到一行报错时，意味着这些重试已经全用完了</strong>，不是它一下就放弃了。</p>
+<h3>三大类报错，三种应对</h3>
+<p>我把官方那张超长报错表归成你最该分清的三堆：</p>
+<table>
+<thead>
+<tr>
+<th>报错长这样</th>
+<th>锅在谁</th>
+<th>你该干嘛</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>API Error: 500</code> / <code>529 Overloaded</code> / <code>Server is temporarily limiting requests</code></td>
+<td><strong>服务器</strong>（不是你）</td>
+<td>等一会儿重试；查 <a href="https://status.claude.com">status.claude.com</a>；<code>/model</code> 换个模型（容量是按模型算的）</td>
+</tr>
+<tr>
+<td><code>You&#39;ve hit your session/weekly/Opus limit</code></td>
+<td><strong>你的额度</strong>用完了</td>
+<td>等重置时间；<code>/usage</code> 看额度；<code>/usage-credits</code> 加购或升级套餐</td>
+</tr>
+<tr>
+<td><code>Prompt is too long</code> / <code>Request too large</code></td>
+<td><strong>你的请求</strong>太大了</td>
+<td><code>/compact</code> 或 <code>/clear</code>；超大文件按路径让它分块读，别整段粘贴</td>
+</tr>
+</tbody></table>
+<p>这三堆的处理逻辑天差地别：<strong>第一堆「等就完了」，第二堆「掏钱或等重置」，第三堆「精简你的输入」</strong>。分不清就容易做反——服务器在抖你却在删自己的对话，或者额度满了你却以为是 bug 一直重试。</p>
+<p>还有一类是<strong>连不上 API</strong>（<code>Unable to connect to API</code>、<code>fetch failed</code>、<code>Request timed out</code> 带「检查网络」字样）——这通常不是 Anthropic 的事，是<strong>你这头的网络、VPN、代理或防火墙</strong>。第一步先在同一个终端里验证你能不能摸到 API 主机：</p>
+<pre><code class="language-bash">curl -I https://api.anthropic.com
+</code></pre>
+<p>通了说明网络没问题，问题在更上层（比如代理 / 证书）；<code>Could not resolve host</code> 或超时就是网络被挡了。<strong>国内用户这里十有八九是要开魔法上网</strong>；公司网络后面则多半得配 <code>HTTPS_PROXY</code>。如果是慢网络老超时，可以把单次请求超时调长——官方给了两个旋钮（环境变量配法详见第 42 篇）：</p>
+<table>
+<thead>
+<tr>
+<th>环境变量</th>
+<th>默认值</th>
+<th>干嘛的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>API_TIMEOUT_MS</code></td>
+<td>600000（10 分钟）</td>
+<td>单次请求超时，慢网络 / 代理就调大</td>
+</tr>
+<tr>
+<td><code>CLAUDE_CODE_MAX_RETRIES</code></td>
+<td>10</td>
+<td>自动重试次数，脚本里想快点失败就调小</td>
+</tr>
+</tbody></table>
+<h3>两个新手高频、又容易误解的报错</h3>
+<p><strong><code>model not found</code> / <code>you may not have access to it</code></strong>：配置的模型名没被识别，或你账户没权限。先在交互式 CLI 里敲 <code>/model</code> 从可用模型里重选。<strong>如果错误的模型老是冒出来，说明某处设了过时的模型 ID</strong>——按优先级查：<code>--model</code> 标志 → <code>ANTHROPIC_MODEL</code> 环境变量 → <code>settings.local.json</code> → 各级 <code>settings.json</code> 里的 <code>model</code> 字段，把过时值删掉就回落到账户默认了。官方还有个实在建议：<strong>用别名（如 <code>sonnet</code>、<code>opus</code>）而不是写死的版本号 ID，别名会自动跟最新版，不会过时</strong>（<code>/model</code>、<code>ANTHROPIC_MODEL</code> 等配置方式详见第 04 篇 API 配置）。</p>
+<p><strong><code>Claude Code is unable to respond to this request, which appears to violate our Usage Policy</code></strong>：使用政策检查拦下了。注意一个反直觉的点——<strong>这个检查评估的是整段对话，不只是你最后那句</strong>，所以在同一会话里换句话再发，往往还会触发同样的拒绝。正确做法是按两下 Esc 或 <code>/rewind</code> 回退到触发那一轮之前（详见第 37 篇），换个表述或思路；实在找不到是哪轮，<code>/clear</code> 重开一段对话。</p>
+<blockquote>
+<p>💡 一句话总结：API 报错先分三堆——<strong><code>5xx</code>/<code>529</code> 是服务器的锅（等 + 查状态页 + 换模型）、<code>hit your limit</code> 是额度（等重置或加购）、<code>too long</code>/<code>too large</code> 是你输入太大（<code>/compact</code> / 分块读）</strong>；<code>Unable to connect</code> 是你这头的网络（<code>curl</code> 验主机、必要时开魔法上网 / 配代理）；模型报错优先用别名、查过时 ID。</p>
+</blockquote>
+<hr>
+<h2>07 杀手锏：<code>--debug</code> 调试日志 + 干净配置对照法</h2>
+<p>前面六类覆盖了九成情况。但总有那么一两次，<strong>症状怪、按文档查也定位不到</strong>。这时候祭出两个进阶武器，基本能把最刁钻的问题也逼出来。</p>
+<p><strong>类比：查电路故障，万用表 + 逐个拔插。</strong> 修电路的老师傅遇到说不清的故障，一是拿万用表实时量哪段电压不对（看实时日志），二是把电器一个个拔下来试、看拔哪个故障消失（逐个排除）。排查 Claude Code 的两个杀手锏，正是这两招的翻版。</p>
+<h3>武器一：<code>--debug</code> 实时看它在干啥</h3>
+<p>光看结果猜不出原因时，<strong>带 <code>--debug</code> 启动，让它把内部过程打出来给你看</strong>。针对不同问题还能加子标志，精准只看你关心的那部分：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>用来查</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>claude --debug</code></td>
+<td>通用调试日志，看整体在干啥</td>
+</tr>
+<tr>
+<td><code>claude --debug mcp</code></td>
+<td>MCP server 启动 / 连接的 stderr 输出（server 显示连上却零工具时用它）</td>
+</tr>
+<tr>
+<td><code>claude --debug hooks</code></td>
+<td>实时看每个 hook 事件、匹配了哪些 matcher、退出码和输出（hook 不触发时用它）</td>
+</tr>
+</tbody></table>
+<p>还有个会话内的入口 <strong><code>/debug [问题描述]</code></strong>：它为本次会话开启调试日志，并直接提示 Claude 用日志和设置路径帮你一起诊断。</p>
+<p><strong>用法举例</strong>：你的 hook 在 <code>/hooks</code> 里明明注册了却死活不跑——这时候 <code>claude --debug hooks</code> 启动，触发一次工具调用，日志会清清楚楚告诉你「这个事件来了，检查了哪个 matcher，匹没匹上」。<strong>比你对着配置干瞪眼强一百倍</strong>。</p>
+<h3>武器二：干净配置对照法（最被低估的一招）</h3>
+<p>这招特别值得记住，<strong>专治「到底是不是自己配置惹的祸」这种悬案</strong>。思路是：开一个<strong>啥都不加载</strong>的干净会话，跟你平时那个对照——问题要是在干净会话里消失了，那就是你自己配置里某处出了问题。官方给的命令：</p>
+<pre><code class="language-bash">cd /tmp &amp;&amp; CLAUDE_CONFIG_DIR=/tmp/claude-clean claude
+</code></pre>
+<p>这一句把 <code>CLAUDE_CONFIG_DIR</code> 指向一个空目录，<strong>绕开 <code>~/.claude</code> 下的一切</strong>；再从一个没有 <code>.claude</code> 文件夹、没有 <code>.mcp.json</code>、没有 <code>CLAUDE.md</code> 的目录（<code>/tmp</code>）启动，<strong>连项目配置也一并跳过</strong>。于是这个会话没有任何用户 / 项目设置、hooks、MCP、插件、内存。</p>
+<ul>
+<li><strong>问题在干净会话里消失了</strong> → 根因就在你真实的 <code>~/.claude</code> 或项目 <code>.claude</code> 里。接下来<strong>一次只加回一样</strong>（复制一个文件进去、或从你项目启动），看加回哪个问题重现，凶手就是它。</li>
+<li><strong>干净会话里照样有问题</strong> → 那根因在你的用户和项目配置之外（可能是托管设置、环境变量，或更底层的安装问题）。</li>
+</ul>
+<blockquote>
+<p>这套「二分法」是排查的通用智慧——<strong>通过「砍掉一半变量看问题在不在」来缩小范围</strong>。比如 Claude 莫名其妙不读某条 CLAUDE.md 规则，靠干净会话就能确认「不是 Claude Code 的 bug，是项目里两份 CLAUDE.md 指令打架」，省了去翻一晚上文档。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：怪问题上两个杀手锏——<strong><code>claude --debug [mcp/hooks]</code> 实时看内部过程</strong>定位「为啥不工作」，<strong>干净配置对照法</strong>（<code>CLAUDE_CONFIG_DIR</code> 指向空目录）判断「到底是不是我配置的锅」，再二分法逐个加回锁定凶手。</p>
+</blockquote>
+<hr>
+<h2>08 动手：给你的安装做一次完整体检</h2>
+<p>光看不练记不住。下面带你<strong>亲手把 <code>/doctor</code> 体检跑一遍</strong>，再顺手验证一下你的认证状态。全程不依赖任何复杂环境，装好 Claude Code 就能做。</p>
+<p><strong>第一步：在终端确认 <code>claude</code> 装对了、版本是新的</strong></p>
+<pre><code class="language-bash">claude --version
+</code></pre>
+<p><strong>预期</strong>：打印一行版本号，类似 <code>2.1.xxx (Claude Code)</code>。<strong>看到版本号 = 安装基本健康。</strong> 如果报 <code>command not found: claude</code>，说明安装目录不在 PATH 里——这是安装类问题，回第 02 篇按你的平台修 PATH（macOS/Linux 的本机安装在 <code>~/.local/bin</code>）。</p>
+<p><strong>第二步：进会话，跑体检</strong></p>
+<pre><code class="language-bash">claude
+</code></pre>
+<p>进去后敲：</p>
+<pre><code class="language-text">/doctor
+</code></pre>
+<p><strong>预期</strong>：弹出一份诊断面板，逐项列出<strong>安装健康状况、设置文件是否有效（无效的键 / schema 错误会被标红）、MCP server 配置、上下文使用情况</strong>。<strong>每项都没报错 = 你的配置是干净的。</strong> 要是某项被标了问题，<strong>按 <code>f</code> 把这份报告发给 Claude</strong>，让它陪你一条条解。</p>
+<p><strong>第三步：确认「当前用的是哪套凭证」</strong></p>
+<p>接着敲：</p>
+<pre><code class="language-text">/status
+</code></pre>
+<p><strong>预期</strong>：显示当前活跃的身份验证方式。<strong>如果你是订阅用户，这里应该显示订阅（OAuth），而不是某个 API key。</strong> 万一显示在用 API key、跟你预期不符——恭喜你提前抓到了开头那个坑，去 shell 配置文件里 <code>unset ANTHROPIC_API_KEY</code> 并删掉那行 export。</p>
+<p><strong>第四步（可选）：体验一次干净配置对照</strong></p>
+<p>想感受第 07 节那招，开一个啥都不加载的干净会话：</p>
+<pre><code class="language-bash">cd /tmp &amp;&amp; CLAUDE_CONFIG_DIR=/tmp/claude-clean claude
+</code></pre>
+<p><strong>预期</strong>：启动后这个会话<strong>没有你平时的任何 CLAUDE.md、自定义命令、MCP server</strong>（在里头敲 <code>/memory</code>、<code>/mcp</code> 会发现是空的）。这就是你日后排查「是不是我配置惹的祸」时的对照基准。<strong>注意</strong>：Linux / Windows 上它会让你重新登录（凭证存在配置目录下），macOS 因为凭证在 Keychain 里会自动带过来。玩完正常退出即可，这个临时目录不影响你真实的 <code>~/.claude</code>。</p>
+<p>跑通这四步，你就把「<strong>体检 → 看凭证 → 起干净会话对照</strong>」这条排查主干道亲手走了一遍。<strong>以后真出问题，照这个顺序来，比慌慌张张瞎试强太多了。</strong></p>
+<blockquote>
+<p>💡 一句话总结：动手把 <strong><code>claude --version</code> → <code>/doctor</code> → <code>/status</code> → 干净会话</strong> 这条体检链走一遍；记住「<strong><code>/doctor</code> 指方向、<code>/status</code> 看凭证</strong>」，九成新手问题在这一步就现了原形。</p>
+</blockquote>
+<hr>
+<h2>09 小结</h2>
+<p>这一篇给你建了一套 <strong>「不靠猜、按流程」的排查框架</strong>——从「先分诊属于哪一类」到「该敲哪个命令」，再到最刁钻问题的两个杀手锏。</p>
+<p>把核心串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你的处境</th>
+<th>排查动作</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不知道问题属于哪类</td>
+<td>对症状路由表 + <code>/doctor</code></td>
+<td>先分诊再下手，别瞎试</td>
+</tr>
+<tr>
+<td>反复登录 / 组织被禁用</td>
+<td><code>/status</code> 看凭证</td>
+<td>多半是残留 <code>ANTHROPIC_API_KEY</code> 压过订阅</td>
+</tr>
+<tr>
+<td>设置 / hook / MCP 没生效</td>
+<td><code>/context</code>、<code>/hooks</code>、<code>/mcp</code></td>
+<td>查「实际加载了啥」；当心大小写和覆盖</td>
+</tr>
+<tr>
+<td>卡顿 / 高内存 / 搜索失灵</td>
+<td><code>/compact</code> + 重启 / 换 ripgrep</td>
+<td>多半是上下文太满或环境小问题</td>
+</tr>
+<tr>
+<td>蹦 <code>API Error</code> 红字</td>
+<td>先分「服务器 / 额度 / 你的请求」</td>
+<td><code>5xx</code> 看状态页、<code>limit</code> 等重置、<code>too long</code> 精简</td>
+</tr>
+<tr>
+<td>怪问题定位不到</td>
+<td><code>--debug</code> + 干净配置对照</td>
+<td>看实时日志 + 二分法砍变量</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 遇到任何 Claude Code 的毛病，不再对着报错干慌——<strong>先用症状路由表认清这是哪一类，敲 <code>/doctor</code> 体检指方向、<code>/status</code> 看凭证</strong>；按类别（安装 / 认证 / 配置 / 性能 / 报错）对症下药；实在刁钻就上 <code>--debug</code> 看日志、用干净配置对照法把根因二分出来；真搞不定就 <code>/feedback</code> 上报。<strong>这套流程练成肌肉记忆，你就从「一报错就懵」升级成「一报错就知道该往哪查」了。</strong></p>
+<p>到这儿，从「装上」到「用顺」再到「出问题怎么救」，整套实操你都过了一遍。<strong>剩下的，就是把这一路冒出来的术语彻底捋清楚。</strong></p>
+<hr>
+<p>下一篇 <strong>52「术语表（小白友好）」</strong>——这一路读下来，CLAUDE.md、上下文窗口、MCP、Subagent、Hook、检查点、auto-compact……几十个名词在你脑子里来回飞。下一篇给你做一份<strong>小白友好的术语表</strong>：每个词一句话说人话、配一个最贴切的类比，按主题归好类，<strong>随时能翻、查完就懂</strong>。想想看：要是有人突然问你「token 和上下文窗口啥关系」，你现在能用一句话讲清吗？</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/50-anti-patterns.html"><span class="mono">← 上一篇 · 50</span><b>反模式：常见的错误用法</b></a>
+  <a class="pg nx" href="/library/claude-code/52-glossary.html"><span class="mono">下一篇 · 52 →</span><b>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

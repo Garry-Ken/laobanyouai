@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>14 交互界面与快捷键：把手放对地方 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 14 篇:交互界面与快捷键：把手放对地方。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/14-interface-and-shortcuts.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class="cur"><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class="cur"><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 14 篇</p>
+      <h1>交互界面与快捷键：把手放对地方</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="13-project-structure.html">13 项目结构</a> 带你看清 Claude Code 在你项目里都摆了哪些文件。这一篇换个视角——回到那个终端窗口本身，搞懂界面每一块是干嘛的，再把几个能让你「快一倍」的键盘动作焊进肌肉记忆。</p>
+</blockquote>
+<p>「欸，你这 Esc 按一下和按两下不一样？」</p>
+<p>「对，差远了。按一下是踩刹车——让 Claude 停下来；按两下是倒车——把整段对话退回到上一个点。」</p>
+<p>「……我之前一直当成一个键在用。」</p>
+<p>说句实话，这是新手最容易搞混的一句话。Claude Code 的界面看着简单，就一个输入框加几行字，<strong>但底下藏着一整套键盘动作和特殊符号，知道的人用得飞起，不知道的人全靠鼠标和回车硬刚</strong>。我头两周也这样——有一回它顺着我一句模糊的话开始疯狂改一堆文件，我盯着满屏滚动的输出干等了快三分钟，眼看越改越偏，才猛地想起来「我按个 Esc 不就停了吗」，那一刻是真有点想抽自己。</p>
+<p>这一篇不教你提需求（那是下一篇的事），只干一件事：<strong>让你把手放对地方</strong>。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一张「界面分区图」——输入框、状态行、模式提示分别在哪、看什么</li>
+<li>一张能贴在显示器边上的<strong>高频快捷键速查表</strong>（Esc、Ctrl+C、Ctrl+D、Shift+Tab、上箭头……）</li>
+<li>输入框里 <code>@</code> <code>!</code> 两个特殊前缀怎么用，外加 <code>/</code> 和 <code>#</code> 是干嘛的一句话交代</li>
+<li>多行输入到底怎么打（这个坑太多人踩过）</li>
+</ul>
+<hr>
+<h2>01 先看懂这块屏：界面分成哪几部分</h2>
+<p>先给结论：<strong>Claude Code 的界面，你只需要认住三块——输入框、状态行、模式 / 权限提示</strong>。其他的滚动区域都是它在跟你「说话」，不用专门学。</p>
+<p><strong>类比：看汽车仪表盘。</strong> 你开车不用认全所有指示灯，但方向盘、挡位、油表这几样必须一眼能找到。界面也一样，认住主操作区和几个关键读数就能开走。</p>
+<p><code>claude</code> 启动后，从下往上大致是这么个布局：</p>
+<p><img src="assets/14-interface-keys@2x.png" alt="交互界面分区与高频快捷键"></p>
+<ul>
+<li><strong>输入框</strong>：最底下那一行，前面通常有个 <code>&gt;</code> 提示符。<strong>这是你跟 Claude 说话的唯一入口</strong>，打字、贴代码、敲特殊命令全在这儿。</li>
+<li><strong>状态行 / 页脚</strong>：紧贴输入框上下的那几行小字。它会显示一些上下文信息——比如当前在哪个目录、有没有后台任务在跑、如果你这个分支有打开的 PR，官方文档说还会在页脚显示一个可点击的「PR #编号」链接，下划线颜色代表审查状态（绿=已批准、黄=待审、红=请求改动、灰=草稿）。</li>
+<li><strong>模式 / 权限提示</strong>：告诉你现在是「普通模式」还是「计划模式（plan）」还是「自动接受编辑（acceptEdits）」。<strong>这块最该盯</strong>——它决定了 Claude 接下来动手前问不问你。</li>
+</ul>
+<p>这里有个新手特别容易慌的场景：<strong>屏幕突然变花、或者一半空白了</strong>。别以为崩了。官方给了个专门的键 <code>Ctrl+L</code>，强制重绘屏幕，输入和对话历史都保留。我自己最常撞上的就是在 tmux 里跑 Claude，切到别的窗口办点事、再切回来满屏乱码，第一次遇到我还真以为会话挂了、手都伸到重启上了，后来才知道一个 <code>Ctrl+L</code> 就干净了——现在屏幕一花我条件反射就按它。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：界面认住「输入框 + 状态行 + 模式提示」三块就够开工，<strong>屏幕花了别慌，<code>Ctrl+L</code> 重绘</strong>。</p>
+</blockquote>
+<hr>
+<h2>02 高频快捷键：像换挡和喇叭，熟了不用低头看</h2>
+<p>这是本篇的核心。</p>
+<p><strong>类比：车上的换挡杆和喇叭。</strong> 新手开车眼睛老往挡位上瞟，老司机手一搭就知道在几挡，喇叭抬手就按——因为这些动作进了肌肉记忆，不占注意力。快捷键就是这么个东西：<strong>头三天你得照着表按，按熟了，全程手不离键盘，眼睛只盯输出</strong>。</p>
+<p>下面这张表，全部按官方 <code>interactive-mode.md</code> / <code>keybindings.md</code> 核对过，挑的都是新手每天都会用到的。建议你<strong>截图贴在显示器边上</strong>，用一周就记住了：</p>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>作用</th>
+<th>什么时候按</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>Esc</code></strong></td>
+<td>中断 Claude 当前的回答或工具调用</td>
+<td>它跑偏了 / 你想改主意，<strong>刹车</strong>用</td>
+</tr>
+<tr>
+<td><strong><code>Esc</code> <code>Esc</code></strong>（输入框为空时）</td>
+<td>打开回退菜单，跳回上一个点</td>
+<td>想撤销刚才那轮、<strong>倒车</strong>回存档</td>
+</tr>
+<tr>
+<td><strong><code>Ctrl+C</code></strong></td>
+<td>中断；没东西可中断时，第一次清空输入、第二次退出</td>
+<td>想清掉已经打了一半的输入</td>
+</tr>
+<tr>
+<td><strong><code>Ctrl+D</code></strong></td>
+<td>退出 Claude Code 会话</td>
+<td>干完活，<strong>关门走人</strong></td>
+</tr>
+<tr>
+<td><strong><code>Shift+Tab</code></strong></td>
+<td>循环切换权限模式（default / acceptEdits / plan…）</td>
+<td>想让它「先规划别动手」或「放开手脚自己改」</td>
+</tr>
+<tr>
+<td><strong><code>↑</code> / <code>↓</code></strong>（上 / 下箭头）</td>
+<td>翻命令历史（光标在边缘时）</td>
+<td>重发上一条指令，不用重打</td>
+</tr>
+<tr>
+<td><strong><code>Ctrl+L</code></strong></td>
+<td>重绘屏幕（保留输入和历史）</td>
+<td>屏幕花了 / 半空白</td>
+</tr>
+<tr>
+<td><strong><code>Ctrl+R</code></strong></td>
+<td>反向搜索命令历史</td>
+<td>想找「我上次那条长指令」</td>
+</tr>
+<tr>
+<td><strong><code>Ctrl+O</code></strong></td>
+<td>切换详细转录视图</td>
+<td>想看它具体调了哪些工具</td>
+</tr>
+</tbody></table>
+<p>挑三个最容易被搞混的，单独说清楚：</p>
+<h3>Esc 一下 vs 两下：踩刹车还是倒车</h3>
+<p>官方文档把这俩写得明明白白，翻译成人话就是：</p>
+<ul>
+<li><strong><code>Esc</code> 按一下</strong> = 踩刹车。Claude 正在回答或正在调工具，你一按它就停在当下，<strong>已经做完的部分会保留</strong>，你可以接着补一句重新指挥它。</li>
+<li><strong><code>Esc</code> 按两下</strong> = 倒车。但有个前提——<strong>输入框必须是空的</strong>。空的时候连按两下 Esc，会弹出回退菜单（就是第 07 篇讲过的检查点 / 回溯），让你跳回之前的状态。</li>
+</ul>
+<blockquote>
+<p>⚠️ 这是最坑的一点（官方明确写了）：如果输入框里<strong>有文字</strong>，连按两下 Esc 是「清空这段文字并存进历史草稿」，<strong>不是</strong>打开回退菜单。所以要回退，先把输入框清空。</p>
+</blockquote>
+<p>新手很容易在这上面栽——输入框里打了半句话，想回退，狂按 Esc，结果文字没了、菜单也没出来，一脸懵。搞懂了就好办：<strong>先清空，再双击 Esc</strong>。</p>
+<h3>Ctrl+C vs Ctrl+D：清场还是退场</h3>
+<p>这俩都带点「停」的意思，但完全两码事：</p>
+<ul>
+<li><strong><code>Ctrl+C</code></strong> = 清场不离场。有任务在跑就中断任务；没任务时第一次按清掉你输入框里的字，<strong>连按第二次才退出</strong>。</li>
+<li><strong><code>Ctrl+D</code></strong> = 直接退场。一下就退出整个会话（它发的是 EOF 信号）。</li>
+</ul>
+<p>顺带说个冷知识：这两个键是官方文档里明确标注的「<strong>保留快捷键</strong>」，硬编码、<strong>不能重新绑定</strong>（同一批的还有 <code>Ctrl+M</code>，因为它在终端里等于回车）。所以哪个终端、哪个系统，<code>Ctrl+C</code> / <code>Ctrl+D</code> 的行为都一致，放心用。</p>
+<h3>Shift+Tab：一键切换「问不问你」</h3>
+<p><code>Shift+Tab</code> 大概是日常用得最多的快捷键，没有之一。它在几个<strong>权限模式</strong>之间循环：</p>
+<ul>
+<li><strong>default（默认）</strong>：动手改文件前会停下问你。</li>
+<li><strong>acceptEdits（自动接受编辑）</strong>：编辑类操作不再逐个问，提速用。</li>
+<li><strong>plan（计划模式）</strong>：只出方案不动手，适合大改动前先对齐思路。</li>
+<li>以及你额外开启的其他模式（如 <code>auto</code> / <code>bypassPermissions</code>）。</li>
+</ul>
+<p>权限模式（Permission Mode），说白了就是「实习生动手前问不问你」的那个开关。</p>
+<p>按一下 <code>Shift+Tab</code> 就在它们之间转圈，状态行会实时显示你当前在哪个模式。<strong>这套模式具体每个是干嘛、怎么配，第 20 篇「权限配置」专门讲</strong>，这里你只要记住：想换模式，<code>Shift+Tab</code> 转就完事了。</p>
+<p>（一个平台差异：官方注明在某些 Windows 配置下（不支持 VT 模式的旧版终端、较老的 Node / Bun 运行时），这个键默认是 <code>Alt+M</code> 而不是 <code>Shift+Tab</code>，遇到不灵的换它试试。）</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：<code>Esc</code> 一下刹车两下倒车、<code>Ctrl+C</code> 清场 <code>Ctrl+D</code> 退场、<code>Shift+Tab</code> 切「问不问你」——<strong>这四个焊进肌肉记忆，你就出师一半了</strong>。</p>
+</blockquote>
+<hr>
+<h2>03 输入框里的特殊前缀：@ 和 ! 是两把快刀</h2>
+<p>光会按键还不够。Claude Code 的输入框其实是「智能」的——<strong>某些符号打在开头，会触发完全不同的行为</strong>。官方在「快速命令」里列得很清楚，对新手最有用的是这两个：<code>@</code> 和 <code>!</code>。</p>
+<p><strong>类比：手机输入法里打 <code>@</code> 自动跳出联系人。</strong> 你不用记全名，敲个 <code>@</code> 它就把候选人列出来给你选。<code>@</code> 在 Claude Code 里也是这个味道，只不过选的是文件。</p>
+<h3><code>@</code>：精准点名一个文件 / 目录</h3>
+<p>直接在输入框里打 <code>@</code>，会触发<strong>文件路径自动补全</strong>——它会列出当前项目里的文件让你选，你接着打几个字母过滤，选中即可。</p>
+<p>为什么要用它？因为<strong>这是把一个具体文件「钉」进你这句话里最准的方式</strong>。比如你想让它看某个文件：</p>
+<pre><code class="language-text">@src/auth.ts 这里的登录逻辑有没有问题？
+</code></pre>
+<p>这么打，Claude 明确知道你指的是哪个文件，不用它自己去猜、去全项目里翻。写复杂指令时基本离不开 <code>@</code>——<strong>项目一大，文件重名的多，用大白话说「那个 auth 文件」它经常找错，<code>@</code> 一点名就没歧义了</strong>。</p>
+<h3><code>!</code>：不用等批准，直接跑个 shell 命令</h3>
+<p>在输入框开头打 <code>!</code>，后面跟一条命令，就进入 <strong>Shell 模式（Bash 模式）</strong>：这条命令<strong>直接在你的终端跑</strong>，不用 Claude 批准、也不用它先「理解」你的话再替你跑，跑完的输出会被加进对话上下文里。</p>
+<pre><code class="language-text">! git status
+</code></pre>
+<pre><code class="language-text">! ls -la
+</code></pre>
+<p>这玩意儿什么时候香？<strong>当你想顺手看一眼仓库状态，不想打一句大白话让它猜你要跑什么、再等一轮批准</strong>。比如改到一半，想确认下当前 git 状态，直接 <code>! git status</code>，结果立刻出来，Claude 也「看到」了这个输出，下一句就能接着这个状态聊。</p>
+<p>跑完之后 Claude 回不回话？分两种情况，成本账也不一样：</p>
+<ul>
+<li><strong>默认（v2.1.186 起）：自动回你一句。</strong> 比如 <code>! npm test</code> 跑完，它会直接跟一句解释哪儿失败了，不用你再问。省事，但<strong>这次回复按一条普通提示词计费</strong>——所以默认情况下 <code>!</code> 省的是「描述需求 + 等批准」那一来一回，不是 token。</li>
+<li><strong>在 <code>settings.json</code> 里设 <code>respondToBashCommands: false</code>：只记录、不回话。</strong> 回到 v2.1.186 之前的老行为——输出只进上下文，当下不发起任何模型调用，「省 token」这个卖点就回来了。严格说也不是零成本：这段输出会随你下一条消息按输入 token 计费，通常小到可以忽略；但要是 <code>!</code> 跑了个刷屏的长日志，这个尾巴就不小了。</li>
+</ul>
+<p>怎么选：想让它顺手点评一下输出（比如跑完测试直接听它解释哪儿挂了），用默认；只想把现场数据「喂」进对话、自己掌握节奏，设 <code>false</code>。</p>
+<p>几个官方提到的实用细节：</p>
+<ul>
+<li>想退出 Shell 模式：按 <code>Esc</code>、<code>Backspace</code>，或在空提示上按 <code>Ctrl+U</code>。</li>
+<li>它支持基于历史的补全：打一半命令按 <code>Tab</code>，能从你这个项目里之前跑过的 <code>!</code> 命令补全。</li>
+</ul>
+<h3>那 <code>/</code> 和 <code>#</code> 呢？</h3>
+<p>你可能在别处见过这俩，这里一句话交代清楚，别混淆：</p>
+<ul>
+<li><strong><code>/</code>（斜杠开头）</strong> = 调用命令 / Skill。打一个 <code>/</code> 会弹出一长串可用命令（<code>/help</code>、<code>/clear</code> 等）。<strong>这套斜杠命令体系内容很多，我们留到第 36 篇「斜杠 / 命令」专门展开</strong>，本篇你只要知道「<code>/</code> 是命令入口」就够了。</li>
+<li><strong><code>#</code>（井号开头）</strong> = 历史上有过「用 <code>#</code> 开头快速往记忆（CLAUDE.md）里记一条」的用法，<strong>但不同版本行为有差异</strong>。Claude Code 怎么「记住」你的偏好、CLAUDE.md 怎么写，是<strong>第 18 篇「CLAUDE.md 使用指南」和第 25 篇「记忆系统」</strong> 的正题，到那儿再系统讲。这里不展开，免得你按了发现版本对不上。</li>
+</ul>
+<p>把四个前缀放一起对照，你就不会记串了：</p>
+<table>
+<thead>
+<tr>
+<th>开头符号</th>
+<th>触发什么</th>
+<th>一句话</th>
+<th>本篇要不要细讲</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>@</code></td>
+<td>文件路径自动补全</td>
+<td>精准点名一个文件</td>
+<td>✅ 上面讲了</td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>Shell 模式</td>
+<td>直接跑 bash，输出进上下文，Claude 默认会接话</td>
+<td>✅ 上面讲了</td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>命令 / Skill 菜单</td>
+<td>控制会话的命令入口</td>
+<td>❌ 留给第 36 篇</td>
+</tr>
+<tr>
+<td><code>#</code></td>
+<td>（与记忆相关，版本相关）</td>
+<td>往 CLAUDE.md 记东西</td>
+<td>❌ 留给第 18 / 25 篇</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：<code>@</code> 点名文件、<code>!</code> 顺手跑命令，这俩是天天用的快刀；<code>/</code> 和 <code>#</code> 各有专篇，<strong>本篇只认识它们存在就行</strong>。</p>
+</blockquote>
+<hr>
+<h2>04 多行输入：回车老是把话发出去，怎么办</h2>
+<p>这是个高频「卡点」，单独拎出来讲。</p>
+<p><strong>问题来了</strong>：你想给 Claude 一段比较长的、分好几行的指令，结果<strong>按回车想换行，话却直接发出去了</strong>——半句话就被提交了。新手十个里有八个第一周都中过这招。</p>
+<p>原因很简单：<strong>输入框里 <code>Enter</code> 默认就是「发送」</strong>，不是「换行」。要换行，得用别的键。官方给了好几种打法，按「最不挑终端」到「最方便」排：</p>
+<table>
+<thead>
+<tr>
+<th>打法</th>
+<th>怎么按</th>
+<th>适用范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>反斜杠转义</strong></td>
+<td>先打 <code>\</code>，再按 <code>Enter</code></td>
+<td><strong>所有终端都行</strong>，记不住别的就记这个</td>
+</tr>
+<tr>
+<td><strong>控制序列</strong></td>
+<td><code>Ctrl+J</code></td>
+<td>任何终端都行，无需配置</td>
+</tr>
+<tr>
+<td><strong>Shift+Enter</strong></td>
+<td><code>Shift+Enter</code></td>
+<td>iTerm2、WezTerm、Ghostty、Kitty、Warp、Apple Terminal、Windows Terminal<strong>开箱即用</strong></td>
+</tr>
+<tr>
+<td><strong>Option+Enter</strong>（macOS）</td>
+<td><code>Option+Enter</code></td>
+<td>macOS 上需先把 Option 配成 Meta 键</td>
+</tr>
+</tbody></table>
+<p>一个稳妥的习惯：**记死一个 <code>\</code> + <code>Enter</code> 就够了**——因为它「在所有终端都工作」，换机器、换终端都不用重新适应。等你固定用某个终端了，再去试 <code>Shift+Enter</code> 那种更顺手的。</p>
+<p>如果你用的是 VS Code、Cursor、Alacritty、Zed、Devin Desktop 这类（它们的内置终端默认不支持 <code>Shift+Enter</code> 换行），官方给了个一劳永逸的办法：运行 <code>/terminal-setup</code> 自动装上换行绑定。</p>
+<p>还有个更舒服的玩法：嫌在小输入框里写长指令憋屈，可以按 <code>Ctrl+G</code>，<strong>直接在你的默认文本编辑器里写</strong>，写完保存就带回来了。写那种几十行、带格式的复杂需求时基本都这么干，比在终端里硬敲舒服太多。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：回车默认是「发送」不是「换行」；**换行记死 <code>\</code> + <code>Enter</code> 万能**，长指令直接 <code>Ctrl+G</code> 开编辑器写。</p>
+</blockquote>
+<hr>
+<h2>05 动手：三分钟把这几个键全试一遍</h2>
+<p>光看不练，明天就忘。下面给一套<strong>最小验证流程</strong>，不依赖任何复杂项目，随便找个文件夹就能跑。打开终端跟着走。</p>
+<p><strong>第一步：进任意一个有文件的文件夹，启动</strong></p>
+<pre><code class="language-bash">cd ~/Desktop
+claude
+</code></pre>
+<p><strong>预期</strong>：出现欢迎界面，最底下是输入框（前面一个 <code>&gt;</code>）。</p>
+<p><strong>第二步：试 <code>!</code> Shell 模式</strong></p>
+<p>在输入框里打（注意 <code>!</code> 顶格开头）：</p>
+<pre><code class="language-text">! echo hello-shortcuts
+</code></pre>
+<p>回车。<strong>预期</strong>：终端<strong>直接</strong>打印出 <code>hello-shortcuts</code>（没有经过「征求批准」那一步），命令和输出被记进对话，然后 Claude 会针对这个输出简单回一句（默认设置下）——这就是 Shell 模式的完整流程。</p>
+<p><strong>第三步：试 <code>↑</code> 翻历史</strong></p>
+<p>输入框空着的时候，按一下<strong>上箭头 <code>↑</code></strong>。</p>
+<p><strong>预期</strong>：刚才那条 <code>! echo hello-shortcuts</code> 被原样调回输入框里。这就是命令历史，重发指令不用重打。先按 <code>Esc</code> 或 <code>Ctrl+U</code> 清掉它。</p>
+<p><strong>第四步：试 <code>Shift+Tab</code> 切模式</strong></p>
+<p>按一下 <code>Shift+Tab</code>，再按一下，再按一下。</p>
+<p><strong>预期</strong>：状态行里的模式提示在 <code>default</code> / <code>acceptEdits</code> / <code>plan</code> 之间循环变化（你启用了哪些模式就在哪些之间转）。<strong>看到那行字在变，就说明你切对了</strong>。多按几下转回 <code>default</code>。</p>
+<p><strong>第五步：试多行输入</strong></p>
+<p>打一个字母，然后按 <code>\</code> 再按 <code>Enter</code>，再打第二行：</p>
+<pre><code class="language-text">第一行 \
+第二行
+</code></pre>
+<p><strong>预期</strong>：<code>\</code> + <code>Enter</code> 让光标<strong>换到了下一行</strong>而不是把「第一行」发出去。这就对了。</p>
+<p><strong>第六步：退出</strong></p>
+<p>按 <strong><code>Ctrl+D</code></strong>。</p>
+<p><strong>预期</strong>：直接退出 Claude Code，回到普通终端。</p>
+<p>跑完这六步，本篇讲的 <code>!</code>、历史、<code>Shift+Tab</code>、多行、退出，你就全亲手验证过一遍了。</p>
+<p>⚠️ 一个可能的小插曲：如果你在 macOS 上发现 <code>Option+Enter</code> 之类的 Option 键快捷键不灵，那是终端没把 Option 配成 Meta 键。这是终端设置问题、不是 Claude 的 bug——<code>\</code> + <code>Enter</code> 永远能用，先拿它顶着。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：照着这六步亲手跑一遍，<code>!</code>、<code>↑</code> 历史、<code>Shift+Tab</code>、<code>\</code> + <code>Enter</code> 换行、<code>Ctrl+D</code> 退出<strong>就全过了一遍肌肉记忆</strong>，比看十遍表都记得牢。</p>
+</blockquote>
+<hr>
+<h2>06 进阶一句：所有键都能改</h2>
+<p>最后留个钩子。上面这些键全是<strong>默认值</strong>，但 Claude Code 支持自定义快捷键——觉得哪个键不顺手，可以改。</p>
+<p>按官方文档（需要 <strong>v2.1.18 或更高版本</strong>，用 <code>claude --version</code> 查），运行：</p>
+<pre><code class="language-text">/keybindings
+</code></pre>
+<p>会创建 / 打开 <code>~/.claude/keybindings.json</code>，你在里面就能重新绑定。不过有几个键改不了——前面说的 <code>Ctrl+C</code>、<code>Ctrl+D</code> 是硬编码的保留键。</p>
+<p><strong>给新手的建议是：先别急着改。</strong> 默认配置是官方反复打磨过的，先用熟，等你明确感觉到「这个键我每天按、但位置别扭」了，再去动它。一般用上快一个月、才会真正想改某个键，在那之前默认的全够用。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：键不顺手能用 <code>/keybindings</code> 改，但<strong>新手先把默认的用熟，别一上来就折腾配置</strong>。</p>
+</blockquote>
+<hr>
+<h2>07 小结</h2>
+<p>这一篇没教你怎么提需求，专门教你<strong>把手放对地方</strong>——界面看哪、键怎么按、特殊符号怎么用。</p>
+<p>把核心动作收成一张表，揣兜里：</p>
+<table>
+<thead>
+<tr>
+<th>你想干嘛</th>
+<th>按这个</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>让它停下来（保留已做的）</td>
+<td><code>Esc</code></td>
+</tr>
+<tr>
+<td>退回上一个点（输入框先清空）</td>
+<td><code>Esc</code> <code>Esc</code></td>
+</tr>
+<tr>
+<td>清掉输入 / 退出</td>
+<td><code>Ctrl+C</code> / <code>Ctrl+D</code></td>
+</tr>
+<tr>
+<td>切「问不问你」的模式</td>
+<td><code>Shift+Tab</code></td>
+</tr>
+<tr>
+<td>翻 / 搜命令历史</td>
+<td><code>↑</code> / <code>Ctrl+R</code></td>
+</tr>
+<tr>
+<td>屏幕花了重绘</td>
+<td><code>Ctrl+L</code></td>
+</tr>
+<tr>
+<td>点名一个文件</td>
+<td><code>@</code></td>
+</tr>
+<tr>
+<td>顺手跑条命令</td>
+<td><code>!</code></td>
+</tr>
+<tr>
+<td>多行输入换行</td>
+<td><code>\</code> + <code>Enter</code></td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 一眼认出界面的输入框、状态行和模式提示；用 <code>Esc</code> 精准刹车、<code>Shift+Tab</code> 切权限模式；用 <code>@</code> 点名文件、<code>!</code> 跑命令；不再被「回车把半句话发出去」坑到。<strong>这些动作熟了之后，你跟 Claude Code 的交互会从「鼠标键盘来回切」变成「手不离键盘」</strong>——效率的差距，就在这儿拉开。</p>
+<hr>
+<p>下一篇 <a href="15-prompting.html"><strong>15「怎么提问和给指令」</strong></a>——手放对地方了，接下来就是「嘴」的功夫了。同样一个需求，会问的人三句话搞定，不会问的人来回扯五轮还跑偏。下一篇咱们就聊：<strong>到底怎么跟 Claude 说话，它才听得准、干得对？</strong></p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/13-project-structure.html"><span class="mono">← 上一篇 · 13</span><b>项目结构：Claude Code 在你项目里都放了什么</b></a>
+  <a class="pg nx" href="/library/claude-code/15-prompting.html"><span class="mono">下一篇 · 15 →</span><b>怎么提问和给指令：把话说到 Claude 心坎里</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>42 环境变量：藏在背后那排「总开关」 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 42 篇:环境变量：藏在背后那排「总开关」。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/42-env-vars.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class="cur"><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class="cur"><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 42 篇</p>
+      <h1>环境变量：藏在背后那排「总开关」</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="41-parallel-tasks.html">41 并行任务</a> 教你怎么把活儿拆开、让多个 Claude 同时开跑。这一篇钻到水面下——<strong>那些控制 Claude Code 怎么连模型、超时多久、要不要上报数据的「总开关」，全靠环境变量拨</strong>。它不在哪个菜单里，藏在你的 shell 和 <code>settings.json</code> 里，今天把这排开关认全、拨明白。</p>
+</blockquote>
+<p>都说环境变量是「高阶玩家才碰的东西」，说句实话——<strong>这话害了不少人。</strong></p>
+<p>太多人连模型、配代理、调超时，全靠每次开会话手动 <code>/model</code> 点一遍、手动改一遍，改完下次开新会话又得重来。问起为啥不一次配死，答案多半是「环境变量听着好硬核，怕搞坏」。</p>
+<p>可你回头看看前面四十一篇——第 04 篇配 API key、第 05 篇接国产模型、第 19 篇管上下文、第 21 篇关遥测……<strong>这些事的底层，几乎全是同一套机制在兜底：环境变量。</strong> 你早就在用了，只是没人把它们摊开摆在一起讲。</p>
+<p>这么说吧：环境变量不是「高阶才碰」，而是 <strong>「一次拨好、终身受益」的那排总开关</strong>。怕它，纯粹是因为没人告诉你哪几个开关常用、拨错了顶多什么后果。今天就把这层窗户纸捅破。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一句话讲明白环境变量在 Claude Code 里到底管什么、为什么值得花十分钟搞懂</li>
+<li>三种设置方式（shell 临时 / shell 配置文件持久 / <code>settings.json</code> 的 <code>env</code> 字段）分别什么时候用，一张表说清</li>
+<li><code>settings.json</code> 那四类文件各管多大范围、哪个进 git 哪个不进——直接接上第 31 篇</li>
+<li>一份「最该认识的环境变量」清单：连接、超时、隐私、配置目录，带默认值和踩坑提示</li>
+<li>当同一件事既能用环境变量又能用设置字段时，<strong>到底谁说了算</strong>（优先级规则）</li>
+<li>一个能照着跑、给了预期输出的实战：亲手设一个变量并验证它真的生效了</li>
+</ul>
+<hr>
+<h2>01 先搞懂：环境变量在 Claude Code 里到底管什么</h2>
+<p>先给结论：<strong>环境变量是 Claude Code 启动时读的一组「键值对开关」，用来定它怎么连模型、怎么认证、超时多久、要不要上报数据这些底层行为。</strong></p>
+<p>你前面用的那些功能——<code>/model</code> 换模型、<code>claude mcp add</code> 接服务、<code>/config</code> 调设置——大多是「会话里临时拨一下」。但有些行为，你希望<strong>每次启动都按你的来，不用每回手动设</strong>：比如「我永远走自建代理的地址」「我所有请求超时都给我放宽到 20 分钟」「我这台机器绝不上报任何遥测」。这些「定下来就别变」的底层规矩，就是环境变量管的。</p>
+<p>官方一句话给它定了性：</p>
+<blockquote>
+<p>环境变量可以控制 Claude Code 的行为，例如模型选择、身份验证、请求路由和功能切换。</p>
+</blockquote>
+<p><strong>类比：咖啡机上的预设按钮。</strong> 一台带预设的咖啡机，你可以每次现调——水量多少、浓度几档、要不要加奶，按一杯调一次；<strong>也可以把常喝的那杯存成「我的预设」，以后一键出杯，机器自己记着参数。</strong> 环境变量就是后者：它把那些你「每次都想这么来」的设置<strong>固化下来</strong>，Claude Code 一启动就照着读，省得你回回手动拨。</p>
+<p>落到真实场景，你大概率会在这几种时候想起它：</p>
+<ul>
+<li><strong>「我接了 DeepSeek，不想每次都手动指模型」</strong>——把模型和地址写进环境变量（第 05 篇那套，底层就是它）</li>
+<li><strong>「公司网络慢，默认 10 分钟超时老不够」</strong>——一个变量把超时放宽</li>
+<li><strong>「这台是公司机器，合规要求一律不上报遥测」</strong>——一个变量直接关掉（第 21 篇提过）</li>
+<li><strong>「我有工作和个人两个账号，想分开互不干扰」</strong>——一个变量切换配置目录</li>
+</ul>
+<p>看出来没？<strong>这些全是「设一次，长期生效」的需求。</strong> 环境变量就是为这类需求生的。</p>
+<blockquote>
+<p>💡 一句话总结：环境变量是 Claude Code 启动时读的一组「键值对总开关」，管连接、认证、超时、隐私这些底层行为；它的价值在于<strong>把「每次都想这么来」的设置一次固化，不用回回手动拨</strong>。</p>
+</blockquote>
+<hr>
+<h2>02 在哪设：三种方式，从「就这一次」到「永远生效」</h2>
+<p>知道了它管什么，接下来最实在的问题——<strong>到底在哪儿设？</strong> 答案是三个地方，差别就一条线：<strong>这次设的，影响多久、影响谁。</strong></p>
+<p>官方把这条线讲得很干脆：</p>
+<blockquote>
+<p>在 shell 中设置的变量仅在该终端会话期间有效，而在设置文件中的变量在每次运行 <code>claude</code> 时都适用。</p>
+</blockquote>
+<p>我把三种方式按「生效范围从窄到宽」排开，你对着选：</p>
+<h3>方式一：shell 里临时设（就管这一个终端）</h3>
+<p>在启动 <code>claude</code> 之前，在终端里 <code>export</code> 一下。<strong>只对当前这个终端窗口有效</strong>，关掉就没了。</p>
+<p>macOS / Linux / WSL：</p>
+<pre><code class="language-bash">export API_TIMEOUT_MS=&quot;1200000&quot;
+claude
+</code></pre>
+<p>Windows PowerShell：</p>
+<pre><code class="language-powershell">$env:API_TIMEOUT_MS = &quot;1200000&quot;
+claude
+</code></pre>
+<p>这种适合 <strong>「我就想这一次试试」</strong>——临时放宽个超时、临时换个地址，跑完关掉终端，啥也没留下。</p>
+<h3>方式二：写进 shell 配置文件（这台机器每次都生效）</h3>
+<p>如果你想<strong>每开一个终端都自动带上</strong>，把那行 <code>export</code> 加进你的 shell 配置文件。Mac 上默认是 <code>~/.zshrc</code>，很多 Linux 是 <code>~/.bashrc</code>：</p>
+<pre><code class="language-bash"># 加到 ~/.zshrc 末尾
+export API_TIMEOUT_MS=&quot;1200000&quot;
+</code></pre>
+<p>存盘后开新终端（或 <code>source ~/.zshrc</code>）就生效。<strong>这是「我这台机器上，所有项目、所有终端都这么来」的做法。</strong></p>
+<blockquote>
+<p>Windows 上要持久化，用 <code>setx API_TIMEOUT_MS &quot;1200000&quot;</code>（CMD）或 <code>[Environment]::SetEnvironmentVariable(&quot;API_TIMEOUT_MS&quot;, &quot;1200000&quot;, &quot;User&quot;)</code>（PowerShell），然后<strong>开一个新终端</strong>才生效。</p>
+</blockquote>
+<h3>方式三：写进 settings.json 的 env 字段（跟着配置走，跟启动方式无关）</h3>
+<p>第三种，也是最常用的——写进 <code>settings.json</code> 里的 <code>env</code> 键。官方说得很清楚它的好处：</p>
+<blockquote>
+<p>Claude Code 在启动时直接从文件读取它们，因此无论如何启动 <code>claude</code>，它们都会生效。</p>
+</blockquote>
+<pre><code class="language-json">{
+  &quot;env&quot;: {
+    &quot;API_TIMEOUT_MS&quot;: &quot;1200000&quot;,
+    &quot;BASH_DEFAULT_TIMEOUT_MS&quot;: &quot;300000&quot;
+  }
+}
+</code></pre>
+<blockquote>
+<p>这个文件路径和写法，第 31 篇讲 <code>settings.json</code> 时已经铺过底了。这里你只要记住：<strong><code>env</code> 是它专门留给环境变量的那个口子</strong>，把变量写这儿，跟你怎么敲 <code>claude</code> 无关，它都读得到。</p>
+</blockquote>
+<p>三种方式并排一看就清楚该怎么选：</p>
+<table>
+<thead>
+<tr>
+<th>设置方式</th>
+<th>生效范围</th>
+<th>关掉终端还在吗</th>
+<th>最适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>shell 临时 <code>export</code></strong></td>
+<td>仅当前终端</td>
+<td>❌ 没了</td>
+<td>「就想这一次试试」</td>
+</tr>
+<tr>
+<td><strong>写进 <code>~/.zshrc</code> 等</strong></td>
+<td>这台机器所有终端</td>
+<td>✅ 在</td>
+<td>「我个人机器全局这么来」</td>
+</tr>
+<tr>
+<td><strong>写进 <code>settings.json</code> 的 <code>env</code></strong></td>
+<td>跟着该配置文件作用范围走</td>
+<td>✅ 在</td>
+<td>「跟项目/团队绑定，谁启动都生效」</td>
+</tr>
+</tbody></table>
+<p>一个顺手的习惯：<strong>临时验证一个变量管不管用，用 shell <code>export</code> 试；确认要长期用，就挪进 <code>settings.json</code> 的 <code>env</code>。</strong> 为啥偏爱 <code>settings.json</code> 而不是 <code>~/.zshrc</code>？因为下一节那张「文件分级」表——<code>settings.json</code> 能让你精确控制「这个变量是只给我、还是全团队、还是只这个项目」，<code>~/.zshrc</code> 做不到这种区分。</p>
+<blockquote>
+<p>💡 一句话总结：三种设置方式按生效范围排开——<strong>shell 临时 <code>export</code>（就这一次）、写进 <code>~/.zshrc</code>（本机全局）、写进 <code>settings.json</code> 的 <code>env</code>（跟配置走、跟启动方式无关）</strong>；临时试探用第一种，长期生效推荐第三种。</p>
+</blockquote>
+<hr>
+<h2>03 settings.json 的四类文件：谁能管到、哪个进 git</h2>
+<p>上一节说 <code>settings.json</code> 的 <code>env</code> 是我最推荐的口子，但这里有个<strong>新手必踩的坑</strong>：<code>settings.json</code> 不止一个文件，它有四类，<strong>写进不同的文件，这个变量管的「人」完全不一样。</strong></p>
+<p>这事第 31 篇专门拆过，这里就环境变量的角度再钉一遍——因为放错文件的后果很真实：你以为只给自己设的代理地址，一不小心提交进了 git，<strong>全团队都被你带跑偏了</strong>。</p>
+<p><strong>类比：公司报销标准贴公告栏 vs 你自己记在便签。</strong> 财务把「打车 50 封顶」打印出来贴在公告栏，全公司都得照办，这是<strong>公开规矩</strong>；你自己嫌麻烦，在工位便签上写「这个月我自费的咖啡别报」，这是<strong>只管你自己的私人备注</strong>。环境变量写进哪个文件，就是在选「贴公告栏」还是「记便签」。</p>
+<p>官方给的这张表，直接告诉你每类文件「管到谁」：</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>适用于</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>~/.claude/settings.json</code></td>
+<td>你，在每个项目中</td>
+</tr>
+<tr>
+<td><code>.claude/settings.json</code></td>
+<td>在项目中工作的每个人，<strong>检入源代码控制</strong></td>
+</tr>
+<tr>
+<td><code>.claude/settings.local.json</code></td>
+<td>你，仅在此项目中，<strong>未检入</strong></td>
+</tr>
+<tr>
+<td>托管设置</td>
+<td>你组织中的每个人，由管理员部署</td>
+</tr>
+</tbody></table>
+<p>翻成大白话，四句话记住：</p>
+<ul>
+<li><strong><code>~/.claude/settings.json</code></strong>——在你<strong>主目录</strong>下，「我自己，所有项目都这么来」。你个人偏好放这儿。</li>
+<li><strong><code>.claude/settings.json</code></strong>（项目根）——「这个项目里<strong>所有人</strong>都这么来」，而且<strong>它进 git</strong>，队友拉下来就带上。团队统一的规矩放这儿。</li>
+<li><strong><code>.claude/settings.local.json</code></strong>（项目根）——「<strong>只有我</strong>，只在这个项目」，而且<strong>它不进 git</strong>（<code>.local</code> 后缀默认被忽略）。带私人凭据、只属于你的临时设置放这儿。</li>
+<li><strong>托管设置</strong>——管理员给全组织统一下发的，你一般改不了，也轮不到你设。</li>
+</ul>
+<p>这里有个不大不小的跟头很容易栽。接自建网关时，图省事把 <code>ANTHROPIC_BASE_URL</code> 连同一个<strong>带个人 token 的地址</strong>写进项目根的 <code>.claude/settings.json</code>，然后顺手 <code>git commit</code>——推之前要是没扫一眼 diff，就麻烦了：<strong>那玩意儿一旦推上去，等于把私有地址（还可能带凭据）公开给了所有能看到这个仓库的人。</strong> 所以有条铁律记死：<strong>凡是带「个人专属」性质的变量（私有地址、个人配置目录这种），一律进 <code>.local</code> 那个不上 git 的文件</strong>；只有「全队都该一样」的，才往 <code>.claude/settings.json</code> 里放。</p>
+<table>
+<thead>
+<tr>
+<th>这个变量的性质</th>
+<th>该写进哪个文件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>我个人偏好，所有项目通用</td>
+<td><code>~/.claude/settings.json</code>（主目录）</td>
+</tr>
+<tr>
+<td>全队统一，要随项目共享</td>
+<td><code>.claude/settings.json</code>（进 git）</td>
+</tr>
+<tr>
+<td>我私人的、带凭据的、只这个项目</td>
+<td><code>.claude/settings.local.json</code>（❌ 不进 git）</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：<code>settings.json</code> 分四类文件，<strong>写进哪个决定这变量管「谁」</strong>——主目录管自己全局、项目根 <code>settings.json</code> 进 git 管全队、<code>.local</code> 不进 git 只管自己；<strong>带个人凭据的变量，死活别往进 git 的文件里放。</strong></p>
+</blockquote>
+<hr>
+<h2>04 最该认识的那几个变量：连接、超时、隐私、目录</h2>
+<p>官方那张环境变量表，说实话，<strong>长得吓人</strong>——上百个，从 AWS Bedrock 到 OpenTelemetry 导出器，绝大多数你这辈子都用不上。所以这一节我不堆清单，<strong>只挑小白真实会碰到的那十来个</strong>，按用途分四组，每个给你说清「干啥的、默认多少、什么时候动它」。</p>
+<h3>一组：连接与认证（怎么连上模型）</h3>
+<p>这组是前面第 04、05 篇的底层。三个核心：</p>
+<pre><code class="language-bash">ANTHROPIC_API_KEY      # 你的 API 密钥
+ANTHROPIC_BASE_URL     # 把请求改道到代理或网关
+ANTHROPIC_MODEL        # 默认用哪个模型
+</code></pre>
+<ul>
+<li><p><strong><code>ANTHROPIC_API_KEY</code></strong>——你的 API 密钥。这里有个<strong>特别容易踩的点</strong>，官方写得明明白白：<strong>一旦设了这个 key，即使你已经登录了订阅（Pro / Max / Team / Enterprise），也会改用这个 key</strong>。想换回订阅，得 <code>unset ANTHROPIC_API_KEY</code> 把它清掉。<strong>注意：交互模式下，Claude Code 会弹一次确认提示，让你批准或拒绝用这个 key，选择记住后续自动沿用；非交互模式（<code>-p</code>）则直接使用，不弹确认。</strong> 这个坑很容易踩——明明开了 Max 订阅，账单却走了 API 计费，查半天才发现是 <code>~/.zshrc</code> 里残留了一行 <code>export ANTHROPIC_API_KEY</code>（第 04 篇详谈了订阅 vs API key 怎么选）。</p>
+</li>
+<li><p><strong><code>ANTHROPIC_BASE_URL</code></strong>——把 API 请求<strong>改道</strong>到你的代理或网关。接国产模型、走自建中转，核心就是它（第 05 篇那套配置，主角就是这个变量）。</p>
+</li>
+<li><p><strong><code>ANTHROPIC_MODEL</code></strong>——指定默认模型。注意它的优先级：<strong><code>--model</code> 标志和会话里的 <code>/model</code> 命令会盖过它</strong>（下一节细讲）。</p>
+</li>
+</ul>
+<h3>二组：超时（嫌它太快放弃就调这个）</h3>
+<p>网络慢、或者走代理绕远路时，最常调的就是超时。两个最常用：</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>管什么</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>API_TIMEOUT_MS</code></td>
+<td>单次 API 请求的超时</td>
+<td><code>600000</code>（10 分钟）</td>
+</tr>
+<tr>
+<td><code>BASH_DEFAULT_TIMEOUT_MS</code></td>
+<td>长跑 bash 命令的默认超时</td>
+<td><code>120000</code>（2 分钟）</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><strong><code>API_TIMEOUT_MS</code></strong>——API 请求多久算超时。官方提示：<strong>网络慢或走代理时把它调大</strong>。但别瞎填——它有个上限 <code>2147483647</code>，<strong>超过这个数会让底层计时器溢出，请求直接秒失败</strong>（手抖多打个 0 是常见情形，结果每次请求瞬间报错，排查半天才发现是溢出）。</p>
+</li>
+<li><p><strong><code>BASH_DEFAULT_TIMEOUT_MS</code></strong>——Claude 跑那种长命令（比如装依赖、跑构建）默认给多久。默认 2 分钟，跑大型构建不够时调它。</p>
+</li>
+</ul>
+<h3>三组：隐私与遥测（合规/强隐私场景）</h3>
+<p>第 21 篇讲安全时点过的几个，这组管「往外发不发数据」：</p>
+<pre><code class="language-bash">DISABLE_TELEMETRY=1      # 关掉遥测上报
+DO_NOT_TRACK=1           # 同上，跨工具通用的约定
+</code></pre>
+<ul>
+<li><strong><code>DISABLE_TELEMETRY</code></strong>——设成 <code>1</code> 退出遥测。官方明确说<strong>遥测数据不含你的代码、文件路径或 bash 命令</strong>；但合规要求严的环境，设上它图个干净。</li>
+<li><strong><code>DO_NOT_TRACK</code></strong>——设成 <code>1</code>，<strong>等同于</strong> <code>DISABLE_TELEMETRY</code>。这是个被很多开发者 CLI 共同遵守的跨工具约定，你设过一次，好些工具都认。</li>
+</ul>
+<blockquote>
+<p>还有个一键全关的——<code>CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1</code>，官方说它等同于同时设了 <code>DISABLE_AUTOUPDATER</code>、<code>DISABLE_FEEDBACK_COMMAND</code>、<code>DISABLE_ERROR_REPORTING</code> 和 <code>DISABLE_TELEMETRY</code>。强隐私 / 隔离环境一个变量全关掉，省事。</p>
+</blockquote>
+<h3>四组：多账号与上下文（进阶但好用）</h3>
+<p>两个高频、强烈推荐你认识的：</p>
+<ul>
+<li><strong><code>CLAUDE_CONFIG_DIR</code></strong>——覆盖配置目录（默认 <code>~/.claude</code>）。<strong>所有设置、凭证、会话历史、插件都存这底下</strong>。它最大的用处是<strong>并行跑多个账号</strong>——官方给的例子就很实用：</li>
+</ul>
+<pre><code class="language-bash"># 给工作账号开个独立配置目录，互不干扰
+alias claude-work=&#39;CLAUDE_CONFIG_DIR=~/.claude-work claude&#39;
+</code></pre>
+<p>工作号和个人号就可以这么分：平时 <code>claude</code> 走个人配置，敲 <code>claude-work</code> 走另一套完全隔离的设置和登录态，<strong>两边的历史、凭证、MCP 配置井水不犯河水</strong>。</p>
+<ul>
+<li><strong><code>DISABLE_AUTO_COMPACT</code></strong>——设成 <code>1</code> 关掉「接近上下文上限时的自动压缩」（第 19 篇讲过 auto-compact 这个机制）。手动 <code>/compact</code> 仍然能用。<strong>想完全自己掌控什么时候压缩，才设它</strong>——多数人保持默认即可。</li>
+</ul>
+<blockquote>
+<p>⚠️ 一句重要提醒：官方说得很死——<strong>Claude Code 只在「启动时」读环境变量</strong>。所以你改完任何变量（无论改 shell 还是改 <code>settings.json</code>），<strong>都得退出 <code>claude</code> 重开，新值才生效</strong>。改完没反应，十有八九是没重启。</p>
+</blockquote>
+<blockquote>
+<p>💡 一句话总结：真正常碰的就四组——<strong>连接认证（<code>ANTHROPIC_API_KEY</code>/<code>BASE_URL</code>/<code>MODEL</code>）、超时（<code>API_TIMEOUT_MS</code> 默认 10 分钟）、隐私（<code>DISABLE_TELEMETRY</code>/<code>DO_NOT_TRACK</code>）、多账号（<code>CLAUDE_CONFIG_DIR</code>）</strong>；改完务必重启 <code>claude</code> 才生效。</p>
+</blockquote>
+<hr>
+<h2>05 优先级：同一件事好几个地方都能设，到底谁说了算</h2>
+<p>学到这儿你会冒出一个很自然的疑问：<strong>模型既能用 <code>ANTHROPIC_MODEL</code> 设、又能用 <code>/model</code> 命令选、还能在 <code>settings.json</code> 里写 <code>model</code> 字段——三个都设了，听谁的？</strong></p>
+<p>这就是「优先级（precedence）」要回答的事。<strong>不搞清它，你会遇到「我明明设了啊怎么没用」的灵异现象。</strong></p>
+<p>先记住官方给的第一条总纲——<strong>环境变量 &gt; 设置字段</strong>：</p>
+<blockquote>
+<p>当相同的行为同时具有环境变量和设置字段时，环境变量优先。例如，<code>ANTHROPIC_MODEL</code> 覆盖 <code>model</code> 设置。当环境变量未设置时，设置字段适用。</p>
+</blockquote>
+<p><strong>类比：老板当面那句话，压过员工手册。</strong> 员工手册（<code>settings.json</code> 的字段）白纸黑字写着「报销打车 50 封顶」；可老板今天当面跟你说「这趟远，你打车实报实销」（环境变量）——<strong>这一趟你当然听老板当面那句的</strong>。环境变量就是那句「当面交代」，比手册里写死的字段更优先。等老板没特别交代时（环境变量没设），才回去按手册（设置字段）办。</p>
+<p>但这里有个<strong>反直觉的拐点</strong>，新手最容易栽：<strong>不是所有东西环境变量都压得住。</strong> 模型这件事，官方专门点了名：</p>
+<blockquote>
+<p><code>--model</code> 和 <code>/model</code> 覆盖 <code>ANTHROPIC_MODEL</code>。</p>
+</blockquote>
+<p>也就是说，模型这条链是这样的：</p>
+<pre><code class="language-text">/model 命令 / --model 标志   ←  最优先（你当场的选择）
+        ↓ 盖过
+ANTHROPIC_MODEL 环境变量      ←  其次
+        ↓ 盖过
+settings.json 的 model 字段   ←  兜底
+</code></pre>
+<p>为啥模型这儿反过来了？其实很合理——<strong>你在会话里手动 <code>/model</code> 切一下，是「我现在就想用这个」的明确当场意图，它当然该压过你之前设死的那个环境变量。</strong> 这跟「老板当面那句压过手册」是同一个逻辑：<strong>越「当场、越明确」的指令，优先级越高。</strong></p>
+<table>
+<thead>
+<tr>
+<th>配置方式</th>
+<th>相对优先级</th>
+<th>一句话</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/model</code> 命令 / <code>--model</code> 标志</td>
+<td><strong>最高</strong></td>
+<td>你会话里/启动时当场的明确选择</td>
+</tr>
+<tr>
+<td><code>ANTHROPIC_MODEL</code> 环境变量</td>
+<td>中</td>
+<td>你预先设死的默认</td>
+</tr>
+<tr>
+<td><code>settings.json</code> 的 <code>model</code> 字段</td>
+<td>兜底</td>
+<td>都没设时才用</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意：这个「命令/标志盖过环境变量」是<strong>模型这类配置</strong>的规矩，不是放之四海皆准。官方原话提醒<strong>不同功能交互方式不一样</strong>——比如 <code>CLAUDE_CODE_EFFORT_LEVEL</code> 反而会覆盖 <code>/effort</code> 命令。所以拿不准某个具体变量时，<strong>回官方那张变量表查它那一行的说明</strong>，别想当然。</p>
+</blockquote>
+<p>这条很容易栽一次：在 <code>settings.json</code> 里写死了 <code>ANTHROPIC_MODEL</code>，结果某次会话里随手 <code>/model</code> 切了个别的，切完就忘了——<strong>下半场一直在用临时切的那个，还纳闷怎么跟配置的不一样</strong>。其实道理很直白：<code>/model</code> 当场选的，本来就该压过预设的环境变量。<strong>这不是 bug，是设计。</strong></p>
+<blockquote>
+<p>💡 一句话总结：总纲是<strong>环境变量 &gt; 设置字段</strong>（老板当面话压过员工手册）；但模型这类有例外——<strong><code>/model</code>/<code>--model</code> 这种「当场明确指令」反过来压过 <code>ANTHROPIC_MODEL</code></strong>；规律是「越当场越明确，优先级越高」，拿不准就查官方那行说明。</p>
+</blockquote>
+<hr>
+<h2>06 动手：设一个变量，亲手验证它真的生效了</h2>
+<p>光看不练，环境变量这东西永远隔层纱。下面带你走一遍<strong>最小闭环</strong>：设一个变量 → 进会话 → 确认它真生效了。<strong>全程不依赖你任何已有的复杂配置，几分钟搞定。</strong></p>
+<p>我们拿 <code>BASH_DEFAULT_TIMEOUT_MS</code>（bash 命令默认超时）来练——选它是因为它<strong>安全、可观察、改错了也不影响连接</strong>。</p>
+<p><strong>第一步：先看默认状态（在终端，启动 <code>claude</code> 之前）</strong></p>
+<p>什么都别设，直接开一个会话：</p>
+<pre><code class="language-bash">claude
+</code></pre>
+<p>进去后，让它跑一句话，问它当前的 bash 超时：</p>
+<pre><code class="language-text">我现在的 bash 命令默认超时是多少毫秒?读一下你环境里的 BASH_DEFAULT_TIMEOUT_MS,没设的话就说默认值
+</code></pre>
+<p><strong>预期</strong>：它会告诉你这个变量没显式设置，走默认 <code>120000</code>（2 分钟）。<strong>记住这个基线值</strong>，等会儿对照。然后退出会话（敲 <code>/exit</code> 或 Ctrl+C 两下）。</p>
+<p><strong>第二步：用 shell 临时设一个值，再开会话</strong></p>
+<p>回到终端，临时 <code>export</code> 一个不一样的值（设成 5 分钟），紧接着开会话：</p>
+<pre><code class="language-bash">export BASH_DEFAULT_TIMEOUT_MS=&quot;300000&quot;
+claude
+</code></pre>
+<blockquote>
+<p>Windows PowerShell 用：<code>$env:BASH_DEFAULT_TIMEOUT_MS = &quot;300000&quot;</code> 然后 <code>claude</code>。</p>
+</blockquote>
+<p>进去后，<strong>问同样的问题</strong>：</p>
+<pre><code class="language-text">我现在的 bash 命令默认超时是多少毫秒?
+</code></pre>
+<p><strong>预期</strong>：这次它该读到 <code>300000</code>（5 分钟），而不是默认的 <code>120000</code>。<strong>看到值从 120000 变成了 300000 = 你的临时设置真的被读进去了。</strong> 这就验证了「方式一：shell 临时设」确实管用。</p>
+<p><strong>第三步：验证「关掉终端就没了」</strong></p>
+<p>退出会话，<strong>完全关掉这个终端窗口，重新开一个新的</strong>，直接 <code>claude</code>（这次什么都不 export），再问一遍同样的问题。</p>
+<p><strong>预期</strong>：又变回 <code>120000</code>（默认值）。<strong>因为 <code>export</code> 只对那个已经关掉的终端有效</strong>——这就亲眼印证了第 02 节那条「shell 临时设，关掉终端就没了」。</p>
+<p><strong>第四步（可选）：写进 settings.json，让它持久</strong></p>
+<p>如果你想让这个值<strong>长期生效、跟启动方式无关</strong>，把它写进 <code>settings.json</code>。最稳妥是写进只属于你、不上 git 的那个文件：</p>
+<pre><code class="language-json">{
+  &quot;env&quot;: {
+    &quot;BASH_DEFAULT_TIMEOUT_MS&quot;: &quot;300000&quot;
+  }
+}
+</code></pre>
+<blockquote>
+<p>写进 <code>.claude/settings.local.json</code>（当前项目根、不进 git），或 <code>~/.claude/settings.json</code>（你的主目录、所有项目通用），按你想要的范围选——参考第 03 节那张表。</p>
+</blockquote>
+<p>存盘后，<strong>新开终端、直接 <code>claude</code>（不 export），再问一遍</strong>——这次该稳定读到 <code>300000</code> 了，<strong>而且无论你以后怎么启动 <code>claude</code>，它都在</strong>。这就是「方式三：写进 <code>settings.json</code>」相比 shell 临时设的好处：<strong>一次写好，不用回回 export。</strong></p>
+<p>跑完这四步，你就把环境变量「<strong>设 → 验证生效 → 验证范围 → 持久化</strong>」整条链路亲手走了一遍。<strong>以后设任何变量，本质都是这套：先临时试管不管用，确认了再挪进 <code>settings.json</code> 固化。</strong></p>
+<blockquote>
+<p>💡 一句话总结：验证一个变量生不生效，<strong>最稳的办法就是「问 Claude 它读到的值」</strong>；先 shell 临时 <code>export</code> 试探（关终端就没）、确认管用再写进 <code>settings.json</code> 持久化——亲手走一遍这条链路，环境变量就再也不玄了。</p>
+</blockquote>
+<hr>
+<h2>07 小结</h2>
+<p>这一篇我们钻到水面下，把控制 Claude Code 底层行为的那排「总开关」——环境变量——认全、拨明白了。</p>
+<p>归纳一下，整篇讲的核心就五件事：它管什么、在哪设、写进哪个文件、常用的那几个长啥样、多处都设了听谁的。一张表串起来：</p>
+<table>
+<thead>
+<tr>
+<th>你要搞清的事</th>
+<th>答案</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>环境变量管啥</td>
+<td>连接、认证、超时、隐私这些底层行为</td>
+<td>启动时读的键值对开关，「设一次长期生效」</td>
+</tr>
+<tr>
+<td>在哪设</td>
+<td>shell 临时 / <code>~/.zshrc</code> / <code>settings.json</code> 的 <code>env</code></td>
+<td>按生效范围选，长期用推荐 <code>settings.json</code></td>
+</tr>
+<tr>
+<td>写进哪个 settings 文件</td>
+<td>主目录 / 项目根（进 git） / <code>.local</code>（不进 git）</td>
+<td><strong>带凭据的别进 git</strong></td>
+</tr>
+<tr>
+<td>最常用哪几个</td>
+<td><code>ANTHROPIC_*</code>、<code>API_TIMEOUT_MS</code>、<code>DISABLE_TELEMETRY</code>、<code>CLAUDE_CONFIG_DIR</code></td>
+<td>各有默认值，改完<strong>重启才生效</strong></td>
+</tr>
+<tr>
+<td>多处都设了听谁的</td>
+<td>环境变量 &gt; 设置字段；但 <code>/model</code> 压过 <code>ANTHROPIC_MODEL</code></td>
+<td>越当场越明确，优先级越高</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 看懂环境变量在 Claude Code 里到底管什么、知道三种设置方式各自的生效范围、清楚 <code>settings.json</code> 四类文件谁进 git 谁不进、认识连接/超时/隐私/多账号这几组最常用的变量、并且想明白当同一件事多处都能设时该听谁的。更重要的是——<strong>你亲手设了一个变量、验证了它真生效、还看到了「关掉终端就没」和「写进文件就持久」的区别。</strong> 这层窗户纸一旦捅破，环境变量就从「高阶玄学」变成了你随手能拨的开关。</p>
+<p>回到开头那句话：<strong>环境变量从来不是「高阶才碰」，而是「一次拨好、终身受益」。</strong> 你前面四十一篇里那些「每次都得手动设一遍」的别扭，现在多半都能用一个变量一劳永逸地解决了。</p>
+<hr>
+<p>下一篇 <strong>43「Git 工作流」</strong>——环境变量帮你把 Claude Code 的底层行为安顿明白了，接下来该让它真正融进你每天的开发节奏。说到开发，<strong>绕不开的就是 Git</strong>：让 Claude 帮你写提交信息、理清 diff、开 PR、处理冲突……它在 Git 这块到底能帮到哪一步、又有哪些坑得你自己盯着？下一篇好好聊聊。想想看：<strong>你愿意让 AI 替你 <code>git commit</code>，但 <code>git push</code> 到生产分支这一下，你敢撒手吗？</strong></p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/41-parallel-tasks.html"><span class="mono">← 上一篇 · 41</span><b>并行任务：让几个 Claude 同时开工，而不是排队</b></a>
+  <a class="pg nx" href="/library/claude-code/43-git-workflow.html"><span class="mono">下一篇 · 43 →</span><b>Git 工作流：让 Claude 当你的 git 副手</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

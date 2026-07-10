@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>05 接入 DeepSeek 等国产模型 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 05 篇:接入 DeepSeek 等国产模型。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/05-third-party-models.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class="cur"><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class="cur"><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 05 篇</p>
+      <h1>接入 DeepSeek 等国产模型</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="04-pricing.html">04 · 订阅与计费</a> 把 Codex 的账算明白了——订阅划算还是按量付费划算。这一篇接着「省钱」往下走，聊一个更野的路子：<strong>把 Codex 背后的大脑，换成 DeepSeek 这类国产模型</strong>。</p>
+</blockquote>
+<blockquote>
+<p>⚠️ <strong>开头先把丑话说清楚（实验性、可能变化，以实测为准）</strong>：Codex 是 OpenAI 自家的产品，它的官方文档里<strong>根本没打算让你接 DeepSeek</strong>。给 Codex 接第三方模型，是社区玩出来的路子，靠的是官方留的一个口子——自定义模型提供商（<code>model_providers</code>）。这条路能不能跑通、能跑多顺，<strong>取决于第三方模型支持哪种接口协议</strong>，而这一点恰恰是最容易翻车的地方（后面第 03 节细说）。本篇凡是官方文档明确写了的（配置项、默认行为）我都标了来源；DeepSeek 那部分以实测和社区方案为主，<strong>接口地址、模型名、协议支持随时会变，一切以 DeepSeek 和 Codex 官方为准</strong>。</p>
+</blockquote>
+<p>兄弟们，先还原一段我前阵子真实的对话。</p>
+<blockquote>
+<p>同事：「你 Claude Code 不是接了 DeepSeek 省了一大笔吗？Codex 照搬一下呗。」
+我：「我也以为照搬就行……结果搞了俩小时，配置全对，一发请求直接 400。」
+同事：「啊？不是改个 base_url 的事吗？」
+我：「Codex 跟 Claude Code 不是一个套路。这俩长得像，骨子里差远了。」</p>
+</blockquote>
+<p>说句实话，<strong>这篇是我整个 Codex 系列里最想给你提个醒的一篇</strong>。网上一搜「Codex 接 DeepSeek」，教程一大把，但九成没说清楚一件要命的事：Codex 接第三方，跟 Claude Code 接第三方，<strong>底层逻辑完全不同</strong>，照着 Claude Code 的经验抄，大概率卡在协议上。这篇就把这个坑，连根挖给你看。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一句话讲清 Codex 和 Claude Code 接第三方的<strong>根本区别</strong>（省你几个小时）</li>
+<li>一张「该不该给 Codex 接第三方」的取舍对照表，先想清楚再动手</li>
+<li>两条接入路线（手改 <code>config.toml</code> vs 第三方代理工具）的优劣对比和适用人群</li>
+<li>一份照着抄的 <code>model_providers</code> 配置骨架 + 验证方法 + 高频报错排查表</li>
+</ul>
+<hr>
+<h2>01 先搞懂：Codex 换模型，和 Claude Code 不是一回事</h2>
+<p>先给结论，这是全篇最值钱的一句：<strong>Claude Code 换模型靠改环境变量，Codex 换模型靠改配置文件里的「模型提供商」；更关键的是，Codex 对第三方的接口协议有硬要求，不是随便一个兼容接口都能接上。</strong></p>
+<p>我们一步步拆。</p>
+<p>你装的 Codex，本质也是个跑在终端里的客户端——它读代码、调工具、管上下文，但<strong>它自己不思考</strong>，每一步都要把请求发给一个大模型。默认这个模型是 OpenAI 的 GPT（当前推荐 <code>gpt-5.5</code>，来源：Codex 官方《Models》文档）。</p>
+<p>所谓「接第三方」，就是把这个发请求的目标，从 OpenAI 改到别人家。Codex 官方确实留了这个口子——文档原话是：</p>
+<blockquote>
+<p>你也可以把 Codex 指向任何支持 <a href="https://platform.openai.com/docs/api-reference/chat">Chat Completions</a> 或 <a href="https://platform.openai.com/docs/api-reference/responses">Responses API</a> 的模型和提供商，以适配你的特定用例。（Codex 官方《Models》文档）</p>
+</blockquote>
+<p><strong>类比：插座的制式。</strong> Claude Code 像个万用充电头，第三方只要做一个「兼容 Anthropic 协议」的接口，它一插就通。Codex 不一样，它更像认插座制式的电器——<strong>它只认 OpenAI 那两种「插座」（Chat Completions 和 Responses API）</strong>。DeepSeek 这类国产模型，普遍提供的是「兼容 OpenAI」的接口，也就是 OpenAI 制式的插座，所以理论上能插。但这里有个暗坑：</p>
+<p><strong>Codex 官方明确写了——Chat Completions API 的支持「已弃用，未来版本会移除」（来源：《Models》文档）。</strong> 也就是说，Codex 正在把宝押在 Responses API 上。而 Responses API 是 OpenAI 自家相对新的协议，<strong>很多第三方模型平台并没有完整实现它</strong>。</p>
+<p>这就是我开头卡两小时的根因：我以为「DeepSeek 兼容 OpenAI」就万事大吉，结果撞在了协议这堵墙上。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：Claude Code 换大脑改环境变量、认 Anthropic 协议；Codex 换大脑改 <code>config.toml</code> 里的模型提供商、认 OpenAI 协议（且力推 Responses API）——<strong>别拿 Claude Code 的经验硬套 Codex</strong>。</p>
+</blockquote>
+<hr>
+<h2>02 该不该给 Codex 接第三方？先看这张表</h2>
+<p>先泼盆冷水：<strong>就「接第三方」这件事，Codex 比 Claude Code 更不值得折腾。</strong> 这是我用下来的真实判断，不是和稀泥。</p>
+<p>原因很简单，叠了三层：</p>
+<p>第一，<strong>Codex 接第三方的成功率，比 Claude Code 低</strong>——卡在前面说的协议问题上，不一定一把通。</p>
+<p>第二，<strong>GPT-5.5 这代模型在 Codex 里的代码能力是真强</strong>，尤其复杂任务、长链路重构，第三方模型接上了也未必追得上，省了钱但活儿质量打折。</p>
+<p>第三，<strong>OpenAI 的订阅（Plus / Pro）本身就把 Codex 额度包进去了</strong>（上一篇 04 算过账）。你订阅都买了，再花 API 的钱接第三方，等于重复付费。</p>
+<p>把官方和第三方摆一起对比，你心里就有数了：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>官方 GPT（Codex 默认）</th>
+<th>第三方 / 国产模型（如 DeepSeek）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>价格</strong></td>
+<td>贵，重度用按量付费烧钱</td>
+<td>✅ 便宜，常便宜一个数量级</td>
+</tr>
+<tr>
+<td><strong>国内直连</strong></td>
+<td>多数要魔法上网</td>
+<td>✅ DeepSeek 等国内直连，零门槛</td>
+</tr>
+<tr>
+<td><strong>接入难度</strong></td>
+<td>登录即用</td>
+<td>⚠️ <strong>协议可能不兼容，未必接得上</strong></td>
+</tr>
+<tr>
+<td><strong>代码 / Agent 能力</strong></td>
+<td>✅ GPT-5.5 第一梯队，长链路稳</td>
+<td>够日常用，复杂任务偶尔掉链子</td>
+</tr>
+<tr>
+<td><strong>官方支持</strong></td>
+<td>✅ 一等公民</td>
+<td>❌ 实验性，出问题没人兜底</td>
+</tr>
+<tr>
+<td><strong>配置稳定性</strong></td>
+<td>跟着官方走</td>
+<td>⚠️ 协议 / 模型名变了就得重配</td>
+</tr>
+</tbody></table>
+<p>看明白了吧？<strong>和 Claude Code 那篇里「第三方是省钱王牌」的结论不同——在 Codex 这边，第三方多了一道「能不能接上」的不确定性</strong>，王牌的成色打了折。</p>
+<p>那什么人还值得试？我的建议：</p>
+<ul>
+<li>✅ <strong>可以试</strong>：API 账单肉疼、且任务以日常增删改查为主的重度用户；纯粹连不上官方、只想找个国内直连凑合用的人；爱折腾、把这当技术练手的人。</li>
+<li>❌ <strong>别折腾</strong>：已经买了 OpenAI 订阅的（重复付费，不划算）；主力干复杂架构、疑难调试的（GPT-5.5 的能力省不得）；图省事、受不了折腾配置的小白（这条路真不省心）。</li>
+</ul>
+<p>我自己的结论是：<strong>Claude Code 我常驻 DeepSeek 跑糙活，Codex 我老老实实用官方。</strong> 不是 DeepSeek 不行，是 Codex 这条接入路太不稳，性价比不如把精力花在用好官方上。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：Codex 接第三方比 Claude Code 多一层「协议能不能通」的风险，<strong>重复付费的订阅党、干硬活的、怕折腾的都别凑热闹</strong>；真要试，先认清这是实验性玩法。</p>
+</blockquote>
+<hr>
+<h2>03 两条路线：手改配置 vs 代理工具</h2>
+<p>假设你看完上面还是想试。先别急着抄配置——<strong>接入有两条路线，选错了白费劲。</strong></p>
+<p><img src="assets/05-third-party-route@2x.png" alt="Codex 接 DeepSeek 等第三方模型的两条路线：手改 config.toml 直连 vs 装第三方代理工具转协议"></p>
+<p>这张图是接入决策的全貌：两条路殊途同归，但<strong>最终都得过「协议」这一关</strong>——这是 Codex 接第三方绕不开的门槛。</p>
+<h3>路线一：手改 <code>config.toml</code>（官方留的口子）</h3>
+<p>Codex 把所有配置放在一个文件里：<code>~/.codex/config.toml</code> （这是 Codex 的「用户级配置文件」，来源：官方《Configuration Reference》）。官方支持你在里面定义自定义的「模型提供商」。</p>
+<p><strong>类比：在通讯录里新建一个联系人。</strong> 默认通讯录里只有 OpenAI 这个号码，你想给 DeepSeek 打电话，就得先在通讯录里新建一条：填上名字、电话号码（<code>base_url</code>）、还有验证身份用的密码（API Key 从哪个环境变量取）。建好之后，再告诉 Codex「这次拨打这个新联系人」。</p>
+<p>关键配置项就这么几个（均来自官方《Configuration Reference》；前四项在 <code>model_providers</code> 子表下，后两项 <code>model_provider</code> / <code>model</code> 是顶层项）：</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>官方含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>model_providers.&lt;id&gt;.name</code></td>
+<td>这个自定义提供商的显示名</td>
+</tr>
+<tr>
+<td><code>model_providers.&lt;id&gt;.base_url</code></td>
+<td>提供商的 API 地址</td>
+</tr>
+<tr>
+<td><code>model_providers.&lt;id&gt;.env_key</code></td>
+<td>从哪个环境变量读 API Key</td>
+</tr>
+<tr>
+<td><code>model_providers.&lt;id&gt;.wire_api</code></td>
+<td>用哪种协议，<strong>官方只支持 <code>responses</code>，且为默认值</strong></td>
+</tr>
+<tr>
+<td><code>model_provider</code>（顶层）</td>
+<td>当前用哪个提供商，默认 <code>openai</code></td>
+</tr>
+<tr>
+<td><code>model</code>（顶层）</td>
+<td>当前用哪个模型</td>
+</tr>
+</tbody></table>
+<p>注意看 <code>wire_api</code> 那一行——<strong>官方文档白纸黑字：<code>responses</code> 是唯一支持的值（<code>responses</code> is the only supported value）</strong>。这就是路线一最大的坎：如果你接的第三方平台只提供 Chat Completions 风格的接口、不支持 Responses API，那这条官方路线<strong>可能直接走不通</strong>。</p>
+<blockquote>
+<p>⚠️ DeepSeek 官方提供的是「兼容 OpenAI」接口，但它对应的主要是 Chat Completions 风格。<strong>它到底能不能被 Codex 的 <code>responses</code> 协议接受，强依赖双方当下的实现，我无法替你打包票——这一步务必以你自己的实测和两边官方文档为准。</strong> 通了算你赚，没通是正常的，别怀疑自己手笨。</p>
+</blockquote>
+<h3>路线二：装个第三方代理工具（社区方案）</h3>
+<p>既然协议是拦路虎，社区就想了个办法：<strong>在你本机起一个代理服务，专门负责「协议翻译」</strong>——Codex 把请求按 OpenAI 的格式发给这个本地代理，代理在中间转换好，再转发给 DeepSeek，响应回来再翻译回去。对 Codex 来说，它全程以为自己在跟 OpenAI 说话。</p>
+<p> <strong>CC Switch</strong>（一款免费开源的跨平台桌面工具，GitHub 仓库 <a href="https://github.com/farion1231/cc-switch">github.com/farion1231/cc-switch</a> ）走的就是这条路：在本机起代理，把 Codex 的请求透明转发到你选的后端，还内置了 DeepSeek 等常见平台的预设，省得你手填。</p>
+<p><img src="assets/05-ccswitch.png" alt="CC Switch 主界面"></p>
+<p>安装 CC Switch 后，打开主界面，点击「Add Provider」或对应的「+」入口，进入提供商配置页。</p>
+<p><img src="assets/05-add-provider.png" alt="CC Switch 安装后进入的主页面"></p>
+<p>这张图是添加提供商的入口页面。在左侧列表里选中你想配置的工具（这里选 Codex），右侧会展开该工具的「Provider」设置区——在这里选择你要接入的后端（DeepSeek 等）、填入对应的 API Key，保存后 CC Switch 就会把 Codex 的请求透明转发到你选的平台。</p>
+<p><img src="assets/05-add-provider2.png" alt="CC Switch 配置供应商：一长串预设后端可选"></p>
+<p>这张图展示的是选择后端时的预设列表——DeepSeek、OpenRouter 等常见平台都内置了，不用手填地址和协议细节，选中填 Key 即可。</p>
+<p><strong>类比：找个翻译。</strong> 你（Codex）只会说英语（OpenAI 协议），对方（DeepSeek）只听得懂中文。路线一是指望对方自己学英语（平台支持 Responses API）；路线二是你雇个翻译（代理工具）站中间，两头传话。翻译靠谱，沟通就顺。</p>
+<p>两条路线怎么选，对照着挑：</p>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>路线一：手改 config.toml</th>
+<th>路线二：代理工具（如 CC Switch）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>是否官方</strong></td>
+<td>✅ 用的是官方留的配置口子</td>
+<td>❌ 纯社区第三方工具</td>
+</tr>
+<tr>
+<td><strong>协议适配</strong></td>
+<td>⚠️ 全看平台支不支持 <code>responses</code></td>
+<td>✅ 代理替你做协议转换，成功率更高</td>
+</tr>
+<tr>
+<td><strong>上手难度</strong></td>
+<td>要手写 TOML，易写错</td>
+<td>图形界面点几下，对小白友好</td>
+</tr>
+<tr>
+<td><strong>透明度</strong></td>
+<td>配置都在你眼皮底下</td>
+<td>多一层黑盒，出问题排查更绕</td>
+</tr>
+<tr>
+<td><strong>多平台切换</strong></td>
+<td>改一次配一次</td>
+<td>一键切换不同提供商</td>
+</tr>
+<tr>
+<td><strong>适合谁</strong></td>
+<td>想搞懂原理、能折腾的</td>
+<td>只想快速跑通、怕写配置的</td>
+</tr>
+</tbody></table>
+<p>我的取舍：<strong>想真正理解 Codex 怎么接第三方，走路线一</strong>，哪怕没通，你也搞懂了门道；<strong>只想赶紧用上、不在乎原理，走路线二</strong>，让工具替你扛协议这摊事。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：路线一是官方配置（透明但吃协议运气），路线二是社区代理工具（多个黑盒但成功率高）——<strong>怕折腾选代理工具，想懂原理选手改配置</strong>，但两条路最后都得看协议对不对得上。</p>
+</blockquote>
+<hr>
+<h2>04 动手：手改 config.toml 的最小骨架</h2>
+<p>这节给路线一的<strong>配置骨架</strong>。我把它写成「骨架」而不是「照抄就跑」，是因为前面反复强调的协议风险——<strong>这套配置语法是官方的、确定的；但它对 DeepSeek 通不通，得你实测</strong>。</p>
+<p>平台差异先说清：<code>~/.codex/config.toml</code> 这个路径，**Mac / Linux 在 <code>~/.codex/</code> ，Windows 在 <code>C:\Users\你的用户名\.codex\</code>**（<code>~</code> 即用户主目录）。文件不存在就新建一个。</p>
+<h3>第一步：拿一把 DeepSeek API Key</h3>
+<ol>
+<li>打开 <a href="https://platform.deepseek.com">DeepSeek 开放平台</a> ，注册 / 登录</li>
+<li>创建一个 API Key，<strong>复制存好</strong>（形如 <code>sk-xxxxxxxx</code>）</li>
+</ol>
+<blockquote>
+<p>🔑 API Key 是你账户的钱包钥匙。<strong>别提交到 Git、别发群里、别硬写进配置文件</strong>。下面我们用环境变量管它，天然不进文件。</p>
+</blockquote>
+<h3>第二步：把 Key 放进环境变量</h3>
+<p>先把 Key 塞进一个环境变量（变量名你自己定，这里叫 <code>DEEPSEEK_API_KEY</code>），后面配置文件里只引用它的名字，不写明文。</p>
+<p><strong>Mac / Linux：</strong></p>
+<pre><code class="language-bash">export DEEPSEEK_API_KEY=&lt;你的 DeepSeek API Key&gt;
+</code></pre>
+<p><strong>Windows（PowerShell）：</strong></p>
+<pre><code class="language-powershell">$env:DEEPSEEK_API_KEY=&quot;&lt;你的 DeepSeek API Key&gt;&quot;
+</code></pre>
+<p>这行 <code>export</code> / <code>$env:</code> 只在当前终端窗口有效，关掉就没了。要长期用，Mac 写进 <code>~/.zshrc</code> 、Linux 写进 <code>~/.bashrc</code> 再 <code>source</code> 一下；Windows 在「系统属性 → 环境变量」里加用户变量。</p>
+<h3>第三步：在 config.toml 里建一个提供商</h3>
+<p>编辑 <code>~/.codex/config.toml</code> ，加入下面这段（每一行都按官方配置项写）：</p>
+<pre><code class="language-toml"># 顶层：告诉 Codex 这次用我们自定义的提供商和模型
+model_provider = &quot;deepseek&quot;
+model = &quot;&lt;DeepSeek 的模型名，以官方文档为准&gt;&quot;
+
+# 自定义一个名为 deepseek 的模型提供商
+[model_providers.deepseek]
+name = &quot;DeepSeek&quot;
+base_url = &quot;&lt;DeepSeek 的 API base_url，以官方文档为准&gt;&quot;
+env_key = &quot;DEEPSEEK_API_KEY&quot;   # 引用上一步的环境变量名
+# wire_api 不写则默认为 responses（官方唯一支持的值）
+</code></pre>
+<p>逐行说明，避免你抄了不懂：</p>
+<ul>
+<li><code>model_provider = &quot;deepseek&quot;</code> ——告诉 Codex「这次别用默认的 openai，用我下面定义的 deepseek」。</li>
+<li><code>model = &quot;...&quot;</code> ——具体模型名。<strong>DeepSeek 的模型名以 <a href="https://api-docs.deepseek.com/zh-cn/">DeepSeek 官方文档</a> 为准</strong>，平台升级会改名，别写死。</li>
+<li><code>[model_providers.deepseek]</code> ——这一段就是「新建联系人」，<code>deepseek</code> 是你给它起的 id，要和上面 <code>model_provider</code> 对上。</li>
+<li><code>base_url</code> ——DeepSeek 的接口地址，<strong>以 DeepSeek 官方为准</strong>。</li>
+<li><code>env_key = &quot;DEEPSEEK_API_KEY&quot;</code> ——Codex 会去读这个环境变量拿 Key，所以第二步必须先设好。</li>
+</ul>
+<blockquote>
+<p>⚠️ 我故意把 <code>model</code> 和 <code>base_url</code> 的具体值留成占位符。一来这俩 DeepSeek 随时可能调整，写死了害你；二来——再强调一遍——<strong>这套配置能否真正跑通 DeepSeek，卡在 <code>responses</code> 协议兼容性上，请以实测为准</strong>。配置语法是对的，但「对方接不接」不是这份语法能保证的。</p>
+</blockquote>
+<blockquote>
+<p>提醒一句：内置的提供商 id（<code>openai</code>、<code>ollama</code>、<code>lmstudio</code>）是保留的、不能覆盖（来源：官方《Configuration Reference》），所以自定义 id 别取这几个名字。</p>
+</blockquote>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：手改配置 = 设环境变量存 Key + 在 <code>config.toml</code> 里建一个 <code>model_providers</code> 提供商 + 顶层把 <code>model_provider</code> 和 <code>model</code> 指过去；语法是固定的，能不能跑通看协议那关。</p>
+</blockquote>
+<hr>
+<h2>05 验证：到底接没接上</h2>
+<p>配完别急着干活，<strong>先验证</strong>。不然你可能写半天才发现请求压根没切过去，白忙。</p>
+<p>验证分两步走，从粗到细。</p>
+<h3>看一眼：当前用的是哪个模型</h3>
+<p>启动 Codex，在会话里用斜杠命令 <code>/model</code> ——它能切换当前线程使用的模型（来源：官方《Models》文档）。先确认 Codex 认到了你配的模型，而不是还停在默认的 GPT。</p>
+<pre><code class="language-bash">codex
+</code></pre>
+<p>进去之后敲：</p>
+<pre><code>/model
+</code></pre>
+<blockquote>
+<p>你也可以直接用 <code>-m</code> 参数指定模型启动，比如 <code>codex -m &lt;模型名&gt;</code> （来源：官方《Models》文档）。</p>
+</blockquote>
+<h3>真一刀：发个最小请求试水</h3>
+<p>光看配置认没认到还不够，<strong>真正的检验是发一句话过去，看它回不回得正常</strong>。给它一个最小、无害的任务：</p>
+<pre><code>你好，用一句话回复确认你能正常工作。
+</code></pre>
+<p>三种结果，对号入座：</p>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>大概率原因</th>
+<th>怎么办</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正常回了一句中文</td>
+<td>✅ 接通了</td>
+<td>恭喜，可以用了</td>
+</tr>
+<tr>
+<td>报 401 / 鉴权失败</td>
+<td>API Key 没设对，或环境变量没生效</td>
+<td>检查 <code>env_key</code> 名字、重设环境变量、重开终端</td>
+</tr>
+<tr>
+<td>报 400 / 格式 / 协议错误</td>
+<td><strong>极可能是协议不兼容</strong>（Responses API 那道坎）</td>
+<td>这条路在该平台可能走不通，考虑换路线二或换支持的模型</td>
+</tr>
+<tr>
+<td>提示模型不存在</td>
+<td>模型名写错 / 平台改名了</td>
+<td>去 DeepSeek 官方文档查最新模型名</td>
+</tr>
+</tbody></table>
+<p><strong>重点看那条 400 / 协议错误</strong>——如果你撞到它，先别怀疑自己配错了。这恰恰印证了第 03 节那句话：<strong>Codex 认 <code>responses</code> 协议，而第三方平台未必实现</strong>。我那两小时就栽在这上面，最后确认不是配置问题，是协议没对上。</p>
+<p>碰到这种情况，理性的做法是：要么改走路线二（让代理工具去啃协议），要么干脆承认这个平台 + Codex 当下不兼容，<strong>别在同一个方向死磕</strong>——这也是省时间的关键判断。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：先 <code>/model</code> 看认没认到模型，再发一句话实测能不能回；<strong>401 多半是 Key 问题，400 多半是协议不兼容</strong>——撞协议墙就换路线或换模型，别硬刚。</p>
+</blockquote>
+<hr>
+<h2>06 接上之后：调思考深度，别一把梭</h2>
+<p>假设你运气不错接通了，再补一招实用的：<strong>Codex 允许你调模型的「思考深度」，省 token 还是要质量，你说了算。</strong></p>
+<p>官方提供一个配置项 <code>model_reasoning_effort</code> ，支持的档位是 <code>minimal</code> / <code>low</code> / <code>medium</code> / <code>high</code> / <code>xhigh</code> （其中 <code>xhigh</code> 取决于具体模型；以上全部来源：官方《Configuration Reference》）。它写在 <code>config.toml</code> 里：</p>
+<pre><code class="language-toml">model_reasoning_effort = &quot;medium&quot;
+</code></pre>
+<p><strong>类比：考试的答题策略。</strong> <code>low</code> 像抢时间的选择题，扫一眼就作答，快但糙；<code>high</code> / <code>xhigh</code> 像压轴大题，让它多想几步、推理充分，慢但稳。<strong>全程拉满？答得是好，但又慢又费（token 烧得快）。</strong></p>
+<p>我的用法：<strong>日常给 <code>medium</code> 就够了</strong>，又快又省；真遇到那种要读懂一堆文件、跨模块推理的硬骨头，再临时拉到 <code>high</code>。一刀切拉满纯属浪费——尤其你接第三方本来就是为了省钱，结果 effort 全开把省下的钱又烧回去，就本末倒置了。</p>
+<p>顺带提一个连带认知：<strong>接了第三方之后，Codex 一些深度绑定官方的能力，行为可能不一样甚至用不了</strong>——比如某些依赖 OpenAI 索引的内置 Web 搜索（官方《Configuration Reference》里 <code>web_search</code> 的缓存模式就明说基于 OpenAI 维护的索引）。这呼应了第 02 节那句「实验性、没人兜底」：日常编程你大概率用不到，但心里得有这根弦。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：接通后用 <code>model_reasoning_effort</code> 调思考深度——<strong>日常 <code>medium</code>、硬活临时拉 <code>high</code></strong>，别一把梭拉满把省的钱烧回去；同时记住部分官方专属能力接第三方后会缩水。</p>
+</blockquote>
+<hr>
+<h2>07 小结</h2>
+<p>这一篇就干了一件事，还反复在给你打预防针：<strong>给 Codex 接 DeepSeek 这类国产模型，能省钱，但它是实验性玩法，且比 Claude Code 那条路更不稳。</strong></p>
+<p>串一下要点：</p>
+<table>
+<thead>
+<tr>
+<th>环节</th>
+<th>关键认知 / 动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>认清差异</strong></td>
+<td>Codex 认 OpenAI 协议（力推 Responses API），不是 Claude Code 那套，别硬抄</td>
+</tr>
+<tr>
+<td><strong>想清值不值</strong></td>
+<td>重复付费的订阅党、干硬活的、怕折腾的，都别凑热闹</td>
+</tr>
+<tr>
+<td><strong>选路线</strong></td>
+<td>想懂原理→手改 <code>config.toml</code>；只想跑通→代理工具（如 CC Switch）</td>
+</tr>
+<tr>
+<td><strong>配提供商</strong></td>
+<td><code>model_providers</code> + 顶层 <code>model_provider</code> / <code>model</code>，Key 走 <code>env_key</code></td>
+</tr>
+<tr>
+<td><strong>验证</strong></td>
+<td><code>/model</code> 看认没认到，再发一句话实测；400 多半撞协议墙</td>
+</tr>
+<tr>
+<td><strong>接上之后</strong></td>
+<td><code>model_reasoning_effort</code> 调深度，别一把梭拉满</td>
+</tr>
+</tbody></table>
+<p>你现在应该能：<strong>判断自己该不该给 Codex 接第三方，看懂两条接入路线的取舍，照官方语法搭出 <code>model_providers</code> 配置骨架，并在撞到协议问题时不慌、知道往哪儿排查。</strong></p>
+<p>再把那句最该记住的话留给你：<strong>Codex 接第三方，最大的变量不是你会不会配，而是对方支不支持 Codex 认的协议。</strong> 想清楚这点，能省你好几个小时。</p>
+<hr>
+<p>下一篇 <strong><a href="06-first-task.html">06 · 跑通第一个任务</a></strong>——配置篇到此告一段落，从下一篇起咱们正式上手干活。不管你用的是官方 GPT 还是接了第三方，<strong>让 Codex 实打实改一次代码、跑通一个完整任务</strong>，体感一下它和你以前用的工具到底差在哪。留个问题先想想：你打算让它干的第一件事，是修个 bug、写个小功能，还是先让它把你的项目「读」一遍？</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/04-pricing.html"><span class="mono">← 上一篇 · 04</span><b>订阅与计费</b></a>
+  <a class="pg nx" href="/library/codex/06-first-task.html"><span class="mono">下一篇 · 06 →</span><b>跑通第一个任务</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

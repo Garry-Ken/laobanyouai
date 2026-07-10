@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>38 插件参考手册：把自己那套配置，打成一个能发出去的包 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 38 篇:插件参考手册：把自己那套配置，打成一个能发出去的包。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/38-plugins-reference.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class="cur"><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class="cur"><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 38 篇</p>
+      <h1>插件参考手册：把自己那套配置，打成一个能发出去的包</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="37-checkpoints.html">37 检查点（Checkpoints）</a> 教你怎么给会话「存档读档」，改坏了一键回到上一个安全点。这一篇换个层面——<strong>第 24 篇教你「用别人的插件」，这一篇教你「造自己的插件」</strong>：插件的目录到底怎么摆、<code>plugin.json</code> 每个字段管什么、能打包哪些组件、依赖怎么写、怎么建市场把它发给团队。这是插件的「参考手册」深度版。</p>
+</blockquote>
+<p>给一个插件跑一下 <code>claude plugin details</code>，输出里常有一行数字值得留意：<strong>这个插件每个会话常驻占 ~180 token，里头两个 skill 触发时各自再吃掉 ~2400 和 ~1800 token</strong>。</p>
+<p>就这么个看着人畜无害的小插件，光「挂在那儿什么都没干」就先占了一截工作台。这时候就能意识到：<strong>插件不是个黑盒——它由几类明确的组件拼成，每一类占多少、放哪儿、怎么触发，全是有据可查的</strong>。你把这套结构吃透，才谈得上「自己造一个、还造得干净」。</p>
+<p>第 24 篇我们已经把「用别人的插件」走通了：加市场、装插件、<code>/reload-plugins</code> 生效、装前看信任。<strong>这一篇不重复那些</strong>，专啃更硬的一块——<strong>插件的内部构造和开发发布</strong>。说白了，第 24 篇是「会开车」，这一篇是「会拆发动机、还能自己攒一台」。</p>
+<p>这一篇偏「参考手册」，信息密度会比前面高。<strong>你不用一次记全</strong>，先跟着把一个能跑的插件造出来、发出去，剩下的字段表当字典随用随查。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>插件的标准目录长相，以及那条「<code>.claude-plugin/</code> 里只放 <code>plugin.json</code>」铁律背后的完整结构</li>
+<li><code>plugin.json</code> 清单的字段全景：必填的、元数据、组件路径、用户配置、依赖，一张表查到底</li>
+<li>插件能打包的全部组件（skill / command / agent / hook / MCP / LSP / monitor）各自放哪、有什么限制</li>
+<li><code>${CLAUDE_PLUGIN_ROOT}</code> 这几个路径变量为什么必须用、不用会怎样</li>
+<li>从零造一个插件、本地测、建市场、发给团队的完整链路，全程给命令和预期输出</li>
+<li>版本管理和依赖这两个发布时绕不开的坑，怎么填</li>
+</ul>
+<hr>
+<h2>01 先把插件的「骨架」摆正：标准目录长相</h2>
+<p>第 24 篇你已经见过插件最简的样子——一个 <code>plugin.json</code> 加几个组件文件夹。但要自己造一个像样的插件，得先把<strong>完整骨架</strong>看清楚，不然加到一半就乱。</p>
+<p>先给结论：<strong>一个插件就是一个文件夹，里头一个「清单文件」定身份，其余按组件类型分门别类摆在根目录下。</strong></p>
+<p><strong>类比：一套乐高积木。</strong> 一盒乐高里有两样东西——<strong>一本拼装说明书</strong>，告诉你这套叫什么、有哪些零件；<strong>几个分格的零件盒</strong>，按类型把积木块装好（轮子一格、窗户一格）。插件就是这么个结构：<code>plugin.json</code> 是那本说明书，<code>skills/</code>、<code>agents/</code>、<code>hooks/</code> 这些文件夹是分格零件盒。<strong>说明书有它专属的位置，零件盒全摊在外面</strong>——这就是下面那条铁律的由来。</p>
+<p>官方给的完整插件目录长这样（我删掉了不常用的，留核心）：</p>
+<pre><code class="language-text">my-plugin/
+├── .claude-plugin/           # 元数据目录
+│   └── plugin.json           # 清单（说明书）——只有它放这儿
+├── skills/                   # Skills，每个一个 &lt;名字&gt;/SKILL.md
+│   └── code-reviewer/
+│       └── SKILL.md
+├── commands/                 # Skills 的扁平 .md 写法（老形式）
+│   └── status.md
+├── agents/                   # Subagent 定义
+│   └── security-reviewer.md
+├── hooks/                    # Hook 配置
+│   └── hooks.json
+├── .mcp.json                 # MCP server 定义
+├── .lsp.json                 # LSP server 配置
+├── bin/                      # 加进 PATH 的可执行文件
+├── scripts/                  # Hook 和工具脚本
+└── settings.json             # 插件的默认设置
+</code></pre>
+<p>这里有条<strong>官方用警告框圈起来、新手必踩的铁律</strong>，我替你钉死：</p>
+<blockquote>
+<p><code>.claude-plugin/</code> 目录包含 <code>plugin.json</code> 文件。所有其他目录（commands/、agents/、skills/、output-styles/、themes/、monitors/、hooks/）必须在 plugin 根目录，而不是在 <code>.claude-plugin/</code> 内。</p>
+</blockquote>
+<p>说白了：<strong><code>.claude-plugin/</code> 这个文件夹里只准躺着 <code>plugin.json</code> 一个东西</strong>，<code>skills/</code>、<code>agents/</code>、<code>hooks/</code> 全部摆在它的<strong>外面、跟它平级</strong>。这个坑第 24 篇就提过——第一次打包很容易手贱把 <code>skills/</code> 塞进 <code>.claude-plugin/</code>，结果插件能加载、skill 死活不出现，排查半天才发现是位置摆错。<strong>记住乐高那个画面：说明书归说明书的盒，零件盒全摆外头。</strong></p>
+<p>还有个容易被忽略的点，官方写得很明确：<strong>插件根目录里的 <code>CLAUDE.md</code> 不会被当成项目上下文加载</strong>。插件想给 Claude 喂指令，得通过 skill、agent、hook 这些组件，不能靠在插件里塞一个 <code>CLAUDE.md</code>。这跟第 18 篇讲的项目级 <code>CLAUDE.md</code> 是两码事，别搞混。</p>
+<blockquote>
+<p>💡 一句话总结：插件 = 一本说明书（<code>.claude-plugin/plugin.json</code>）+ 根目录下分格的零件盒（各组件文件夹）；<strong>铁律就一条——<code>.claude-plugin/</code> 里只放 <code>plugin.json</code>，别的文件夹全摆根目录</strong>。</p>
+</blockquote>
+<hr>
+<h2>02 plugin.json：这份「清单」每个字段管什么</h2>
+<p>骨架摆正了，来拆那本说明书——<code>plugin.json</code>。它声明插件的身份和配置，是整个插件的核心。</p>
+<p><strong>先记一个反直觉但很省心的事实：清单是可选的。</strong> 官方原话——如果你省略 <code>plugin.json</code>，Claude Code 会自动去默认位置（<code>skills/</code>、<code>agents/</code> 这些）找组件，连插件名都从文件夹名推出来。<strong>只有当你需要写元数据、或自定义组件路径时，才需要这份清单。</strong> 但凡你想正经发布，肯定要写，所以咱们按写的来讲。</p>
+<p><strong>类比：报关单。</strong> 一批货物出关，得附一份报关单——里头写清这批货叫什么名字、谁发的、版本批次、装了哪些东西。海关（Claude Code）照着这份单子核对、登记、上架。<code>plugin.json</code> 就是插件的报关单：<strong>名字、作者、版本、装了哪些组件，全在这一张纸上说清。</strong></p>
+<h3>唯一的必填字段</h3>
+<p>如果你写了清单，<strong>只有一个字段是必填的</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>唯一标识符，kebab-case（小写加连字符）、不带空格</td>
+</tr>
+</tbody></table>
+<p><code>name</code> 为什么这么关键？因为<strong>它就是组件的命名空间（namespace）前缀</strong>。一个叫 <code>plugin-dev</code> 的插件里有个 agent 叫 <code>agent-creator</code>，在界面里会显示成 <code>plugin-dev:agent-creator</code>；skill 调用就是 <code>/plugin-dev:xxx</code>。<strong>命名空间是插件防撞名的根本机制</strong>——你装十个插件，各家的 skill 都带自家前缀，不会打架。</p>
+<h3>元数据字段（描述插件「是什么」）</h3>
+<p>这些不影响功能，但发布时该填，让用户看得明白：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>干什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>displayName</code></td>
+<td>界面里显示的人类可读名，能带空格大小写；省了就回退用 <code>name</code></td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>语义版本号（semantic versioning）。<strong>设了它，用户只在你提版本号时才收到更新</strong>（这是个大坑，第 08 节细说）</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>一句话说清插件干嘛，浏览/安装时显示</td>
+</tr>
+<tr>
+<td><code>author</code></td>
+<td>作者信息（<code>name</code> / <code>email</code> / <code>url</code>）</td>
+</tr>
+<tr>
+<td><code>homepage</code> / <code>repository</code> / <code>license</code></td>
+<td>文档地址 / 源码地址 / 许可证</td>
+</tr>
+<tr>
+<td><code>keywords</code></td>
+<td>发现标签，帮人搜到你</td>
+</tr>
+</tbody></table>
+<h3>组件路径字段（指明组件「在哪」）</h3>
+<p>默认情况下组件就放在 <code>skills/</code>、<code>agents/</code> 这些标准位置，<strong>你完全可以不写这些字段</strong>。只有当你想把组件放到非标准路径时才用：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>指向什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>skills</code></td>
+<td>额外的 skill 目录（<strong>追加</strong>到默认 <code>skills/</code>）</td>
+</tr>
+<tr>
+<td><code>commands</code> / <code>agents</code> / <code>outputStyles</code></td>
+<td>自定义路径（<strong>替换</strong>默认目录）</td>
+</tr>
+<tr>
+<td><code>hooks</code> / <code>mcpServers</code> / <code>lspServers</code></td>
+<td>配置文件路径，或直接内联写在这儿</td>
+</tr>
+<tr>
+<td><code>dependencies</code></td>
+<td>这个插件依赖的其他插件（第 08 节讲）</td>
+</tr>
+</tbody></table>
+<p>这里藏着一个<strong>特别容易栽的细节</strong>，官方专门列了「路径行为规则」：<strong>有的字段是「替换默认」，有的是「追加到默认」</strong>。</p>
+<ul>
+<li><strong>替换默认</strong>：<code>commands</code>、<code>agents</code>、<code>outputStyles</code>。一旦你写了 <code>commands</code>，默认的 <code>commands/</code> 目录就<strong>不再被扫描</strong>了。想保留默认还加别的，得显式列上：<code>&quot;commands&quot;: [&quot;./commands/&quot;, &quot;./extras/&quot;]</code>。</li>
+<li><strong>追加到默认</strong>：<code>skills</code>。默认 <code>skills/</code> <strong>永远会被扫描</strong>，你在 <code>skills</code> 字段里列的目录是跟它一起加载的。</li>
+</ul>
+<p>这个坑很容易踩：给一个插件加了 <code>&quot;agents&quot;: [&quot;./extra-agents/reviewer.md&quot;]</code>，想着「再加一个 agent」，结果原来 <code>agents/</code> 目录里那俩 agent 全不见了——因为 <code>agents</code> 是<strong>替换</strong>不是追加。改成把三个都列进数组才好。<strong>记不住就查这张规则，别凭感觉。</strong></p>
+<p>一份带元数据的完整清单大概长这样：</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;deployment-tools&quot;,
+  &quot;displayName&quot;: &quot;Deployment Tools&quot;,
+  &quot;version&quot;: &quot;1.2.0&quot;,
+  &quot;description&quot;: &quot;Deployment automation tools&quot;,
+  &quot;author&quot;: { &quot;name&quot;: &quot;Dev Team&quot;, &quot;email&quot;: &quot;dev@company.com&quot; },
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;keywords&quot;: [&quot;deployment&quot;, &quot;ci-cd&quot;]
+}
+</code></pre>
+<blockquote>
+<p>💡 一句话总结：<code>plugin.json</code> 是插件的报关单，<strong>唯一必填的是 <code>name</code>（它定命名空间）</strong>；组件路径字段里要分清「替换默认」（commands/agents）和「追加默认」（skills），搞反了组件会凭空消失。</p>
+</blockquote>
+<hr>
+<h2>03 插件能打包哪些组件：七类零件认全</h2>
+<p>这是本篇最该记牢的一节——<strong>插件这个盒子，到底能装哪七类零件</strong>。第 24 篇粗讲过几类，这里把官方支持的全列清，标明各自放哪、有什么独有的限制。</p>
+<p><strong>类比：乐高那几格零件盒，每格只装一种件。</strong> 轮子格、窗户格、人仔格——分门别类才拼得快。插件的组件也是一格一类：</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>放哪</th>
+<th>一句话作用</th>
+<th>触发方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Skills</strong></td>
+<td><code>skills/&lt;名字&gt;/SKILL.md</code></td>
+<td>可调用的专项能力（第 26 篇）</td>
+<td>你 <code>/插件名:skill名</code>，或 Claude 自动调</td>
+</tr>
+<tr>
+<td><strong>Commands</strong></td>
+<td><code>commands/*.md</code></td>
+<td>skill 的扁平老写法，新插件用 skills</td>
+<td>同上</td>
+</tr>
+<tr>
+<td><strong>Agents</strong></td>
+<td><code>agents/*.md</code></td>
+<td>专项 subagent（第 23 篇）</td>
+<td>出现在 <code>/agents</code>，Claude 派或你点</td>
+</tr>
+<tr>
+<td><strong>Hooks</strong></td>
+<td><code>hooks/hooks.json</code></td>
+<td>事件触发的自动动作（第 33 篇）</td>
+<td>生命周期事件自动触发</td>
+</tr>
+<tr>
+<td><strong>MCP servers</strong></td>
+<td><code>.mcp.json</code></td>
+<td>连外部服务（第 22 篇）</td>
+<td>启用即自动起，工具混进工具箱</td>
+</tr>
+<tr>
+<td><strong>LSP servers</strong></td>
+<td><code>.lsp.json</code></td>
+<td>实时代码智能（跳定义、查引用）</td>
+<td>处理代码时自动用，需另装语言服务器</td>
+</tr>
+<tr>
+<td><strong>Monitors</strong></td>
+<td><code>monitors/monitors.json</code></td>
+<td>后台监视日志/状态，有动静通知 Claude</td>
+<td>插件激活时自动起（实验性）</td>
+</tr>
+</tbody></table>
+<p>几类需要单独点几句，都是官方文档里写明、但容易漏的限制：</p>
+<p><strong>Agents 在插件里被「削权」了。</strong> 这点很关键。官方明确：<strong>出于安全原因，插件提供的 agent 不支持 <code>hooks</code>、<code>mcpServers</code> 和 <code>permissionMode</code> 这三个 frontmatter 字段。</strong> 也就是说，插件里的 subagent 不能自己偷偷挂 hook、起 MCP、或改权限模式——这是防止你装个插件，它的 agent 在背后给你换权限。它支持的字段包括 <code>name</code>、<code>description</code>、<code>model</code>、<code>effort</code>、<code>maxTurns</code>、<code>tools</code>、<code>disallowedTools</code>、<code>skills</code>、<code>memory</code>、<code>background</code>、<code>isolation</code> 这些（<code>isolation</code> 唯一合法值是 <code>&quot;worktree&quot;</code>）。</p>
+<p><strong>Hooks 能监听的事件巨多。</strong> 插件 hook 跟你自己写的 hook（第 33 篇）监听的是同一批生命周期事件——从 <code>SessionStart</code>（会话开始）、<code>PreToolUse</code>（工具调用前，能拦）、<code>PostToolUse</code>（调用成功后），到 <code>Stop</code>（回答结束）、<code>SessionEnd</code>（会话终止），官方列了三十个。新手不用记全，<strong>记住「几乎任何时机都能挂个动作」就行</strong>，具体留到第 33 篇。</p>
+<p><strong>Hook 类型不止「跑脚本」。</strong> 除了最常见的 <code>command</code>（跑 shell 命令），还有 <code>http</code>（把事件发到一个 URL）、<code>mcp_tool</code>（调 MCP 工具）、<code>prompt</code>（用模型评估一段提示）、<code>agent</code>（跑个 agentic 验证器）。</p>
+<p><strong>Monitors 是实验性的。</strong> 它让插件在后台盯着日志或状态，有新行就当通知喂给 Claude，不用你开口让它监视。<strong>实验性，架构可能变</strong>，且只在交互式会话里跑、需要 Claude Code v2.1.105 以上。新手了解有这么个东西即可。</p>
+<p>还有两类「半组件」值得知道：<strong><code>bin/</code> 目录</strong>里的可执行文件，插件启用时会被加进 Bash 工具的 <code>PATH</code>，能当裸命令直接调；<strong><code>settings.json</code></strong> 是插件的默认设置，但目前只支持 <code>agent</code> 和 <code>subagentStatusLine</code> 两个键——其中设 <code>agent</code> 能让插件启用时直接把某个自定义 agent 顶成主线程，等于「装上这个插件就换了套人设」。</p>
+<blockquote>
+<p>💡 一句话总结：插件能装七类零件——skill / command / agent / hook / MCP / LSP / monitor，各有固定位置；<strong>重点记两条限制：插件里的 agent 不许带 hook/MCP/权限模式（安全削权）、monitor 是实验性的</strong>。</p>
+</blockquote>
+<hr>
+<h2>04 ${CLAUDE_PLUGIN_ROOT}：为什么路径必须用变量，不能写死</h2>
+<p>这一节单拎出来，因为它是<strong>自己造插件时最高频的报错来源</strong>，而道理一句话能说透。</p>
+<p>先看场景：你的插件里有个 hook 要跑 <code>scripts/format.sh</code>，或者 MCP server 要 <code>node server.js</code>。你想当然地写绝对路径 <code>/Users/你/my-plugin/scripts/format.sh</code>——<strong>完蛋，这条路在别人机器上根本不存在</strong>，而且就算在你机器上，<strong>插件每次更新缓存目录都会变</strong>。</p>
+<p>官方的解法是给你三个<strong>路径变量</strong>，在 hook 命令、MCP/LSP 配置、skill/agent 内容里都会被自动替换：</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>指向</th>
+<th>用来</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>${CLAUDE_PLUGIN_ROOT}</code></td>
+<td>插件安装目录的绝对路径</td>
+<td>引用插件<strong>自带</strong>的脚本、二进制、配置</td>
+</tr>
+<tr>
+<td><code>${CLAUDE_PLUGIN_DATA}</code></td>
+<td>插件的持久数据目录（更新后保留）</td>
+<td>放 <code>node_modules</code>、缓存、跨版本要保留的状态</td>
+</tr>
+<tr>
+<td><code>${CLAUDE_PROJECT_DIR}</code></td>
+<td>项目根目录</td>
+<td>引用项目里的脚本/配置</td>
+</tr>
+</tbody></table>
+<p><strong>类比：活页夹里写「本夹位置」，而不是抄死页码。</strong> 想象一份会被反复重新装订的活页夹，你要在里头写「去附录那页」。如果你写死「第 87 页」，一重新装订页码全乱；聪明的做法是写「本夹的附录」这种<strong>相对本夹的占位说法</strong>。<code>${CLAUDE_PLUGIN_ROOT}</code> 就是这个「本店地址」占位符——<strong>不管插件被装到哪、更新到第几版，它永远指向当前这一版的根目录</strong>。</p>
+<p>所以插件里引用自带脚本，标准写法长这样（注意双引号，防路径带空格）：</p>
+<pre><code class="language-json">{
+  &quot;hooks&quot;: {
+    &quot;PostToolUse&quot;: [
+      {
+        &quot;matcher&quot;: &quot;Write|Edit&quot;,
+        &quot;hooks&quot;: [
+          {
+            &quot;type&quot;: &quot;command&quot;,
+            &quot;command&quot;: &quot;\&quot;${CLAUDE_PLUGIN_ROOT}\&quot;/scripts/format-code.sh&quot;
+          }
+        ]
+      }
+    ]
+  }
+}
+</code></pre>
+<p>这里有个<strong>官方反复强调的硬规矩</strong>，值得贴脑门上：</p>
+<blockquote>
+<p>当 plugin 更新时，此路径会更改。前一个版本的目录在更新后约七天内保留在磁盘上以进行清理，但应将其视为临时的，不要在此处写入状态。</p>
+</blockquote>
+<p>翻译一下：<strong><code>${CLAUDE_PLUGIN_ROOT}</code> 是临时的，别往里写要长期保留的东西</strong>（比如装好的依赖、缓存）——那些该写进 <code>${CLAUDE_PLUGIN_DATA}</code>，因为数据目录跨版本保留。常见的翻车是把插件装的 <code>node_modules</code> 放进 ROOT，结果插件一更新依赖全没了，得重装。<strong>自带的脚本用 ROOT，要保留的状态用 DATA</strong>，这条分清就不出事。</p>
+<p>还有个相关坑，官方在「插件缓存」那节专门讲：<strong>已安装的插件不能引用自己目录外的文件</strong>。你写 <code>../shared-utils</code> 这种往外跳的相对路径，安装后会失效——因为插件被装时是<strong>整个复制进缓存</strong>（<code>~/.claude/plugins/cache</code>）的，外面的文件根本没被复制过去。要跨插件共享文件，得用符号链接，这是进阶话题，新手先记住「别往插件外引用」。</p>
+<blockquote>
+<p>💡 一句话总结：插件里引用路径<strong>必须用 <code>${CLAUDE_PLUGIN_ROOT}</code> 这类变量，不能写死绝对路径</strong>（每次更新都变）；自带脚本用 <code>ROOT</code>、要保留的状态用 <code>DATA</code>，且<strong>绝不引用插件目录外的文件</strong>。</p>
+</blockquote>
+<hr>
+<h2>05 动手：从零造一个能跑的插件，再本地测</h2>
+<p>讲了四节构造，该真上手了。下面带你<strong>亲手造一个最小但完整的插件、本地加载、跑通它的 skill</strong>——全程不依赖任何复杂环境，跟着抄就行。我们造一个 <code>my-greeter</code> 插件，带一个打招呼的 skill。</p>
+<p><strong>第一步：用官方脚手架命令起一个插件骨架</strong></p>
+<p>最省事的不是手动建目录，而是用官方的 <code>plugin init</code> 命令，它会把骨架搭好：</p>
+<pre><code class="language-bash">claude plugin init my-greeter --with skills
+</code></pre>
+<p><code>--with skills</code> 表示顺便搭一个示例 skill 文件夹。这条命令会在 <code>~/.claude/skills/my-greeter/</code> 下建好 <code>.claude-plugin/plugin.json</code> 和一个启动用的 <code>SKILL.md</code>。</p>
+<p><strong>预期</strong>：终端提示插件骨架已创建，告诉你建在了 <code>~/.claude/skills/my-greeter/</code>。</p>
+<blockquote>
+<p>这里有个官方设计的便利：<strong>放在 <code>~/.claude/skills/</code> 下、带 <code>plugin.json</code> 清单的文件夹，下个会话会自动作为 <code>my-greeter@skills-dir</code> 加载，不用建市场、不用安装</strong>。这种叫「skills 目录插件」，是开发自用插件最轻的路子。</p>
+</blockquote>
+<p><strong>第二步：看看脚手架生成了什么</strong></p>
+<p>直接列一下目录（注意用绝对路径）：</p>
+<pre><code class="language-bash">ls -R ~/.claude/skills/my-greeter
+</code></pre>
+<p><strong>预期</strong>：你会看到 <code>.claude-plugin/plugin.json</code> 和 <code>skills/</code>（或一个 <code>SKILL.md</code>）。<strong>确认 <code>plugin.json</code> 在 <code>.claude-plugin/</code> 里、skill 在外面</strong>——这就是第 01 节那条铁律的实物。</p>
+<p><strong>第三步：写一个属于自己的 skill</strong></p>
+<p>打开（或新建）<code>~/.claude/skills/my-greeter/skills/hello/SKILL.md</code>，内容写成：</p>
+<pre><code class="language-markdown">---
+description: 用热情的语气跟用户打招呼
+---
+
+# Hello Skill
+
+热情地跟名叫 &quot;$ARGUMENTS&quot; 的用户打招呼,问问今天能帮上什么忙。语气友好、鼓励一点。
+</code></pre>
+<p><code>$ARGUMENTS</code> 是占位符——它会捕获你在 skill 名后面打的任何文字。这是给 skill 传参的标准做法（第 26、27 篇讲过 skill，这里复用）。</p>
+<p><strong>第四步：本地加载这个插件</strong></p>
+<p>开发期不用建市场，<strong>用 <code>--plugin-dir</code> 直接加载本地插件目录</strong>，这是官方专给开发测试的标志：</p>
+<pre><code class="language-bash">claude --plugin-dir ~/.claude/skills/my-greeter
+</code></pre>
+<p><strong>预期</strong>：Claude Code 正常启动。敲 <code>/help</code>，能在插件命名空间下看到你的 skill 列出来。</p>
+<p><strong>第五步：喊起你的 skill，亲眼看它跑</strong></p>
+<p>插件 skill 永远带命名空间，所以这么调（后面跟个名字当参数）：</p>
+<pre><code class="language-text">/my-greeter:hello Walter
+</code></pre>
+<p><strong>预期</strong>：Claude 用一段热情的、带上「Walter」这个名字的话回应你。<strong>看到它按你写的 description 和正文打了招呼，说明这个插件不光建对了、它带的 skill 真能用了。</strong></p>
+<p><strong>第六步：改了 skill，热重载看效果</strong></p>
+<p>把 <code>SKILL.md</code> 的正文改两句（比如让它用中文加 emoji），然后<strong>不用重启</strong>，在 Claude Code 里敲：</p>
+<pre><code class="language-text">/reload-plugins
+</code></pre>
+<p><strong>预期</strong>：重新跑一遍 <code>/my-greeter:hello Walter</code>，能看到改动生效了。</p>
+<blockquote>
+<p>⚠️ 一个官方写明的区别：<strong>改 <code>SKILL.md</code> 当前会话立即生效；但改 hooks、<code>.mcp.json</code>、<code>agents/</code> 这些，得 <code>/reload-plugins</code> 或重启才生效</strong>。别改了 hook 发现没反应就以为写错了，先 reload 一下。</p>
+</blockquote>
+<p>跑通这六步，你就把「造骨架 → 写组件 → 本地加载 → 调用 → 热重载」这条<strong>插件开发的完整内循环</strong>亲手走了一遍。<strong>以后造任何插件，本质都是这套流程，只是组件更多。</strong></p>
+<blockquote>
+<p>💡 一句话总结：<code>claude plugin init</code> 起骨架、<code>--plugin-dir</code> 本地加载、<code>/reload-plugins</code> 热重载——<strong>这三条命令是插件开发的内循环</strong>；放进 <code>~/.claude/skills/</code> 的还能免市场免安装自动加载。</p>
+</blockquote>
+<hr>
+<h2>06 把插件发出去：建一个市场</h2>
+<p>自用的插件，放 <code>~/.claude/skills/</code> 或 <code>--plugin-dir</code> 就够了。但<strong>要发给团队、发给社区，得走「市场（marketplace）」这一层</strong>——第 24 篇你是市场的「消费者」，这一节当一回市场的「店主」。</p>
+<p>先理清两个<strong>长得像、极易混的概念</strong>，官方专门用 Note 框区分过：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>是什么</th>
+<th>在哪定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>市场源（marketplace source）</strong></td>
+<td>去哪拿那本「商品目录」（<code>marketplace.json</code>）</td>
+<td>用户 <code>/plugin marketplace add</code> 时，或设置里</td>
+</tr>
+<tr>
+<td><strong>插件源（plugin source）</strong></td>
+<td>目录里每个插件本体从哪拿</td>
+<td><code>marketplace.json</code> 里每个插件条目的 <code>source</code> 字段</td>
+</tr>
+</tbody></table>
+<p><strong>类比：商场 vs 商场里每件商品的供货地。</strong> 「市场源」是这家商场开在哪、目录册从哪取；「插件源」是目录册里<strong>每件商品</strong>实际从哪个工厂发货。两者完全可以不在一处——商场目录可以挂在 A 仓库，里头某件商品从 B 工厂直发。</p>
+<p>市场的核心是一个文件：<strong>仓库根目录下的 <code>.claude-plugin/marketplace.json</code></strong>。它声明市场名、所有者、和插件清单。最小的一个长这样：</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;my-plugins&quot;,
+  &quot;owner&quot;: { &quot;name&quot;: &quot;Your Name&quot; },
+  &quot;plugins&quot;: [
+    {
+      &quot;name&quot;: &quot;my-greeter&quot;,
+      &quot;source&quot;: &quot;./plugins/my-greeter&quot;,
+      &quot;description&quot;: &quot;A friendly greeting plugin&quot;
+    }
+  ]
+}
+</code></pre>
+<p>每个插件条目至少要 <code>name</code> 和 <code>source</code>（从哪拿这个插件）。<code>source</code> 支持好几种来源，这是市场最实用的部分：</p>
+<table>
+<thead>
+<tr>
+<th>插件源类型</th>
+<th>怎么写</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>相对路径</strong></td>
+<td><code>&quot;./plugins/my-greeter&quot;</code></td>
+<td>插件就在市场同一个仓库里（最常见）</td>
+</tr>
+<tr>
+<td><strong>github</strong></td>
+<td><code>{ &quot;source&quot;: &quot;github&quot;, &quot;repo&quot;: &quot;owner/repo&quot; }</code></td>
+<td>插件在另一个 GitHub 仓库</td>
+</tr>
+<tr>
+<td><strong>git-subdir</strong></td>
+<td>给 <code>url</code> + <code>path</code></td>
+<td>插件在某个大仓库（monorepo，多项目合一仓库）的子目录，稀疏克隆省带宽</td>
+</tr>
+<tr>
+<td><strong>npm</strong></td>
+<td><code>{ &quot;source&quot;: &quot;npm&quot;, &quot;package&quot;: &quot;@org/plugin&quot; }</code></td>
+<td>作为 npm 包发布的插件</td>
+</tr>
+</tbody></table>
+<p><strong>动手：把第 05 节那个插件，装进一个本地市场试试。</strong> 假设你按上面的结构建好了 <code>my-marketplace/</code>（里头 <code>.claude-plugin/marketplace.json</code> + <code>plugins/my-greeter/</code>），在 Claude Code 里：</p>
+<pre><code class="language-text">/plugin marketplace add ./my-marketplace
+/plugin install my-greeter@my-plugins
+</code></pre>
+<p><strong>预期</strong>：第一条提示市场添加成功；第二条把插件装上。然后 <code>/my-greeter:hello</code> 就能调了——<strong>这条链路跟第 24 篇你装别人插件时一模一样，只不过这次货是你自己的</strong>。</p>
+<p>发布前<strong>一定先验证</strong>，官方给了专门命令：</p>
+<pre><code class="language-bash">claude plugin validate ./my-marketplace
+</code></pre>
+<p><strong>预期</strong>：检查 <code>marketplace.json</code> 的 schema、有没有重复插件名、源路径有没有非法的 <code>..</code>、版本对不对得上。<strong>指向市场目录时它只查 <code>marketplace.json</code>；要连 skill/agent 的 frontmatter 一起查，得指向具体插件目录</strong>（<code>claude plugin validate ./my-marketplace/plugins/my-greeter</code>）。</p>
+<p>真要发给团队，把这个市场仓库推到 GitHub，同事一句 <code>/plugin marketplace add owner/repo</code> 就能加。<strong>想自动让团队装</strong>，可以在项目的 <code>.claude/settings.json</code> 里写 <code>extraKnownMarketplaces</code>，同事信任项目目录时会被提示安装——这块属于团队配置，新手先知道有这条路即可。</p>
+<blockquote>
+<p>💡 一句话总结：发布走市场——根目录建 <code>.claude-plugin/marketplace.json</code>，列出插件和它们的 <code>source</code>（相对路径/github/npm 等）；<strong>分清「市场源」（目录从哪来）和「插件源」（每个插件从哪来）</strong>；发布前 <code>claude plugin validate</code>。</p>
+</blockquote>
+<hr>
+<h2>07 一组对照：自用、本地测、正式发布，三条路别走错</h2>
+<p>造插件的人最常犯的不是写错代码，是<strong>用错了「分发方式」</strong>——明明只是自己试，却去吭哧建市场；或者要发团队了，还在用只对自己生效的 <code>--plugin-dir</code>。这一节一张表把三条路钉清。</p>
+<table>
+<thead>
+<tr>
+<th>你的处境</th>
+<th>该用</th>
+<th>命令</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>纯自用、想随手改随手用</strong></td>
+<td>skills 目录插件</td>
+<td>放进 <code>~/.claude/skills/&lt;名&gt;/</code>（带 <code>plugin.json</code>）</td>
+<td>自动加载，免市场免安装，改 SKILL.md 立即生效</td>
+</tr>
+<tr>
+<td><strong>开发中、反复测一个本地包</strong></td>
+<td><code>--plugin-dir</code></td>
+<td><code>claude --plugin-dir ./my-plugin</code></td>
+<td>直接加载，不入库；可多次指定加载多个；<code>.zip</code> 也行</td>
+</tr>
+<tr>
+<td><strong>发给团队/社区</strong></td>
+<td>市场</td>
+<td><code>marketplace.json</code> + <code>/plugin install</code></td>
+<td>能版本管理、能自动更新、能共享</td>
+</tr>
+</tbody></table>
+<p>几个用起来才知道的细节：</p>
+<p><strong><code>--plugin-dir</code> 是开发利器，但只管当前这一次会话。</strong> 你这次启动加载了，关掉再开就没了——它不写进任何配置。<strong>好处是干净</strong>：测完插件，关掉会话就一干二净，不留痕迹。开发时一个顺手的做法是一直挂着一个 <code>--plugin-dir</code> 的会话，改完 <code>/reload-plugins</code>，比每次重装市场快太多。官方还有个贴心设计：<strong><code>--plugin-dir</code> 的本地副本，会临时盖过同名的已装市场插件</strong>——所以你能拿本地改动直接覆盖测试一个线上插件，不用先卸载。</p>
+<p><strong>skills 目录插件有个范围陷阱。</strong> 放 <code>~/.claude/skills/</code>（个人级）的，每个项目都能用；但放项目 <code>.claude/skills/</code> 的（项目级），官方明确警告：<strong>它只从你启动 Claude Code 的那个目录加载，不会像普通 skill 那样往仓库根目录上找</strong>。所以从子目录启动会漏掉根目录的插件——<strong>要么从仓库根启动，要么 <code>/reload-plugins</code></strong>。</p>
+<p><strong>别一上来就建市场。</strong> 这是过度工程的典型。官方的建议很实在：<strong>先用 <code>.claude/</code> 散装或 <code>--plugin-dir</code> 快速迭代，准备好共享了再转成插件、建市场</strong>。一个插件通常要在 <code>--plugin-dir</code> 下改十几轮才稳定，这期间建市场纯属给自己找麻烦——每改一次还得提交、刷新市场。</p>
+<blockquote>
+<p>💡 一句话总结：三条路别走错——<strong>自用塞 <code>~/.claude/skills/</code>、开发用 <code>--plugin-dir</code>、发布才建市场</strong>；<code>--plugin-dir</code> 只活一次会话（干净），发布前先在前两条路上把插件迭代稳。</p>
+</blockquote>
+<hr>
+<h2>08 发布绕不开的两个坑：版本管理与依赖</h2>
+<p>插件能跑、能装，不代表能「发好」。<strong>版本管理和依赖</strong>是发布时两个最容易翻车的地方，官方都用警告框圈过，这一节专门填。</p>
+<h3>坑一：设了 version，推新提交却没人更新</h3>
+<p>这是<strong>最反直觉、最坑人</strong>的一个。Claude Code 怎么判断「插件有没有新版本」？它按这个顺序取版本号：</p>
+<ol>
+<li><code>plugin.json</code> 里的 <code>version</code></li>
+<li>市场条目里的 <code>version</code></li>
+<li>都没有的话，用 git 提交的 SHA</li>
+</ol>
+<p>关键就在这儿。官方警告说得很重：</p>
+<blockquote>
+<p>设置 <code>version</code> 会固定 plugin。如果 <code>plugin.json</code> 声明 <code>&quot;version&quot;: &quot;1.0.0&quot;</code>，推送新提交而不改变该字符串对现有用户没有任何作用，因为 Claude Code 看到相同的版本并保留缓存副本。</p>
+</blockquote>
+<p>翻译成大白话：<strong>你一旦写死了 <code>&quot;version&quot;: &quot;1.0.0&quot;</code>，光往仓库推新代码是没用的——用户那边版本号没变，<code>/plugin update</code> 会回你「已是最新」，缓存压根不刷新。</strong> 你必须每次发版都手动把版本号往上提（<code>1.0.1</code>、<code>1.1.0</code>……）。</p>
+<p>所以官方给了两种策略，二选一，别混：</p>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>怎么做</th>
+<th>更新行为</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>显式版本</strong></td>
+<td><code>plugin.json</code> 里设 <code>version</code>，每次发版手动提</td>
+<td>用户只在你提版本号时收到更新</td>
+<td>有稳定发布节奏的正式插件</td>
+</tr>
+<tr>
+<td><strong>提交 SHA 版本</strong></td>
+<td><strong>不写</strong> <code>version</code>,git 托管</td>
+<td>每推一个新提交都算新版本，用户自动拿到</td>
+<td>内部、团队、快速迭代的插件</td>
+</tr>
+</tbody></table>
+<p><strong>还有个加倍坑的：别在 <code>plugin.json</code> 和市场条目里都写 <code>version</code>。</strong> 官方明确——<code>plugin.json</code> 的值会<strong>无声地</strong>盖过市场条目的，你在 <code>marketplace.json</code> 里改了版本可能根本不生效，因为被那个陈旧的 <code>plugin.json</code> 版本号压住了。</p>
+<p>显式版本这个坑很容易栽：一个团队内部插件设了 <code>&quot;version&quot;: &quot;1.0.0&quot;</code>，改了好几次代码推上去，同事一直反馈「怎么没更新」。你很容易以为是市场没刷新，折腾半天才反应过来——<strong>版本号没动，Claude Code 当然认为没变化</strong>。内部插件一律不写 <code>version</code>、让它用 SHA，推一次同事更新一次，就清净了。<strong>结论：快速迭代的内部插件别设 version，稳定发布的正式插件才设、且每次记得提。</strong></p>
+<h3>坑二：依赖怎么声明</h3>
+<p>如果你的插件 A 必须有插件 B 才能工作，用 <code>dependencies</code> 字段声明：</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;my-plugin&quot;,
+  &quot;dependencies&quot;: [
+    &quot;helper-lib&quot;,
+    { &quot;name&quot;: &quot;secrets-vault&quot;, &quot;version&quot;: &quot;~2.1.0&quot; }
+  ]
+}
+</code></pre>
+<p>声明后，<strong>装/启用你的插件时，Claude Code 会自动把依赖也装上/启上</strong>。版本可以用 semver（语义版本范围）约束（像 <code>~2.1.0</code>），免得依赖出个大版本把你的插件搞崩。卸载时，<code>claude plugin uninstall --prune</code> 能顺手清掉那些「只为满足依赖而自动装、现在没人要」的插件；<strong>你手动直接装的插件永远不会被 prune 碰</strong>。</p>
+<p><strong>类比：配料表里标「需另购的配件」。</strong> 一份家具说明书末尾写着「本款需另购 M4 螺丝包（2.1 规格）」——你照单备齐配件，家具才装得起来。<code>dependencies</code> 就是插件的这张配件清单：<strong>它把「我需要谁、要哪个版本」写明，Claude Code 照单自动备齐</strong>。</p>
+<blockquote>
+<p>💡 一句话总结：发布两个坑——<strong>设了 <code>version</code> 就必须每次发版手动提，否则用户收不到更新</strong>（快速迭代干脆别设、用 SHA）；依赖用 <code>dependencies</code> 声明、可加 semver 约束，装你的插件时会自动连依赖一起装。</p>
+</blockquote>
+<hr>
+<h2>09 小结</h2>
+<p>这一篇把插件从「会用」推进到「会造、会发」——<strong>它本质就是一盒乐高：一本说明书（<code>plugin.json</code>）定身份，几格零件盒（组件文件夹）装能力，整盒打包就能发给任何人</strong>。</p>
+<p>把核心要点串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>你要搞清的事</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>目录骨架</td>
+<td><code>.claude-plugin/</code> 里<strong>只放 <code>plugin.json</code></strong>，其余组件全摆根目录</td>
+</tr>
+<tr>
+<td>清单字段</td>
+<td>唯一必填 <code>name</code>（定命名空间）；组件路径分「替换」（agents/commands）和「追加」（skills）</td>
+</tr>
+<tr>
+<td>能装哪些组件</td>
+<td>skill/command/agent/hook/MCP/LSP/monitor 七类；<strong>插件里的 agent 被削权</strong>（无 hook/MCP/权限模式）</td>
+</tr>
+<tr>
+<td>路径怎么写</td>
+<td>必须用 <code>${CLAUDE_PLUGIN_ROOT}</code> 等变量，<strong>不写死、不引用目录外文件</strong>；状态放 <code>DATA</code> 不放 <code>ROOT</code></td>
+</tr>
+<tr>
+<td>开发内循环</td>
+<td><code>plugin init</code> 起骨架 → <code>--plugin-dir</code> 加载 → <code>/reload-plugins</code> 热重载</td>
+</tr>
+<tr>
+<td>发布</td>
+<td>建 <code>marketplace.json</code>，分清市场源/插件源，<code>claude plugin validate</code> 验证</td>
+</tr>
+<tr>
+<td>两个坑</td>
+<td>设了 <code>version</code> 必须每次提；依赖用 <code>dependencies</code> 声明</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 看懂任何一个插件的目录在干嘛、自己从零搭一个能跑的插件骨架、用 <code>--plugin-dir</code> 本地测、再建个市场把它发给团队；也清楚 <code>${CLAUDE_PLUGIN_ROOT}</code> 为什么不能写死、<code>version</code> 那个「不提就不更新」的坑怎么躲。<strong>第 24 篇你学会了消费别人的插件，这一篇你成了能生产插件的人——把自己那套攒了好久的配置打成一个包发出去，从此不再是只能抄别人的。</strong></p>
+<p>到这里，Claude Code 的「扩展 + 配置 + 打包分发」这条线就齐全了。从第 18 篇的 <code>CLAUDE.md</code>、第 22 篇的 MCP、第 23 篇的 subagent，到第 24、38 这两篇的插件——<strong>你不光会用这些工具，还会把它们组装、打包、交付给别人</strong>。</p>
+<hr>
+<p>下一篇 <strong>39「实战入门」</strong>——前面三十多篇全是「一个个功能拆开讲」，你手里的零件已经堆成山了。下一篇不再讲新功能，而是<strong>把这些零件第一次串成一条完整的实战路径</strong>：拿一个真实的小需求，从开工到交付走一遍，让你亲眼看见「学过的东西怎么拧成一股绳干活」。想想看——你现在会的每一招，单独使都顺手，<strong>但真打一仗时，该先抽哪把、再接哪把？</strong></p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/37-checkpoints.html"><span class="mono">← 上一篇 · 37</span><b>检查点（Checkpoints）：随时能倒带的安全网</b></a>
+  <a class="pg nx" href="/library/claude-code/39-getting-started-practice.html"><span class="mono">下一篇 · 39 →</span><b>实战入门：拿一个真需求，从开工到交付走一整趟</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

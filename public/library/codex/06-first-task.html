@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>06 跑通第一个任务 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 06 篇:跑通第一个任务。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/06-first-task.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class="cur"><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class="cur"><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 06 篇</p>
+      <h1>跑通第一个任务</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="05-third-party-models.html">05 · 接入 DeepSeek 等国产模型</a> 把「换大脑」那条野路子讲透了。配置篇到此为止——这一篇正式上手干活，<strong>让 Codex 实打实改一次你的代码，跑通从提需求到看 diff 验收的完整闭环</strong>。下一篇 <a href="07-desktop-app.html">07 · 桌面 App 全景</a> 再把桌面端那张脸看个遍。</p>
+</blockquote>
+<p>兄弟们，先交代一件我刚上手 Codex 时干的蠢事。</p>
+<p>那是我装好 Codex CLI 的头一个晚上，兴冲冲想试试它到底能不能改代码。我直接 <code>cd</code> 进了公司一个跑了两年、几百个文件的主仓库，劈头一句「把用户模块重构一下，太乱了」。Codex 读文件读了十几秒，刷屏刷得我眼花，然后甩出一大坨改动——<strong>横跨七八个文件</strong>。我当时心一横「应该没问题吧」，眼睛都没细看就点了同意。</p>
+<p>结果呢？它确实「重构」了，但顺手改了两个我压根没让它碰的接口签名，本地测试当场红一片。我花了快一个小时才把它的改动一行行捋清楚、挑出哪些要、哪些得退回去。<strong>那一晚我最大的教训不是「Codex 不行」，而是「我跳过了那个最该停下来看的动作——审 diff」。</strong></p>
+<p>说句实话，这篇我最想塞给你的，就是这个动作。今天咱们不碰大项目，<strong>建个三行代码的玩具，五分钟走一遍「提需求 → Codex 在沙箱里改 → 看 diff 验收 → 留下或退回」的完整一圈</strong>，让你第一次拿到「Codex 帮我改对了代码、而且全程我看得明明白白」的成功体验。桌面 App 和 CLI 两条路我都给你走一遍。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一套从开终端 / 开 App 到跑通第一个任务的完整动作流程，照着做就行</li>
+<li>把「审 diff」这个核心动作刻进肌肉记忆——<strong>这是新手和老手最大的分水岭</strong></li>
+<li>桌面 App 与 CLI 两种走法的逐步操作 + 预期输出，能自己验证成没成</li>
+<li>几个让你第一次就不踩坑的关键提醒（拒绝后怎么补话、改错了怎么退回去）</li>
+</ul>
+<blockquote>
+<p>⚠️ 下文凡涉及具体命令、参数、默认行为，都以 Codex <a href="https://developers.openai.com/codex">官方文档</a> 为准；模型名、界面文案这类会随版本变的东西，看到时以你本地实际显示为准。</p>
+</blockquote>
+<hr>
+<h2>01 别拿正式项目练手，先建个玩具</h2>
+<p>先说结论，这是我用一小时换来的：<strong>第一次用 Codex，千万别拿你的正式仓库开刀，建个三行代码的玩具项目。</strong></p>
+<p>为什么？开头我那场翻车讲得够清楚了——正式项目文件多、依赖杂，Codex 一上来读半天，它改了什么你根本看不过来，<strong>而你恰恰是在「看不过来」的时候最容易瞎点同意</strong>。玩具项目就两三行，它动了哪个字你一眼能逮住，这才是用来练手的。</p>
+<p><strong>类比：学骑自行车先找条没人的小路。</strong> 没人一上来就骑去早高峰的主干道——先找条空巷子，摔了也不疼，把平衡和刹车的手感找到。玩具项目就是你那条空巷子：<strong>改砸了？删掉重建，三十秒的事，心一点不慌。</strong></p>
+<p>哪些人尤其得听这条劝：</p>
+<ul>
+<li>完全没碰过命令行的——光是 Codex 读文件那几秒滚屏，就够你手心冒汗了，别再叠加「改的是真项目」的压力。</li>
+<li>刚从别的工具切过来的——比如你用惯了 Claude Code，以为 Codex 一个套路，结果它的沙箱、审批节奏跟你预期的不一样（这正是上一篇 <a href="05-third-party-models.html">05</a> 和 <a href="02-core-concepts.html">02 核心概念</a> 反复提醒的），先在玩具上摸清脾气。</li>
+<li>急着出活的——越急越要先跑通一次最小流程，把链路验通了再上真活，比中途翻车省时间。</li>
+</ul>
+<p>打开终端（Mac 上是「终端 / Terminal」，Windows 上推荐 PowerShell），敲这两行建个玩具目录：</p>
+<pre><code class="language-bash">mkdir hello-codex
+cd hello-codex
+</code></pre>
+<p>这两行的意思是：<strong>新建一个叫 <code>hello-codex</code> 的文件夹，再进到里面</strong>。<code>mkdir</code> = make directory（建文件夹），<code>cd</code> = change directory（进文件夹）。</p>
+<p>接着塞一个最简单的 Python 文件进去。Mac / Linux 直接用：</p>
+<pre><code class="language-bash">echo &#39;def add(a, b):
+    return a + b&#39; &gt; main.py
+</code></pre>
+<p>Windows PowerShell 里用 <code>echo</code> 写多行有点别扭，你直接用记事本新建一个 <code>main.py</code> ，把下面两行贴进去存好就行：</p>
+<pre><code class="language-python">def add(a, b):
+    return a + b
+</code></pre>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：第一次用 Codex，先建个三行代码的玩具当「空巷子」——<strong>它改了啥你一眼看得清，改砸了删掉重建，全程心不慌</strong>。</p>
+</blockquote>
+<hr>
+<h2>02 把需求提清楚：Codex 干活的「想→做→看」循环</h2>
+<p>项目建好了，先别急着启动，花一分钟想清楚一件事：<strong>你到底要让它干嘛，这话怎么说。</strong></p>
+<p>为什么先聊这个？因为 Codex 不是许愿池——你扔进去什么质量的需求，它就回你什么质量的活。<a href="02-core-concepts.html">02 核心概念</a> 讲过它是个<strong>代理（Agent）</strong>，干活靠一个循环：调用模型，执行模型指示的动作（读文件、改文件、调工具），直到任务完成或被你取消。翻成大白话还是那三个动作——<strong>想 → 做 → 看</strong>。</p>
+<p><strong>类比：把活儿交给一个靠谱的装修工长。</strong> 你说「这屋子收拾收拾」，他只能凭感觉来，多半不合你意；你说「主卧刷成米白、阳台加个洗手池、下周五前完工」，他就知道照着干、还能自己验收对没对。<strong>需求越具体、越带「怎么算完成」，工长（Codex）越不容易跑偏。</strong> 这正是官方在《Prompting》里给的两条核心建议：</p>
+<ul>
+<li><strong>让它能自我验证</strong>：需求里带上复现步骤、验收方式、要跑的 lint / 测试，Codex 产出的质量明显更高。</li>
+<li><strong>大活拆小步</strong>：复杂任务拆成一个个小而专注的步骤，它好测、你好审；实在不知道怎么拆，<strong>直接让 Codex 先给你出个方案（plan）</strong>。</li>
+</ul>
+<p>举几个你真会遇到的场景，体会下「模糊」和「具体」的差别：</p>
+<table>
+<thead>
+<tr>
+<th>❌ 模糊的需求</th>
+<th>✅ 具体的需求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>「优化一下这个函数」</td>
+<td>「给 <code>add</code> 加类型注解，传入非数字时抛 <code>TypeError</code>」</td>
+</tr>
+<tr>
+<td>「这测试为啥挂了」</td>
+<td>「跑 <code>pytest</code>，定位失败原因，修好后再跑一遍确认全绿」</td>
+</tr>
+<tr>
+<td>「把项目重构下」</td>
+<td>「先别动手，列个重构方案给我，我确认了再分步改」</td>
+</tr>
+</tbody></table>
+<p>最后那行是我现在最常用的开场——<strong>遇到稍微大点的活，第一句永远是「先给方案，别动手」</strong>。这是我从开头那场翻车里学乖的：让它先把计划摆出来，我审一遍方向，再放它动手，比它闷头改完我再收拾残局强太多。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：Codex 在「想→做→看」里干活，<strong>你给的需求越具体、越带验收标准，它越不跑偏</strong>；大活先让它出方案，别一上来就让它埋头改。</p>
+</blockquote>
+<hr>
+<h2>03 第一个任务先「读」不「改」：确认它真读到了你的文件</h2>
+<p>第一个真正的任务，我建议你<strong>先让它解释代码，而不是改代码</strong>。</p>
+<p>为什么先解释？两个实在的理由：一是<strong>确认 Codex 真读到了你的文件</strong>，而不是在凭空瞎编（新手最大的疑虑就是「它到底看没看我代码」）；二是<strong>解释类任务零风险</strong>——它只读、只说，不动你一个字，最适合第一次试水。</p>
+<p><strong>类比：新搭档入职第一天，你先让他「读读代码、跟我讲讲这块干嘛的」。</strong> 你不会上来就甩核心模块让他重构——先听他复述一遍，你立马就知道他读懂没、靠不靠谱。让 Codex 解释代码，就是这个「入职第一天」的试探动作。</p>
+<p>不管你用 CLI 还是 App，在输入框里敲这句（用大白话，不用记什么格式）：</p>
+<pre><code class="language-text">解释 main.py 这个文件在做什么，用新手能听懂的话说
+</code></pre>
+<p>回车。Codex 会自己去读 <code>main.py</code> ——<strong>你不用手动把文件「喂」给它</strong>，它在代理循环里自己就把相关文件读了。然后它给你一段大白话，大意是：这里定义了一个 <code>add</code> 函数，收两个参数 <code>a</code> 和 <code>b</code> ，返回它俩相加的结果。</p>
+<p><strong>这一步跑通，意味着两件事成立了</strong>：Codex 装对了、登录态正常，而且它<strong>确实在读你机器上的真实文件</strong>。地基稳了，下一步才敢放它动手。</p>
+<p>把对 Codex 的指令分三类记，你以后心里就有谱：</p>
+<table>
+<thead>
+<tr>
+<th>指令类型</th>
+<th>干什么</th>
+<th>例子</th>
+<th>风险</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>解释型</strong></td>
+<td>让它读懂、讲给你听</td>
+<td>「解释这段代码」</td>
+<td>零风险，不动文件</td>
+</tr>
+<tr>
+<td><strong>修改型</strong></td>
+<td>让它改现有代码</td>
+<td>「给这个函数加类型注解」</td>
+<td>会动文件，<strong>要审 diff</strong></td>
+</tr>
+<tr>
+<td><strong>生成型</strong></td>
+<td>让它写新东西</td>
+<td>「补一个测试用例」</td>
+<td>会建 / 改文件，<strong>要审 diff</strong></td>
+</tr>
+</tbody></table>
+<p>我自己每进一个陌生项目，雷打不动第一句都是「先帮我理一遍这个项目的结构」。一来确认 Codex 读得到、读得对；二来它理出来的结构图，常常比我自己翻半天还清楚——这是解释型任务白送的福利。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：第一个任务先用「解释型」试水——<strong>确认它真读到了你的文件、地基稳了，再放它动手改</strong>；修改型和生成型，后面都得过「审 diff」那一关。</p>
+</blockquote>
+<hr>
+<h2>04 核心动作：改完审 diff（全篇最该记住的一节）</h2>
+<p>到高潮了：<strong>让 Codex 真正改一次代码。这一节是整篇的命门，开头我那一小时就栽在没做好它。</strong></p>
+<p>接着上面的会话，直接敲：</p>
+<pre><code class="language-text">给 main.py 里的 add 函数加上类型注解，并补充基本的错误处理
+</code></pre>
+<p>这里得先把一个新手最容易误会的点说清楚——<strong>默认档下，改工作区里的文件这件事，Codex 是直接动手的，不会每改一个文件都停下来弹窗等你点同意。</strong> 为啥？<a href="02-core-concepts.html">02</a> 讲过，默认的 Auto 档（<code>workspace-write</code> 沙箱 + <code>on-request</code> 审批）里，<strong>在工作区圈内读文件、改文件、跑命令都算「圈内动作」，沙箱本来就是为这个放开的，所以照做不打扰你</strong>；只有「出圈」的动作——比如改工作区<strong>之外</strong>的文件、要联网——才会停下来先问你。换句话说，它的默认节奏是：</p>
+<ol>
+<li>找到该改的文件（这里是 <code>main.py</code>），<strong>直接在沙箱里把改动落下去</strong></li>
+<li>把这次改了什么，以 diff（差异对比）的形式<strong>摆给你看</strong>——终端里直接打印，你也能随时 <code>git diff</code> 复查</li>
+<li><strong>你来事后把关</strong>：扫一眼 diff，对就留着；不对就让它改回去、或者用 Git 退回（下两节细讲）</li>
+</ol>
+<p><strong>那「审 diff」还重要吗？太重要了——它只是从「改前批准」挪到了「改后复查」。</strong> Codex 把改动落盘 + 同步把 diff 摊在你面前，你这一眼扫下去就是质量关；真发现改错了，工作区里的改动你还没 commit，一条命令就能退回去。<strong>所以默认档不是「不让你把关」，而是「先改给你看、你靠 diff 和 Git 兜底」。</strong></p>
+<blockquote>
+<p>⚠️ 这里反复提到的 <code>git diff</code> 和「Git 退回」都有个前提：<strong>你的项目得先是个 Git 仓库</strong>。要是还没跑过 <code>git init</code>，<code>git diff</code> 找不到可对比的版本，自然看不到改动——动手前先 <code>git status</code> 确认仓库能用、工作区是干净的。下面「动手」那节会带你先 <code>git init</code> 打好存档点，再让 Codex 改。（Codex 终端里直接打印的那份 diff 不受这个前提影响，照样看得到。）</p>
+</blockquote>
+<p><strong>类比：同事先把改动提交到一个临时分支，再喊你过来看。</strong> 他没等你点头就动了手，但东西全在分支上、没合进主干——你扫一遍他改的地方，满意就合，不满意一句「这块退回去」就抹掉。<strong>Codex 默认就是这种「先改、改完摊给你看、你拿 diff 和 Git 决定去留」的同事，而那份摊给你看的东西就是 diff。</strong></p>
+<blockquote>
+<p>⚠️ 想要「改之前先停下来问我 / 先只出方案不动手」的体验？那不是默认档，得你主动调严：在会话里 <code>/permissions</code> 切到 <code>read-only</code>（只读只分析、要动手先问），或者干脆第一句就说「先别动手，列个方案给我」。默认的 Auto 档是放它直接改、你事后把关。</p>
+</blockquote>
+<h3>怎么看懂一个 diff</h3>
+<p>diff 就是「改之前」和「改之后」的逐行对照，看懂它只需记一条：</p>
+<ul>
+<li><strong><code>-</code> 开头 / 红色的，是要删掉的旧行</strong></li>
+<li><strong><code>+</code> 开头 / 绿色的，是要加上的新行</strong></li>
+<li>没标记的，是没动的上下文，给你定位用的</li>
+</ul>
+<p>你这次的 <code>main.py</code> 大概会从：</p>
+<pre><code class="language-python">def add(a, b):
+    return a + b
+</code></pre>
+<p>变成类似这样（具体写法 Codex 每次可能略有不同，意思对就行）：</p>
+<pre><code class="language-python">def add(a: float, b: float) -&gt; float:
+    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
+        raise TypeError(&quot;a 和 b 必须是数字&quot;)
+    return a + b
+</code></pre>
+<p>加了类型注解（<code>a: float</code>），也加了基本的错误处理（传进来不是数字就报错）。<strong>你扫一遍 diff，问自己三个问题就够了</strong>：</p>
+<ol>
+<li>它改的是不是我让它改的那块？（别像我那样，让它改 A，它顺手动了 B）</li>
+<li>加进来的逻辑，我看得懂、认可吗？</li>
+<li>有没有删掉我其实想留的东西？</li>
+</ol>
+<p>三个都「是」，这版改动留着；有一个「不对」，<strong>就补一句话让它改、或者 Git 退回</strong>（下两节讲怎么补、怎么退）。<strong>这一遍扫描，就是「审 diff」</strong>——前后不到十秒，却是新手和老手最大的分水岭。</p>
+<h3>什么时候它才会停下来问你</h3>
+<p>默认 Auto 档下，<strong>在工作区里改文件不弹审批</strong>，所以这次加类型注解你多半看不到「同意 / 拒绝」的弹窗——改完直接落盘、diff 打在终端里。那「同意 / 拒绝」的提示在什么时候才冒出来？答案是<strong>它要干一件出圈的事的时候</strong>——典型就这几类：</p>
+<table>
+<thead>
+<tr>
+<th>Codex 想干的事</th>
+<th>默认 Auto 档下</th>
+<th>你会看到的提示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在工作区里读 / 改文件</td>
+<td>直接做，不打扰你</td>
+<td>一般没有弹窗，改完给 diff</td>
+</tr>
+<tr>
+<td>在工作区内跑命令（如测试）</td>
+<td>直接跑，不打扰你</td>
+<td>一般没有弹窗</td>
+</tr>
+<tr>
+<td>需要联网或出圈的命令（如装包）</td>
+<td>停下来先问</td>
+<td>「同意 / 拒绝」让你点</td>
+</tr>
+<tr>
+<td>改工作区<strong>之外</strong>的文件、要联网</td>
+<td>停下来先问</td>
+<td>「同意 / 拒绝」让你点</td>
+</tr>
+</tbody></table>
+<p>真碰到这个「同意 / 拒绝」提示时，照着选就行：看懂了、放心 → 同意；不对劲 → 拒绝并补一句说清哪不行（下一节讲）。不同入口文案略有出入，有的还给你一个「同意且本次不再问」的提速选项。</p>
+<p><strong>给新手的一条铁律：刚上手别图省事把档位调到最松（比如 <code>never</code> 或完全访问）。</strong> 这话我用一小时的代价换来的——一旦放到最松，它连出圈动作都不问了，<strong>在你没细看的情况下一口气改五六个文件，等你反应过来，已经分不清哪个改动是你要的、哪个是它自作主张加的了</strong>。教训就一条：<strong>越是不熟，越要保留那道「出圈先问 + 事后审 diff」的关卡。</strong></p>
+<blockquote>
+<p>⚠️ 沙箱模式和审批策略都是可调的（<a href="02-core-concepts.html">02</a> 讲过 <code>read-only</code> / <code>workspace-write</code> 和 <code>on-request</code> / <code>never</code>，<a href="15-permissions.html">15 权限详解</a> 还会细讲）。<strong>往严了调</strong>（如 <code>read-only</code>），它连改文件都要先问你；<strong>往松了调</strong>（如 <code>never</code> / 完全访问），连出圈动作都不拦——放开权限前，先确认你真的信得过当前这摊活。</p>
+</blockquote>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：默认档下 Codex <strong>在工作区里直接改、改完把 diff 摊给你看</strong>，只有出圈的动作才停下来问你；审 diff 就扫三件事——改对地方没、逻辑认不认、删错东西没；<strong>第一次别把档位调到最松，留住那道把关。</strong></p>
+</blockquote>
+<p><img src="assets/06-first-task-flow@2x.png" alt="第一个任务的完整流程"></p>
+<p>这张图把这一节的逻辑摊平了看：<strong>提需求 → Codex 分析 → 在沙箱里改文件</strong>，工作区圈内的动作（绿色那条主线）直接落盘、不每次问你；只有「出圈动作」（改圈外文件、联网）才拐去右边那条红线停下来问。改完落到「审 diff」这个岔口——满意就往下 <code>git commit</code> 留住，有问题就补句话让它改、或 <code>git restore</code> 退回，绕回去重改一版。</p>
+<hr>
+<h2>05 拒绝不是终点：补一句话，让它重来</h2>
+<p>新手常有个误会：以为「拒绝」就是把这事黄了、得从头再来。<strong>不是。拒绝其实是一次「换个方向再来」的机会。</strong></p>
+<p>Codex 在一个<strong>线程</strong>（Thread）里干活——官方定义：一个线程就是一次会话，你的提问加上后续的模型输出和工具调用，<strong>一个线程里可以有好多轮对话</strong>。所以无论是当场拒绝了它的某个出圈请求，还是看完 diff 觉得改得不对，这次会话的上下文都还在，你直接补一句，它就顺着改。</p>
+<p><strong>类比：点菜上来不合口，你不用换家餐厅，跟服务员说一声「这个太咸了，重新做一份淡点的」就行。</strong> 整桌菜的语境、你之前的要求，厨房都还记着，改的只是你不满意那一点。看完 diff 不满意、补句话让它重来，就是这个「退回去重做」的动作，成本极低。</p>
+<p>举个我上周真碰到的：让 Codex 给一个函数加缓存，它 diff 里顺手引入了一个我项目里没装的第三方库。我没批准，直接补了一句：</p>
+<pre><code class="language-text">别引第三方库，用 Python 标准库 functools.lru_cache 实现就行
+</code></pre>
+<p>它立马撤回原方案，换成标准库重写了一版 diff，这回干净利落，我才点的同意。<strong>全程没退出会话、没重头解释需求</strong>——这就是「拒绝 + 补话」的顺滑之处。</p>
+<p>所以记住这个心态转变：</p>
+<table>
+<thead>
+<tr>
+<th>❌ 新手以为</th>
+<th>✅ 实际上</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>拒绝 = 这次白干了</td>
+<td>拒绝 = 让它换个方向再来一版</td>
+</tr>
+<tr>
+<td>不满意只能自己上手改</td>
+<td>用大白话说清哪不对，它重写</td>
+</tr>
+<tr>
+<td>每次不行都得重启会话</td>
+<td>同一线程里多轮迭代，上下文还在</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：看完 diff 不满意（或当场拒了某个请求）不是终点，而是「退回去重做」——<strong>在同一个线程里补一句话说清哪不对，Codex 顺着改</strong>，不用退出、不用从头解释。</p>
+</blockquote>
+<hr>
+<h2>06 改错落地了怎么办：Git 是你最硬的后悔药</h2>
+<p>万一你像开头的我一样，没细看就点了同意，改动已经落盘了——<strong>慌不慌？不慌，只要你提前做了一件事：打 Git 检查点。</strong></p>
+<p>这是 Codex 官方在快速上手里给的一条建议，大意是：「Codex 会改你的代码库，<strong>建议在每个任务前后各创建一个 Git 检查点</strong>，这样需要时能轻松回退。」注意——它讲的后悔药就是 <strong>Git</strong>，不是什么工具内置的撤销。</p>
+<p><strong>类比：打硬仗前先存盘。</strong> 你在 Boss 战前手动存个档，打输了不用从头通关，读档回到存档点就行。<code>git commit</code> 就是你在让 Codex 动手前，亲手存的那个档——<strong>它改炸了，你一行命令就能读档回去。</strong></p>
+<p>具体怎么做？让 Codex 动手<strong>之前</strong>，在项目目录里跑（只在第一次需要 <code>git init</code>）：</p>
+<pre><code class="language-bash">git init
+git add -A &amp;&amp; git commit -m &quot;codex 动手前的存档点&quot;
+</code></pre>
+<p>万一改炸了、想整个退回到动手前那一刻：</p>
+<pre><code class="language-bash">git restore .
+</code></pre>
+<blockquote>
+<p>⚠️ <code>git restore .</code> 会丢弃工作区里<strong>所有</strong>未提交的改动，退回到你上一次 commit 的样子。<strong>只在你确实想全部放弃 Codex 这轮改动时用</strong>；要是有一部分改对了想留，就别一刀切，改用下一段的细办法。</p>
+</blockquote>
+<p>如果只是某几处不满意，<strong>最省事的还是回到会话里用大白话让它改回去</strong>——它记得这个线程里干过什么：</p>
+<pre><code class="language-text">刚才那次改动我不满意，帮我退回到改之前的样子
+</code></pre>
+<p>把两条后悔药摆一起，你按场景挑：</p>
+<table>
+<thead>
+<tr>
+<th>后悔药</th>
+<th>怎么用</th>
+<th>适合场景</th>
+<th>局限</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>会话里说「改回去」</strong></td>
+<td>直接打字告诉 Codex</td>
+<td>刚改完、就一两处不满意</td>
+<td>依赖它理解你的意思，非永久</td>
+</tr>
+<tr>
+<td><strong>Git 回退</strong></td>
+<td>动手前 <code>commit</code>，炸了 <code>git restore .</code></td>
+<td>想干净利落退回某个确定状态</td>
+<td>得提前存档，<code>restore</code> 是一刀切</td>
+</tr>
+</tbody></table>
+<p>我的铁律：<strong>让 Codex 碰任何稍微重要点的代码前，先 <code>git commit</code> 存一档。</strong> 这习惯救过我不止一次——有回它把一个配置文件改得面目全非，我连看的耐心都没有，直接 <code>git restore</code> 退回去重新提需求，三秒钟的事。<strong>Git 才是你最硬的那块底牌。</strong></p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：Codex 改炸了别慌——<strong>动手前 <code>git commit</code> 存档，炸了 <code>git restore .</code> 一键读档</strong>；小修小补回会话里说「改回去」，但真正的进度，永远交给 Git 兜底。</p>
+</blockquote>
+<hr>
+<h2>07 动手（一）：CLI 五分钟跑通全流程</h2>
+<p>光看不练假把式。这一节把前面串成一条<strong>能照着敲、有预期输出的完整流程</strong>，走的是 <strong>CLI</strong>。打开终端，跟着走。</p>
+<p><strong>第一步：建玩具项目并打 Git 存档</strong>（Mac / Linux）</p>
+<pre><code class="language-bash">mkdir hello-codex &amp;&amp; cd hello-codex
+echo &#39;def add(a, b):
+    return a + b&#39; &gt; main.py
+git init &amp;&amp; git add -A &amp;&amp; git commit -m &quot;初始版本&quot;
+</code></pre>
+<p>Windows 用户：前两行 <code>mkdir</code> / <code>cd</code> 照敲，<code>main.py</code> 用记事本新建贴入那两行 Python，<code>git</code> 三连命令一样跑。</p>
+<p><strong>预期</strong>：<code>hello-codex</code> 里有个 <code>main.py</code>（那两行 <code>add</code> 函数），且已经有一次 Git 提交。可以 <code>ls</code>（Windows 用 <code>dir</code>）确认文件在。</p>
+<p><strong>第二步：在项目目录里启动 Codex</strong></p>
+<pre><code class="language-bash">codex
+</code></pre>
+<p><strong>预期</strong>：出现 Codex 的交互界面，底部是输入框和光标。如果提示你登录，说明前面登录没完成，回 <a href="03-install.html">03 安装与登录</a> 把登录走一遍。</p>
+<blockquote>
+<p>⚠️ <strong>一定要在项目目录里启动 <code>codex</code> ，别在桌面或主目录裸启。</strong> Codex 把你<strong>当前所在的目录当工作区</strong>——你在哪启动，它就读哪儿、在哪儿动手。这是新手最常踩的第一个坑。</p>
+</blockquote>
+<p><strong>第三步：让它解释代码（零风险试水）</strong></p>
+<pre><code class="language-text">解释 main.py 这个文件在做什么，用新手能听懂的话说
+</code></pre>
+<p><strong>预期</strong>：Codex 读取 <code>main.py</code> ，用大白话告诉你这是个「把两个数相加」的函数。<strong>看到它准确说出 <code>add</code> 函数的作用 = 它真读到了你的文件，成功。</strong></p>
+<p><strong>第四步：让它改代码，然后审 diff</strong></p>
+<pre><code class="language-text">给 main.py 里的 add 函数加上类型注解，并补充基本的错误处理
+</code></pre>
+<p><strong>预期</strong>：默认档下 Codex 直接把 <code>main.py</code> 改掉，<strong>并把这次改动以 diff（红 <code>-</code> 旧行、绿 <code>+</code> 新行）打印在终端里</strong>。按第 04 节那三问扫一遍 diff。要是它中途要跑命令或干出圈的事，会冒出「同意 / 拒绝」让你点——看懂了再同意。</p>
+<p><strong>第五步：回终端确认改动落地</strong></p>
+<p>退出 Codex（退出按 <code>Ctrl + C</code> 或输入 <code>/exit</code>，以界面提示为准），回到终端看文件：</p>
+<pre><code class="language-bash">cat main.py
+</code></pre>
+<p>（Windows PowerShell 用 <code>type main.py</code> ）</p>
+<p><strong>预期</strong>：<code>main.py</code> 里出现了类型注解（像 <code>a: float</code> ）和错误处理（<code>raise TypeError(...)</code> ）。<strong>和你刚才批准的 diff 对得上 = 全流程跑通，恭喜！</strong></p>
+<p>想再确认一遍 Codex 到底改了哪几行，Git 给你一个上帝视角：</p>
+<pre><code class="language-bash">git diff
+</code></pre>
+<p><strong>预期</strong>：终端打印出和你刚才在 Codex 里看到的那份 diff 基本一致的内容。<strong>两边对得上，说明「你看到的」就是「它改的」，踏实了。</strong></p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：CLI 全流程五步——建项目存档 → <code>codex</code> 启动 → 解释代码试水 → 改代码并审 diff → 回终端用 <code>cat</code> / <code>git diff</code> 验收；<strong>记得在项目目录里启动，记得改前先 Git 存档</strong>。</p>
+</blockquote>
+<hr>
+<h2>08 动手（二）：桌面 App 走一遍同样的活</h2>
+<p>不爱碰终端的，桌面 App 把同样的流程做成了点点点。<strong>注意：桌面 App 目前只有 macOS 和 Windows，Linux 暂时没有</strong>（Linux 用户走上面 CLI 那条路）。</p>
+<p>App 的整体节奏和 CLI 一模一样，<strong>就是把「敲命令」换成了「点界面」，核心那个「看 diff 验收」一步不少</strong>。按官方快速上手的步骤走：</p>
+<ol>
+<li><strong>打开 Codex App，登录</strong>——用 ChatGPT 账号或 OpenAI API key （<a href="03-install.html">03</a> 讲过两者区别）。</li>
+<li><strong>选项目文件夹</strong>——挑一个你想让 Codex 干活的目录。第一次练手就选刚才那个 <code>hello-codex</code>（或随便建个玩具目录）。之前用过 App / CLI / IDE 扩展的话，这里会列出历史项目。</li>
+<li><strong>确认选的是 Local</strong>——官方强调：发第一条消息前，<strong>确保选的是 Local</strong>（具体位置以你界面实际显示为准），让 Codex 在你本机干活，而不是云端。这一步新手最容易忽略。</li>
+<li><strong>发第一条消息</strong>——在输入框里打需求，跟 CLI 里一字不差地来：</li>
+</ol>
+<pre><code class="language-text">解释 main.py 这个文件在做什么，用新手能听懂的话说
+</code></pre>
+<p>确认它读懂了，再发改代码那句：</p>
+<pre><code class="language-text">给 main.py 里的 add 函数加上类型注解，并补充基本的错误处理
+</code></pre>
+<p><strong>预期</strong>：默认 Local 档下，App 同样会直接把改动落到你的项目里，然后在<strong>审查面板（review pane）<strong>里把这次改了什么一行行高亮给你看——官方说这个面板反映的是你 Git 仓库里</strong>尚未提交的改动</strong>，也就是改完之后的复盘视图。<strong>这正是 App 比 CLI 舒服的地方——图形化的 diff 看得更清楚，旁边还有暂存、提交、回退的按钮</strong>。看完满意，直接在面板里提交；不满意，让它改回去或退掉。</p>
+<blockquote>
+<p>官方在快速上手的 CLI / IDE 那两条里都建议你<strong>改前后各打一个 Git 检查点</strong>，方便随时回退；App 这边内置了 Git 功能，看完 diff 你可以在界面里直接暂存、提交。</p>
+</blockquote>
+<p>CLI 和 App 到底选哪个？给你一张对照表，按自己的习惯挑：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>CLI（命令行）</th>
+<th>桌面 App</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>平台</strong></td>
+<td>✅ Mac / Windows / Linux 全有</td>
+<td>❌ 仅 Mac / Windows</td>
+</tr>
+<tr>
+<td><strong>上手门槛</strong></td>
+<td>要敲命令，怕终端的人发怵</td>
+<td>✅ 点点就行，对小白友好</td>
+</tr>
+<tr>
+<td><strong>看 diff</strong></td>
+<td>终端里文本 diff，够用</td>
+<td>✅ 图形面板，更直观</td>
+</tr>
+<tr>
+<td><strong>多任务并行</strong></td>
+<td>开多个终端窗口</td>
+<td>✅ 多项目并排切换，体验更顺</td>
+</tr>
+<tr>
+<td><strong>核心流程</strong></td>
+<td>提需求 → 它改 → 审 diff 验收</td>
+<td><strong>完全一样</strong>，只是换成点界面</td>
+</tr>
+</tbody></table>
+<p>我自己的用法：<strong>写代码、跑命令我常驻 CLI</strong>（顺手、跨平台）；但遇到改动多、diff 长的活，我会切到 <strong>App 里审 diff</strong>，那个图形面板一行行看，比在终端里翻文本舒服不少。<strong>一次登录后两端一般都能用（具体以官方鉴权说明为准），挑你顺手的。</strong></p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：桌面 App 把同样的活做成点点点（仅 Mac / Windows），<strong>发消息前记得选 Local</strong>；它的图形审查面板看长改动更舒服，但「Codex 改完、你审 diff 验收」这个核心动作，和 CLI 一模一样。</p>
+</blockquote>
+<hr>
+<h2>09 全流程一张图</h2>
+<p>把这一篇的完整闭环，用一张图收个尾——不管你走 CLI 还是 App，跑的都是这一圈：</p>
+<p><img src="assets/06-task-loop@2x.png" alt="第一个任务的完整循环：先解释 → 再改代码 → 审 diff → 满意 commit / 不满意补话重做；git 兜底"></p>
+<p>这张图最该盯住的是中间那个<strong>审 diff 岔口</strong>：Codex 在沙箱里把改动落下去、同步摊出 diff，<strong>你看懂了就留着、看着不对就让它改回去或 Git 退回</strong>——这个「人来把关」的环节，就是你和 Codex 协作的安全阀。开头我那一小时，丢的就是这一步。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：整个第一个任务，核心就一个闭环——<strong>提需求 → Codex 在沙箱里改 → 你审 diff → 留下或退回</strong>；把「审 diff」这一步焊死在流程里，你就再不会重蹈我那场翻车。</p>
+</blockquote>
+<hr>
+<h2>10 小结</h2>
+<p>这一篇你干了一件实事：<strong>完整跑通了 Codex 的第一个任务——从建项目、启动，到解释代码、改代码、审 diff 验收</strong>，CLI 和 App 两条路都走了一遍。</p>
+<p>把核心动作串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>动作</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>建项目</td>
+<td><code>mkdir</code> + 建文件 + <code>git commit</code></td>
+<td>先用玩具练手，动手前先存档</td>
+</tr>
+<tr>
+<td>提需求</td>
+<td>用大白话，越具体越好</td>
+<td>大活先让它出方案，别埋头改</td>
+</tr>
+<tr>
+<td>解释</td>
+<td>「解释 xxx 文件」</td>
+<td>零风险，先确认它读到了文件</td>
+</tr>
+<tr>
+<td>改代码</td>
+<td>「给函数加类型注解……」</td>
+<td>默认档<strong>直接改、同步摊出 diff</strong>，你事后把关</td>
+</tr>
+<tr>
+<td><strong>审 diff</strong></td>
+<td>扫三问：改对没·认不认·删错没</td>
+<td><strong>新手和老手的分水岭，别跳过</strong></td>
+</tr>
+<tr>
+<td>反悔</td>
+<td>「改回去」/ <code>git restore .</code></td>
+<td>Git 是最硬的后悔药</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能</strong>：在 CLI 或 App 里启动 Codex、用自然语言让它读懂并修改一段代码、<strong>看懂它给的 diff 并决定留下还是退回</strong>、知道改错了怎么退回去。</p>
+<p>这套动作——<strong>提需求 → 看 diff → 留下 / 退回 / 反悔</strong>——就是你之后所有 Codex 使用的最小内核。后面再花哨的功能（MCP、子代理、技能、自动化……），本质都是在这个循环上做加法。<strong>而那个最该刻进肌肉记忆的动作，永远是「审 diff」</strong>——别像开头的我，用一小时去换这个教训。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：第一个任务的最小内核就一句——<strong>提需求 → Codex 改 → 你审 diff → 留下或退回</strong>；默认档是放它直接改、你靠 diff 和 Git 事后兜底，要「改前先问」就主动切到更严的档。</p>
+</blockquote>
+<hr>
+<p>下一篇 <strong><a href="07-desktop-app.html">07 · 桌面 App 全景</a></strong>——这篇你已经在 App 里浅尝了一次，但桌面端能干的远不止改代码：多项目并行、worktree 隔离、内置浏览器、自动化任务……下一篇带你把桌面 App 这张脸看个全。先想个问题：你刚在 App 里审 diff 时，有没有觉得那个图形面板比终端舒服？如果是，下一篇你大概率会爱上它。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/05-third-party-models.html"><span class="mono">← 上一篇 · 05</span><b>接入 DeepSeek 等国产模型</b></a>
+  <a class="pg nx" href="/library/codex/07-desktop-app.html"><span class="mono">下一篇 · 07 →</span><b>桌面 App 全景</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

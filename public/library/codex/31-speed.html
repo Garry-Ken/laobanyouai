@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>31 进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 31 篇:进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/31-speed.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class="cur"><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class="cur"><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 31 篇</p>
+      <h1>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇「<a href="30-models.html">30 怎么选模型</a>」讲的是「同一句话该派哪个模型、配多大推理强度去跑」。这一篇接着往下走——光选对模型还不够，<strong>真正决定你一天能干多少活的，是你怎么喂上下文、怎么管会话、怎么让多条线同时跑</strong>。下一篇「<a href="32-migrate-from-claude-code.html">32 从 Claude Code 迁移</a>」再聊老用户怎么平滑搬家。</p>
+</blockquote>
+<p>上一篇结尾我埋了句话：<strong>很多时候拖慢你的不是模型不够强，而是你给的上下文太乱、让它走了冤枉路。</strong> 这一篇就来还这个债。</p>
+<p>先给你看我自己的一笔账。2025 年 3 月我做一个 Python 小工具，有个功能让我跟 Codex 来回折腾了整整一下午——我后来翻 <code>/status</code> 的会话记录数了数，光这一个需求就跑了 <strong>11 轮</strong>，期间它两次改错文件、一次把我没让它碰的配置也顺手「优化」了。复盘的时候我才反应过来：不是模型不行——我当时用的已经是最强的旗舰档，是我第一句话就只甩了一句「帮我加个导出功能」，剩下十轮全在补我本该一次说清的上下文。</p>
+<p><strong>说句实话，AI 编程里最大的慢，从来不是模型转圈那几秒，是返工。</strong> 一次没说清，它走一条岔路，你再拉回来，来回三趟，半小时没了。模型再快，也快不过「一次做对」省下来的那些轮次。</p>
+<p>这一篇不教你什么玄学咒语，就讲六件能实打实砍掉返工、让整条流程跑顺的事。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一个反直觉的提速心法：<strong>少返工 &gt; 盲目求快</strong>，一次做对才是最省时间的「快」</li>
+<li>一套「好请求」的固定配方：目标 + 上下文 + 约束 + 验收标准，附一张 Before/After 提示词对照表</li>
+<li>管好上下文窗口的三招：<code>/compact</code> 压缩、该新开会话就新开、用 <code>@</code> 精准喂文件而不是糊一整个库</li>
+<li>按任务降档省时省钱的思路（接上一篇的模型选择）</li>
+<li>让多条线并行跑、让 Codex 自己验证的进阶玩法</li>
+<li>一个能立刻照做的动手练习：把一句含糊需求改写成四段式，亲眼看返工率怎么降</li>
+</ul>
+<blockquote>
+<p>⚠️ 本篇命令、配置键、默认行为以 Codex 官方文档为准；模型名、信用点（credit，Codex 里换算用量的计费单位）倍率、<code>/fast</code> 等会随版本变，<strong>以你本地 <code>codex --help</code> 和官方文档实际为准</strong>。</p>
+</blockquote>
+<hr>
+<h2>01 提速的本质：少返工，而不是盲目求快</h2>
+<p>先把心法摆正，不然后面所有技巧都是瞎使劲。</p>
+<p>新手一想到「提速」，第一反应都是「换更快的模型」「把推理强度调低」「开个加速模式」。这些后面都讲，但它们都是末节。<strong>真正的大头是返工。</strong></p>
+<p><strong>类比：做菜。</strong> 你做一道菜慢，很少是因为灶火不够旺。多半是你切到一半发现葱忘买了、盐放多了得重来、菜谱看错了步骤。真正吃掉时间的是这些「推倒重来」，不是灶火大小。把火开到最大，救不了一个一边做一边返工的厨子。</p>
+<p>AI 编程一模一样。<strong>Codex 走一条岔路、改错一个文件、领会错你的意图，你拉回来重说一遍——这一来一回的代价，远超它多想几秒。</strong></p>
+<p>官方文档里有句话我印象很深，意思是：Codex 在能验证自己工作的时候，产出质量明显更高。换句话说，<strong>让它一次走对、走稳，比让它走得快，重要得多。</strong></p>
+<p>我自己有过特别典型的一次。去年底我让它「把这个函数优化一下」，没说优化什么、不许动什么、怎么算优化成功。它热情地把函数重写了，顺手改了我的接口签名，连带三个调用方全报错。我花了二十分钟才把它「优化」出来的烂摊子收回去。<strong>那次之后我立了条铁律：模糊的「优化一下」永远不说，宁可多打两行字。</strong></p>
+<p>记住这个排序，后面五节全是它的展开：</p>
+<table>
+<thead>
+<tr>
+<th>你以为的提速</th>
+<th>真正的提速</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>❌ 换更快的模型一把梭</td>
+<td>✅ 第一句话就说清，减少返工轮次</td>
+</tr>
+<tr>
+<td>❌ 推理强度无脑调低图快</td>
+<td>✅ 按任务难度匹配算力（上一篇讲过）</td>
+</tr>
+<tr>
+<td>❌ 把整个项目都丢给它读</td>
+<td>✅ 用 <code>@</code> 精准喂相关文件</td>
+</tr>
+<tr>
+<td>❌ 一个会话从早开到晚</td>
+<td>✅ 一个任务一个会话，及时压缩或新开</td>
+</tr>
+<tr>
+<td>❌ 改完自己肉眼一行行检查</td>
+<td>✅ 给验收标准，让它自己跑测试验证</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 一句话总结：AI 编程最大的慢是返工，提速的第一性原理是「一次做对」，而不是「跑得更快」。</p>
+</blockquote>
+<hr>
+<h2>02 给足上下文、别让它猜：好请求的固定配方</h2>
+<p>上一节说返工是大头，那返工从哪来？<strong>绝大多数来自第一句话没说清，逼着 Codex 去猜。</strong> 它一猜，就有概率猜歪，你就得返工。</p>
+<p><strong>类比：交代外卖备注。</strong> 你只写「来份炒饭」，骑手和厨房只能按默认来——可能放葱、可能辣、可能咸。你要是写「扬州炒饭，不要葱、微辣、米饭软一点」，一次就对。<strong>给 Codex 的请求也一样，你省下来的每一个字，它都得替你猜，猜错了就返工。</strong></p>
+<p>官方在「最佳实践」里给了个我照搬至今的配方。一个好请求，默认带这四样：</p>
+<ul>
+<li><strong>目标（Goal）</strong>：你到底要改什么、建什么？</li>
+<li><strong>上下文（Context）</strong>：哪些文件、文档、报错跟这事相关？用 <code>@</code> 把它们点出来。</li>
+<li><strong>约束（Constraints）</strong>：要守哪些规范、架构、不许碰什么？</li>
+<li><strong>验收标准（Done when）</strong>：什么情况算做完？测试过、行为变了、bug 不复现了？</li>
+</ul>
+<p>这四样不用每条都写满，但<strong>目标和验收标准几乎不能省</strong>。我现在敲需求，哪怕再急，也会在脑子里过一遍这四个槽位。</p>
+<p>下面这张对照表，是我把自己以前踩过的烂提示词翻出来重写的，你直接感受差距：</p>
+<table>
+<thead>
+<tr>
+<th>❌ Before（含糊，注定返工）</th>
+<th>✅ After（四段式，一次过概率高）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>帮我加个导出功能</td>
+<td>目标：给 <code>report.py</code> 加一个把报表导出为 CSV 的函数。上下文：参考 <code>@export/json_export.py</code> 现有的写法。约束：复用现有的 <code>Report</code> 数据类，不要改它的字段。验收：能导出含表头的 CSV，且 <code>tests/test_export.py</code> 全过</td>
+</tr>
+<tr>
+<td>这个函数有点慢，优化下</td>
+<td>目标：<code>search()</code> 在 1 万条数据上要 2 秒，降到 200ms 内。上下文：函数在 <code>@core/search.py</code>。约束：不许改函数签名和返回结构。验收：跑 <code>pytest tests/test_search.py::test_perf</code>，断言耗时 &lt; 0.2s 通过</td>
+</tr>
+<tr>
+<td>修一下这个 bug</td>
+<td>目标：修复登录后跳转到空白页的问题。上下文：复现步骤是「输对账号密码 → 点登录 → 白屏」，相关代码在 <code>@auth/login.py</code>。约束：不要动权限校验逻辑。验收：复现步骤走一遍能正常进首页</td>
+</tr>
+</tbody></table>
+<p>看出来了吗？<strong>右边不是更啰嗦，是把你脑子里本来就有、却懒得打出来的信息补全了。</strong> 你不补，Codex 就得猜；你补了，它就直奔目标。</p>
+<p>我做那个 Python 小工具复盘时算过，同一个需求，我用左边的写法平均要 5 到 8 轮才搞定，换成右边的四段式，<strong>多数时候 1 到 2 轮就过了</strong>。多打的那两行字，省下的是后面三趟来回。</p>
+<p>还有个偷懒但有效的招：<strong>任务太难、你自己都没想清楚怎么描述时，别硬写，让 Codex 先帮你理。</strong> 官方推荐用计划模式（Plan mode），CLI 里用 <code>/plan</code> 或者 <kbd>Shift</kbd>+<kbd>Tab</kbd> 切换，它会先收集上下文、反问你几个问题、列个方案，等你点头再动手。<strong>与其让它带着误解一路写歪，不如花一分钟让它先把方案理出来。</strong></p>
+<blockquote>
+<p>💡 一句话总结：一个好请求 = 目标 + 上下文 + 约束 + 验收标准，省下的每个字 Codex 都得替你猜，猜错就返工。</p>
+</blockquote>
+<hr>
+<h2>03 管好上下文窗口：别把整个库糊上去</h2>
+<p>第二节解决「说清楚」，这一节解决「别说太多」。这俩听着矛盾，其实不是——<strong>要的是相关信息说全，无关信息别带。</strong></p>
+<p>每个会话（Codex 叫 thread）能装的信息有上限，这就是<strong>上下文窗口（context window）</strong>，指模型一次能「记住」的全部内容总量。它装满了，旧信息要么被压缩、要么挤掉，质量就开始掉。</p>
+<p><strong>类比：一张办公桌。</strong> 桌面就那么大。你把当前任务需要的三份文件摊开，干活顺手。要是把整个文件柜的几百份文档全倒桌上，你反而找不到要用的那份了。<strong>Codex 的上下文窗口就是这张桌子，喂得越精准，它越专注；糊一整个库上去，它反而被无关信息带偏。</strong></p>
+<p>管好它，记住三招：</p>
+<p><strong>第一招，用 <code>@</code> 精准喂文件，别让它自己满库瞎找。</strong> 你心里清楚改的是哪几个文件，就直接 <code>@</code> 点出来。它不用花上下文去到处 grep 摸索，又快又准。我那次下午折腾的根因之一，就是我没指文件，它读了七八个不相关的模块才找到该改的地方——那些读进去的内容全占着桌面。</p>
+<p><strong>第二招，会话长了就 <code>/compact</code>。</strong> 一个会话聊久了，前面的内容会堆很多。<code>/compact</code> 让 Codex 把早期上下文总结压缩成精简版，腾出空间继续干。官方也说了，Codex 会在必要时自动压缩，但你手动 <code>/compact</code> 能在它变笨之前主动清场。</p>
+<p><strong>第三招，也是官方反复强调的——一个任务一个会话，别一个会话从早开到晚。</strong> 官方「常见错误」里专门点名：用「一个项目一个会话」而不是「一个任务一个会话」，会让上下文越堆越臃肿，结果越来越差。</p>
+<p>我现在有条铁律：<strong>这个需求做完了，下个不相关的需求，我直接新开会话。</strong> CLI 里相关的几个命令很顺手：</p>
+<pre><code class="language-text">/compact    把当前会话的早期上下文压缩成摘要，腾空间
+/status     看当前会话状态，包括上下文还剩多少
+/fork       基于当前会话另开一条线，保留原始记录
+/resume     恢复之前存过的某个会话
+</code></pre>
+<p><strong>一条判断原则：上下文该「准」不该「多」。同一个问题就待在同一个会话里，保住推理链条；活儿真分叉了，才 <code>/fork</code> 或新开。</strong></p>
+<p>判断标准很简单：<strong>还是同一个问题的延续，就留在原会话；换了个不相关的活，就新开一个。</strong> 别舍不得那点「历史记录」，臃肿的上下文换来的是更差的结果，不划算。</p>
+<blockquote>
+<p>💡 一句话总结：上下文要准不要多，<code>@</code> 精准喂文件、<code>/compact</code> 及时压缩、一个任务一个会话，是管好上下文窗口的三件套。</p>
+</blockquote>
+<hr>
+<h2>04 按任务降档：简单活别用旗舰顶配</h2>
+<p>这一节接上一篇，简单带过——上一篇把模型选择讲透了，这里只补「提速」这个视角。</p>
+<p><strong>类比：通勤选交通工具。</strong> 楼下买瓶水你不会开车去，走两步就到；跨城出差你也不会骑共享单车。<strong>任务的难度，决定该调多大的算力，跟通勤距离决定交通工具一个道理。</strong></p>
+<p>具体到操作，就一条原则：<strong>简单、范围明确的活，降档跑。</strong> 官方「最佳实践」里给的推理强度建议很清楚——</p>
+<ul>
+<li>范围清楚的快活：用 <code>low</code>，甚至更简单的活可以更低</li>
+<li>复杂改动、调试：用 <code>medium</code> 或 <code>high</code></li>
+<li>又长又重、需要大量推理的活：才上 <code>xhigh</code></li>
+</ul>
+<p>模型层面同理，琐碎活儿、子代理跑的探活，用轻量的 <code>gpt-5.4-mini</code> 就够，没必要事事都搬旗舰 <code>gpt-5.5</code> 出来。改 typo、改个变量名、跑个简单查询，<strong>降到 <code>gpt-5.4-mini</code> + <code>low</code>，又快又省信用点。</strong></p>
+<p>我自己 <code>~/.codex/config.toml</code> 里默认就是中档，遇到硬骨头才会在会话里临时往上拨。<strong>别学我以前那样把默认锁死 <code>gpt-5.5</code> + <code>xhigh</code>——改个变量名等它「深思熟虑」一分钟，那种蠢我领教过。</strong> 具体怎么配、四种切换姿势，回去翻第 30 篇。</p>
+<blockquote>
+<p>💡 一句话总结：简单活降档跑，<code>gpt-5.4-mini</code> + <code>low</code> 又快又省，把旗舰顶配留给真正的硬骨头。</p>
+</blockquote>
+<hr>
+<h2>05 并行起来：多条线同时跑</h2>
+<p>前面四节都在让单条线跑得更顺。这一节换个维度——<strong>别死等一条线跑完，让多条线同时转。</strong></p>
+<p>官方「常见错误」里有一条说得很直白：<strong>把 Codex 当成一个你得一步步盯着的工具，而不是跟你并行干活的搭子，是新手的典型误区。</strong> 你完全可以让它在一边吭哧吭哧重构，你这边继续干别的。</p>
+<p>但有个前提坑——<strong>别让两条线同时改同一批文件。</strong> 它们会互相踩脚，改乱你的工作区。官方给的解法是 git worktrees（工作树），第 25 篇专门讲过。</p>
+<p><strong>类比：装修时多工种同时进场。</strong> 水电、木工、油漆要同时干，就得各占各的房间，不能挤在同一间互相碰。worktree 就是给每条线分一个独立的「房间」，互不干扰。</p>
+<p>并行有两种常见姿势，对应前面讲过的篇目：</p>
+<table>
+<thead>
+<tr>
+<th>玩法</th>
+<th>怎么隔离</th>
+<th>对应篇目</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>多个任务同时跑</td>
+<td>每条线一个 git worktree，各占独立目录</td>
+<td>第 25 篇 worktrees</td>
+</tr>
+<tr>
+<td>主线 + 分包</td>
+<td>主代理盯核心问题，把探活、测试、排查甩给子代理</td>
+<td>第 21 篇 subagents</td>
+</tr>
+</tbody></table>
+<p>官方对子代理（subagent）的建议是：<strong>让主代理专注核心问题，把那些边界清楚的活——探索代码、写测试、排查问题——甩给子代理去办。</strong> 主线不被这些杂活打断，整体就快。</p>
+<p>我现在做稍大一点的需求，习惯是：主会话推进核心逻辑，同时另开 worktree 让 Codex 跑一遍测试和 lint。<strong>等我主线写完，它那边的检查结果也差不多出来了，两件事并着走，比串着干省一大截时间。</strong></p>
+<blockquote>
+<p>💡 一句话总结：让多条线并行跑，worktree 做隔离、子代理分边界活，但绝不让两条线同时改同一批文件。</p>
+</blockquote>
+<hr>
+<h2>06 让它自己验证：砍掉来回确认的轮次</h2>
+<p>最后一招，也是最容易被忽略、回报却最高的一招——<strong>让 Codex 自己验证，别什么都你来肉眼检查。</strong></p>
+<p>回到第一节的心法：返工是最大的慢。而<strong>你来回确认，本身就是一种慢。</strong> 它改完，你打开文件一行行看，发现不对，再说一遍——这一轮轮的人工核对，全是时间。</p>
+<p>官方说得很清楚：Codex 在能验证自己工作时产出更好，但前提是<strong>它得知道「好」长什么样</strong>。这个标准要么来自你的提示词，要么来自项目说明书 <code>AGENTS.md</code>。</p>
+<p><strong>类比：交作业前的检查清单。</strong> 你给下属派活，附一张「交付前自己核对这五条」的清单，他自查完再交，你只需抽检。要是没清单，全靠你逐行挑错，你就成了瓶颈。<strong>给 Codex 验收标准，就是给它这张自查清单。</strong></p>
+<p>具体让它自己做这些（来自官方「最佳实践」）：</p>
+<ul>
+<li>给改动写或更新测试</li>
+<li>跑对应的测试套件</li>
+<li>跑 lint、格式化、类型检查</li>
+<li>确认最终行为跟你要的一致</li>
+<li>自己 review 一遍 diff，找 bug、回归、危险写法</li>
+</ul>
+<p>CLI 里有个 <code>/review</code> 命令很顺手，能按基准分支做 PR 式 review、review 未提交的改动、或者按你给的自定义规则审。</p>
+<p>更一劳永逸的做法：<strong>把「怎么算做完」「跑哪些测试」写进 <code>AGENTS.md</code>，以后每次它都自动按这套来验，你不用每次在提示词里重复。</strong> 这块第 11 篇讲过。</p>
+<p>我现在的标准动作是，需求里直接带一句 <strong>「改完跑一遍 <code>pytest</code>，全绿再告诉我」</strong>。它跑完测试、确认通过才回来，我省掉了「它说改好了 → 我跑测试 → 发现挂了 → 再让它修」这整整两轮往返。<strong>说白了，让它把验证这步包圆，你才能真正从「盯着它」里解放出来。</strong></p>
+<blockquote>
+<p>💡 一句话总结：给验收标准、让 Codex 自己跑测试和 review，能砍掉你来回人工确认的轮次，这是回报最高的提速招。</p>
+</blockquote>
+<hr>
+<h2>07 顺带一提：快速模式这类小招</h2>
+<p>前面六节是骨架，这一节是补充，点到为止。</p>
+<p>Codex 有个<strong>快速模式（Fast mode）</strong>，能把支持的模型提速约 1.5 倍，代价是信用点消耗更高。按官方说明，它目前支持 GPT-5.5 和 GPT-5.4，GPT-5.5 用快速模式按标准速率的 2.5 倍扣信用点，GPT-5.4 按 2 倍。</p>
+<p>CLI 里用这几个命令开关和查看：</p>
+<pre><code class="language-text">/fast on        开启快速模式
+/fast off       关闭
+/fast status    看当前状态
+</code></pre>
+<p>想让它默认开着，可以在 <code>~/.codex/config.toml</code> 里持久化：</p>
+<pre><code class="language-toml">service_tier = &quot;fast&quot;
+
+[features]
+fast_mode = true
+</code></pre>
+<p><strong>注意两个前提：</strong> 一是快速模式靠 ChatGPT 登录才有，用 API key 接入的话走的是标准 API 计价，用不了这个；二是<strong>它花的是钱（信用点）换速度，不是免费的</strong>。</p>
+<p><strong>说句实话，快速模式是「最后一公里」的小招，不是主菜。</strong> 前面六节（说清需求、管好上下文、按任务降档、并行、自己验证）省下的时间，是以「轮次」「整段返工」为单位的；快速模式省的是单次响应那 1.5 倍。<strong>先把前面六件事做对，再考虑要不要为这点速度多花信用点。</strong> 我自己平时不常开，只在赶时间、又确定任务值这个钱的时候临时 <code>/fast on</code> 一下。</p>
+<blockquote>
+<p>💡 一句话总结：快速模式用信用点换 1.5 倍速度，是锦上添花的小招；前六节省的是整段返工，先做对那些再谈这个。</p>
+</blockquote>
+<hr>
+<h2>08 动手环节：把一句含糊需求改写成四段式</h2>
+<p>光看不练记不住。这个练习五分钟，亲手感受「一次过」和「来回返工」的差距。</p>
+<p><strong>第一步，找一句你平时会随手敲的含糊需求。</strong> 比如：</p>
+<pre><code class="language-text">帮我给这个项目加个日志功能
+</code></pre>
+<p><strong>第二步，按第 02 节的配方，改写成四段式。</strong> 在脑子里（或直接打出来）补全这四个槽位：</p>
+<pre><code class="language-text">目标：给项目加一个统一的日志工具，能按 INFO/ERROR 分级输出到控制台和文件。
+上下文：参考 @utils/config.py 里读配置的写法，日志级别从配置读。
+约束：用标准库 logging，不要引第三方日志库；不改现有任何函数签名。
+验收：在 main 入口能 import 并打印一条 INFO 日志到 logs/app.log，文件能正常生成。
+</code></pre>
+<p><strong>第三步，把两个版本分别发给 Codex，数轮次。</strong> 先开一个会话发含糊版，等它做完（注意它会反问你几个问题、或者自作主张选方案），数一下到你满意一共来回了几轮；再新开一个会话发四段式版，同样数轮次。</p>
+<p><strong>预期你会看到：</strong></p>
+<ul>
+<li>含糊版：Codex 大概率先反问「输出到哪」「要不要分级」「用什么库」，或者直接替你选了一套你未必想要的方案，<strong>来回通常 3 轮起步</strong>。</li>
+<li>四段式版：它基本直奔主题，<strong>多数 1 到 2 轮就交付</strong>，而且交付物更贴你的预期。</li>
+</ul>
+<blockquote>
+<p>这个练习的重点不是某次具体跑了几轮，而是让你亲身体会：<strong>多打的那四行字，换回的是后面好几趟来回。</strong> 这笔账，永远划算。</p>
+</blockquote>
+<p>做完这个练习，再把你最满意的那套四段式约束、验收习惯，沉淀进 <code>AGENTS.md</code>，以后就不用每次手打了。</p>
+<blockquote>
+<p>💡 一句话总结：亲手把含糊版和四段式版各跑一遍、数数轮次，你会直观看到多打的四行字怎么把返工省下来。</p>
+</blockquote>
+<hr>
+<h2>小结</h2>
+<p>这一篇把「提速」从「换更快的模型」这个误区里拽了出来，落到六件真正省时间的事上：</p>
+<ul>
+<li><strong>心法</strong>：少返工 &gt; 盲目求快，一次做对才是最省时间的快。</li>
+<li><strong>说清需求</strong>：目标 + 上下文 + 约束 + 验收标准，省下的字 Codex 都得替你猜。</li>
+<li><strong>管上下文</strong>：<code>@</code> 精准喂文件、<code>/compact</code> 压缩、一个任务一个会话。</li>
+<li><strong>按任务降档</strong>：简单活 <code>gpt-5.4-mini</code> + <code>low</code>，旗舰顶配留给硬骨头。</li>
+<li><strong>并行起来</strong>：worktree 隔离、子代理分活，别让两条线踩同一批文件。</li>
+<li><strong>自己验证</strong>：给验收标准、让它跑测试和 review，砍掉人工来回。</li>
+<li>快速模式这类小招，锦上添花，先把前面做对再谈。</li>
+</ul>
+<p><strong>你现在应该能</strong>：拿到一个需求时，先在脑子里过一遍四段式配方而不是张口就甩一句模糊话；会用 <code>@</code> 和 <code>/compact</code> 把上下文喂得又准又干净；知道简单活该降档、复杂活该并行、所有活都该让 Codex 自己验。<strong>把这套养成肌肉记忆，你一天的产出会肉眼可见地往上走——不是因为模型变快了，是因为你不再让它走冤枉路了。</strong></p>
+<hr>
+<p>下一篇〔<a href="32-migrate-from-claude-code.html">32 从 Claude Code 迁移</a> 〕给一类特定读者：<strong>你是从 Claude Code 转过来的老用户。</strong> <code>CLAUDE.md</code> 对应这边的什么？权限模式、Skill、子代理这些概念怎么平移？哪些习惯能直接搬、哪些得改？留个小思考——你在 Claude Code 里养成的哪个习惯，到了 Codex 这边可能反而拖你后腿？下一篇见分晓。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/30-models.html"><span class="mono">← 上一篇 · 30</span><b>怎么选模型：同一句话，到底该派哪个模型去跑</b></a>
+  <a class="pg nx" href="/library/codex/32-migrate-from-claude-code.html"><span class="mono">下一篇 · 32 →</span><b>从 Claude Code 迁移：旧地图换个工具，照样能找到家</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

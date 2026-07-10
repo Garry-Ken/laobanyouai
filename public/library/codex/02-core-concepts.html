@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>02 Codex 核心概念速览 — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 02 篇:Codex 核心概念速览。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/02-core-concepts.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class="cur"><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class="cur"><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class=""><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 02 篇</p>
+      <h1>Codex 核心概念速览</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="01-what-is-codex.html">01 · 认识 Codex 与四种入口</a> 带你认全了 Codex 的四张脸——桌面 App、命令行、IDE 扩展、云端。这一篇往里走一层，把后面所有章节都要反复用到的几个核心概念，一次性讲透。下一篇 <a href="03-install.html">03 · 安装与登录</a> 再正式动手装。</p>
+</blockquote>
+<p>先说个之前我自己干的蠢事，刚开始用 Codex 那会儿，张口就问它「帮我把这三个文件批量重命名」，它噼里啪啦改完，一看傻眼了——它只动了当前项目目录里的，桌面上那两个<strong>纹丝没动</strong>。我当时还纳闷：不是说能跑命令吗，咋还挑食？后来翻文档才反应过来：那是<strong>沙箱</strong>（Sandbox）在拦着，它默认只能在你指定的工作区里动手，出了这个圈得先问你。</p>
+<p>那一刻我才明白：<strong>用 Codex 之前不搞懂这几个概念，你会一直觉得它「时灵时不灵」</strong>——其实它一点没乱，是你不知道它头上戴着几道紧箍咒。</p>
+<p>这一篇就把这几道紧箍咒、外加它的几样独门配置，掰开揉碎讲清楚。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一句话讲明白 Codex 的「代理（Agent）」是什么，以及它和聊天机器人差在哪</li>
+<li>彻底搞懂<strong>沙箱</strong>和<strong>审批</strong>这对兄弟——为什么我那次重命名会失败，以及怎么放开它</li>
+<li>认识 <code>AGENTS.md</code>：让 Codex 记住你项目规矩的那张「入职手册」</li>
+<li>知道<strong>记忆</strong>（Memory）和 <strong>Chronicle</strong> 是什么、默认开没开、能不能用</li>
+<li>一个能照着跑的小实验，亲眼看清沙箱拦你那一下</li>
+</ul>
+<blockquote>
+<p>⚠️ 下文凡涉及具体命令、配置项、默认行为，都以 Codex <a href="https://developers.openai.com/codex">官方文档</a> 为准；模型名、套餐这类会随版本变的东西，看到时以你本地实际显示为准。</p>
+</blockquote>
+<hr>
+<h2>01 代理（Agent）：它会自己动手，不只是回你话</h2>
+<p>先说结论，一句话：<strong>Codex 是 OpenAI 的「编程代理（coding agent）」，能自己读代码、改文件、跑命令，而不只是给你回一段文字。</strong> 官方原话就是 &quot;OpenAI&#39;s coding agent that can read, edit, and run code&quot;。</p>
+<p>这里的「代理（Agent）」是关键词，第一次见得解释一句：<strong>代理 = 能自己拆解任务、调工具、看结果、再决定下一步的 AI，不是一问一答的聊天框。</strong></p>
+<p>官方描述 Codex 干活的方式是这么一句：<strong>「代理在一个循环里跑终端命令，它改代码、跑检查、尝试验证自己的工作」</strong>（原文：The agent runs terminal commands in a loop. It edits code, runs checks, and tries to validate its work）。</p>
+<p>翻译成大白话，还是那三个动作——<strong>想 → 做 → 看</strong>：</p>
+<ul>
+<li><strong>想</strong>：读相关文件、看报错、搞清楚状况</li>
+<li><strong>做</strong>：改代码、建文件、跑命令</li>
+<li><strong>看</strong>：跑测试、看输出，不对就回头再来一轮</li>
+</ul>
+<p><strong>类比：一个肯自己跑腿的代购。</strong> 普通聊天机器人像个只会查价格的客服——你问它「这件衣服多少钱」，它告诉你，完事。Codex 像个代购：你说「帮我买件均码的黑卫衣」，它自己去翻货、比价、下单、收到货还拆开检查尺码对不对，不对再退换。<strong>「自己跑完整个流程」才是代理和聊天框的本质区别。</strong></p>
+<p>几个你真会遇到的场景：</p>
+<ul>
+<li>你说「这个测试为啥挂了」，它<strong>自己跑测试 → 读报错 → 找到 bug → 改 → 再跑一遍确认</strong>，全程你就看着。</li>
+<li>你扔给它一个没文档的老项目说「理一下结构」，它自己查看当前目录里有哪些文件、自己搜关键字、读一堆文件，最后给你画张图——<strong>你一个文件都没指定</strong>。</li>
+<li>你说「把这个函数加上缓存」，它改完顺手把相关调用处也一起捋了，因为它能跨文件看全局。</li>
+</ul>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：Codex 是「代理」不是「聊天框」——它在「想→做→看」的循环里自己把活干完，<strong>这套机制和 Claude Code 一模一样，换了个壳而已</strong>。</p>
+</blockquote>
+<hr>
+<h2>02 沙箱（Sandbox）：它动手的圈，画在哪</h2>
+<p>来了，重点。开头我那次重命名失败，罪魁祸首就是它。</p>
+<p><strong>沙箱（Sandbox）</strong>：官方定义是「让 Codex 能自主行动、又不至于对你整台机器有无限权限的那道边界（boundary）」。说白了，<strong>它就是给 Codex 画的一个圈——圈内的事它自己干，要出圈，先问你</strong>。</p>
+<p><strong>类比：商场里的儿童乐园。</strong> 你把娃放进围栏，里头的滑梯海洋球随便玩，你不用每个动作都盯着；但娃想翻出围栏跑到停车场，警报就响了，得你点头。沙箱就是这个围栏：<strong>圈内自由活动免打扰，出圈才拦你</strong>——既省得你一惊一乍，又不怕它闯祸。</p>
+<p>这道围栏管两样东西：<strong>它能改哪些文件、能不能联网</strong>。官方给了三种常见的沙箱模式：</p>
+<table>
+<thead>
+<tr>
+<th>沙箱模式</th>
+<th>能改文件吗</th>
+<th>能联网吗</th>
+<th>啥时候用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>read-only</code>（只读）</td>
+<td>❌ 不能（要改得先批）</td>
+<td>❌</td>
+<td>只想让它读代码、做审查、出方案，别动我东西</td>
+</tr>
+<tr>
+<td><code>workspace-write</code>（工作区可写）</td>
+<td>✅ 仅限工作区内</td>
+<td>❌ 默认不行</td>
+<td><strong>日常开发最常用</strong>；版本控制目录下 Codex 默认推荐这个，非版本控制目录默认 <code>read-only</code></td>
+</tr>
+<tr>
+<td><code>danger-full-access</code>（完全访问）</td>
+<td>✅ 全机器</td>
+<td>✅</td>
+<td>完全信任的环境，<strong>名字带 danger 不是吓你的，慎用</strong></td>
+</tr>
+</tbody></table>
+<p>看到 <code>workspace-write</code> 那行「仅限工作区内」没有？<strong>这就是我桌面文件没被改的原因</strong>——它们不在我启动 Codex 的那个项目目录里，压根不在围栏内。不是 Codex 偷懒，是它真的够不着。</p>
+<p>还有个细节官方特意强调了：<strong>沙箱不只管 Codex 自己的读写，它派生出去的命令也一样受限</strong>。也就是说，哪怕它调用 <code>git</code>、包管理器、测试脚本，这些命令也都被关在同一个圈里——不会有「主进程被关着、子命令却越狱」的漏子。</p>
+<p>平台上各有各的实现，这点你装的时候会碰到（细节留到 <a href="03-install.html">03 安装与登录</a> 讲）：</p>
+<ul>
+<li><strong>macOS</strong>：用系统自带的 Seatbelt 框架，<strong>开箱即用</strong>，啥都不用配。</li>
+<li><strong>Windows</strong>：直接在 Windows 原生环境运行，用原生 Windows 沙箱（分 <code>elevated</code> 和 <code>unelevated</code> 两种模式）；用 WSL2 则走 Linux 那套实现。</li>
+<li><strong>Linux / WSL2</strong>：得先自己装一个叫 <code>bubblewrap</code> 的东西，沙箱才正常工作（这是官方明确要求的前置条件）。</li>
+</ul>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：沙箱是 Codex 头上的第一道紧箍咒——<strong>默认（<code>workspace-write</code>）只让它在你的工作区里改文件、还不许联网</strong>；想让它管更宽，得自己把圈画大。</p>
+</blockquote>
+<hr>
+<h2>03 审批（Approval）：到了围栏边，谁来点头</h2>
+<p>沙箱画好了圈，那「出圈的时候找谁批」——这是另一码事，叫<strong>审批（Approval）</strong>。</p>
+<p>很多人（包括当初的我）会把这俩搞混，官方专门点了一句，值得记住：<strong>沙箱定义的是技术边界，审批策略决定的是 Codex 何时必须停下来、跨界之前先问你。</strong></p>
+<p><strong>类比：门禁卡 + 保安。</strong> 沙箱是那道<strong>门禁</strong>（物理上拦着你出不去），审批是门口那个<strong>保安的脾气</strong>——有的保安见谁都放（<code>never</code>），有的只拦陌生人（<code>untrusted</code>），有的是你想出门就喊一嗓子问一下（<code>on-request</code>）。门是死的，保安的松紧是你能调的。</p>
+<p>官方给的三种常见审批策略：</p>
+<table>
+<thead>
+<tr>
+<th>审批策略</th>
+<th>Codex 的行为</th>
+<th>大白话</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>untrusted</code></td>
+<td>不在「可信集合」里的命令，跑之前先问</td>
+<td>只防陌生命令</td>
+</tr>
+<tr>
+<td><code>on-request</code></td>
+<td>默认在沙箱里干，<strong>需要出圈时才停下来问</strong></td>
+<td>最常用的平衡档</td>
+</tr>
+<tr>
+<td><code>never</code></td>
+<td>不弹审批，闷头干</td>
+<td>自动化常用；权限仍由沙箱决定，配合完全访问才有意义</td>
+</tr>
+</tbody></table>
+<p>注意：这里的 <code>untrusted / on-request / never</code> 是官方文档里的三种审批策略——它们和沙箱模式是两个独立的维度，分开配置、分开理解。</p>
+<p>这俩怎么搭？官方给了两个现成组合，记这两个就够用：</p>
+<ul>
+<li><strong>低风险本地自动化</strong>（推荐日常）：<code>sandbox_mode = &quot;workspace-write&quot;</code> 配 <code>approval_policy = &quot;on-request&quot;</code>。围栏锁着、出圈才问，安全又不烦。</li>
+<li><strong>完全放开</strong>（慎用）：<code>sandbox_mode = &quot;danger-full-access&quot;</code> 配 <code>approval_policy = &quot;never&quot;</code>。等于把门拆了、保安也放假——<strong>只在你 100% 信任的环境用</strong>。</li>
+</ul>
+<p>我自己的习惯是：<strong>新项目、不熟的代码库，一律先 <code>read-only</code> 让它只读只分析</strong>，等我看完它的方案、心里有底了，再切到 <code>workspace-write</code> 放它动手。有次我图省事直接上 <code>danger-full-access</code> 跑一个批量脚本，它在我半个主目录里翻文件，看得我手心冒汗——从那以后我再没在不该用的地方开过完全访问。</p>
+<p>怎么切？日常你不用碰配置文件，在 CLI 会话里一句 <code>/permissions</code> 就能当场换模式（桌面 App 和 IDE 里则是输入框旁边的权限选择器）。想让它每次启动都用同一套，再去写配置文件——那是 <a href="18-config.html">18 config.toml 配置详解</a> 的活，这里先知道有这么个开关。</p>
+<p>下面这张图把沙箱和审批的关系理一遍：</p>
+<p><img src="assets/02-approval-flow@2x.png" alt="Codex 审批策略的两层决策三种终态：圈内直接做 / 出圈看策略 / 问你看答案"></p>
+<p>这张图在干什么：它说清了一件事——<strong>Codex 每要做一步，先看「在不在沙箱圈内」（沙箱说了算），出圈了再看「要不要问你」（审批说了算）</strong>。两道关卡，各管各的。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：沙箱管「能不能」、审批管「问不问」，<strong>两个旋钮分开拧</strong>；日常 <code>workspace-write</code> + <code>on-request</code> 这套组合，安全和省心兼顾。</p>
+</blockquote>
+<hr>
+<h2>04 AGENTS.md：给 Codex 的项目入职手册</h2>
+<p>前三节讲的是「权限」。这一节换个话题：<strong>怎么让 Codex 记住你这个项目的规矩</strong>，省得每次都得重新交代一遍。</p>
+<p>答案是一个叫 <code>AGENTS.md</code> 的文件。</p>
+<p><strong>类比：给新员工的入职手册。</strong> 新人来公司，你不会每天追在屁股后面念叨「咱们用 pnpm 不用 npm」「提交信息要写中文」——你给他一本手册，他自己看。<code>AGENTS.md</code> 就是给 Codex 的这本手册：<strong>放进项目里，它每次开工前先读，按里头的规矩办</strong>。</p>
+<p>官方对它的定位是「durable project guidance」——跟着仓库走、在代理开始干活之前就生效的持久指引。一句话嘱咐：<strong>保持精简（Keep it small）</strong>，别把它写成长篇大论。</p>
+<p>里头通常写这些（官方给的例子）：</p>
+<ul>
+<li>构建和测试命令（比如「测试用 <code>pytest -q</code>」）</li>
+<li>代码审查的期望（比如「改完必须跑 lint」）</li>
+<li>这个仓库特有的约定（比如目录怎么放、命名怎么取）</li>
+</ul>
+<p>它能放在两个层级，<strong>离工作目录越近的越优先</strong>（这点和优先级判断很关键）：</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>放哪</th>
+<th>管谁</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>全局</td>
+<td><code>~/.codex/AGENTS.md</code></td>
+<td>你这个人的偏好（比如「回我话简洁点」），跨所有项目生效</td>
+</tr>
+<tr>
+<td>项目</td>
+<td>仓库根目录或子目录里的 <code>AGENTS.md</code></td>
+<td>这个项目 / 团队的规矩，可以提交进 Git 全队共享</td>
+</tr>
+</tbody></table>
+<p>最妙的用法官方点了出来，我自己也最爱用——<strong>把它当反馈回路（feedback loop）</strong>：当 Codex 对你的代码库做了错误假设，你别光在对话里纠正（那是一次性的，下次它又忘），直接<strong>让它把这条修正写进 <code>AGENTS.md</code></strong>，下回开新会话它自己就继承了。我给一个 Python 项目调了两周，<code>AGENTS.md</code> 从空白长到二十来行，全是它踩过、被我逮住、然后自己记下来的坑——现在新会话基本不犯重复错误了。</p>
+<blockquote>
+<p><code>AGENTS.md</code> 之于 Codex，约等于 <code>CLAUDE.md</code> 之于 Claude Code——<strong>同一个概念，换了个文件名</strong>。</p>
+</blockquote>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：<code>AGENTS.md</code> 是 Codex 的项目入职手册——<strong>写下你项目的规矩，它每次开工先读</strong>；把它当反馈回路，犯一次错就记一条，越用越顺手。</p>
+</blockquote>
+<hr>
+<h2>05 记忆（Memory）与 Chronicle：它能不能「记住」你</h2>
+<p>最后这组概念，是 Codex 比较新、也容易让人误会的地方——<strong>它到底能不能记住你之前聊过的东西？</strong></p>
+<p>先把两个词分清楚：</p>
+<p><strong>记忆（Memory）</strong>：让 Codex 把<strong>早先会话里学到的有用信息</strong>带到后面的工作里——比如你的技术栈、项目惯例、踩过的坑，省得每开一个会话都重新交代。</p>
+<p><strong>类比：一个跟久了的老搭档。</strong> 新来的助理你得反复教「我们用 TypeScript、不写分号」；跟你三年的老搭档，你一个眼神他就懂——因为他<strong>记着</strong>你的习惯。Memory 就是把 Codex 从「新来的」往「老搭档」上带。</p>
+<p>但有几个<strong>关键的事实</strong>你必须知道，不然又会觉得它「时灵时不灵」：</p>
+<ul>
+<li><strong>默认是关的（off by default）。</strong> 不主动开，它不会记任何东西。开的方式：在 Codex App 设置里打开，或在 <code>~/.codex/config.toml</code> 的 <code>[features]</code> 段里写 <code>memories = true</code>。</li>
+<li><strong>有地区限制。</strong> 官方明说：发布时<strong>欧洲经济区、英国、瑞士暂不可用</strong>。</li>
+<li><strong>不是实时更新的。</strong> 它会等一个会话「闲置足够久」、确认你不是还在干活，才在后台悄悄总结成记忆——所以你刚结束会话，记忆可能还没写进去。</li>
+<li><strong>存在本地</strong>：默认放在 <code>~/.codex/memories/</code> 下，是一堆生成的 markdown 文件。</li>
+<li><strong>能逐会话控制</strong>：在 App 和 CLI 里用 <code>/memories</code> 决定「当前这个会话要不要用已有记忆、要不要拿来生成新记忆」。</li>
+</ul>
+<p>官方还补了句要紧的：<strong>真正必须每次都生效的团队规矩，老老实实写进 <code>AGENTS.md</code></strong>，别指望记忆——记忆是「锦上添花的本地回忆层」，不是规则的唯一来源。这话我深有体会：记忆这东西是概率性的，靠它兜底重要规矩，迟早翻车。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：记忆是「老搭档」模式，但默认关着、有地区限制——重要规矩还是靠 <code>AGENTS.md</code>，记忆只管锦上添花的部分。</p>
+</blockquote>
+<p>再说 <strong>Chronicle</strong>，开头先标清楚：</p>
+<blockquote>
+<p>⚠️ <strong>实验性，可能变化。</strong> Chronicle 目前是「需主动开启的研究预览（opt-in research preview）」，<strong>只对 ChatGPT Pro 用户、且只在 macOS 上可用</strong>，欧盟、英国、瑞士同样还没有。</p>
+</blockquote>
+<p><strong>Chronicle 是给记忆「喂屏幕」的。</strong> 普通记忆是从你和 Codex 的<strong>对话</strong>里学；Chronicle 更进一步，<strong>用你屏幕上的内容</strong>帮 Codex 理解你最近在忙啥——你正看着哪个文件、哪个 PR、哪个文档，它能顺着接上，省得你从头解释。</p>
+<p><strong>类比：一个能看你屏幕的搭档。</strong> 普通搭档只能听你说；Chronicle 这个搭档还能瞟一眼你的显示器，「哦你在看这个报错」，于是不用你复述。听着很爽，但代价也实在——官方明明白白警告了三条：<strong>吃配额很快、会增加提示注入（prompt injection）的风险、记忆是不加密地存在你本地的</strong>。换句话说，<strong>方便和风险都摆在台面上，自己掂量</strong>。我个人态度：尝鲜可以，敏感屏幕内容（密码、私信、客户数据）面前，记得用菜单栏的「Pause Chronicle」暂停它。</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>记忆（Memory）</th>
+<th>Chronicle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>信息从哪来</td>
+<td>之前的<strong>对话</strong>会话</td>
+<td>你的<strong>屏幕</strong>内容</td>
+</tr>
+<tr>
+<td>成熟度</td>
+<td>正式功能（默认关）</td>
+<td><strong>研究预览（实验性）</strong></td>
+</tr>
+<tr>
+<td>平台</td>
+<td>跟随 App / CLI</td>
+<td><strong>仅 macOS、仅 Pro</strong></td>
+</tr>
+<tr>
+<td>我的建议</td>
+<td>想省事可以开</td>
+<td>尝鲜可以，敏感场景记得暂停</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：记忆让 Codex 从「新人」变「老搭档」，<strong>但默认关着、有地区限制、还别拿它替代 <code>AGENTS.md</code></strong>；Chronicle 是实验性的「看屏幕」增强，方便但风险也明摆着。</p>
+</blockquote>
+<hr>
+<p>五个概念单独讲完了，在进入动手环节之前，用一张图把它们串起来看一眼——单独理解每个概念容易，但它们怎么协作才是关键：</p>
+<p><img src="assets/02-core-concepts@2x.png" alt="五个核心概念怎么搭在一起"></p>
+<p>这张图在干什么：<strong>中间那个「代理」是主角，它被关在「沙箱」这个圈里干活</strong>；想出圈到外部世界（你整台机器、网络），得先过「审批」这道关卡；左边的 <code>AGENTS.md</code> 在它开工前把项目规矩喂进去；下边的「记忆 / Chronicle」则跨会话帮它攒经验、下次复用——<strong>五个概念全是围着中间这个代理转的</strong>。</p>
+<hr>
+<h2>06 动手：亲眼看沙箱拦你那一下</h2>
+<p>光读概念记不住。跑个一分钟的小实验，<strong>亲眼看沙箱在 <code>read-only</code> 模式下怎么拦住一次写操作</strong>——这是这一篇最该有体感的地方。<strong>实验不依赖任何现成项目，新建个空文件夹就行。</strong></p>
+<p><strong>第一步：建个空目录，进去启动 Codex。</strong></p>
+<p>在终端里跑（Mac / Linux；Windows 用 PowerShell，把 <code>mkdir -p</code> 换成 <code>mkdir</code>）：</p>
+<pre><code class="language-bash">mkdir -p ~/codex-demo &amp;&amp; cd ~/codex-demo
+codex
+</code></pre>
+<blockquote>
+<p>还没装 Codex？没关系，这一篇先建立概念，<a href="03-install.html">03 安装与登录</a> 会手把手带你装好再回来跑。</p>
+</blockquote>
+<p><strong>第二步：切到只读模式。</strong></p>
+<p>在 Codex 会话里输入斜杠命令，把权限调到只读：</p>
+<pre><code class="language-text">/permissions
+</code></pre>
+<p>然后在弹出的选项里选只读那一档（<code>Read Only</code> / <code>read-only</code>）。<strong>预期看到</strong>：界面提示当前进入只读模式，类似——</p>
+<pre><code class="language-text">Permissions updated: read-only
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>新版菜单可能不同</strong>：codex-cli <strong>0.142</strong> 起，官方推出了 <a href="https://developers.openai.com/codex/permissions">permission profiles</a>（标记 <strong>Beta，may change</strong>）替代旧的「Read Only / Auto / Full Access」预设——你的 <code>/permissions</code> 菜单可能变成了 <code>Ask for approval</code> / <code>Approval for me</code> / <code>Full access</code> 这类<strong>审批策略</strong>的档（不再直接出现 <code>Read Only</code>）。</p>
+<p>如果你看不到 <code>Read Only</code> 选项，<strong>走旧 sandbox 模式最稳</strong>（官方保留兼容）：先退出会话，用 <code>codex --sandbox read-only</code> 重新进入；或在 <code>~/.codex/config.toml</code> 写 <code>sandbox_mode = &quot;read-only&quot;</code> 永久生效。本节后续实验按这套兜底全部跑得通。</p>
+<p>这块属于「实验性，可能变化」，本教程后续涉及 <code>/permissions</code> 切只读的地方都同此说明，不再重复。</p>
+</blockquote>
+<p><strong>第三步：让它干一件「要写文件」的事，看它被拦。</strong></p>
+<p>丢这么一句给它：</p>
+<pre><code class="language-text">帮我新建一个文件 hello.txt，里面写一行字 &quot;hello codex&quot;。
+</code></pre>
+<p><strong>预期看到</strong>：它<strong>不会</strong>默默把文件建好，而是<strong>停下来请求你的批准</strong>——因为「写文件」这一步突破了 <code>read-only</code> 的边界，按审批策略它必须先问你。大意是：</p>
+<pre><code class="language-text">我需要创建文件 hello.txt，这超出了当前只读模式的权限，
+是否允许？(y/n)
+</code></pre>
+<p><strong>看到这个「停下来问」的瞬间，你就亲眼见到沙箱 + 审批联手干活了</strong>：沙箱判定「这步要出圈」，审批接着弹出来找你点头。这正是第 02、03 节讲的两道关卡，在屏幕上活生生跑了一遍。</p>
+<p><strong>第四步：对比一下放开后的样子。</strong></p>
+<p>回 <code>/permissions</code> 切到工作区可写（<code>workspace-write</code>），再让它建一次 <code>hello.txt</code>。这回<strong>预期</strong>它直接建好、不再问你——因为在工作区里写文件本就在沙箱圈内，无需审批。</p>
+<pre><code class="language-text">已创建 hello.txt
+</code></pre>
+<p>跑完用 <code>/status</code> 看一眼当前会话的模型、审批策略这些信息，心里就更有数了：</p>
+<pre><code class="language-text">/status
+</code></pre>
+<p><strong>同一个建文件的请求，只读时被拦、可写时放行</strong>——这就是沙箱模式实打实的区别。比起读十遍「沙箱是安全边界」，<strong>亲眼看它在只读模式下停下来问你那一下，理解得快得多</strong>。</p>
+<blockquote>
+<p>💡 <strong>一句话总结</strong>：跑一遍这个最小实验，你会亲眼看到——<strong>同一个写文件请求，<code>read-only</code> 拦下来问、<code>workspace-write</code> 直接放行</strong>，沙箱和审批就是这么联手的。</p>
+</blockquote>
+<hr>
+<h2>07 小结</h2>
+<p>这一篇把 Codex 后面所有章节都要用到的核心概念，一次铺平了：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>一句话记住</th>
+<th>对应 Claude Code 的啥</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>代理（Agent）</strong></td>
+<td>会自己想→做→看的 AI，不是聊天框</td>
+<td>代理循环，一模一样</td>
+</tr>
+<tr>
+<td><strong>沙箱（Sandbox）</strong></td>
+<td>给它画的圈，管「能改哪、能不能联网」</td>
+<td>类似权限边界，但更显式</td>
+</tr>
+<tr>
+<td><strong>审批（Approval）</strong></td>
+<td>出圈时问不问你，和沙箱是两个旋钮</td>
+<td>类似权限模式</td>
+</tr>
+<tr>
+<td><strong>AGENTS.md</strong></td>
+<td>项目入职手册，写下规矩它每次先读</td>
+<td>就是 <code>CLAUDE.md</code> 换名</td>
+</tr>
+<tr>
+<td><strong>记忆 / Chronicle</strong></td>
+<td>让它记住你的偏好；Chronicle 看屏幕、实验性</td>
+<td>类似 memory，Chronicle 是新东西</td>
+</tr>
+</tbody></table>
+<p>你现在应该能看懂：为什么 Codex 有时「不肯」改某个文件（不在沙箱圈内）、为什么它会突然停下来问你（要出圈、审批拦着）、以及怎么用 <code>AGENTS.md</code> 让它记住你的规矩、用 <code>/permissions</code> 当场调松紧。</p>
+<p><strong>最该带走的一句话</strong>：Codex 不是个许愿池，而是个<strong>戴着紧箍咒的能干搭档</strong>——你的活儿是给方向、画好它能动手的圈、跑偏时拉一把。把这几个概念吃透，后面学各个入口、配置、扩展，都是在这套地基上添砖加瓦。</p>
+<hr>
+<p>下一篇 <strong>03 · 安装与登录</strong>：概念懂了，该真刀真枪把 Codex 装到你机器上了。下一篇带你在 Mac / Windows / Linux 上装好 Codex、登录账号、跑通第一句话——尤其 Linux 用户，还记得本篇说的那个 <code>bubblewrap</code> 吗？装的时候你就知道它派什么用场了。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/01-what-is-codex.html"><span class="mono">← 上一篇 · 01</span><b>认识 Codex 与四种入口</b></a>
+  <a class="pg nx" href="/library/codex/03-install.html"><span class="mono">下一篇 · 03 →</span><b>安装与登录（Mac / Windows / Linux）</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

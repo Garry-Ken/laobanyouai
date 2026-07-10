@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>46 开发配置：把 Claude 干活的「工作环境」调顺 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 46 篇:开发配置：把 Claude 干活的「工作环境」调顺。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/46-dev-config.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class="cur"><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class="cur"><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class=""><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 46 篇</p>
+      <h1>开发配置：把 Claude 干活的「工作环境」调顺</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="45-agent-sdk.html">45 Agent SDK</a> 教你把 Claude Code 的本事拆出来、塞进自己写的程序里。这一篇收回到你每天敲命令的那个终端——<strong>Claude 跑在哪、能碰到哪、走不走代理、长什么样、用哪个模型</strong>，这五件「工作环境」的事，是时候按自己的需要调一遍了。这一篇就把开发配置里最常用的几块讲透。</p>
+</blockquote>
+<p>这里先摆一个很多人都会撞上的场景。</p>
+<p>不少人用 Claude Code 头小半年，工作环境一直是「开箱默认、一动不动」。直到有天接了个客户的私有仓库，心里直打鼓——这代码没看过，万一里头藏着什么让 Claude 乱跑命令的东西，它可是直接在你这台天天用的 Mac 上动手的，连着你的 SSH 密钥、你的 npm 凭据、你半个工作台的私密文件。这时候常见的「防护措施」是什么呢？<strong>全程瞪大眼睛盯着每一条命令，手放在 <code>Ctrl+C</code> 上。</strong> 盯一下午，累得不行，还啥都没干成。</p>
+<p>其实这事儿官方早给了答案——<strong>把 Claude 关进一个隔离环境里跑就行</strong>，沙箱、容器、虚拟机随你挑，它在里头怎么折腾都伤不到主机。那种一下午的「人肉监控」，纯属没读文档硬扛。</p>
+<p>说这个是想让你绕开这个坑。<strong>开发配置这块，平时不显眼，关键时刻能救命、能省钱、还能让你用得舒服。</strong> 今天挑五块最常用的，一块块讲清楚：它解决什么、什么时候该开、怎么开。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>五块开发配置（沙箱、devcontainer、网络、终端、模型）各自「解决什么问题、什么时候该动它」的一句话定位</li>
+<li>沙箱（sandbox）怎么用一条 <code>/sandbox</code> 命令开起来，让 Claude 少问你、又跑不出隔离圈</li>
+<li>devcontainer 是干嘛的、跟沙箱什么关系、团队为什么需要它</li>
+<li>公司在代理 / 防火墙后面时，怎么让 Claude Code 连得上（国内用户尤其要看）</li>
+<li>终端配置里最值得动的三样（换行键、通知、主题），和模型配置怎么按任务挑、怎么省额度</li>
+<li>一个能照着跑、给了预期输出的实战：开沙箱 + 锁模型，亲手验一遍</li>
+</ul>
+<hr>
+<h2>01 先建个框架：开发配置管的是 Claude 的「工作环境」五件事</h2>
+<p>动手调之前，先在脑子里把这块归个类。<strong>「开发配置」不是一堆零散开关，它管的是同一件事的五个侧面——Claude 干活的那个「工作环境」长什么样。</strong></p>
+<p><strong>类比：给一个新来的工人安排工位。</strong> 工人（Claude）来你这儿干活，你得替他把工位安排明白：<strong>他在哪个房间干</strong>（在你主机上，还是关进一间独立工作间）、<strong>这房间的门窗通到哪</strong>（能上哪些网、连不连得出公司防火墙）、<strong>桌椅灯光顺不顺手</strong>（终端的换行、通知、配色）、<strong>派给他的是老师傅还是学徒</strong>（用哪个模型）。这几件安排好了，他才能既干得顺、又出不了乱子。开发配置就是这套「工位安排」。</p>
+<p>落到 Claude Code，这五件事是：</p>
+<ul>
+<li><strong>隔离（隔到哪儿干）</strong>——沙箱 / devcontainer，决定 Claude 跑命令时能碰到你机器上多少东西。</li>
+<li><strong>网络（门窗通到哪）</strong>——代理、证书配置，决定它在公司防火墙后面连不连得上。</li>
+<li><strong>终端（桌椅顺不顺手）</strong>——换行键、通知、配色、Vim 模式，决定你用着别不别扭。</li>
+<li><strong>模型（派谁来干）</strong>——用 Opus 还是 Sonnet 还是 Haiku，决定贵不贵、聪不聪明。</li>
+</ul>
+<p>并排放一张表，对照着看立刻清楚各管各的：</p>
+<table>
+<thead>
+<tr>
+<th>这块配置</th>
+<th>解决什么问题</th>
+<th>什么时候你会想起它</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>沙箱（sandbox）</strong></td>
+<td>让 Claude 少问你、又跑不出隔离圈</td>
+<td>嫌它老问权限，或要碰不太信任的代码</td>
+</tr>
+<tr>
+<td><strong>devcontainer</strong></td>
+<td>全队共用一个一致、隔离的环境</td>
+<td>团队协作、要无人值守跑、新人入职统一环境</td>
+</tr>
+<tr>
+<td><strong>网络配置</strong></td>
+<td>公司代理 / 防火墙后面连得上</td>
+<td>连不上 <code>api.anthropic.com</code>、公司装了 TLS 检查</td>
+</tr>
+<tr>
+<td><strong>终端配置</strong></td>
+<td>换行、通知、配色用着顺手</td>
+<td><code>Shift+Enter</code> 不换行、跑完任务没提示音</td>
+</tr>
+<tr>
+<td><strong>模型配置</strong></td>
+<td>按任务挑模型、控成本</td>
+<td>烧额度太快，或想给不同活儿配不同模型</td>
+</tr>
+</tbody></table>
+<p>这张表你不用背，<strong>但「我现在的困扰属于哪一块」这个意识得有</strong>——连不上是网络的事别去翻沙箱，嫌它老问权限是沙箱的事别去调模型。分清了，下面每一节你按需挑着看就行。</p>
+<p>值得先点一句：这五块里，<strong>沙箱、网络、模型是你十有八九会真动手调的</strong>；devcontainer 偏团队场景，终端配置偏个人手感。所以如果你时间紧，先把<strong>沙箱、网络、模型</strong>三块吃透，devcontainer 和终端配置按需再看。</p>
+<blockquote>
+<p>💡 一句话总结：开发配置管的是 Claude 干活的「工作环境」五件事——<strong>隔到哪儿干（沙箱 / devcontainer）、门窗通到哪（网络）、桌椅顺不顺（终端）、派谁来干（模型）</strong>；先认准困扰属于哪块，再去调对应的开关。</p>
+</blockquote>
+<hr>
+<h2>02 沙箱：让 Claude 少问你，又跑不出隔离圈</h2>
+<p>先讲最实用、也最容易被忽略的一块——<strong>沙箱化 Bash 工具（sandboxed Bash tool）</strong>。这是 Claude Code 自带的功能，开起来就一条命令。</p>
+<h3>它解决的是一对矛盾</h3>
+<p>你用到现在，大概率被一个矛盾夹过：<strong>想让 Claude 跑得顺，又怕它跑得太野。</strong> 权限模式（<a href="20-permissions.html">第 20 篇</a>讲过）只有两头——要么每条命令都停下来问你（烦），要么开自动模式放它撒欢（怕）。沙箱给的是中间那条路。</p>
+<p><strong>类比：在专用试车场里飙车。</strong> 你不会让一辆没磨合的车直接上城市道路狂奔——撞了伤的是行人和你自己。但拉到封闭试车场里就不一样了：<strong>场子四周是实打实的墙，车在里头怎么飙都飞不出去</strong>，你也就不用一路踩着刹车跟着跑了。沙箱就是给 Claude 圈的这么个试车场——<strong>操作系统层面给每条 Bash 命令划一个圈：能写哪些文件、能上哪些网，划死。Claude 在圈里随便跑，不用一条条问你；想跨出圈（比如访问一个新网络域），才停下来等你点头。</strong></p>
+<p>官方把这层意思说得很准：</p>
+<blockquote>
+<p>Bash 沙箱让 Claude 可以运行大多数 shell 命令，而无需停下来请求权限。与其批准每个命令不同，你定义命令可以接触哪些文件和网络域，操作系统为每个 Bash 命令及其子进程强制执行该边界。</p>
+</blockquote>
+<p>注意「<strong>操作系统强制执行</strong>」这几个字——这不是 Claude「答应你不出圈」，是底层操作系统拦着它出不了圈。这跟写在 CLAUDE.md 里的「请不要乱跑命令」是两码事：一个是请求，一个是硬墙。</p>
+<h3>怎么开：一条 <code>/sandbox</code></h3>
+<p>沙箱内置在 Claude Code 里，<strong>在 macOS、Linux、WSL2 上能用，原生 Windows 不支持</strong>（Windows 用户在 WSL2 里跑）。开它就一步——在会话里敲：</p>
+<pre><code class="language-text">/sandbox
+</code></pre>
+<p>这会弹出一个面板，有三个选项卡：</p>
+<ul>
+<li><strong>Mode（模式）</strong>：选「自动允许」还是「常规权限」。<strong>自动允许 = 沙箱化的命令不再提示你直接跑</strong>（这才是沙箱的爽点）；常规权限 = 即便沙箱化了也照样问你。</li>
+<li><strong>Overrides（覆盖）</strong>：控制沙箱内跑不了的命令能否回退到无沙箱流程运行（对应 <code>allowUnsandboxedCommands</code> 设置）。</li>
+<li><strong>Config（配置）</strong>：看当前生效的沙箱边界长啥样。</li>
+</ul>
+<p>平台差异得说清楚：</p>
+<ul>
+<li><strong>macOS</strong>：什么都不用装。沙箱用的是系统自带的 Seatbelt 框架，开箱即用。</li>
+<li><strong>Linux / WSL2</strong>：靠两个包——<code>bubblewrap</code>（管文件隔离）和 <code>socat</code>（管网络中继）。没装的话，<code>/sandbox</code> 面板会只显示一个 Dependencies 选项卡告诉你缺啥，按提示装上（Ubuntu / Debian 是 <code>sudo apt-get install bubblewrap socat</code>），重启 Claude Code 再开。</li>
+</ul>
+<p>默认边界很克制——<strong>沙箱里的命令只能写当前工作目录</strong>，命令第一次要碰新网络域时，Claude Code 才停下来问你批不批。在面板里选的模式，会写进项目的 <code>.claude/settings.local.json</code>（只管当前项目、不进 git）。<strong>想让所有项目都默认开沙箱</strong>，就去用户级的 <code>~/.claude/settings.json</code> 把 <code>sandbox.enabled</code> 设成 <code>true</code>（settings.json 的层级规则见<a href="31-settings-json.html">第 31 篇</a>）。</p>
+<p>这里提醒一个容易踩的小坑：<strong>沙箱要是因为缺依赖或平台不支持起不来，Claude Code 默认是「打个警告、然后照样不带沙箱跑」</strong>，不会硬拦着你。这设计是为了不打断你干活，但也意味着——<strong>你以为开了沙箱，其实可能在裸跑</strong>。所以重要场合别想当然，回头用第 07 节的法子验一下它真在圈里。要是你要的是「沙箱起不来就别跑」的硬保证，把 <code>sandbox.failIfUnavailable</code> 设成 <code>true</code>。</p>
+<h3>一个关键限制：沙箱只管 Bash</h3>
+<p>这条得划重点，不然你会误以为开了沙箱就万事大吉。<strong>自带的这个沙箱，只圈住 Bash 命令。</strong> Claude 的其他动作——读写文件（Read / Edit）、抓网页（WebFetch）、还有你装的 MCP server 和 Hook——<strong>这些都还在你主机上裸跑，不受这个沙箱管。</strong></p>
+<p>官方说得很明白：</p>
+<blockquote>
+<p>内置文件工具、MCP 服务器和 hooks 仍直接在您的主机上运行。</p>
+</blockquote>
+<p>所以 <strong>「自带沙箱」适合的是「我自己机器上日常干活，想少点权限提示」</strong> 这个场景。要是你想把整个 Claude Code 进程（连文件工具、MCP、Hook 一起）都关进圈里，那得用下一节的容器，或者官方那个还在测试期的 <code>sandbox runtime</code>（实验性，可能变化）——它能把整个进程包进同一层隔离。一般来说，日常就开着自带沙箱图个清净，碰到真不信任的代码才升级到容器。</p>
+<blockquote>
+<p>💡 一句话总结：沙箱用一条 <code>/sandbox</code> 给每条 Bash 命令圈个「试车场」——<strong>操作系统层面划死能碰的文件和网络，Claude 在圈里随便跑不用一条条问</strong>；但记住它<strong>只管 Bash</strong>，文件工具、MCP、Hook 还在主机上裸跑。</p>
+</blockquote>
+<hr>
+<h2>03 devcontainer：给全队发一间一模一样的「独立工作间」</h2>
+<p>上一节的沙箱是「你自己机器上圈一块」。这一节的 <strong>devcontainer（开发容器）</strong> 是另一个量级——<strong>把 Claude 整个挪进一间独立的「房间」里跑</strong>。</p>
+<h3>它解决的是「环境不一致」和「无人值守」</h3>
+<p>两个痛点逼出 devcontainer：</p>
+<p>第一，<strong>团队环境不一致</strong>。你机器上 Node 18、同事机器上 Node 20，Claude 跑出来的结果对不上，扯皮。第二，<strong>你想让 Claude 无人值守地干</strong>——挂个长任务出去吃饭，回来活儿干完。但放它在主机上无人盯着撒欢，太险。</p>
+<p><strong>类比：图书馆的独立研究间。</strong> 你在开放阅览区办公（主机），桌上摊着自己的私人物品，谁路过都能瞥见，你也不敢离开半步。但订一间独立研究间就不一样了——<strong>屋里是图书馆给配好的标准桌椅设备（人人一样），门一关，里头干啥外面不沾；你的私人物品也没带进去</strong>。devcontainer 就是这么间研究间：一个用配置文件定死的、人人一致的隔离环境，Claude 在里头跑命令，碰不到你主机上的密钥和私密文件。</p>
+<p>官方的定义：</p>
+<blockquote>
+<p>开发容器（或 dev container）让您定义一个相同的、隔离的环境，团队中的每个工程师都可以运行。在该容器中安装 Claude Code 后，Claude 运行的命令会在容器内执行，而不是在主机上执行，同时对项目文件的编辑会在您工作时显示在本地存储库中。</p>
+</blockquote>
+<p>这句里有个妙处：<strong>命令在容器里跑，但改的文件直接显示在你本地仓库里</strong>。等于「干活在隔离间，成果照样落到你手边」，两全。</p>
+<h3>怎么开：加一段 feature，重建容器</h3>
+<p>devcontainer <strong>需要 Docker</strong>，并且要用支持 Dev Containers 规范的编辑器（VS Code、Codespaces、JetBrains、Cursor 等；纯 Vim 这种不支持的不在此列）。装 Claude Code 进容器，就是往项目的 <code>.devcontainer/devcontainer.json</code> 里加一段：</p>
+<pre><code class="language-json">{
+  &quot;image&quot;: &quot;mcr.microsoft.com/devcontainers/base:ubuntu&quot;,
+  &quot;features&quot;: {
+    &quot;ghcr.io/anthropics/devcontainer-features/claude-code:1.0&quot;: {}
+  }
+}
+</code></pre>
+<p>那个 <code>features</code> 块就是官方的 <strong>Claude Code Dev Container Feature</strong>，它负责把 Claude Code 装进容器。<code>image</code> 那行换成你项目自己的基础镜像。写完在 VS Code 里按 <code>Cmd+Shift+P</code>（Win / Linux 是 <code>Ctrl+Shift+P</code>）运行 <strong>Dev Containers: Rebuild Container</strong> 重建，然后在容器里的终端跑 <code>claude</code> 登录就行。</p>
+<blockquote>
+<p>这里有个新手必栽的坑官方专门提醒过：容器主目录默认在重建时会被丢掉，<strong>每次重建都得重新登录</strong>。想保住登录态，得给 <code>~/.claude</code> 挂一个命名卷（named volume，一种重建后还在的持久存储）。这块属于进阶，头一次玩知道有这回事就够，真要长期用再去翻官方 devcontainer 文档配卷挂载。</p>
+</blockquote>
+<p>还有一条安全前提，官方拿红框警示过，别忽略：</p>
+<blockquote>
+<p>仅在使用受信任的存储库进行开发时使用开发容器，并监控 Claude 的活动。避免将主机密钥（如 <code>~/.ssh</code> 或云凭证文件）挂载到容器中。</p>
+</blockquote>
+<p>翻成人话：<strong>容器是道保护，但不是金钟罩</strong>。尤其当你给它配了「跳过权限提示」让它无人值守跑时，恶意代码照样能搞坏容器里能碰到的东西。所以别图省事把你主机的 SSH 密钥挂进去——要用就用仓库范围的、短期的令牌。</p>
+<h3>devcontainer vs 沙箱：别搞混</h3>
+<p>这俩都叫「隔离」，但不是一个东西。我用一张表把上一节的沙箱、这一节的 devcontainer，连官方列的其他几种隔离方式一起摆出来，你一眼看清该用哪个：</p>
+<table>
+<thead>
+<tr>
+<th>隔离方式</th>
+<th>圈住的是</th>
+<th>要 Docker 吗</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>自带沙箱</strong>（<code>/sandbox</code>）</td>
+<td>只圈 Bash 命令</td>
+<td>否</td>
+<td>自己机器日常干活、想少点权限提示</td>
+</tr>
+<tr>
+<td><strong>devcontainer</strong></td>
+<td>整个开发环境</td>
+<td><strong>是</strong></td>
+<td>团队统一环境、无人值守跑</td>
+</tr>
+<tr>
+<td><strong>自定义容器 / 虚拟机</strong></td>
+<td>整个环境 / 整个操作系统</td>
+<td>容器要、VM 不要</td>
+<td>跑不信任的代码、要内核级隔离</td>
+</tr>
+<tr>
+<td><strong>Claude Code on the web</strong>（<a href="11-web-and-cloud.html">第 11 篇</a>）</td>
+<td>整个操作系统，Anthropic 托管</td>
+<td>否</td>
+<td>不想自己搭环境、没本地环境也能用</td>
+</tr>
+</tbody></table>
+<p>把这几种方式按「圈得有多严」从左到右排一排，你心里就有杆秤了——<strong>越往右隔离越强、配起来越费劲，按你对代码的信任程度往右挪</strong>：</p>
+<p><img src="assets/46-isolation-levels@2x.png" alt="Claude Code 五级隔离梯度：不开 → 自带沙箱 → devcontainer → 容器/VM → 云端托管"></p>
+<p>这张图把五档隔离强度连成一条线：最左是「啥都不隔离、Claude 直接在你主机动手」，往右每一档圈的范围更大、隔离更硬——从只管 Bash 命令的自带沙箱，到圈住整个开发环境的 devcontainer，再到内核级的虚拟机，最右是 Anthropic 替你托管的云端隔离。<strong>你对手上这份代码越没底，就越该往右边挑。</strong></p>
+<p>官方给的选择口诀我替你浓缩成三句：</p>
+<ul>
+<li><strong>自己机器日常想少问 → 自带沙箱</strong>，一条 <code>/sandbox</code> 搞定。</li>
+<li><strong>团队要一致环境 / 想无人值守 → devcontainer</strong>，提交进仓库全队共用。</li>
+<li><strong>代码完全不信任 → 专用虚拟机或网页版</strong>，要内核级的硬隔离。</li>
+</ul>
+<p>落到实践上：个人项目就开自带沙箱；接外部不熟的仓库，要么 devcontainer 要么干脆扔进 Claude Code on the web 那个云端隔离环境里跑——开头那一下午的「人肉监控」，要是当时知道有网页版，根本不用受那个罪。</p>
+<blockquote>
+<p>💡 一句话总结：devcontainer 是给全队发一间「配置一致的独立工作间」——<strong>命令在容器里跑（碰不到主机密钥）、改动直接落本地仓库</strong>，靠 <code>.devcontainer/devcontainer.json</code> 加一段 feature 开；它跟自带沙箱的区别是<strong>圈整个环境 vs 只圈 Bash</strong>，按信任程度往上选。</p>
+</blockquote>
+<hr>
+<h2>04 网络配置：公司在防火墙后面，怎么让它连得上</h2>
+<p>这一节专门给两类人：<strong>在公司内网、流量得过代理的</strong>，和<strong>国内连不上 Anthropic 的</strong>。环境正常的可以快速扫一眼跳过。</p>
+<h3>它解决的是「连不通」</h3>
+<p>Claude Code 要干活，得连得上 Anthropic 的服务器（或你配的第三方提供商）。但公司网络常常横着几道关：所有出网流量必须走公司代理、公司装了 TLS 检查（自签证书）、防火墙只放行白名单里的域名。任何一道没配对，Claude Code 就连不上，卡在登录或第一次请求那儿。</p>
+<p><strong>类比：进了一栋管理严格的写字楼。</strong> 你（Claude Code）想往外打电话，但这楼里<strong>所有外线都得先转总机（代理服务器）</strong>，你直拨打不出去；楼里还装了套<strong>安检设备查每个出入的包裹（TLS 检查）</strong>，你得认得安检章（自签证书）才肯放行。网络配置干的就是「告诉 Claude Code 总机号码是多少、安检章长什么样」。</p>
+<p>这块官方有句话先记住：所有这些都能用环境变量配，也都能写进 <code>settings.json</code>。下面为了直观，统一用环境变量演示。</p>
+<h3>代理：三个标准环境变量</h3>
+<p>Claude Code 认标准的代理环境变量，在终端里 export 一下就行：</p>
+<pre><code class="language-bash"># HTTPS 代理（推荐）
+export HTTPS_PROXY=https://proxy.example.com:8080
+
+# HTTP 代理（HTTPS 不可用时）
+export HTTP_PROXY=http://proxy.example.com:8080
+
+# 这些地址绕过代理、直连
+export NO_PROXY=&quot;localhost,127.0.0.1,.internal.company.com&quot;
+</code></pre>
+<p>两个坑得提醒：<strong>第一，Claude Code 不支持 SOCKS 代理</strong>，只认 HTTP / HTTPS，公司给的要是 SOCKS 你得另找网关。第二，代理要是需要账号密码，塞进 URL 里（<code>http://user:pass@proxy...</code>），但<strong>别把密码硬编码进脚本</strong>，用环境变量或安全凭据存储。</p>
+<h3>自签证书：一行指向你的 CA</h3>
+<p>公司用 TLS 检查代理（像 Zscaler、CrowdStrike 这类）的话，Claude Code 默认同时信任自带的 Mozilla CA 证书集和操作系统的证书库——<strong>只要公司的根证书装进了系统信任库，通常啥都不用配就能用</strong>。要是还不行，手动指一下你的自定义 CA 证书：</p>
+<pre><code class="language-bash">export NODE_EXTRA_CA_CERTS=/path/to/your-company-ca.pem
+</code></pre>
+<h3>防火墙白名单：这几个域名要放行</h3>
+<p>如果你管防火墙，或者要给 IT 提需求，<strong>这是 Claude Code 需要访问的核心域名</strong>（直连 Anthropic 时）：</p>
+<table>
+<thead>
+<tr>
+<th>域名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>api.anthropic.com</code></td>
+<td>Claude API 请求（最核心）</td>
+</tr>
+<tr>
+<td><code>claude.ai</code></td>
+<td>claude.ai 账户登录认证</td>
+</tr>
+<tr>
+<td><code>platform.claude.com</code></td>
+<td>Anthropic 控制台账户认证</td>
+</tr>
+<tr>
+<td><code>downloads.claude.ai</code></td>
+<td>插件下载、原生安装器和自动更新</td>
+</tr>
+<tr>
+<td><code>storage.googleapis.com</code></td>
+<td>v2.1.116 版本前的原生安装器和自动更新（旧版本）</td>
+</tr>
+<tr>
+<td><code>bridge.claudeusercontent.com</code></td>
+<td>Chrome 扩展 WebSocket 桥接</td>
+</tr>
+<tr>
+<td><code>raw.githubusercontent.com</code></td>
+<td><code>/release-notes</code> 更新日志源和插件市场安装计数</td>
+</tr>
+</tbody></table>
+<p><strong>国内用户重点看这条</strong>：<code>api.anthropic.com</code>、<code>claude.ai</code> 这些在国内直连大概率不通，<strong>你需要「魔法上网」</strong>，或者走<a href="04-api-config.html">第 04 篇</a> / <a href="05-third-party-models.html">第 05 篇</a>讲的第三方中转、国产模型路线。这一节的代理配置，本质也能拿来指向你的中转网关。要是你用的是 Amazon Bedrock、Google Vertex 这类第三方提供商，模型流量走的是它们的地址，就不必放行上面这几个 Anthropic 域名了。</p>
+<p>在有 Zscaler 的公司里，常见的情形是头一天死活登录不上，以为是账号问题折腾了半天。等 IT 把公司根证书推到系统信任库里，<strong>啥环境变量都没配，重启终端就通了</strong>——所以遇到 TLS 报错先别急着 export 一堆变量，<strong>先确认公司根证书在不在系统信任库</strong>，十有八九是这事。</p>
+<blockquote>
+<p>💡 一句话总结：公司在代理 / 防火墙后面时，用 <code>HTTPS_PROXY</code> 告诉它总机号码（<strong>不支持 SOCKS</strong>）、用 <code>NODE_EXTRA_CA_CERTS</code> 认自签证书（<strong>但根证书进了系统库通常免配</strong>），防火墙放行 <code>api.anthropic.com</code> 等几个核心域；<strong>国内直连不通，记得魔法上网或走中转</strong>。</p>
+</blockquote>
+<hr>
+<h2>05 终端配置：换行、通知、配色——三样最值得调的</h2>
+<p>前面几块都是「正经事」，这一节轻松点，但<strong>对日常手感影响最大</strong>。Claude Code 在任何终端里不配置都能跑，这节只解决「某个地方用着别扭」。我挑出最多人卡的三样。</p>
+<h3>一：<code>Shift+Enter</code> 不换行，反而提交了</h3>
+<p>这是新手第一天就会撞的墙。你想多行输入，按 <code>Shift+Enter</code> 想换行，结果消息直接提交了。</p>
+<p><strong>先记一个万能后路：任何终端里，<code>Ctrl+J</code> 都能换行</strong>，或者输入 <code>\</code> 再按 <code>Enter</code>，这俩到处都好使、不用任何配置。</p>
+<p><code>Shift+Enter</code> 行不行，看你用的终端：</p>
+<table>
+<thead>
+<tr>
+<th>终端</th>
+<th><code>Shift+Enter</code> 换行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>iTerm2、Ghostty、Kitty、Apple Terminal、Windows Terminal、WezTerm、Warp</td>
+<td>不用配，直接能用</td>
+</tr>
+<tr>
+<td>VS Code、Cursor、Devin Desktop、Alacritty、Zed</td>
+<td>跑一次 <code>/terminal-setup</code></td>
+</tr>
+<tr>
+<td>gnome-terminal、JetBrains IDE（PyCharm 等）</td>
+<td>用不了；改用 <code>Ctrl+J</code> 或 <code>\</code> 然后 <code>Enter</code></td>
+</tr>
+</tbody></table>
+<p>中间那档（VS Code、Cursor 这些），在会话里跑一次：</p>
+<pre><code class="language-text">/terminal-setup
+</code></pre>
+<p>它会把 <code>Shift+Enter</code> 的键位写进终端配置（已有的绑定不动），跑完重启编辑器就生效。这命令要直接在主机终端里跑，<strong>别在 tmux 或 screen 里头跑</strong>，因为它得写主机终端的配置。</p>
+<h3>二：跑完任务没动静，我老切走就忘了</h3>
+<p>长任务跑起来，你切去刷别的，结果它跑完了 / 卡在权限提示等你，你压根没注意，白等。解法是让它<strong>完成时响一声或弹个桌面通知</strong>。</p>
+<p>默认情况下，<strong>只有 Ghostty、Kitty、iTerm2 这三个终端会发桌面通知</strong>。其他终端，在 <code>~/.claude/settings.json</code> 里把 <code>preferredNotifChannel</code> 设成 <code>&quot;terminal_bell&quot;</code>，让它改成响终端铃：</p>
+<pre><code class="language-json">{
+  &quot;preferredNotifChannel&quot;: &quot;terminal_bell&quot;
+}
+</code></pre>
+<p>在 iTerm2 上把这个配好之后，<strong>挂着长任务去倒杯咖啡，回来一看进度，效率高了不止一点</strong>——不然就是干等着盯屏幕，生怕错过那个权限提示。想要更花哨的（比如播个自定义音效），还能配「通知钩子」，那属于<a href="33-hooks.html">第 33 篇</a> Hook 的范畴，这里知道有这条路就行。</p>
+<h3>三：配色跟终端不搭，看着累</h3>
+<p>Claude Code 的界面配色可以跟你终端的明暗主题对齐。在会话里：</p>
+<pre><code class="language-text">/theme
+</code></pre>
+<p>选「自动」那档，它会<strong>跟着你系统的明暗外观自动切</strong>（系统切深色它跟着深色）。注意一点：<strong>Claude Code 只管自己界面的配色，管不了你终端本身的配色方案</strong>，那个得在终端 app 里设。要更细的还能自定义颜色，不过那是锦上添花，先把主题选对就够了。</p>
+<p>顺带提一句：macOS 上不少 <code>Option+</code> 开头的快捷键（比如 <code>Option+P</code> 换模型）默认不生效，得先在终端里把 Option 配成 Meta 键（iTerm2 在「设置 → 配置文件 → 键」里把左 / 右 Option 设成「Esc+」）。这块<a href="35-modes-and-control.html">第 35 篇</a>详细讲过，这里不重复。还有 Vim 党：<code>/config</code> 里把编辑器模式设成 <code>vim</code>，输入框就能用 Vim 手势编辑了。</p>
+<blockquote>
+<p>💡 一句话总结：终端配置只解决「用着别扭」——<strong>换行不灵跑 <code>/terminal-setup</code>（万能后路是 <code>Ctrl+J</code>）、没提示音设 <code>preferredNotifChannel</code> 为 <code>&quot;terminal_bell&quot;</code>、配色不搭用 <code>/theme</code> 选自动</strong>；三样调顺，日常手感立马不一样。</p>
+</blockquote>
+<hr>
+<h2>06 模型配置：派老师傅还是学徒，你说了算</h2>
+<p>最后一块，<strong>模型配置</strong>——直接关系到「贵不贵、聪不聪明」。<a href="04-api-config.html">第 04 篇</a>、<a href="06-coding-plan.html">第 06 篇</a>讲过怎么接模型、怎么计费，这一节只讲「怎么按任务挑、怎么换、怎么省」。</p>
+<h3>它解决的是「拿大炮打蚊子」</h3>
+<p>Claude Code 有好几个模型可选，能力和价钱差着档。<strong>默认未必是你这个活儿最划算的那个</strong>——拿最贵最强的去跑「改个错别字」这种小事，纯属烧钱。</p>
+<p><strong>类比：餐厅排班，大厨、普通厨师、学徒。</strong> 米其林大厨（Opus）手艺最好但工钱最贵，招牌硬菜交给他；家常菜普通厨师（Sonnet）就拿得下，日常出餐全靠他；洗菜切配这种活儿，学徒（Haiku）又快又省。<strong>好的店长不会让大厨去洗菜</strong>——按菜的难度排人，才不亏钱。模型配置就是让你当这个店长。</p>
+<p>官方用「<strong>模型别名（alias）</strong>」帮你免去记一长串版本号，常用的几个：</p>
+<table>
+<thead>
+<tr>
+<th>别名</th>
+<th>派的是谁</th>
+<th>干什么活</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>opus</code></strong></td>
+<td>最强的 Opus</td>
+<td>复杂推理、架构设计这类硬骨头</td>
+</tr>
+<tr>
+<td><strong><code>sonnet</code></strong></td>
+<td>最新 Sonnet</td>
+<td>日常编程，绝大多数活儿的主力</td>
+</tr>
+<tr>
+<td><strong><code>haiku</code></strong></td>
+<td>快又省的 Haiku</td>
+<td>简单任务、对速度敏感的活儿</td>
+</tr>
+<tr>
+<td><strong><code>opusplan</code></strong></td>
+<td>规划时 Opus、执行时 Sonnet</td>
+<td>计划模式用 Opus 想清楚，动手时自动切 Sonnet 省钱</td>
+</tr>
+<tr>
+<td><strong><code>default</code></strong></td>
+<td>你账户档位推荐的那个</td>
+<td>清掉一切覆盖，回到默认</td>
+</tr>
+</tbody></table>
+<p>那个 <strong><code>opusplan</code></strong> 得专门夸一句——它是「两全其美」的精打细算玩法：<strong>在计划模式（Plan Mode）里用 Opus 帮你把方案想周全，你一批准进入执行，它自动切成 Sonnet 来写代码</strong>。难的部分花 Opus 的钱，重复劳动用 Sonnet 的价。跑稍微复杂点的重构，基本都可以挂 <code>opusplan</code>，体感是「该聪明的时候聪明、该省的时候省」。</p>
+<p>别名还有个好处官方点过：<strong>它指向「你的提供商当前推荐的那一版」，会随时间更新</strong>。也就是说你写 <code>opus</code>，新版 Opus 一出，你不用改配置就自动用上了。要是你非得钉死在某个版本（团队要可复现），那就别用别名，直接写完整模型名（像 <code>claude-opus-4-8</code>）。</p>
+<h3>怎么换：四种方式，按优先级</h3>
+<p>官方给了四种设模型的途径，<strong>按优先级从临时到永久</strong>：</p>
+<pre><code class="language-bash"># 1. 会话里临时切（最即时）
+/model sonnet
+
+# 2. 启动时指定（只管这一次启动）
+claude --model opus
+
+# 3. 环境变量（只管你启动的那个会话）
+export ANTHROPIC_MODEL=sonnet
+</code></pre>
+<pre><code class="language-json">// 4. 写进 settings.json 的 model 字段（永久默认）
+{
+  &quot;model&quot;: &quot;opusplan&quot;
+}
+</code></pre>
+<p>记一个实用判断：<strong>临时换一下用 <code>/model</code>，想固定成某个项目 / 某个人的默认就写 <code>settings.json</code> 的 <code>model</code> 字段</strong>（放哪一层看<a href="31-settings-json.html">第 31 篇</a>）。要注意项目设置和企业托管设置优先级更高，会盖过你个人的选择——所以要是你发现「我明明设了 Opus，启动却是别的」，多半是被项目里的 <code>model</code> 字段压住了。</p>
+<h3>同一个模型，还能再调「用多少脑子」</h3>
+<p>挑完模型，其实还有一层旋钮叫<strong>努力级别（effort level）</strong>——它控制模型「思考多深」。同一个 Opus，你可以让它「快速过一遍」，也可以让它「往死里想」，对应的就是 token 花得少还是多。</p>
+<p><strong>类比：还是那位大厨，今天是随手颠两下勺，还是慢工细炖。</strong> 同一个人，火候和用心程度可以不一样——简单的家常菜随手就出，硬菜才慢慢吊汤。努力级别就是给模型调这个「用心程度」，官方列了五档：<code>low</code> 省钱快出、<code>medium</code> 轻量平衡、<code>high</code>（Opus 4.8/4.6 和 Sonnet 4.6 的默认）平衡推理与成本、<code>xhigh</code> 更深推理（Opus 4.7 的默认）、<code>max</code> 「不计成本往深里想」。</p>
+<p>最实用的两个用法：</p>
+<ul>
+<li><strong>临时让它好好想想</strong>：在提示里任何地方加一个 <code>ultrathink</code> 关键词，这一轮它就会想得更深，不改你的会话设置。注意只有 <code>ultrathink</code> 这个词管用，「想清楚点」「好好想」这种普通话不算。</li>
+<li><strong>固定调级别</strong>：在会话里跑 <code>/effort</code> 打开滑块选，或者写进 <code>settings.json</code> 的 <code>effortLevel</code> 字段。</li>
+</ul>
+<p>一个顺手的习惯：日常默认级别就够，<strong>只有碰到那种「绕来绕去的逻辑 bug」才在提示里甩个 <code>ultrathink</code></strong>，让它这一轮多烧点 token 把根因想透——比起反复来回问，这一下反而更省。</p>
+<h3>省钱小贴士：给团队锁可选模型</h3>
+<p>如果你是带团队的，可以用 <code>availableModels</code> <strong>把成员能选的模型限死</strong>——比如只许用 Sonnet 和 Haiku，不让随便切到贵的 Opus：</p>
+<pre><code class="language-json">{
+  &quot;availableModels&quot;: [&quot;sonnet&quot;, &quot;haiku&quot;]
+}
+</code></pre>
+<p>设了之后，成员通过 <code>/model</code>、<code>--model</code>、环境变量都切不到列表外的模型。<strong>对控团队成本特别实在。</strong> 在一个预算敏感的项目里这么干，把默认锁 Sonnet、Opus 直接从可选列表里拿掉，<strong>当月的 token 消耗肉眼可见地降了下来</strong>，该用 Opus 的硬活儿，让管理员临时在白名单里加上 opus 再用就行。</p>
+<blockquote>
+<p>💡 一句话总结：模型配置让你当「排班店长」——<strong>硬活派 <code>opus</code>、日常用 <code>sonnet</code>、简单活 <code>haiku</code>，想又聪明又省钱挂 <code>opusplan</code></strong>；临时换用 <code>/model</code>、永久默认写 <code>settings.json</code>、带团队用 <code>availableModels</code> 锁成本；还能用 <code>ultrathink</code> / <code>/effort</code> 调「用多少脑子」。</p>
+</blockquote>
+<hr>
+<h2>07 动手：开沙箱 + 锁模型，亲手验一遍</h2>
+<p>光看不练假把式。这一节带你把最实用的两块——<strong>沙箱</strong>和<strong>模型</strong>——亲手配一遍并验证。全程在 macOS / Linux / WSL2 上跑（原生 Windows 请在 WSL2 里）；用最小操作，不依赖你已有的复杂环境。</p>
+<p><strong>第一步：开沙箱</strong>（在 <code>claude</code> 会话里）</p>
+<pre><code class="language-text">/sandbox
+</code></pre>
+<p><strong>预期</strong>：弹出沙箱面板。在 <strong>Mode</strong> 选项卡选「自动允许」（Auto-allow）。<strong>看到面板出来 = 沙箱在你这平台可用</strong>。如果只显示一个 Dependencies 选项卡（Linux / WSL2 常见），说明缺 <code>bubblewrap</code> / <code>socat</code>——按提示装上（<code>sudo apt-get install bubblewrap socat</code>），重启 Claude Code 再来。</p>
+<p><strong>第二步：让它在沙箱里跑条命令验证</strong></p>
+<p>在会话里敲（让它做一件只写当前目录的小事）：</p>
+<pre><code class="language-text">在当前目录建一个 sandbox-test.txt 文件，里面写一行 hello sandbox
+</code></pre>
+<p><strong>预期</strong>：这条命令在沙箱里跑，<strong>不再弹权限提示</strong>（因为你选了自动允许、而且它只写工作目录——正好在沙箱默认允许的范围内）。跑完目录里多出 <code>sandbox-test.txt</code>。<strong>没被问权限就直接建好了 = 沙箱的自动允许生效了。</strong>（验完可以让它把这个测试文件删掉。）</p>
+<p><strong>第三步：看一眼当前用的什么模型</strong></p>
+<pre><code class="language-text">/status
+</code></pre>
+<p><strong>预期</strong>：<code>/status</code> 面板里会显示当前账户和<strong>正在用的模型</strong>。先记下来它现在是谁（比如 <code>Sonnet</code> 或 <code>Opus</code>）。</p>
+<p><strong>第四步：临时切个模型，再验一次</strong></p>
+<pre><code class="language-text">/model haiku
+</code></pre>
+<p><strong>预期</strong>：提示已切到 Haiku。再敲一次 <code>/status</code>，<strong>模型那栏应该变成了 Haiku</strong>。<strong>前后两次 <code>/status</code> 的模型不一样 = 你的 <code>/model</code> 切换确实生效了。</strong> 验完想切回去，再 <code>/model sonnet</code> 或 <code>/model default</code> 即可。</p>
+<p><strong>第五步（可选）：把默认模型写进配置</strong></p>
+<p>如果你想让这个项目以后默认就用某个模型，在项目的 <code>.claude/settings.json</code> 里加一行：</p>
+<pre><code class="language-json">{
+  &quot;model&quot;: &quot;sonnet&quot;
+}
+</code></pre>
+<p><strong>预期</strong>：下次在这个项目启动 <code>claude</code>，<code>/status</code> 里的模型默认就是 Sonnet 了（除非被你 <code>/model</code> 临时盖掉）。</p>
+<p>跑通这五步，你就把「开隔离 → 验隔离 → 看模型 → 换模型 → 固化默认」这条最常用的开发配置链路亲手走了一遍。<strong>以后调任何一块开发配置，本质都是这套路子：改配置 → 跑一下 → 用 <code>/status</code> 之类的命令验证它真生效。</strong></p>
+<blockquote>
+<p>💡 一句话总结：动手把两件最实用的事验一遍——<strong><code>/sandbox</code> 开隔离（让小命令不再问你）、<code>/model</code> 切模型 + <code>/status</code> 验证前后变化</strong>；记住「改完一定回头验」，别只改不验。</p>
+</blockquote>
+<hr>
+<h2>08 小结</h2>
+<p>这一篇把开发配置里最常用的五块，一块块调了一遍——<strong>说白了，就是给 Claude 这个工人，把工位安排顺</strong>。</p>
+<p>把核心要点串起来回顾：</p>
+<table>
+<thead>
+<tr>
+<th>这块配置</th>
+<th>一句话怎么用</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>沙箱</strong></td>
+<td><code>/sandbox</code> 开，选自动允许</td>
+<td>只圈 Bash；文件 / MCP / Hook 还在主机裸跑</td>
+</tr>
+<tr>
+<td><strong>devcontainer</strong></td>
+<td><code>.devcontainer/devcontainer.json</code> 加 feature</td>
+<td>要 Docker；命令在容器跑、改动落本地</td>
+</tr>
+<tr>
+<td><strong>网络</strong></td>
+<td><code>HTTPS_PROXY</code> + <code>NODE_EXTRA_CA_CERTS</code></td>
+<td>不支持 SOCKS；国内直连不通要魔法上网</td>
+</tr>
+<tr>
+<td><strong>终端</strong></td>
+<td><code>/terminal-setup</code>、<code>/theme</code>、通知设置</td>
+<td>万能换行后路是 <code>Ctrl+J</code></td>
+</tr>
+<tr>
+<td><strong>模型</strong></td>
+<td><code>/model</code> 临时切、<code>settings.json</code> 固定</td>
+<td><code>opusplan</code> 两全；<code>availableModels</code> 控团队成本</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 碰到「Claude 老问权限」知道开沙箱、碰到「不信任的代码」知道升级到容器或网页版、在公司防火墙后面知道配代理和证书、<code>Shift+Enter</code> 不换行知道跑 <code>/terminal-setup</code>、烧额度太快知道按任务挑模型甚至用 <code>opusplan</code> 和 <code>availableModels</code> 省钱。<strong>这套「工作环境」调顺了，Claude 才能既跑得安全、又用得顺手、还不烧冤枉钱。</strong></p>
+<p>回头看开头那一下午的「人肉监控」——<strong>要是会开沙箱、或者干脆扔进网页版隔离环境，根本不用一手按着 <code>Ctrl+C</code> 干瞪眼一下午。</strong> 这就是开发配置的价值：平时不显眼，关键时刻替你扛事。</p>
+<hr>
+<p>下一篇 <strong>47「Voice 语音模式」</strong>（实验性，可能变化）——这一篇你把「手」的环境调顺了，下一篇换个更野的输入方式：<strong>用嘴说</strong>。想想看，你写代码时双手在键盘上忙不过来，要是能直接开口跟 Claude 交代「把这个函数重构一下」，是不是又解放了一只手？语音这块还很新，下一篇带你看看它现在能干到哪一步。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/45-agent-sdk.html"><span class="mono">← 上一篇 · 45</span><b>Agent SDK：把 Claude Code 的能力搬进你自己的程序</b></a>
+  <a class="pg nx" href="/library/claude-code/47-voice.html"><span class="mono">下一篇 · 47 →</span><b>Voice 语音模式：把提示词说出来，而不是打出来</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

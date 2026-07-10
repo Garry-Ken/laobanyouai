@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>方案 D · 战役 — 老板有AI</title>
+<style>
+  /* ============================================================
+     方案 D「战役」—— 瑞士网格骨架 × 经营作战台
+     纸白 / 暖墨 / 信号红(唯一重音) / 核验绿(仅语义)。
+     签名元素:首屏可交互「经营诊断台」;第二记忆点:闭环电路。
+     ============================================================ */
+  :root {
+    --paper: #fbfbf8;
+    --ink: #17160f;
+    --ink-2: #3a382c;
+    --muted: #6e6b5e;
+    --faint: #a3a091;
+    --rule: #e6e4db;
+    --rule-2: #c9c6b8;
+    --signal: #e2340b;
+    --signal-dim: #f7d9d1;
+    --verify: #1a7a4c;
+    --band: #12110b;
+    --band-fg: #f0eee4;
+    --band-muted: #979482;
+    --band-rule: #34322a;
+    --sans: -apple-system, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", "Segoe UI", sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --rail: clamp(1.25rem, 4vw, 3.5rem);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; text-size-adjust: 100%; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--sans); font-size: 16px; line-height: 1.8;
+  }
+  ::selection { background: var(--signal); color: #fff; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+
+  /* 页面双轨:全页左右两条结构线,像图纸的裁切线 */
+  .rails::before, .rails::after {
+    content: ""; position: fixed; top: 0; bottom: 0; width: 1px;
+    background: var(--rule); z-index: 0;
+  }
+  .rails::before { left: var(--rail); }
+  .rails::after { right: var(--rail); }
+  @media (max-width: 720px) { .rails::before, .rails::after { display: none; } }
+
+  .wrap { max-width: 82rem; margin: 0 auto; padding-inline: calc(var(--rail) + clamp(1rem, 2.5vw, 2.5rem)); position: relative; }
+
+  .mono { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; }
+  .mono.red { color: var(--signal); }
+  .mono.dim { color: var(--muted); }
+
+  .display { font-weight: 700; letter-spacing: -0.03em; }
+
+  /* 十字准星:图纸交点 */
+  .cross { position: relative; }
+  .cross::before, .cross::after {
+    font-family: var(--mono); font-size: 0.85rem; color: var(--rule-2);
+    position: absolute; line-height: 1; content: "+";
+  }
+  .cross::before { top: -0.45em; left: calc(var(--rail) - 0.28em); }
+  .cross::after { top: -0.45em; right: calc(var(--rail) - 0.28em); }
+  @media (max-width: 720px) { .cross::before, .cross::after { display: none; } }
+
+  /* ============ 导航 ============ */
+  header {
+    position: sticky; top: 0; z-index: 90;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 66px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand .mark {
+    width: 30px; height: 30px; background: var(--ink); color: var(--paper);
+    display: grid; place-items: center; font-family: var(--mono); font-size: 0.8rem; font-weight: 700;
+  }
+  .brand:hover .mark { background: var(--signal); }
+  .brand b { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.02em; white-space: nowrap; }
+  .brand small { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--faint); margin-left: 2px; }
+  .nav nav { display: flex; align-items: center; gap: 0.2rem; }
+  .nav nav a {
+    text-decoration: none; font-size: 0.85rem; font-weight: 500; color: var(--muted);
+    padding: 0.45rem 0.85rem; transition: color 0.15s; white-space: nowrap;
+  }
+  @media (max-width: 720px) {
+    .brand small { display: none; }
+    .nav nav a.cta { padding: 0.5rem 1rem; }
+  }
+  .nav nav a:hover { color: var(--ink); }
+  .nav nav a.on { color: var(--ink); font-weight: 600; position: relative; }
+  .nav nav a.on::after { content: ""; position: absolute; left: 0.85rem; right: 0.85rem; bottom: 0.1rem; height: 2px; background: var(--signal); }
+  .nav nav a.cta {
+    margin-left: 0.7rem; background: var(--ink); color: var(--paper); font-weight: 600;
+    padding: 0.55rem 1.3rem; transition: background 0.15s;
+  }
+  .nav nav a.cta:hover { background: var(--signal); color: #fff; }
+  @media (max-width: 880px) { .nav nav a:not(.cta):not(.on) { display: none; } }
+
+  /* ============ 章节标尺行 ============ */
+  .ruler {
+    display: flex; align-items: baseline; gap: 1.1rem;
+    padding: 1.05rem 0; border-bottom: 1px solid var(--rule);
+  }
+  .ruler .idx { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; color: var(--signal); }
+  .ruler .name { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .ruler .fill { flex: 1; }
+  .ruler .tick { font-family: var(--mono); font-size: 0.7rem; color: var(--faint); letter-spacing: 0.1em; }
+
+  /* ============ Hero ============ */
+  .hero { border-bottom: 1px solid var(--rule); position: relative; overflow: hidden; }
+  .hero-grid {
+    display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(21rem, 1fr);
+    gap: clamp(2.5rem, 5vw, 5rem); align-items: center;
+    padding: clamp(3.5rem, 8vh, 6.5rem) 0 clamp(3rem, 7vh, 5.5rem);
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 5.9vw, 4.9rem); line-height: 1.14; font-weight: 700;
+    letter-spacing: -0.035em; text-wrap: balance;
+  }
+  .hero h1 .row { display: block; }
+  .hero h1 .hl { color: var(--signal); }
+  .hero .kicker { display: inline-flex; align-items: center; gap: 0.7rem; margin-bottom: 1.9rem; }
+  .hero .kicker .pulse { width: 8px; height: 8px; background: var(--signal); }
+  .hero .sub { margin-top: 2rem; max-width: 30em; color: var(--muted); font-size: 1.03rem; }
+  .actions { margin-top: 2.6rem; display: flex; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    padding: 1rem 2.1rem; font-size: 0.92rem; font-weight: 600; text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn.solid { background: var(--ink); color: var(--paper); }
+  .btn.solid:hover { background: var(--signal); color: #fff; }
+  .btn.line { border: 1px solid var(--rule-2); margin-left: -1px; color: var(--ink); }
+  .btn.line:hover { border-color: var(--ink); }
+  .btn .arr { font-family: var(--mono); font-size: 0.85em; }
+
+  /* —— 签名元素:经营诊断台 —— */
+  .console {
+    border: 1px solid var(--ink); background: #fff;
+    box-shadow: 6px 6px 0 var(--rule);
+  }
+  .console-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 0.8rem 1.2rem; border-bottom: 1px solid var(--ink); background: var(--paper);
+  }
+  .console-head .status { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .console-head .status i { width: 7px; height: 7px; border-radius: 50%; background: var(--verify); }
+  .console-q { padding: 1.3rem 1.2rem 0.4rem; font-size: 1.02rem; font-weight: 700; letter-spacing: -0.01em; }
+  .console-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; padding: 0.9rem 1.2rem 1.1rem; }
+  .console-grid button {
+    font-family: var(--sans); font-size: 0.88rem; font-weight: 600; color: var(--ink);
+    background: var(--paper); border: 1px solid var(--rule-2); padding: 0.68rem 0.2rem;
+    cursor: pointer; transition: all 0.12s; letter-spacing: 0.04em;
+  }
+  .console-grid button:hover { border-color: var(--ink); }
+  .console-grid button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .console-out { border-top: 1px dashed var(--rule-2); padding: 1.15rem 1.2rem 1.3rem; min-height: 11.2rem; display: flex; flex-direction: column; }
+  .console-out .slot-title { display: flex; align-items: baseline; gap: 0.7rem; }
+  .console-out .slot-title b { font-size: 1.06rem; font-weight: 700; }
+  .console-out .desc { margin-top: 0.55rem; font-size: 0.85rem; line-height: 1.75; color: var(--ink-2); }
+  .console-out .note { margin-top: 0.5rem; font-size: 0.78rem; line-height: 1.7; color: var(--muted); }
+  .console-out .note::before { content: "打法 · "; color: var(--signal); font-weight: 600; }
+  .console-out .go {
+    margin-top: auto; padding-top: 0.9rem; align-self: flex-start;
+    font-size: 0.85rem; font-weight: 700; color: var(--signal); text-decoration: none;
+    border-bottom: 2px solid var(--signal-dim); padding-bottom: 2px;
+  }
+  .console-out .go:hover { border-bottom-color: var(--signal); }
+  .console-out .hint { color: var(--muted); font-size: 0.85rem; margin: auto 0; text-align: center; padding: 1rem 0; }
+  .console-foot { border-top: 1px solid var(--rule); padding: 0.7rem 1.2rem; }
+  @media (max-width: 980px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .console-grid { grid-template-columns: repeat(5, 1fr); }
+  }
+  @media (max-width: 560px) { .console-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  /* ============ 五类问题:岗位说明书 ============ */
+  section.block { padding-bottom: clamp(4.5rem, 10vh, 8rem); }
+  .head { max-width: 46rem; padding-top: clamp(3rem, 7vh, 5rem); }
+  .head h2 { font-size: clamp(1.9rem, 3.8vw, 3.1rem); line-height: 1.2; font-weight: 700; letter-spacing: -0.03em; text-wrap: balance; }
+  .head .desc { margin-top: 1.3rem; color: var(--muted); max-width: 38em; }
+
+  .plist { margin-top: 3.2rem; border-top: 2px solid var(--ink); }
+  .prow {
+    display: grid; grid-template-columns: 7rem 12rem 1fr 9rem;
+    gap: clamp(1.2rem, 3vw, 2.6rem); align-items: baseline;
+    padding: 1.9rem 0; border-bottom: 1px solid var(--rule);
+    position: relative; transition: background 0.15s;
+  }
+  .prow:hover { background: #fff; }
+  .prow .idx {
+    font-family: var(--mono); font-size: 2rem; font-weight: 500; letter-spacing: -0.02em;
+    color: var(--faint); font-variant-numeric: tabular-nums; transition: color 0.15s;
+  }
+  .prow:hover .idx { color: var(--signal); }
+  .prow h3 { font-size: 1.28rem; font-weight: 700; letter-spacing: -0.01em; }
+  .prow .d1 { font-size: 0.93rem; color: var(--ink-2); }
+  .prow .d2 { margin-top: 0.45rem; font-size: 0.82rem; color: var(--muted); }
+  .prow .d2::before { content: "打法 — "; color: var(--signal); font-weight: 600; }
+  .prow .state { justify-self: end; display: inline-flex; align-items: center; gap: 0.45rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; color: var(--verify); white-space: nowrap; }
+  .prow .state::before { content: "✓"; font-weight: 700; }
+  @media (max-width: 980px) {
+    .prow { grid-template-columns: 4.5rem 1fr; }
+    .prow .d { grid-column: 2; }
+    .prow .state { grid-column: 2; justify-self: start; }
+  }
+  .diagnose { margin-top: 2.6rem; display: flex; justify-content: space-between; gap: 2rem; align-items: baseline; flex-wrap: wrap; }
+  .diagnose p { max-width: 32em; color: var(--muted); font-size: 0.95rem; }
+  .link { font-weight: 700; font-size: 0.9rem; text-decoration: none; border-bottom: 2px solid var(--signal-dim); padding-bottom: 2px; transition: border-color 0.15s, color 0.15s; }
+  .link:hover { color: var(--signal); border-bottom-color: var(--signal); }
+
+  /* ============ 六步闭环:电路 ============ */
+  .band { background: var(--band); color: var(--band-fg); border-block: 1px solid var(--band); }
+  .band .ruler { border-color: var(--band-rule); }
+  .band .ruler .name { color: var(--band-muted); }
+  .band .ruler .tick { color: #5c594c; }
+  .band .head h2 { color: var(--band-fg); }
+  .band .head .desc { color: var(--band-muted); }
+
+  .circuit { margin-top: 3.4rem; position: relative; }
+  .steps { display: grid; grid-template-columns: repeat(6, 1fr); position: relative; list-style: none; }
+  /* 主走线 */
+  .steps::before { content: ""; position: absolute; top: 5px; left: 0; right: 0; height: 1px; background: var(--band-rule); }
+  .steps li { padding: 0 1.3rem 0 0; position: relative; }
+  .steps li .node {
+    position: relative; top: 0; width: 11px; height: 11px; background: var(--band);
+    border: 1px solid var(--band-muted); transform: rotate(45deg); margin-bottom: 1.4rem;
+  }
+  .steps li:hover .node, .steps li.lit .node { background: var(--signal); border-color: var(--signal); }
+  .steps li .sn { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--signal); }
+  .steps li h3 { margin-top: 0.55rem; font-size: 1.08rem; font-weight: 700; letter-spacing: -0.01em; color: var(--band-fg); }
+  .steps li p { margin-top: 0.5rem; font-size: 0.8rem; line-height: 1.72; color: var(--band-muted); }
+  /* 回环走线:06 → 01 */
+  .return {
+    margin-top: 2.8rem; border: 1px dashed var(--band-rule); border-top: 0;
+    height: 2.4rem; position: relative;
+    margin-inline: 5px calc(100% / 6 - 5px);
+  }
+  .return .lbl {
+    position: absolute; left: 50%; bottom: -0.72em; transform: translateX(-50%);
+    background: var(--band); padding: 0 1.1rem; white-space: nowrap;
+    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; color: var(--band-muted);
+  }
+  .return::before { content: ""; position: absolute; left: -4px; top: -6px; border: 5px solid transparent; border-bottom: 7px solid var(--signal); }
+  @media (max-width: 980px) {
+    .steps { grid-template-columns: repeat(2, 1fr); gap: 2.2rem 2rem; }
+    .steps::before { display: none; }
+    .steps li .node { margin-bottom: 0.9rem; }
+    .return { margin-inline: 5px 50%; height: 1.6rem; }
+  }
+  @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } .return { margin-inline: 5px 30%; } }
+
+  /* ============ 为什么再做一个 ============ */
+  .why { display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+  .why .lead { position: sticky; top: 96px; }
+  .why .lead h2 { font-size: clamp(1.8rem, 3.4vw, 2.7rem); line-height: 1.28; font-weight: 700; letter-spacing: -0.03em; text-wrap: balance; }
+  .why .lead h2 .hl { box-shadow: inset 0 -0.32em 0 var(--signal-dim); }
+  .why .lead .rule-red { margin-top: 1.7rem; width: 3.4rem; height: 4px; background: var(--signal); }
+  .why .body p { color: var(--ink-2); font-size: 0.98rem; }
+  .why .body p + p { margin-top: 1.5rem; }
+  .why .body strong { font-weight: 700; color: var(--ink); box-shadow: inset 0 -0.3em 0 var(--signal-dim); }
+  @media (max-width: 860px) { .why { grid-template-columns: 1fr; } .why .lead { position: static; } }
+
+  /* ============ 手册 / 案例:档案抽屉 ============ */
+  .drawers { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; margin-top: 3.2rem; }
+  .drawer { border: 1px solid var(--rule-2); background: #fff; transition: box-shadow 0.15s, transform 0.15s; display: flex; flex-direction: column; }
+  .drawer:hover { box-shadow: 5px 5px 0 var(--rule); transform: translate(-1px, -1px); }
+  .drawer .tab {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.7rem 1.4rem; border-bottom: 1px solid var(--rule);
+  }
+  .drawer .in { padding: 1.6rem 1.4rem 1.7rem; display: flex; flex-direction: column; flex: 1; }
+  .drawer h3 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
+  .drawer p { margin-top: 0.8rem; font-size: 0.9rem; color: var(--muted); flex: 1; }
+  .drawer .link { margin-top: 1.5rem; align-self: flex-start; }
+  @media (max-width: 800px) { .drawers { grid-template-columns: 1fr; } }
+
+  /* ============ 转化区:诊断单 ============ */
+  .intake {
+    margin-top: 3.2rem; border: 1px solid var(--ink); background: #fff;
+    box-shadow: 8px 8px 0 var(--rule);
+    display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .intake-form { padding: clamp(1.8rem, 4vw, 2.8rem); }
+  .intake-form h3 { font-size: clamp(1.45rem, 2.6vw, 2rem); font-weight: 700; letter-spacing: -0.02em; }
+  .intake-form .guide { margin-top: 0.9rem; color: var(--ink-2); font-size: 0.95rem; }
+  .fields { margin-top: 1.8rem; display: grid; gap: 1.15rem; max-width: 30rem; }
+  .field { display: grid; grid-template-columns: 9.5em 1fr; gap: 1rem; align-items: baseline; }
+  .field label { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--muted); }
+  .field .blank { border-bottom: 1px solid var(--rule-2); height: 1.5em; position: relative; }
+  .field .blank::after { content: ""; position: absolute; left: 0; bottom: -1px; width: 2.2em; height: 2px; background: var(--signal); }
+  .intake-form .note { margin-top: 1.6rem; font-size: 0.82rem; color: var(--muted); }
+  .intake-qr {
+    border-left: 1px dashed var(--rule-2); padding: clamp(1.8rem, 4vw, 2.6rem);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+    background: var(--paper);
+  }
+  .intake-qr img { display: block; width: 164px; height: 164px; object-fit: contain; }
+  .intake-qr .who { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--ink-2); font-weight: 600; }
+  .intake-qr .who i { width: 7px; height: 7px; border-radius: 50%; background: var(--verify); }
+  @media (max-width: 780px) {
+    .intake { grid-template-columns: 1fr; }
+    .intake-qr { border-left: 0; border-top: 1px dashed var(--rule-2); }
+  }
+
+  /* ============ 页脚 ============ */
+  footer { border-top: 1px solid var(--rule); background: #fff; }
+  .foot { display: flex; justify-content: space-between; gap: 3rem; flex-wrap: wrap; padding: 3.2rem 0 2.6rem; }
+  .foot .about { max-width: 21rem; }
+  .foot .about p { margin-top: 0.9rem; font-size: 0.85rem; color: var(--muted); }
+  .foot nav { display: grid; gap: 0.55rem; }
+  .foot nav a { font-size: 0.85rem; color: var(--ink-2); text-decoration: none; }
+  .foot nav a:hover { color: var(--signal); }
+  .legal {
+    border-top: 1px solid var(--rule); padding: 1.15rem 0 2.2rem;
+    display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint);
+  }
+
+  /* ============ 动效 ============ */
+  .rv { opacity: 0; transform: translateY(16px); transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
+  .rv.in { opacity: 1; transform: none; }
+  .hero h1 .row, .hero .kicker, .hero .sub, .hero .actions { opacity: 0; transform: translateY(18px); animation: rise 0.7s cubic-bezier(0.16,1,0.3,1) forwards; }
+  .hero .kicker { animation-delay: 0.05s; }
+  .hero h1 .row:nth-child(1) { animation-delay: 0.12s; }
+  .hero h1 .row:nth-child(2) { animation-delay: 0.2s; }
+  .hero .sub { animation-delay: 0.3s; }
+  .hero .actions { animation-delay: 0.38s; }
+  .hero .console { opacity: 0; animation: rise 0.7s cubic-bezier(0.16,1,0.3,1) 0.45s forwards; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .rv, .hero h1 .row, .hero .kicker, .hero .sub, .hero .actions, .hero .console { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body class="rails">
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/design/d.html"><span class="mark">板</span><b>老板有AI</b><small>LAOBANYOUAI.COM</small></a>
+    <nav>
+      <a class="on" href="/design/d.html">首页</a>
+      <a href="/cases.html">案例库</a>
+      <a href="/intel.html">AI 情报</a>
+      <a href="/library/">团队手册</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ============ Hero + 诊断台 ============ -->
+  <section class="hero cross">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="kicker"><i class="pulse"></i><span class="mono dim">面向中小企业老板 · 每月一场经营战役</span></span>
+          <h1 class="display">
+            <span class="row">让 AI 替你干活，</span>
+            <span class="row">而不是让老板<span class="hl">重新学</span>一门技术。</span>
+          </h1>
+          <p class="sub">面向中小企业老板的 AI 经营实战社区，每月解决一个真实经营问题。</p>
+          <div class="actions">
+            <a class="btn solid" href="/join.html">加入社区 <span class="arr">→</span></a>
+            <a class="btn line" href="/cases.html">看看案例长什么样</a>
+          </div>
+        </div>
+
+        <!-- 签名元素:经营诊断台 -->
+        <aside class="console" aria-label="经营诊断台">
+          <div class="console-head">
+            <span class="mono red">经营诊断台</span>
+            <span class="status mono dim"><i></i>第 001 期 · 招募中</span>
+          </div>
+          <p class="console-q">你的生意，现在卡在哪一环？</p>
+          <div class="console-grid" role="group" aria-label="选择卡住的环节">
+            <button type="button" data-k="acquire" aria-pressed="false">获客</button>
+            <button type="button" data-k="sales" aria-pressed="false">销售</button>
+            <button type="button" data-k="manage" aria-pressed="false">管理</button>
+            <button type="button" data-k="cost" aria-pressed="false">降本</button>
+            <button type="button" data-k="decide" aria-pressed="false">决策</button>
+          </div>
+          <div class="console-out" id="console-out" aria-live="polite">
+            <p class="hint">点一个试试 —— 每一类都有已经跑通的做法。</p>
+          </div>
+          <div class="console-foot mono dim">诊断免费 · 通常十分钟定位 · 不推销</div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 01 五类问题 ============ -->
+  <section class="block cross">
+    <div class="wrap">
+      <div class="ruler"><span class="idx">01</span><span class="name">解决什么</span><span class="fill"></span><span class="tick">Problems ×5</span></div>
+      <div class="head rv">
+        <h2 class="display">老板的问题只有五类，<br />工具每周都在变</h2>
+        <p class="desc">所以我们不追工具。把生意拆成五类固定问题，每一类都有已经跑通的做法，你只需要挑一个开始。</p>
+      </div>
+      <div class="plist rv">
+        <div class="prow">
+          <span class="idx">01</span><h3>AI 获客</h3>
+          <div class="d"><p class="d1">内容选题、短视频脚本、私域承接、销售线索的筛选与分发。</p><p class="d2">把"每天发什么"变成一条可复制的流水线，而不是靠老板灵感。</p></div>
+          <span class="state">已有跑通做法</span>
+        </div>
+        <div class="prow">
+          <span class="idx">02</span><h3>AI 销售</h3>
+          <div class="d"><p class="d1">客户画像分析、跟进话术、异议处理、成交复盘。</p><p class="d2">让新人第一个月就能用上老销售的经验，而不是自己踩三年坑。</p></div>
+          <span class="state">已有跑通做法</span>
+        </div>
+        <div class="prow">
+          <span class="idx">03</span><h3>AI 管理</h3>
+          <div class="d"><p class="d1">会议纪要、任务拆解、招聘筛选、内部培训、知识库沉淀。</p><p class="d2">把散落在老板脑子里的判断标准，变成团队能直接调用的东西。</p></div>
+          <span class="state">已有跑通做法</span>
+        </div>
+        <div class="prow">
+          <span class="idx">04</span><h3>AI 降本</h3>
+          <div class="d"><p class="d1">客服应答、文案生产、数据整理、重复流程的自动化。</p><p class="d2">先算清楚一件事一年花多少人力，再决定要不要让 AI 接手。</p></div>
+          <span class="state">已有跑通做法</span>
+        </div>
+        <div class="prow">
+          <span class="idx">05</span><h3>AI 决策</h3>
+          <div class="d"><p class="d1">行业情报、竞品跟踪、经营数据分析、投放与定价判断。</p><p class="d2">决策质量取决于信息密度，AI 最擅长的恰恰是把信息压缩给你。</p></div>
+          <span class="state">已有跑通做法</span>
+        </div>
+      </div>
+      <div class="diagnose rv">
+        <p>不确定自己卡在哪一类？那就从经营诊断开始。加微信后我会先问你三个问题，通常十分钟就能定位。</p>
+        <a class="link" href="/join.html">去做一次诊断 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 六步闭环(电路) ============ -->
+  <section class="band">
+    <div class="wrap block" style="padding-bottom: clamp(4.5rem, 10vh, 8rem);">
+      <div class="ruler"><span class="idx">02</span><span class="name">怎么运转</span><span class="fill"></span><span class="tick">Loop ×6 / 月</span></div>
+      <div class="head rv">
+        <h2 class="display">以结果收口的六步闭环</h2>
+        <p class="desc">课程的终点是听完，这里的终点是一个能被验证的数字。每个月只跑一轮，不贪多。</p>
+      </div>
+      <div class="circuit rv">
+        <ol class="steps">
+          <li><span class="node"></span><span class="sn">STEP 01</span><h3>经营诊断</h3><p>先看你的生意目前卡在哪一环，而不是先看有什么工具。</p></li>
+          <li><span class="node"></span><span class="sn">STEP 02</span><h3>选择问题</h3><p>从五类问题里挑一个，本月只解决它。</p></li>
+          <li><span class="node"></span><span class="sn">STEP 03</span><h3>30 天战役</h3><p>一个月一场，有起点、有动作清单、有截止日。</p></li>
+          <li><span class="node"></span><span class="sn">STEP 04</span><h3>使用 AI 方案</h3><p>给现成的提示词、工作流和工具组合，不从零摸索。</p></li>
+          <li><span class="node"></span><span class="sn">STEP 05</span><h3>记录结果</h3><p>用数字收口：省了多少小时、多了多少线索、降了多少成本。</p></li>
+          <li><span class="node"></span><span class="sn">STEP 06</span><h3>沉淀案例</h3><p>跑通的路径写成行业案例，成为下一位老板的起点。</p></li>
+        </ol>
+        <div class="return" aria-hidden="true"><span class="lbl">沉淀为案例 → 回到 01 · 下一轮战役</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 为什么再做一个 ============ -->
+  <section class="block cross">
+    <div class="wrap">
+      <div class="ruler"><span class="idx">03</span><span class="name">为什么再做一个</span><span class="fill"></span><span class="tick">Position</span></div>
+      <div class="why" style="margin-top: clamp(3rem, 7vh, 5rem);">
+        <div class="lead rv">
+          <h2 class="display">市面上不缺 AI 课程，缺的是有人<span class="hl">陪你把一件事做完</span></h2>
+          <div class="rule-red"></div>
+        </div>
+        <div class="body rv">
+          <p>生财有术这样的社区把「发现项目 → 找高手 → 参加航海 → 跑出结果」这条链路做得很成熟，覆盖的方向也足够宽。但正因为宽，AI 只是其中一个方向，而老板的经营问题往往需要有人盯着看完一整个月。</p>
+          <p>我们把人群收窄到<strong>已经在经营一门生意的中小企业老板</strong>，把交付物收窄到<strong>可被验证的经营结果</strong>——省下的小时数、多出来的线索、降下去的成本。</p>
+          <p>这意味着我们不教你怎么调参数，也不做工具评测。你要的是这个月的获客成本降下来，不是又收藏了三十个提示词。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04 档案抽屉 ============ -->
+  <section class="block cross" style="padding-top: 0;">
+    <div class="wrap">
+      <div class="ruler"><span class="idx">04</span><span class="name">资料与案例</span><span class="fill"></span><span class="tick">Files ×2</span></div>
+      <div class="drawers rv">
+        <div class="drawer">
+          <div class="tab"><span class="mono red">团队手册</span><span class="mono dim">92 篇 · MIT</span></div>
+          <div class="in">
+            <h3>你不用会敲命令，但你的团队得会</h3>
+            <p>我们收录了一套完整的 AI 编程实操手册，共 92 篇，给你的技术负责人看。原作者是 stormzhang，以 MIT 许可开源，我们原样收录并保留署名。</p>
+            <a class="link" href="/library/">打开团队手册 →</a>
+          </div>
+        </div>
+        <div class="drawer">
+          <div class="tab"><span class="mono red">案例库</span><span class="mono dim">征集中 · 拒绝假数字</span></div>
+          <div class="in">
+            <h3>首批案例正在征集</h3>
+            <p>这里以后会放真实的行业案例。在有真实结果之前，我们不会放任何数字——包括看起来很好看的那种。</p>
+            <a class="link" href="/cases.html">看看一条案例会包含什么 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 诊断单(转化) ============ -->
+  <section class="block cross" style="padding-top: 0;">
+    <div class="wrap">
+      <div class="ruler"><span class="idx">05</span><span class="name">开始诊断</span><span class="fill"></span><span class="tick">Intake</span></div>
+      <div class="intake rv">
+        <div class="intake-form">
+          <h3 class="display">先聊十分钟，再决定要不要一起做</h3>
+          <p class="guide">微信扫码添加，备注「老板有AI」。我会先问你三个问题：</p>
+          <div class="fields" aria-hidden="true">
+            <div class="field"><label>问题 01 / 生意</label><span class="blank"></span></div>
+            <div class="field"><label>问题 02 / 卡点</label><span class="blank"></span></div>
+            <div class="field"><label>问题 03 / 本月目标</label><span class="blank"></span></div>
+          </div>
+          <p class="note">做什么生意 · 现在卡在哪 · 这个月最想解决什么 —— 答完这三个,诊断就完成了一半。</p>
+        </div>
+        <div class="intake-qr">
+          <img src="/qr/wechat.png" alt="微信二维码:明道 Garry" width="164" height="164" />
+          <span class="who"><i></i>明道 Garry 丨 AI 增长</span>
+          <span class="mono dim">扫码 · 备注「老板有AI」</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="cross">
+  <div class="wrap">
+    <div class="foot">
+      <div class="about">
+        <a class="brand" href="/design/d.html"><span class="mark">板</span><b>老板有AI</b></a>
+        <p>面向中小企业老板的 AI 经营实战社区，每月解决一个真实经营问题。</p>
+      </div>
+      <nav aria-label="页脚导航">
+        <a href="/design/d.html">首页</a>
+        <a href="/cases.html">案例库</a>
+        <a href="/intel.html">AI 情报</a>
+        <a href="/library/">团队手册</a>
+        <a href="/join.html">加入</a>
+      </nav>
+    </div>
+    <div class="legal"><span>© 2026 老板有AI</span><span>Proposal D / Campaign — 战役</span></div>
+  </div>
+</footer>
+
+<script>
+  // 诊断台:五类问题的真实文案(与 src/site.ts 同源)
+  const PILLARS = {
+    acquire: { t: 'AI 获客', d: '内容选题、短视频脚本、私域承接、销售线索的筛选与分发。', n: '把"每天发什么"变成一条可复制的流水线，而不是靠老板灵感。' },
+    sales:   { t: 'AI 销售', d: '客户画像分析、跟进话术、异议处理、成交复盘。', n: '让新人第一个月就能用上老销售的经验，而不是自己踩三年坑。' },
+    manage:  { t: 'AI 管理', d: '会议纪要、任务拆解、招聘筛选、内部培训、知识库沉淀。', n: '把散落在老板脑子里的判断标准，变成团队能直接调用的东西。' },
+    cost:    { t: 'AI 降本', d: '客服应答、文案生产、数据整理、重复流程的自动化。', n: '先算清楚一件事一年花多少人力，再决定要不要让 AI 接手。' },
+    decide:  { t: 'AI 决策', d: '行业情报、竞品跟踪、经营数据分析、投放与定价判断。', n: '决策质量取决于信息密度，AI 最擅长的恰恰是把信息压缩给你。' },
+  }
+  const out = document.getElementById('console-out')
+  const btns = document.querySelectorAll('.console-grid button')
+  btns.forEach(btn => btn.addEventListener('click', () => {
+    btns.forEach(b => b.setAttribute('aria-pressed', String(b === btn)))
+    const p = PILLARS[btn.dataset.k]
+    out.innerHTML =
+      '<div class="slot-title"><b>' + p.t + '</b><span class="mono red">本月战役候选</span></div>' +
+      '<p class="desc">' + p.d + '</p>' +
+      '<p class="note">' + p.n + '</p>' +
+      '<a class="go" href="/join.html">这个月就解决它 →</a>'
+  }))
+
+  // 滚动显影
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target) }
+  }), { threshold: 0.12 })
+  document.querySelectorAll('.rv').forEach(el => io.observe(el))
+
+  // 闭环电路:节点依次点亮一轮(示意"跑一轮"),尊重 reduced-motion
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const steps = document.querySelectorAll('.steps li')
+    const lightUp = () => steps.forEach((li, i) => {
+      setTimeout(() => { li.classList.add('lit'); setTimeout(() => li.classList.remove('lit'), 900) }, i * 260)
+    })
+    const io2 = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { lightUp(); io2.disconnect() }
+    }), { threshold: 0.4 })
+    const c = document.querySelector('.circuit'); if (c) io2.observe(c)
+  }
+</script>
+</body>
+</html>

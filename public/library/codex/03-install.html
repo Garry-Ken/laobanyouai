@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>03 安装与登录（Mac / Windows / Linux） — 老板有AI · 团队手册</title>
+<meta name="description" content="Codex 实操手册第 03 篇:安装与登录（Mac / Windows / Linux）。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/codex/03-install.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="">Claude Code</a><a href="/library/codex/" class="on">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Codex · 39 篇</p>
+  <nav class="toc">
+    <a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a>
+    <a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a>
+    <a href="/library/codex/03-install.html" class="cur"><span>03</span>安装与登录（Mac / Windows / Linux）</a>
+    <a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a>
+    <a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a>
+    <a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a>
+    <a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a>
+    <a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a>
+    <a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a>
+    <a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a>
+    <a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a>
+    <a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a>
+    <a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a>
+    <a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a>
+    <a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a>
+    <a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a>
+    <a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a>
+    <a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a>
+    <a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a>
+    <a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a>
+    <a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a>
+    <a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a>
+    <a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a>
+    <a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a>
+    <a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a>
+    <a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a>
+    <a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a>
+    <a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a>
+    <a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a>
+    <a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a>
+    <a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a>
+    <a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a>
+    <a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a>
+    <a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a>
+    <a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a>
+    <a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a>
+    <a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a>
+    <a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a>
+    <a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Codex 39 篇</summary><a href="/library/codex/01-what-is-codex.html" class=""><span>01</span>认识 Codex 与四种入口</a><a href="/library/codex/02-core-concepts.html" class=""><span>02</span>Codex 核心概念速览</a><a href="/library/codex/03-install.html" class="cur"><span>03</span>安装与登录（Mac / Windows / Linux）</a><a href="/library/codex/04-pricing.html" class=""><span>04</span>订阅与计费</a><a href="/library/codex/05-third-party-models.html" class=""><span>05</span>接入 DeepSeek 等国产模型</a><a href="/library/codex/06-first-task.html" class=""><span>06</span>跑通第一个任务</a><a href="/library/codex/07-desktop-app.html" class=""><span>07</span>桌面 App 全景</a><a href="/library/codex/08-cli.html" class=""><span>08</span>命令行 CLI 上手</a><a href="/library/codex/09-ide.html" class=""><span>09</span>IDE 扩展（VS Code 等）</a><a href="/library/codex/10-cloud.html" class=""><span>10</span>云端 Codex Cloud：把活丢上云，喝着咖啡等结果</a><a href="/library/codex/11-agents-md.html" class=""><span>11</span>项目说明书 AGENTS.md：把规矩焊进 Codex 的开工流程</a><a href="/library/codex/12-slash-commands.html" class=""><span>12</span>斜杠命令与快捷键：会话里的「快捷操作面板」</a><a href="/library/codex/13-prompting.html" class=""><span>13</span>提示词（Prompt）写法：把话说到 Codex 心坎里</a><a href="/library/codex/14-workflows.html" class=""><span>14</span>四类日常工作流：探索、修 bug、重构、写测试</a><a href="/library/codex/15-permissions.html" class=""><span>15</span>权限、沙箱与审批：放多松、收多紧，自己拧</a><a href="/library/codex/16-security.html" class=""><span>16</span>安全与风险边界：到底该不该放手让它碰你的代码</a><a href="/library/codex/17-computer-use.html" class=""><span>17</span>电脑操控与浏览器（Computer Use）：让 Codex 长出手</a><a href="/library/codex/18-config.html" class=""><span>18</span>config.toml 配置详解：一个文件管住所有旋钮</a><a href="/library/codex/19-memory.html" class=""><span>19</span>记忆系统（Memories 与 Chronicle）：让 Codex 跨会话记住你</a><a href="/library/codex/20-mcp.html" class=""><span>20</span>用 MCP 接外部工具：给 Codex 装上「外接口」</a><a href="/library/codex/21-subagents.html" class=""><span>21</span>子代理（Subagents）：把活儿拆出去并行跑，但只有「你开口」它才拆</a><a href="/library/codex/22-skills.html" class=""><span>22</span>Agent Skills 技能：把一套活儿打包，教会 Codex 自己接</a><a href="/library/codex/23-plugins.html" class=""><span>23</span>插件（Plugins）：一键装一整套能力，别再一个个手配</a><a href="/library/codex/24-hooks.html" class=""><span>24</span>规则与钩子（Rules &amp; Hooks）：给 Codex 装上「卡点」和「扳机」</a><a href="/library/codex/25-worktrees.html" class=""><span>25</span>Worktrees 并行隔离：让几个 Codex 各干各的，互不打架</a><a href="/library/codex/26-git-github.html" class=""><span>26</span>Git 与 GitHub 集成：让 Codex 在你的 PR 里当审查员</a><a href="/library/codex/27-automation.html" class=""><span>27</span>自动化与 CI/CD：让 Codex 在你不在的时候自己干活</a><a href="/library/codex/28-noninteractive.html" class=""><span>28</span>非交互模式 codex exec：把它塞进脚本和 CI 里跑</a><a href="/library/codex/29-integrations.html" class=""><span>29</span>Slack / Linear 与 SDK 集成：在别处召唤 Codex，把它嵌进你自己的产品</a><a href="/library/codex/30-models.html" class=""><span>30</span>怎么选模型：同一句话，到底该派哪个模型去跑</a><a href="/library/codex/31-speed.html" class=""><span>31</span>进阶技巧与提速：拖慢你的不是模型，是你给的烂上下文</a><a href="/library/codex/32-migrate-from-claude-code.html" class=""><span>32</span>从 Claude Code 迁移：旧地图换个工具，照样能找到家</a><a href="/library/codex/33-windows.html" class=""><span>33</span>Windows 使用要点：原生还是 WSL，到底怎么跑才省心</a><a href="/library/codex/34-capstone.html" class=""><span>34</span>综合实战：从零给一个 TODO 小工具加功能、提交一次</a><a href="/library/codex/35-cheatsheet.html" class=""><span>35</span>命令与配置速查表</a><a href="/library/codex/36-best-practices.html" class=""><span>36</span>最佳实践：那些「正确的废话」之外，真正能落地的几条</a><a href="/library/codex/37-faq.html" class=""><span>37</span>常见问题排查：装不上、登不了、不肯改文件，挨个拆</a><a href="/library/codex/38-glossary.html" class=""><span>38</span>术语表</a><a href="/library/codex/39-enterprise.html" class=""><span>39</span>企业管理与治理：一个人玩和一家公司用，是两件事</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/codex/">Codex</a> / 第 03 篇</p>
+      <h1>安装与登录（Mac / Windows / Linux）</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="02-core-concepts.html">02 · 核心概念速览</a> 把 Codex 的几个关键词（代理、沙箱、审批、本地 / 云端）讲明白了。这一篇带你真正把它装到自己电脑上——<strong>桌面 App 和 CLI 两条线都覆盖</strong>，登录授权、三平台差异、常见装机故障一次说透。下一篇 <a href="04-pricing.html">04 · 订阅与计费</a> 再聊钱的事。</p>
+</blockquote>
+<p>OpenAI 在 2026 年初把 Codex 拆成了<strong>四个入口</strong>：网页版、桌面 App、CLI、IDE 扩展。我自己从 CLI 一路用到桌面 App，最直观的感受是——<strong>装哪个、怎么装，官方说法跟你随手搜到的老教程经常对不上</strong>。</p>
+<p>其实，<strong>装 Codex 本身不难，难的是没人告诉你哪条路是官方的正路、哪条是过时的坑</strong>。这篇就把每个平台、每种装法的正路标清楚，让你别重蹈我朋友的覆辙。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>桌面 App 与 CLI 两条安装线，在 Mac / Windows / Linux 上各自怎么走（带预期输出，能自己验证装没装成功）</li>
+<li>CLI 三种装法（官方脚本 / Homebrew / npm）的对比，知道自己该选哪个</li>
+<li>两种登录方式（ChatGPT 账号 / API key）的区别，以及远程 / 服务器环境登录卡住的标准解法</li>
+<li>一份「报错 → 怎么修」的速查表，覆盖大多数新手会撞上的坑</li>
+</ul>
+<hr>
+<h2>01 装之前先搞清楚三件事</h2>
+<p>别急着敲命令。太多人装到一半才发现「原来这平台还没桌面版」「这账号还得开 MFA」，白折腾。三件事先确认一下。</p>
+<h3>第一件：你打算从哪个入口用它</h3>
+<p>Codex 有四个入口，但<strong>安装这件事</strong>上，真正要选的是两条线：</p>
+<ul>
+<li><strong>桌面 App</strong>：图形界面、点点就能用，适合不爱碰终端的人。但<strong>只有 macOS 和 Windows 有，Linux 暂时没有</strong>（官方挂了个 Linux 通知等候页）。</li>
+<li><strong>CLI（命令行）</strong>：跑在终端里的编程代理，<strong>三大平台全支持</strong>，也是开发者最常用的方式。</li>
+</ul>
+<p><strong>我的建议：开发者直接学 CLI，它最通用、跨平台没死角。</strong> 这篇以 CLI 为主线，桌面 App 单开一节讲下载和首次登录。装哪个先用都行——登录态在 <strong>CLI 和 IDE 扩展之间共享</strong>（桌面 App 各自登录，第 06 节会讲）。</p>
+<h3>第二件：你得有个能用的账号</h3>
+<p><strong>新手最容易忽略的一条：Codex 跟着 ChatGPT 套餐走。</strong></p>
+<p>官方明确：ChatGPT 的 <strong>Plus、Pro、Business、Edu、Enterprise</strong> 套餐都<strong>包含</strong> Codex 用量。你也可以不绑套餐、改用 <strong>OpenAI API key</strong> 按量付费——但用 API key 登录时，<strong>部分依赖 ChatGPT 工作区的功能会受限或不可用</strong>（比如云端 Codex 就强制要 ChatGPT 登录）。</p>
+<blockquote>
+<p>用 API key 跑本地 CLI 是 OK 的，OpenAI 按标准 API 价格从你的 Platform 账户扣费，跟套餐里那份额度是两本账。</p>
+</blockquote>
+<p>账号和计费的细节，下一篇 <a href="04-pricing.html">04 · 订阅与计费</a> 专门展开。本篇默认你手里有一个能用的 ChatGPT 套餐或 API key。</p>
+<h3>第三件：网络得能上 OpenAI</h3>
+<p>Codex 不管哪个入口都要联网，而且连的是 OpenAI 的服务器。<strong>国内网络访问 <code>chatgpt.com</code> 、<code>platform.openai.com</code> 这些域名多数情况下需要魔法上网</strong>，装的时候、登录的时候、平时跑任务的时候都得挂着，否则极易卡在「下载超时」「登录回调失败」上。这是国内用户踩坑的第一大来源，先把代理备好。</p>
+<blockquote>
+<p>💡 一句话总结：开装前确认三件事——<strong>入口选 CLI（跨平台无死角）、账号是 ChatGPT 套餐或 API key、网络能稳定上 OpenAI</strong>，这三关过了再敲命令。</p>
+</blockquote>
+<hr>
+<h2>02 路线一：桌面 App（Mac / Windows）</h2>
+<p>不爱碰终端的，从桌面 App 入门最省事。</p>
+<p><strong>类比：桌面 App 就像装了个「带工程目录的 ChatGPT」。</strong> 你平时用 ChatGPT 网页版怎么聊天，它就怎么聊；区别是它能绑定你电脑上的一个文件夹，在里面读文件、改代码、跑命令——相当于把聊天框、IDE 工程目录、长期记忆三样缝在了一起。</p>
+<p>真实场景：</p>
+<ul>
+<li>你是产品 / 设计，不写代码但想让 AI 帮你改个小需求、看看项目里某个功能怎么实现的。</li>
+<li>你想多个项目并行——A 项目让它跑测试的同时，切到 B 项目继续提需求。</li>
+<li>你想要图形化的「审查面板」一行行看它改了什么，再决定接不接受。</li>
+</ul>
+<h3>下载与安装</h3>
+<p>打开 <a href="https://chatgpt.com/codex">https://chatgpt.com/codex</a> ，下载对应平台的安装包：</p>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>怎么选</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>macOS（Apple Silicon）</strong></td>
+<td>直接下载默认包</td>
+</tr>
+<tr>
+<td><strong>macOS（Intel 芯片）</strong></td>
+<td>选 <strong>Intel build</strong>，别下错</td>
+</tr>
+<tr>
+<td><strong>Windows</strong></td>
+<td>下载官网安装包</td>
+</tr>
+<tr>
+<td><strong>Linux</strong></td>
+<td>暂无桌面 App，官网填表<a href="https://openai.com/form/codex-app/">等通知</a> ；先用 CLI</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Mac 用户分不清自己是 Intel 还是 Apple Silicon？点屏幕左上角苹果图标 →「关于本机」，「芯片」那行写 Apple M 系列就是 Apple Silicon，写 Intel 就下 Intel build。下错芯片版本会装不上或一跑就崩。</p>
+</blockquote>
+<h3>首次登录与选项目</h3>
+<p>装好打开 App，按三步走：</p>
+<ol>
+<li><strong>登录</strong>：用 ChatGPT 账号或 OpenAI API key 登录（API key 登录部分功能受限，见下一节）。</li>
+<li><strong>选项目</strong>：挑一个你想让 Codex 工作的文件夹。之前用过 App / CLI / IDE 扩展的话，这里会列出历史项目。</li>
+<li><strong>发第一条消息</strong>：选好项目后，<strong>确认左下角选的是 Local</strong>（让 Codex 在你本机干活，而不是云端），然后把需求打进输入框。</li>
+</ol>
+<p>第一次进去先别急着上手复杂功能，<strong>把注意力放在「对话」和「项目」两样上</strong>：对话就跟 ChatGPT 网页版一样聊；项目则会绑定到你电脑的一个文件夹，Codex 只在这个目录里动手。</p>
+<p>装好打开后，可在左下角「设置 → 常规 → 语言」切换语言（App 能自动识别）。注意右边栏和底部栏需通过右上角图标展开。界面大致如下：</p>
+<p><img src="assets/03-app-ui.png" alt="Codex 桌面 App 主界面：左侧导航、中间任务输入、连接卡片"></p>
+<blockquote>
+<p>💡 一句话总结：桌面 App 只有 Mac / Windows，<strong>Mac 注意分清 Intel / Apple Silicon 包</strong>；装好就三步——登录、选项目文件夹、确认 Local 后发消息。</p>
+</blockquote>
+<hr>
+<h2>03 路线二：CLI（三平台一条命令）</h2>
+<p>先给结论：<strong>所有平台都优先用官方安装脚本</strong>（standalone installer，独立安装器）。它不依赖 Node.js，下个独立二进制就能跑，最干净。</p>
+<p><strong>类比：官方脚本就像应用商店「一键安装」。</strong> 点一下，它自己下载、自己放到位、不挖你系统其它东西；老的 npm 方式更像「先装个包管理器、再用它装应用」——多一层依赖（Node.js），多一处可能出岔子的地方。</p>
+<h3>macOS / Linux</h3>
+<p>打开终端，粘这一行：</p>
+<pre><code class="language-bash">curl -fsSL https://chatgpt.com/codex/install.sh | sh
+</code></pre>
+<blockquote>
+<p>国内网络提示：<code>chatgpt.com</code> 多数情况下需要<strong>魔法上网</strong>才能稳定访问。装的时候挂上代理，能省掉一大半「卡住 / 超时」的报错。</p>
+</blockquote>
+<p>如果是写自动化脚本、CI 里无人值守安装（不想要任何交互提示），官方提供了一个环境变量：</p>
+<pre><code class="language-bash">curl -fsSL https://chatgpt.com/codex/install.sh | CODEX_NON_INTERACTIVE=1 sh
+</code></pre>
+<h3>Windows（原生，不用 WSL）</h3>
+<p>在 <strong>PowerShell</strong> 里跑（提示符长这样 <code>PS C:\&gt;</code>）：</p>
+<pre><code class="language-powershell">powershell -ExecutionPolicy ByPass -c &quot;irm https://chatgpt.com/codex/install.ps1 | iex&quot;
+</code></pre>
+<p>无人值守版本（CI / 脚本）：</p>
+<pre><code class="language-powershell">$env:CODEX_NON_INTERACTIVE=1; irm https://chatgpt.com/codex/install.ps1 | iex
+</code></pre>
+<blockquote>
+<p>这里 <code>-ExecutionPolicy ByPass</code> 是临时放行一次脚本执行，不会永久改你系统的策略；<code>irm</code>（Invoke-RestMethod）拉下脚本，<code>iex</code>（Invoke-Expression）执行它。看到 <code>irm is not recognized</code> 说明你跑在 CMD 里了，去开一个 PowerShell 窗口。</p>
+</blockquote>
+<h3>还有别的路：Homebrew / npm</h3>
+<p>官方脚本之外还有两条备选道，列个对比按需挑：</p>
+<table>
+<thead>
+<tr>
+<th>安装方式</th>
+<th>命令</th>
+<th>需要前置</th>
+<th>我的建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>官方脚本</strong></td>
+<td><code>curl ... | sh</code>（Win 用 <code>irm</code>）</td>
+<td>无</td>
+<td><strong>首选</strong>，独立二进制、最干净</td>
+</tr>
+<tr>
+<td><strong>Homebrew</strong>（Mac）</td>
+<td><code>brew install --cask codex</code></td>
+<td>装过 Homebrew</td>
+<td>已重度用 brew 管软件的人；更新略滞后于官方</td>
+</tr>
+<tr>
+<td><strong>npm</strong></td>
+<td><code>npm install -g @openai/codex</code></td>
+<td>Node.js</td>
+<td>习惯 npm 全局装工具的人</td>
+</tr>
+</tbody></table>
+<p>Homebrew 的更新比官方晚一两天，因为需要 Cask 维护团队审核；好处是版本经过一轮检验，对不爱追最新版的人反而稳。</p>
+<p>Homebrew（macOS）：</p>
+<pre><code class="language-bash">brew install --cask codex
+</code></pre>
+<p>npm（任意平台，需先有 Node.js）：</p>
+<pre><code class="language-bash">npm install -g @openai/codex
+</code></pre>
+<p>几个坑提前说：</p>
+<ul>
+<li><strong>npm 那条要不要加 <code>sudo</code>，看你的 Node 环境</strong>。很多老教程直接写 <code>sudo npm install -g</code>，但 <code>sudo</code> 全局装 npm 包是出了名地容易留下权限烂摊子。我自己的习惯是——<strong>用 nvm / Volta 把 Node 装在用户目录下，全程不碰 <code>sudo</code></strong>；真撞上权限报错，与其 <code>sudo</code> 硬怼，不如直接换官方脚本那条路，根本不经过 npm。</li>
+<li><strong>Homebrew 是 <code>--cask</code> 不是普通 formula</strong>，别漏掉 <code>--cask</code>，也别写成别的包名——包名就是 <code>codex</code>。</li>
+</ul>
+<blockquote>
+<p>💡 一句话总结：CLI 闭眼选官方脚本，<strong>Mac/Linux 用 <code>curl ... | sh</code>，Windows 用 <code>irm</code></strong>，独立二进制不依赖 Node；Homebrew / npm 是备选，npm 尽量别 <code>sudo</code>。</p>
+</blockquote>
+<p>两条安装线讲完了，用一张图把它们并排摆出来对照：</p>
+<p><img src="assets/03-install-flow@2x.png" alt="两条安装线：桌面 App 与 CLI"></p>
+<p>这张图把桌面 App 和 CLI 两条线并排画出来：<strong>左线下载安装包、打开、在 App 里登录；右线装好 codex、跑 <code>codex login</code></strong>，两条路最后都汇到同一个终点——「登录成功、可用」，登录都可二选一走 ChatGPT 账号或 API key。</p>
+<hr>
+<h2>04 Windows 用户：原生还是 WSL？</h2>
+<p>Windows 是 Codex 三平台里<strong>讲究最多</strong>的一个，单开一节说清。</p>
+<p>官方给了三种实际跑法：</p>
+<ul>
+<li><strong>原生 Windows + <code>elevated</code> 沙箱</strong>：首选。用专门的低权限沙箱用户、文件系统边界、防火墙规则把 Codex 圈在工作目录里，安全性最强。</li>
+<li><strong>原生 Windows + <code>unelevated</code> 沙箱</strong>：退路。当公司电脑策略不让做 <code>elevated</code> 那套管理员级配置时用，比 <code>elevated</code> 弱一些但仍有保护。</li>
+<li><strong>WSL2（Windows 里的 Linux 子系统）</strong>：跑在 Linux 环境里，用 Linux 那套沙箱。需要 Linux 原生工具链、或你的代码仓库本来就在 WSL2 里时选它。</li>
+</ul>
+<p>官方对照表：</p>
+<table>
+<thead>
+<tr>
+<th>跑法</th>
+<th>需要什么</th>
+<th>什么时候用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>原生 + elevated</strong></td>
+<td>管理员批准的沙箱配置</td>
+<td><strong>默认首选</strong>，性能最好、安全性最高</td>
+</tr>
+<tr>
+<td><strong>原生 + unelevated</strong></td>
+<td>无需管理员级配置</td>
+<td>公司策略卡住 elevated 时的退路</td>
+</tr>
+<tr>
+<td><strong>WSL2</strong></td>
+<td>启用 WSL2</td>
+<td>需要 Linux 工具链，或仓库已在 WSL2</td>
+</tr>
+</tbody></table>
+<p>几条硬提醒：</p>
+<ul>
+<li><strong>Windows 版本</strong>：官方推荐 <strong>Windows 11</strong>；Windows 10 是「尽力支持」，要求 <strong>1809 或更新</strong>（依赖 ConPTY 等现代控制台组件），更老的 Win10 不推荐。</li>
+<li><strong><code>winget</code> 得能用</strong>：缺了就先更新 Windows 或装上 Windows 包管理器。</li>
+<li><strong>WSL1 已经不支持了</strong>：从 Codex <code>0.115</code> 起 Linux 沙箱换成了 <code>bubblewrap</code>，<strong>WSL1 在 <code>0.114</code> 之后就被砍了</strong>，要用就上 WSL2。</li>
+</ul>
+<p>走 WSL2 的话，先在<strong>管理员 PowerShell</strong> 里装好子系统，再进 WSL shell 里跑 CLI 安装脚本：</p>
+<pre><code class="language-powershell">wsl --install
+wsl
+</code></pre>
+<p>进到 WSL（提示符变成 Linux 那种）之后：</p>
+<pre><code class="language-bash">curl -fsSL https://chatgpt.com/codex/install.sh | sh
+codex
+</code></pre>
+<blockquote>
+<p>一个 WSL 性能坑：<strong>别把代码仓库放在 <code>/mnt/c/...</code> 这种 Windows 挂载路径下</strong>，I/O 会明显慢，还容易出 symlink、权限问题。放在 Linux 主目录（如 <code>~/code/my-app</code> ）下最快。需要从 Windows 访问这些文件时，去资源管理器输 <code>\\wsl$</code> 进去找。</p>
+</blockquote>
+<p>下面这张图帮你三步决策走哪条路：</p>
+<p><img src="assets/03-windows-decision@2x.png" alt="Windows 装 Codex 的三条路：WSL2 / 原生 elevated 沙箱 / 原生 unelevated 沙箱"></p>
+<p>这张图就一句话：<strong>优先原生 elevated，被公司策略卡了退到 unelevated，需要 Linux 环境才上 WSL2</strong>。</p>
+<blockquote>
+<p>💡 一句话总结：Windows 首选<strong>原生 + elevated 沙箱</strong>，被策略卡住退到 unelevated，要 Linux 环境才上 <strong>WSL2</strong>；注意 <strong>WSL1 已被砍</strong>、Win11 最稳。</p>
+</blockquote>
+<hr>
+<h2>05 验证装没装成功</h2>
+<p>CLI 装完别急着用，花十秒确认一下。打开一个<strong>新终端窗口</strong>，敲：</p>
+<pre><code class="language-bash">codex --version
+</code></pre>
+<p>预期输出是一行版本号（你看到的数字会更新，正常）：</p>
+<pre><code class="language-text">codex-cli 0.139.0
+</code></pre>
+<p><strong>看到版本号 = 装成功了。</strong> 如果报 <code>command not found: codex</code>（Windows 上是 <code>&#39;codex&#39; is not recognized</code> ），先别重装——大概率是 PATH 没配好（安装目录没进系统搜索路径），第 08 节有修法。</p>
+<blockquote>
+<p>具体的版本检查参数、以及「怎么手动升级到最新版」，<strong>以官方文档 / <code>codex --help</code> 输出为准</strong>——这块官方在持续调整，我就不写死某个命令名免得过时误导你。装好后用 <code>codex --help</code> 看一眼当前版本支持哪些子命令，最靠谱。</p>
+</blockquote>
+<p>桌面 App 的版本号在 App 菜单里能查到（具体位置以官方为准）。App 和 CLI 版本不一致会导致功能差异，对不上时先各自看一眼版本号。</p>
+<blockquote>
+<p>💡 一句话总结：CLI 用 <code>codex --version</code> 出版本号就成了；<strong>升级 / 版本参数以官方和 <code>codex --help</code> 为准</strong>，别迷信老教程里写死的命令。</p>
+</blockquote>
+<hr>
+<h2>06 登录：让它认得你</h2>
+<p>装好的 Codex 还是个「不认识你」的空壳，得登录绑上账号才能干活。在你的<strong>项目目录</strong>里启动 CLI：</p>
+<pre><code class="language-bash">codex
+</code></pre>
+<p>没有有效登录态时，它会<strong>默认引导你用 ChatGPT 登录</strong>，弹出浏览器走授权流程，授权完浏览器把 access token 送回 CLI，就登上了。</p>
+<h3>两种登录方式，怎么选</h3>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>怎么登</th>
+<th>适合谁</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>ChatGPT 账号</strong>（默认推荐）</td>
+<td>启动后选 Sign in with ChatGPT，浏览器授权</td>
+<td>大多数人、要用云端功能的</td>
+<td>用量走你的 ChatGPT 套餐</td>
+</tr>
+<tr>
+<td><strong>API key</strong></td>
+<td>选用 API key 登录，从 <a href="https://platform.openai.com/api-keys">OpenAI 后台</a> 拿 key</td>
+<td>CI/CD、程序化跑 CLI</td>
+<td>按标准 API 价计费；<strong>部分依赖 ChatGPT 工作区的功能不可用</strong></td>
+</tr>
+</tbody></table>
+<p>我自己日常开发用 ChatGPT 账号登录——套餐里那份额度够用，还能用上云端任务。<strong>API key 我只在写自动化脚本、放进 CI 时才用</strong>，因为它不需要浏览器交互，适合无人值守；但官方也提醒：别把带 API key 的 Codex 跑在不可信或公开环境里。</p>
+<h3>登录态存在哪、会不会反复登</h3>
+<p>登录成功后，凭据<strong>缓存在本地</strong>，下次启动直接复用，不用重登。两个关键点：</p>
+<ul>
+<li><strong>CLI 和 IDE 扩展共享同一份登录缓存</strong>——在一边登出，另一边下次启动也得重登。</li>
+<li>缓存存在本地<strong>明文文件</strong> <code>~/.codex/auth.json</code> 里，或 OS 系统凭据存储里（macOS 上可能走 Keychain）；用 <code>cli_auth_credentials_store</code> 可指定（<code>file</code> / <code>keyring</code> / <code>auto</code>，详见第 18 节配置篇）。</li>
+</ul>
+<blockquote>
+<p>⚠️ <code>~/.codex/auth.json</code> 里装着你的 access token，<strong>把它当密码看</strong>：别提交进 Git、别贴进工单、别发到聊天里。</p>
+</blockquote>
+<p>ChatGPT 登录的会话，Codex 会在过期前<strong>自动刷新 token</strong>，所以正常用着一般不用反复登。</p>
+<h3>远程 / 服务器 / WSL 登录卡住怎么办</h3>
+<p>这是开头我朋友踩的那个坑：<strong>在远程服务器、headless 环境、或本机网络挡了 localhost 回调时，浏览器登录这条路走不通</strong>——要么浏览器开在另一台机器上，要么 OAuth 回调回不来。官方首选解法是<strong>设备码登录</strong>（Device Code Login）。</p>
+<p>在交互登录界面选 <strong>Sign in with Device Code</strong>，或直接运行：</p>
+<pre><code class="language-bash">codex login --device-auth
+</code></pre>
+<p>这是测试版（beta）功能。它会给你一个链接和一次性验证码，你在<strong>任意能上网的浏览器</strong>打开链接、输码，就登上了，完全不依赖本机有没有浏览器。</p>
+<p>设备码登录需要先在 ChatGPT 安全设置（个人）或工作区权限（管理员）里<strong>开启</strong>。如果服务器端没开、设备码走不通，还有两条退路：</p>
+<ol>
+<li><p><strong>拷贝认证缓存</strong>：在一台有浏览器的机器上正常 <code>codex login</code>，确认生成了 <code>~/.codex/auth.json</code> ，再把它拷到 headless 机器的同一路径。比如通过 SSH：</p>
+<pre><code class="language-bash">ssh user@remote &#39;mkdir -p ~/.codex&#39;
+scp ~/.codex/auth.json user@remote:~/.codex/auth.json
+</code></pre>
+</li>
+<li><p><strong>SSH 端口转发回调</strong>：把 Codex 的本地回调端口（默认 <code>localhost:1455</code> ）从远程转发到本地，就能正常走浏览器流程：</p>
+<pre><code class="language-bash">ssh -L 1455:localhost:1455 user@remote
+</code></pre>
+<p>然后在这个 SSH 会话里跑 <code>codex login</code>，按提示在你<strong>本地</strong>浏览器打开地址即可。</p>
+</li>
+</ol>
+<p>我后来给那位朋友就是用的设备码登录——一行 <code>codex login --device-auth</code>，复制链接到自己电脑浏览器、贴个码，三十秒搞定，比之前傻等浏览器弹窗强太多。</p>
+<blockquote>
+<p>💡 一句话总结：默认用 <strong>ChatGPT 账号</strong>登录，凭据明文存 <code>~/.codex/auth.json</code>（当密码看）；<strong>远程 / 服务器环境记住 <code>codex login --device-auth</code></strong>，不行再拷贝缓存或 SSH 转发 1455 端口。</p>
+</blockquote>
+<hr>
+<h2>07 动手：从零跑通第一次</h2>
+<p>光装好不算数，实际跑一遍确认链路通。<strong>这个最小流程不依赖已有项目，新建个空目录就能做。</strong></p>
+<p>第一步，创建测试目录并进到这个目录下，启动 Codex：</p>
+<pre><code class="language-bash">mkdir codex-test &amp;&amp; cd codex-test
+codex
+</code></pre>
+<p>第一次启动会引导你登录（按第 06 节走完）。登录后看到欢迎界面和输入框。</p>
+<p>第二步，让它干件实事——直接用大白话下指令（不用记命令格式）：</p>
+<pre><code class="language-text">在 test.py 里写一个打印 hello world 的函数
+</code></pre>
+<p>预期行为：<strong>Codex 默认是带审批的——它要改文件或跑命令时，会先把动作摆给你看，等你确认（选 Yes）才真正执行</strong>。这是它的核心节奏：先给方案、等你批、再动手，不偷偷改你东西（具体的审批 / 沙箱模式后面有专门一篇展开）。</p>
+<p>确认后，目录里就多了个 <code>test.py</code>。退出 CLI 按 <code>Ctrl + C</code> 或输入 <code>/exit</code>（以界面提示为准）。</p>
+<p>第三步（<strong>强烈建议养成的习惯</strong>），既然 Codex 会改你的代码库，<strong>在让它动手前后各打一个 Git 检查点</strong>，万一改炸了能一键回退：</p>
+<pre><code class="language-bash">git init
+git add -A &amp;&amp; git commit -m &quot;codex 动手前的检查点&quot;
+</code></pre>
+<p>到这步，你已经完整跑通了「装 → 登录 → 给指令 → 看它的动作 → 你确认 → 它改文件」的全流程。<strong>第一次看到它停下来、把要执行的动作摆给你点头那一下，挺有「这玩意儿真能干活、而且不乱来」的实感</strong>——我头一回跑通时，先是被它读项目的速度惊到，然后才反应过来它居然乖乖停在那等我批。</p>
+<p>下面这张图把上面几步串成一条线：</p>
+<p><img src="assets/03-first-loop@2x.png" alt="第一次跑通 Codex 的完整循环：mkdir → codex 登录 → 大白话指令 → 审批 → Git 检查点"></p>
+<p>图里最关键的就是中间那个<strong>审批岔口</strong>：你点 Yes 它才动手，点 No 就退回来重说——全程它不偷偷改你的东西。</p>
+<blockquote>
+<p>💡 一句话总结：新建空目录就能跑通全流程——<strong><code>codex</code> 启动登录、大白话下指令、看动作点 Yes</strong>；动手前后打 <strong>Git 检查点</strong>，这套「先给方案再动手、改前先存档」是最稳的节奏。</p>
+</blockquote>
+<hr>
+<h2>08 报错速查：新手最常撞的坑</h2>
+<p>装这东西报错基本逃不掉，但绝大多数有标准解法。把最高频的几类整理成速查表——<strong>先对症，再下药，别一报错就重装</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>你看到的报错 / 现象</th>
+<th>真正的原因</th>
+<th>怎么修</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>command not found: codex</code></td>
+<td>安装目录没进 PATH</td>
+<td>把安装目录加进 PATH（见下方）</td>
+</tr>
+<tr>
+<td><code>&#39;codex&#39; is not recognized</code>（Windows）</td>
+<td>同上，PATH 没配 / 没重启终端</td>
+<td>配好 PATH 后<strong>重启终端</strong></td>
+</tr>
+<tr>
+<td><code>irm is not recognized</code></td>
+<td>你在 CMD 里跑了 PowerShell 命令</td>
+<td>打开 PowerShell 再跑 <code>irm</code> 那条</td>
+</tr>
+<tr>
+<td>登录浏览器一直转圈 / 回调失败</td>
+<td>远程 / headless / 本机挡了 localhost 回调</td>
+<td>用 <code>codex login --device-auth</code>（见第 06 节）</td>
+</tr>
+<tr>
+<td>下载安装脚本卡住 / 超时</td>
+<td>国内网络没走代理</td>
+<td>挂上魔法上网重试，或换 Homebrew</td>
+</tr>
+<tr>
+<td>API key 登录后部分功能用不了</td>
+<td>API key 登录本就限制了部分 ChatGPT 工作区功能</td>
+<td>改用 ChatGPT 账号登录</td>
+</tr>
+<tr>
+<td>Windows 报错 <code>1385</code>（沙箱命令失败）</td>
+<td>Windows 策略不给沙箱用户登录权限</td>
+<td>公司机器找 IT；急用先切 <code>unelevated</code> 沙箱</td>
+</tr>
+<tr>
+<td><code>codex</code> 卸载后还能跑</td>
+<td>装了<strong>好几个</strong> codex 在打架</td>
+<td><code>which -a codex</code> 揪出来删多余的</td>
+</tr>
+</tbody></table>
+<p>挑两个最高频的展开说。</p>
+<h3>坑一：<code>command not found: codex</code>（最常见）</h3>
+<p>跑 <code>codex</code> 说找不到命令——<strong>不是没装上，是装好的目录没进系统搜索路径（PATH）</strong>。</p>
+<p><strong>类比：PATH 就是系统的「门牌号清单」。</strong> 程序装好好比房子盖好了，但系统只会去清单上登记过的地址挨个找。<code>codex</code> 的房子盖好了，地址却没登记进清单，自然喊它不应。</p>
+<p>修法（macOS 默认是 Zsh，先确认安装脚本把 <code>codex</code> 放在哪个目录，再把那个目录加进 PATH）：</p>
+<pre><code class="language-bash">echo &#39;export PATH=&quot;$HOME/.local/bin:$PATH&quot;&#39; &gt;&gt; ~/.zshrc
+source ~/.zshrc
+</code></pre>
+<blockquote>
+<p>上面假设安装目录是 <code>~/.local/bin</code> ；<strong>你实际的目录以安装脚本的输出提示为准</strong>（脚本装完通常会打印它放到了哪、要不要你手动加 PATH）。Linux 大多默认 Bash，把 <code>~/.zshrc</code> 换成 <code>~/.bashrc</code> 。Windows 则把对应安装目录加进<strong>用户 PATH 环境变量</strong>，然后<strong>重启终端</strong>。</p>
+</blockquote>
+<p>改完验证：</p>
+<pre><code class="language-bash">codex --version
+</code></pre>
+<p>出版本号就修好了。</p>
+<h3>坑二：揪出「打架」的多个安装</h3>
+<p>如果先 npm 装过、又官方脚本装一遍，可能同时存在好几个 <code>codex</code>，版本对不上、行为诡异，甚至卸载后还能跑。先看看 PATH 上有几个：</p>
+<pre><code class="language-bash">which -a codex
+</code></pre>
+<p>列出来不止一个，<strong>只留你想用的那个</strong>（一般是官方脚本装的），其余删掉。比如卸掉 npm 全局安装：</p>
+<pre><code class="language-bash">npm uninstall -g @openai/codex
+</code></pre>
+<p>很多时候 <code>which -a codex</code> 一跑，就会发现 npm 和官方脚本各装了一个在抢同一个命令名——删掉多余的、理顺 PATH，瞬间清静。我自己就吃过这亏：先用 npm 装着玩，后来换官方脚本，结果 <code>codex --version</code> 显示的一直是那个老的 npm 版本，查了半天才发现 PATH 里 npm 的目录排在前面。</p>
+<blockquote>
+<p>💡 一句话总结：<strong>报错先查表对因，别条件反射重装</strong>；找不到命令多半是 PATH，行为诡异 / 卸不干净多半是装了好几个在打架，<code>which -a codex</code> 一照便知。</p>
+</blockquote>
+<hr>
+<h2>09 小结</h2>
+<p>这一篇把「装好并用起来」彻底过了一遍：</p>
+<ul>
+<li><strong>装前确认三件事</strong>：入口选 CLI（跨平台无死角）、账号是 ChatGPT 套餐或 API key、网络能稳定上 OpenAI。</li>
+<li><strong>两条安装线</strong>：桌面 App 只有 Mac / Windows（Mac 分清 Intel / Apple Silicon）；CLI 三平台全有，<strong>认准官方脚本</strong>（<code>curl ... | sh</code> / Windows <code>irm</code>），Homebrew、npm 是备选。</li>
+<li><strong>Windows 讲究多</strong>：首选原生 + elevated 沙箱，被策略卡住退到 unelevated，要 Linux 环境才上 WSL2；WSL1 已被砍。</li>
+<li><strong>登录默认走 ChatGPT 账号</strong>，凭据明文存 <code>~/.codex/auth.json</code>（当密码看）；远程 / 服务器记住 <code>codex login --device-auth</code>。</li>
+<li><strong>报错先查表对因</strong>：找不到命令查 PATH，行为诡异查多重安装。</li>
+</ul>
+<p>你现在应该能在自己机器上独立装好 Codex（App 或 CLI）、登录、跑通第一个例子，遇到常见报错也知道往哪查。</p>
+<p>下一篇 <strong><a href="04-pricing.html">04 · 订阅与计费</a></strong>——把钱的事说透：ChatGPT 各档套餐分别给多少 Codex 额度？API key 按量付费到底怎么算？跟 Claude Code 比哪个更划算？刚装好正想撒欢用，先搞清楚自己手里的账号每天能用多少，免得跑到一半被限额拦下来。</p>
+<blockquote>
+<p>留个问题：你刚登录时选的是 <strong>ChatGPT 账号</strong>还是 <strong>API key</strong>？这俩不只是「登录方式」不同——<strong>计费和能用的功能也不一样</strong>，这正是下一篇的切入点。</p>
+</blockquote>
+<hr>
+<p>装好只是拿到了工具，先把额度和计费算明白，才能放开手用——下一篇见。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/codex/02-core-concepts.html"><span class="mono">← 上一篇 · 02</span><b>Codex 核心概念速览</b></a>
+  <a class="pg nx" href="/library/codex/04-pricing.html"><span class="mono">下一篇 · 04 →</span><b>订阅与计费</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

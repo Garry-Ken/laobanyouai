@@ -18,8 +18,27 @@ export const NAV: readonly NavItem[] = [
   { label: '首页', href: '/' },
   { label: '案例库', href: '/cases.html' },
   { label: 'AI 情报', href: '/intel.html' },
+  { label: '团队手册', href: '/library/' },
   { label: '加入', href: '/join.html' },
 ] as const
+
+/**
+ * 团队手册的内容来自 stormzhang/ai-coding-guide（MIT）。
+ * MIT 要求在副本中保留版权声明与许可证，因此署名与许可证信息是必需的，
+ * 不是礼貌性的致谢——不要删。
+ */
+export const LIBRARY = {
+  sourceRepo: 'https://github.com/stormzhang/ai-coding-guide',
+  sourceSite: 'https://coding.stormzhang.ai',
+  author: 'stormzhang',
+  license: 'MIT License',
+  licenseUrl: 'https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE',
+  copyright: 'Copyright (c) 2026 stormzhang',
+  tracks: [
+    { slug: 'claude-code', title: 'Claude Code', desc: '从安装、代理循环，到 MCP、子代理、技能与钩子，直至真实项目发布。' },
+    { slug: 'codex', title: 'Codex', desc: '从入口点、沙盒审批、AGENTS.md，到工作树、CI/CD 与团队级自动化。' },
+  ],
+} as const
 
 /** 老板真正要解决的五类问题——不是五个工具 */
 export const PILLARS = [

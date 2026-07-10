@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>49 最佳实践：把零散的好习惯，攒成一套能照着做的心法 — 老板有AI · 团队手册</title>
+<meta name="description" content="Claude Code 实操手册第 49 篇:最佳实践：把零散的好习惯，攒成一套能照着做的心法。原作者 stormzhang,MIT 许可。" />
+<link rel="canonical" href="https://laobanyouai.com/library/claude-code/49-best-practices.html" />
+<meta name="theme-color" content="#fbfaf7" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/library/doc.css" />
+
+</head>
+<body>
+
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="/"><span class="mark">板</span><b>老板有AI</b><small>团队手册</small></a>
+    <nav>
+      <a href="/library/claude-code/" class="on">Claude Code</a><a href="/library/codex/" class="">Codex</a>
+      <a href="/library/">总览</a>
+      <a class="cta" href="/join.html">加入社区</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap doc-grid">
+  
+<aside class="side">
+  <p class="side-title mono">Claude Code · 53 篇</p>
+  <nav class="toc">
+    <a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a>
+    <a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a>
+    <a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a>
+    <a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a>
+    <a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a>
+    <a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a>
+    <a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a>
+    <a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a>
+    <a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a>
+    <a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a>
+    <a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a>
+    <a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a>
+    <a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a>
+    <a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a>
+    <a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a>
+    <a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a>
+    <a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a>
+    <a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a>
+    <a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a>
+    <a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a>
+    <a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a>
+    <a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a>
+    <a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a>
+    <a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a>
+    <a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a>
+    <a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a>
+    <a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a>
+    <a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a>
+    <a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a>
+    <a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a>
+    <a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a>
+    <a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a>
+    <a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a>
+    <a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a>
+    <a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a>
+    <a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a>
+    <a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a>
+    <a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a>
+    <a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a>
+    <a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a>
+    <a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a>
+    <a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a>
+    <a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a>
+    <a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a>
+    <a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a>
+    <a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a>
+    <a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a>
+    <a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a>
+    <a href="/library/claude-code/49-best-practices.html" class="cur"><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a>
+    <a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a>
+    <a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a>
+    <a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a>
+    <a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a>
+  </nav>
+</aside>
+  <main class="doc">
+    <details class="m-toc"><summary class="mono">目录 · Claude Code 53 篇</summary><a href="/library/claude-code/01-what-is-claude-code.html" class=""><span>01</span>Claude Code 简介</a><a href="/library/claude-code/02-install.html" class=""><span>02</span>安装与使用</a><a href="/library/claude-code/03-how-it-works.html" class=""><span>03</span>Claude Code 如何工作</a><a href="/library/claude-code/04-api-config.html" class=""><span>04</span>API 配置：订阅登录还是 API key，怎么选、怎么切</a><a href="/library/claude-code/05-third-party-models.html" class=""><span>05</span>接入第三方 / 国产模型</a><a href="/library/claude-code/06-coding-plan.html" class=""><span>06</span>Coding Plan：订阅套餐与计费</a><a href="/library/claude-code/07-first-run.html" class=""><span>07</span>第一次使用：跑通第一个例子</a><a href="/library/claude-code/08-vscode.html" class=""><span>08</span>VS Code 集成</a><a href="/library/claude-code/09-jetbrains.html" class=""><span>09</span>JetBrains 集成</a><a href="/library/claude-code/10-desktop.html" class=""><span>10</span>桌面 app（Desktop）</a><a href="/library/claude-code/11-web-and-cloud.html" class=""><span>11</span>网页版与云端：把 Claude Code 装进浏览器和手机</a><a href="/library/claude-code/12-project-init.html" class=""><span>12</span>项目初始化：用 /init 一键生成 CLAUDE.md</a><a href="/library/claude-code/13-project-structure.html" class=""><span>13</span>项目结构：Claude Code 在你项目里都放了什么</a><a href="/library/claude-code/14-interface-and-shortcuts.html" class=""><span>14</span>交互界面与快捷键：把手放对地方</a><a href="/library/claude-code/15-prompting.html" class=""><span>15</span>怎么提问和给指令：把话说到 Claude 心坎里</a><a href="/library/claude-code/16-common-workflows.html" class=""><span>16</span>四个最常用的活儿：探索代码库、修 bug、重构、写测试</a><a href="/library/claude-code/17-images-multimodal.html" class=""><span>17</span>图片与多模态：贴张截图，它就懂了</a><a href="/library/claude-code/18-claude-md-guide.html" class=""><span>18</span>CLAUDE.md 使用指南：把项目规矩写进它的记忆</a><a href="/library/claude-code/19-context-management.html" class=""><span>19</span>上下文管理：别让它「失忆」也别烧爆 token</a><a href="/library/claude-code/20-permissions.html" class=""><span>20</span>权限配置：放多松、收多紧，你说了算</a><a href="/library/claude-code/21-security.html" class=""><span>21</span>安全与风险边界：到底该不该信任 AI 碰你的代码</a><a href="/library/claude-code/22-mcp.html" class=""><span>22</span>MCP：给 Claude 接上外部世界</a><a href="/library/claude-code/23-subagents.html" class=""><span>23</span>子代理（Subagents）：把活儿外包出去，别什么都自己扛</a><a href="/library/claude-code/24-plugins.html" class=""><span>24</span>插件（Plugins）：把一堆零碎配置一键打包</a><a href="/library/claude-code/25-memory.html" class=""><span>25</span>记忆系统（memory）：让它跨会话记住你</a><a href="/library/claude-code/26-agent-skills.html" class=""><span>26</span>Agent Skills：给 Claude 装一身随叫随到的专项本事</a><a href="/library/claude-code/27-skills-in-practice.html" class=""><span>27</span>Skills 使用实例：装一个、喊一声、看它干活</a><a href="/library/claude-code/28-skill-creator.html" class=""><span>28</span>skill-creator 使用：用一个 skill 造你自己的 skill</a><a href="/library/claude-code/29-agent-teams.html" class=""><span>29</span>Agent teams 智能体团队：多会话协作</a><a href="/library/claude-code/30-choosing-features.html" class=""><span>30</span>功能怎么选：CLAUDE.md vs Skill vs Hook vs MCP vs Subagent</a><a href="/library/claude-code/31-settings-json.html" class=""><span>31</span>settings.json：用户级 / 项目级配置</a><a href="/library/claude-code/32-output-styles.html" class=""><span>32</span>输出样式（Output Styles）：换一档「节目」，不换主持人</a><a href="/library/claude-code/33-hooks.html" class=""><span>33</span>钩子（Hooks）：在固定时机自动扣扳机</a><a href="/library/claude-code/34-cli-reference.html" class=""><span>34</span>CLI 参考手册：命令与全部标志</a><a href="/library/claude-code/35-modes-and-control.html" class=""><span>35</span>控制与模式：开会话时手里那块「调音台」</a><a href="/library/claude-code/36-slash-commands.html" class=""><span>36</span>斜杠命令（Slash Commands）：一个 `/` 调出 Claude 的所有快捷动作</a><a href="/library/claude-code/37-checkpoints.html" class=""><span>37</span>检查点（Checkpoints）：随时能倒带的安全网</a><a href="/library/claude-code/38-plugins-reference.html" class=""><span>38</span>插件参考手册：把自己那套配置，打成一个能发出去的包</a><a href="/library/claude-code/39-getting-started-practice.html" class=""><span>39</span>实战入门：拿一个真需求，从开工到交付走一整趟</a><a href="/library/claude-code/40-chrome.html" class=""><span>40</span>Chrome：让它操作浏览器</a><a href="/library/claude-code/41-parallel-tasks.html" class=""><span>41</span>并行任务：让几个 Claude 同时开工，而不是排队</a><a href="/library/claude-code/42-env-vars.html" class=""><span>42</span>环境变量：藏在背后那排「总开关」</a><a href="/library/claude-code/43-git-workflow.html" class=""><span>43</span>Git 工作流：让 Claude 当你的 git 副手</a><a href="/library/claude-code/44-github-actions.html" class=""><span>44</span>GitHub Actions：在 PR 里 @ 一下，让 Claude 自己干活</a><a href="/library/claude-code/45-agent-sdk.html" class=""><span>45</span>Agent SDK：把 Claude Code 的能力搬进你自己的程序</a><a href="/library/claude-code/46-dev-config.html" class=""><span>46</span>开发配置：把 Claude 干活的「工作环境」调顺</a><a href="/library/claude-code/47-voice.html" class=""><span>47</span>Voice 语音模式：把提示词说出来，而不是打出来</a><a href="/library/claude-code/48-capstone-project.html" class=""><span>48</span>综合实战：从零到上线，把所学串成一条线</a><a href="/library/claude-code/49-best-practices.html" class="cur"><span>49</span>最佳实践：把零散的好习惯，攒成一套能照着做的心法</a><a href="/library/claude-code/50-anti-patterns.html" class=""><span>50</span>反模式：常见的错误用法</a><a href="/library/claude-code/51-troubleshooting.html" class=""><span>51</span>常见问题排查（FAQ / Troubleshooting）</a><a href="/library/claude-code/52-glossary.html" class=""><span>52</span>术语表（小白友好）：把这一路的「黑话」一次性翻译成人话</a><a href="/library/claude-code/53-remotion-video.html" class=""><span>53</span>制作视频（Remotion）〔选读〕</a></details>
+    <div class="doc-head">
+      <p class="crumb mono"><a href="/library/">团队手册</a> / <a href="/library/claude-code/">Claude Code</a> / 第 49 篇</p>
+      <h1>最佳实践：把零散的好习惯，攒成一套能照着做的心法</h1>
+    </div>
+    <article class="prose">
+<blockquote>
+<p>📚 <strong>系列导航</strong>：上一篇 <a href="48-capstone-project.html">48 综合实战：从零到上线串起所学</a> 带你把前面所有功能拧成一条完整的开发流。这一篇换个高度——<strong>不教新功能，教「怎么用得好」</strong>。同样的 Claude Code，有人用得顺风顺水，有人天天跟它较劲，差的就是这套官方和老用户磨出来的最佳实践。我把它们汇成几条能照着做的法则，外加一摞「好做法 vs 坏做法」对照表。</p>
+</blockquote>
+<p>「这 prompt 写得太省了。」</p>
+<p>设想一个刚上手 Claude Code 的人，敲了句「修一下登录的 bug」就回车，等了半天 Claude 改出来一坨他根本没想要的东西，一脸委屈：「我说得还不够清楚吗？」</p>
+<p>可你要是把这话甩给一个<strong>今天第一天来、还没摸过这个项目的实习生</strong>，他能修对吗？哪个登录？什么 bug？在哪个文件？怎么算修好了？——你一样没说。换个写法重来一版：「用户报告 session 超时后再登录会失败，先去 <code>src/auth/</code> 看 token 刷新那段，写个能复现的测试，再让它过。」这回 Claude 一把就修对了。</p>
+<p>说白了，Claude Code 用得好不好，<strong>八成不在工具本身，在你怎么跟它配合</strong>。它能力很强，但它不会读心。这一篇把官方《最佳实践》那套，加上老用户长期攒下来的经验，归成几条<strong>你今天就能照着改的法则</strong>。</p>
+<p><strong>看完这一篇，你会拿到：</strong></p>
+<ul>
+<li>一条贯穿全文的总约束（上下文窗口是最金贵的资源），理解了它，下面所有法则就都顺了</li>
+<li>五条核心法则：给验证手段、先探索再编程、把话说具体、CLAUDE.md 写精、及时纠偏</li>
+<li>好几张「❌ 坏做法 vs ✅ 好做法」对照表，照着改 prompt 立竿见影</li>
+<li>一份「这个场景该用哪条法则」的速查，外加一个能亲手跑的对比实验</li>
+</ul>
+<hr>
+<h2>01 一条总约束：上下文窗口是你最金贵的资源</h2>
+<p>所有最佳实践，几乎都能追到同一条根上。官方开篇就把它点破了，我先原样抄给你：</p>
+<blockquote>
+<p>大多数最佳实践都基于一个约束：Claude 的 context window 填充速度很快，随着填充，性能会下降。</p>
+</blockquote>
+<p><strong>上下文窗口（context window，即 Claude 一次能「装在脑子里」的全部信息）装着你整段对话</strong>——每条消息、它读过的每个文件、每条命令的输出，全在里头。问题是它会很快塞满：一次稍微深点的调试，或者让它把代码库翻一遍，轻松就吞掉几万个 token（第 19 篇讲过 token 和上下文窗口是什么，这里不展开）。</p>
+<p><strong>而一旦塞满，Claude 就开始变笨</strong>——忘掉你早先的交代、犯更多低级错。</p>
+<p><strong>类比：带一个新来的实习生上手项目。</strong> 这个实习生绝顶聪明、手脚麻利，但有个怪毛病：<strong>他的脑子是张固定大小的白板</strong>，你交代的事、他翻过的资料、跑过的命令结果，全得写在这张白板上。白板写满了，他就开始顾此失彼——你早上叮嘱的「提交前先跑测试」，到下午他就忘了，因为那行字早被后面一堆东西挤掉了。</p>
+<p>这个比喻这一篇我会反复用——<strong>因为后面几乎每条法则，本质都是在帮这个实习生「省着用他的白板」</strong>：</p>
+<ul>
+<li>让他<strong>能自己验收</strong>，你就不用每一步都盯着看（省你的时间，也省得反复来回污染白板）；</li>
+<li>让他<strong>先摸清再动手</strong>，就不会白板写满了才发现方向错了；</li>
+<li>把话<strong>一次说具体</strong>，就省掉来回追问那几轮消耗；</li>
+<li>给他的<strong>常驻便签写精</strong>，白板开局就不会先被废话占走一截；</li>
+<li>一<strong>跑偏立刻拽回来</strong>，别等白板被一串错误方法塞爆。</li>
+</ul>
+<p>记住这条总约束，下面前五条法则你会发现它们其实是一家人——全在「替单个实习生省白板」。等你把一个实习生使唤利索了，最后还有第六条：<strong>多招几个实习生横向铺开</strong>，那是后话。</p>
+<blockquote>
+<p>💡 一句话总结：Claude 的上下文窗口会很快填满、填满就变笨，<strong>它是你最金贵的资源</strong>；这一篇所有法则，归根结底都是在教你「替那个聪明实习生省着用他的白板」。</p>
+</blockquote>
+<hr>
+<h2>02 法则一：给它一个能自己验收的方式</h2>
+<p>先上结论，这条是我心里<strong>最重要的一条</strong>：</p>
+<blockquote>
+<p><strong>给 Claude 一个它能自己跑的检查——测试、构建、截图比对。这是「你得盯着的会话」和「你能走开的会话」之间的分水岭。</strong></p>
+</blockquote>
+<p>为啥这么关键？官方那句话戳中了要害：</p>
+<blockquote>
+<p>当工作看起来完成时，Claude 会停止。没有它可以运行的检查，「看起来完成」是唯一可用的信号，你成为验证循环。</p>
+</blockquote>
+<p>翻成人话：<strong>你要是不给它验收标准，那个「验收」就只能你自己来</strong>——它每犯一个错，都得等你火眼金睛发现。你从「派活的人」沦落成「质检员」，每一步都得盯。但你只要给它一个能产出「过 / 不过」信号的东西，这个循环就自动闭合了：它干完活、自己跑检查、读结果、不对就接着改，直到检查通过。</p>
+<p><strong>类比：装修队交工前那道验收。</strong> 你请人装修，最怕的就是工人「凭感觉觉得弄好了」就收工——瓷砖贴歪了、插座不通电，他自己看不出来，全等你入住才发现。但你要是开工前就甩给他一张<strong>验收清单</strong>（「每个插座插电笔测一遍亮不亮、每块砖拿靠尺量平不平」），他就能自己一项项核对、不合格自己返工，交到你手上的是已经验过的活。<strong>「能自己跑的检查」就是你递给 Claude 的那张验收清单。</strong></p>
+<p>什么东西能当这张清单？官方给了一串，全是能返回「Claude 在对话里读得到的信号」的东西：</p>
+<ul>
+<li><strong>测试套件</strong>（最常用，跑完直接告诉它过没过）</li>
+<li><strong>构建的退出码</strong>（编译过不过）</li>
+<li><strong>linter</strong>（代码规范检查）</li>
+<li><strong>拿输出跟固定基准比对的脚本</strong></li>
+<li><strong>跟设计稿比对的浏览器截图</strong>（第 17 篇讲的贴图复刻 UI，就能这么验）</li>
+</ul>
+<p>最实用的是怎么把它写进 prompt。官方这张对照表，我建议你直接收藏：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>❌ 没给验收</th>
+<th>✅ 给了验收</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>写函数</strong></td>
+<td>「实现一个验证邮箱的函数」</td>
+<td>「写个 <code>validateEmail</code> 函数。示例用例：<code>user@example.com</code> 为真、<code>invalid</code> 为假、<code>user@.com</code> 为假。<strong>实现后跑测试</strong>」</td>
+</tr>
+<tr>
+<td><strong>改 UI</strong></td>
+<td>「让仪表盘好看点」</td>
+<td>「[贴截图] 照这个设计实现。<strong>做完截图跟原设计比对，列出差异再修</strong>」</td>
+</tr>
+<tr>
+<td><strong>修构建</strong></td>
+<td>「构建失败了」</td>
+<td>「构建报这个错：[贴错误]。修好并<strong>验证构建成功。解决根因，别把错误压下去</strong>」</td>
+</tr>
+</tbody></table>
+<p>看出门道了吗？左边那列，Claude 干完只能「觉得」自己对了；右边每一条结尾都挂了个<strong>它能自己跑、能读到结果</strong>的检查。</p>
+<p>检查还能分<strong>约束力的档位</strong>，看你要它管多严——这点官方讲得很细，我归成一句给你：</p>
+<table>
+<thead>
+<tr>
+<th>约束力</th>
+<th>怎么挂</th>
+<th>适合</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>本次提示内</strong></td>
+<td>prompt 里直接写「跑测试并迭代到通过」</td>
+<td>今天手头随便哪个任务，最轻量</td>
+</tr>
+<tr>
+<td><strong>整个会话</strong></td>
+<td>设成 <code>/goal</code> 条件，每轮自动重检直到成立</td>
+<td>要它持续盯着一个目标别跑偏</td>
+</tr>
+<tr>
+<td><strong>确定性闸门</strong></td>
+<td>写个 Stop hook，检查不过就不让它收工</td>
+<td>无人值守时强制把关（第 33 篇讲 hook）</td>
+</tr>
+</tbody></table>
+<p>新手用最上面那档就够了——<strong>prompt 结尾加一句「做完跑测试并验证」，立竿见影</strong>。后两档是等你要让 Claude「没人盯着也能正确收工」时再上的重武器。</p>
+<p>这里还得提一句官方反复强调的「<strong>解决根因，别压症状</strong>」——这恰好撞上调试里那条铁律：<strong>别为了让代码跑起来就把报错注释掉、或加个绕过标记蒙混过去</strong>。一个典型的翻车场景是：构建报个 type 错误，图快让它「先让构建过」，结果它真的把那行类型断言成了 <code>any</code>，错误是没了，bug 埋更深了。稳妥的做法是 prompt 里永远带一句「<strong>修复根本原因，不要把错误压下去</strong>」。</p>
+<p>还有个加分动作：<strong>让它把证据亮出来，而不是嘴上说「成功了」</strong>。</p>
+<blockquote>
+<p>让 Claude 显示证据而不是声称成功：测试输出、它运行的命令及其返回的内容，或结果的屏幕截图。</p>
+</blockquote>
+<p>你审一眼它贴出来的测试输出，比你自己重新跑一遍快得多——而且对于你没盯着的会话，这是唯一能信的东西。</p>
+<blockquote>
+<p>💡 一句话总结：<strong>给 Claude 一个能自己跑的检查（测试 / 构建 / 截图比对），它就能自我验收、不对自己返工</strong>；prompt 结尾挂一句「做完跑测试并验证」，你就从质检员变回派活的人。</p>
+</blockquote>
+<hr>
+<h2>03 法则二：先探索，再规划，最后才编程</h2>
+<p>第二条法则，专治「方向跑偏」。</p>
+<blockquote>
+<p><strong>让 Claude 上来就闷头写代码，很容易写出一坨「解决了错误问题」的东西。把「摸清楚 + 定方案」和「动手实现」分开。</strong></p>
+</blockquote>
+<p>官方推荐的工作流分四步，我用上面那个实习生的比方串一遍你就懂了：</p>
+<p><img src="assets/49-best-practice-flow@2x.png" alt="Claude Code 最佳实践四步循环：探索（Plan Mode）→ 规划 → 实现 → 提交"></p>
+<p>这张图是官方那套四阶段工作流：左边两步「想清楚」、右边两步「干出来」，中间那道竖线（退出 Plan Mode）就是从「动脑」切到「动手」的开关。</p>
+<p><strong>为啥探索和实现要分开？</strong> 你想啊——你不会让一个第一天来的实习生连项目都没翻过就直接上手改核心模块。你会先让他<strong>读代码、问问题、把现状摸清</strong>（这就是「探索」），再让他<strong>说说打算怎么改</strong>（这就是「规划」），你点头了他再动手。Claude 也一样，<strong>Plan Mode（计划模式，只读不改、专门用来摸清现状和定方案的模式，第 35 篇细讲）就是干这个的</strong>。</p>
+<p>探索阶段，你在 Plan Mode 里这么使唤它（官方示例的意思）：</p>
+<pre><code class="language-text">读一下 src/auth 目录，搞清楚我们怎么处理 session 和登录。
+顺便看看 secret 这类环境变量是怎么管的。
+</code></pre>
+<p>它只读不改，读完回答你。摸清了再让它出方案：</p>
+<pre><code class="language-text">我想加 Google OAuth。哪些文件要改？session 流程是怎样的？给我一份计划。
+</code></pre>
+<p>方案出来你觉得不对，<strong>按 <code>Ctrl+G</code> 能直接在文本编辑器里改这份计划</strong>，改完它接着往下走。满意了，切出 Plan Mode 让它照方案实现——别忘了第一条法则，<strong>让它顺手把验证也做了</strong>。</p>
+<p>但官方也老实提醒了：<strong>Plan Mode 不是万能的，它有开销</strong>。</p>
+<blockquote>
+<p>对于范围明确且修复很小的任务（如修复拼写错误、添加日志行或重命名变量），要求 Claude 直接执行。</p>
+</blockquote>
+<p>官方给了一句<strong>特别好用的判断口诀</strong>，平时拿它做决定就够：</p>
+<blockquote>
+<p><strong>如果你能用一句话描述这个 diff，就跳过计划。</strong></p>
+</blockquote>
+<p>改个拼写、加行日志、重命名变量——这种你一句话说得清的，直接让它干，套 Plan Mode 纯属脱裤子放屁。<strong>反过来，方法没想好、要动好几个文件、或者你对这块代码不熟</strong>——这三种情况，老老实实先规划。一条好用的分界线：<strong>碰一个没读过的模块，或者预感要连带改三个以上文件，一律先进 Plan Mode</strong>；剩下的直接上。</p>
+<blockquote>
+<p>💡 一句话总结：<strong>方法没把握、要改多个文件、对代码不熟，就先 Plan Mode 探索 + 规划再动手；一句话能说清的 diff，直接干</strong>——官方那句「能一句话描述 diff 就跳过计划」是最好用的分界线。</p>
+</blockquote>
+<hr>
+<h2>04 法则三：把话说具体——你越精确，要返工的越少</h2>
+<p>这条是开头那个故事的正主。一句话：</p>
+<blockquote>
+<p><strong>你的指令越精确，需要的更正就越少。</strong> Claude 能推断意图，但它不会读心。</p>
+</blockquote>
+<p>引用具体文件、点明约束、指出参照的例子——这三招就能让 prompt 的质量上一个台阶。官方这张对照表是全篇的精华，我逐条带你品（第 15 篇讲过提问的通用心法，这里专挑「具体」这一点往死里抠）：</p>
+<table>
+<thead>
+<tr>
+<th>招式</th>
+<th>❌ 模糊</th>
+<th>✅ 具体</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>限定范围</strong>：哪个文件、什么场景、测试偏好</td>
+<td>「给 <code>foo.py</code> 加测试」</td>
+<td>「给 <code>foo.py</code> 写测试，<strong>覆盖用户已登出的边界情况，别用 mock</strong>」</td>
+</tr>
+<tr>
+<td><strong>指向来源</strong>：把它导到能回答问题的地方</td>
+<td>「<code>ExecutionFactory</code> 这 api 咋这么怪？」</td>
+<td>「<strong>看 <code>ExecutionFactory</code> 的 git 历史</strong>，总结它的 api 是怎么演变成这样的」</td>
+</tr>
+<tr>
+<td><strong>参照现有模式</strong>：指出代码库里的范例</td>
+<td>「加个日历组件」</td>
+<td>「看主页现有组件怎么写的，<code>HotDogWidget.php</code> 是个好例子。<strong>照这个模式</strong>实现一个日历组件，能选月份、能前后翻年。别引新库」</td>
+</tr>
+<tr>
+<td><strong>描述症状</strong>：给现象 + 大概位置 + 「修好」长啥样</td>
+<td>「修登录错误」</td>
+<td>「用户反馈 session 超时后登录失败。查 <code>src/auth/</code> 的认证流程，<strong>特别是 token 刷新。先写个失败测试复现，再修</strong>」</td>
+</tr>
+</tbody></table>
+<p>看出右边那列的共性没有？<strong>全在做减法之外的加法</strong>——加了文件名、加了边界情况、加了参照例子、加了「修好的样子」。这就是开头那条重写后的 prompt 为啥一把就对：把「修登录 bug」这种模糊话，按最后一行那个模板<strong>重写成了带文件、带症状、带验收的具体指令</strong>。</p>
+<p>最受用的是第三招「<strong>参照现有模式</strong>」。我自己就在这上面栽过——有回图省事直接甩了句「加个导出 CSV 的功能」，它确实给我整出来了，但用了套跟项目里已有导出逻辑完全不搭的新写法，还顺手引了个我根本没用过的库，对齐返工磨了我大半个下午。后来学乖了，换成一句模板就好办了——「<strong>先看 <code>XXX.ts</code> 里现有的导出是怎么做的，照那个模式来，别引新库</strong>」。就加这么半句，它写出来的代码风格、用的工具函数全跟项目对齐，基本不用返工。<strong>指一个现成的好例子给它，胜过你描述十句「我想要的风格」。</strong></p>
+<p>不过官方留了个有意思的例外，值得你知道：</p>
+<blockquote>
+<p>当你在探索并能够改正方向时，模糊的提示可能很有用。</p>
+</blockquote>
+<p>像「<strong>你会怎么改进这个文件？</strong>」这种故意开放的问法，反而能<strong>抖出一些你压根想不到要问的东西</strong>。接手陌生代码时这招特别好用——先扔个模糊问题让它自由发挥，看它冒出什么，再据此收紧。所以「具体」是默认档，「模糊」是探索时的特殊档，别一根筋。</p>
+<h3>配套动作：把「料」喂足</h3>
+<p>光说得具体还不够，<strong>该塞给它的资料得塞够</strong>。官方给了几个喂料的招，第 17 篇详细讲过多模态，这里汇总成一张速查：</p>
+<ul>
+<li><strong>用 <code>@</code> 引用文件</strong>，而不是干巴巴描述「那个文件在哪儿哪儿」。打 <code>@</code> 它会跳出文件名让你选，它读完再回答。</li>
+<li><strong>直接粘贴图片</strong>：截图、设计稿、报错的图，复制粘贴或拖进去就行（去看医生别光靠嘴说、拍张片子给医生——这事第 17 篇的比方很贴切）。</li>
+<li><strong>给 URL</strong>：文档、API 参考的网址直接贴。常用的域名可以用 <code>/permissions</code> 加进白名单免得每次问。</li>
+<li><strong>管道灌数据</strong>：<code>cat error.log | claude</code> 直接把文件内容怼进去。</li>
+<li><strong>让它自己去取</strong>：告诉它「用 bash 命令 / MCP 工具去把你要的上下文拉过来」，它会自己动手。</li>
+</ul>
+<blockquote>
+<p>💡 一句话总结：<strong>默认把话说到「换个实习生也能照做」的具体程度</strong>——点文件、限场景、给参照、说清「修好的样子」；要喂的资料用 <code>@</code>、贴图、URL、管道一次给足；只在「想让它自由发挥探出新东西」时才故意模糊。</p>
+</blockquote>
+<hr>
+<h2>05 法则四：CLAUDE.md 要写精，不是写多</h2>
+<p>CLAUDE.md 怎么写得好，是「最佳实践」绕不开的一条。第 18 篇已经把它的语法、放哪、怎么生成讲透了，<strong>这一节只补一个最容易被新手忽略、却最致命的点：精，比全重要一万倍</strong>。</p>
+<p>先记住 CLAUDE.md 是啥——<strong>Claude 每次开新对话都会自动读的那个文件</strong>，里头放它没法从代码里猜到的持久背景（构建命令、代码风格、工作流规矩）。<code>/init</code> 能帮你生成一份起步的（第 12 篇讲过）。</p>
+<p><strong>类比：留给值班同事的便签。</strong> 你下班前给接班的同事留张便签，写「服务器半夜会自动重启，别慌」「客户 A 的邮件优先回」——<strong>写三五条关键的，他扫一眼就记住了</strong>。可你要是把整本运维手册抄上去、密密麻麻贴满一墙，结果就是<strong>他一条都不会认真看</strong>，你真正想强调的那两句反而被淹了。CLAUDE.md 就是这张便签：<strong>它的价值在「短到每条都被看见」，不在「全」。</strong></p>
+<p>这不是我瞎说，官方把这条几乎是吼出来的：</p>
+<blockquote>
+<p>保持简洁。对于每一行，问自己：「删除这个会导致 Claude 犯错吗？」如果不会，删除它。<strong>膨胀的 CLAUDE.md 文件会导致 Claude 忽略你的实际指令！</strong></p>
+</blockquote>
+<p>这条踩坑的方式通常有两种。第一种是贪心地把一大段「这个项目为什么这么设计」的来龙去脉写进 CLAUDE.md，想着「让它充分理解背景」，洋洋洒洒小一百行。结果它经常<strong>抓不住你真正强调的那几条硬规矩</strong>（比如「禁止改数据库迁移文件」），全被那堆背景叙事淹了——背景它本来读代码就能懂，根本不该占便签的位置。第二种更直接：有份<strong>只有偶尔写某类接口时才用得上</strong>的规范，图省事也塞进了 CLAUDE.md，相当于每次开会都把一份「平时八竿子打不着」的资料强塞进白板。这两块都该按官方的话办——<strong>背景叙事直接删（它读代码自会懂），偶尔才用的规范挪进 Skill</strong>（第 26 篇）；CLAUDE.md 瘦下来之后，它对那几条核心规矩的遵守会肉眼可见地变好。</p>
+<p>到底什么该写、什么该删？官方这张表是金标准，我建议你拿它逐行审一遍自己的 CLAUDE.md：</p>
+<table>
+<thead>
+<tr>
+<th>✅ 该写进去</th>
+<th>❌ 不该写</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Claude 猜不到的 bash 命令</td>
+<td>它读代码就能搞清的任何东西</td>
+</tr>
+<tr>
+<td>跟默认<strong>不一样</strong>的代码风格规则</td>
+<td>它早就懂的标准语言约定</td>
+</tr>
+<tr>
+<td>测试指令、你偏好的测试运行器</td>
+<td>详细的 API 文档（<strong>改成贴链接</strong>）</td>
+</tr>
+<tr>
+<td>仓库规矩（分支命名、PR 约定）</td>
+<td>经常变的信息</td>
+</tr>
+<tr>
+<td>你项目特有的架构决策</td>
+<td>长篇解释或教程</td>
+</tr>
+<tr>
+<td>开发环境的怪癖（必需的环境变量）</td>
+<td>「写干净的代码」这种不言自明的废话</td>
+</tr>
+<tr>
+<td>常见的坑、反直觉的行为</td>
+<td>逐个文件描述代码库</td>
+</tr>
+</tbody></table>
+<p>右边那列的共性就一句：<strong>凡是 Claude 自己能想明白的、或者会过时的、或者属于「正确的废话」，全删</strong>。</p>
+<p>官方还教了两个进阶手法，顺带提一句：</p>
+<ul>
+<li><strong>想让某条规矩更被当回事</strong>，可以加 <code>IMPORTANT</code> 或 <code>YOU MUST</code> 这种强调词（你看本教程项目自己的 CLAUDE.md 里就用了「IMPORTANT」）。</li>
+<li><strong>CLAUDE.md 支持用 <code>@路径</code> 语法引入别的文件</strong>，比如 <code>Git workflow: @docs/git-instructions.md</code>，把细则拆出去、主文件保持清爽。</li>
+</ul>
+<p>最后官方给了条「<strong>反向诊断</strong>」，特别实用：<strong>如果你三令五申某条规矩它还是不听，文件多半太长了，规则被噪音淹了；如果它问你 CLAUDE.md 里明明写了的事，那条措辞多半不清楚。</strong> 把 CLAUDE.md 当代码养——出问题就回去审它、定期修剪、改完观察它行为有没有真变。</p>
+<blockquote>
+<p>💡 一句话总结：CLAUDE.md 的命脉是「<strong>精</strong>」不是「全」——每行都拿「删了它 Claude 会犯错吗？」过一遍，不会就删；详细文档贴链接、有时才用的知识挪进 Skill，<strong>让那张便签短到每条都被看见</strong>。</p>
+</blockquote>
+<hr>
+<h2>06 法则五：一跑偏就立刻拽回来，别硬熬</h2>
+<p>最后一条法则，关乎你怎么<strong>经营一段会话</strong>。核心就一句：</p>
+<blockquote>
+<p><strong>一发现 Claude 跑偏，立刻纠正它，别等它越走越远。</strong> 对话是可逆的——用好这一点。</p>
+</blockquote>
+<p>最好的结果都来自<strong>紧密的反馈循环</strong>。Claude 有时一次就完美解决，但更多时候，<strong>快速拽它一把，比让它在错路上跑完再推倒重来，要快得多</strong>。官方给了一套「拽回来」的工具，配上常见的用法：</p>
+<table>
+<thead>
+<tr>
+<th>你想干啥</th>
+<th>怎么做</th>
+<th>我的用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>中途喊停</strong></td>
+<td>按 <code>Esc</code>，上下文保留，可以重新指方向</td>
+<td>一看它读错文件了立刻 <code>Esc</code>，省得它顺着错的往下跑</td>
+</tr>
+<tr>
+<td><strong>倒带到之前</strong></td>
+<td>按两下 <code>Esc</code> 或 <code>/rewind</code>，恢复对话 / 代码状态</td>
+<td>它把代码改乱了，<code>/rewind</code> 回到上一个干净点（第 37 篇细讲检查点）</td>
+</tr>
+<tr>
+<td><strong>撤销刚才那步</strong></td>
+<td>直接说「<strong>撤销那个改动</strong>」</td>
+<td>比手动改回去快</td>
+</tr>
+<tr>
+<td><strong>不相关任务之间重置</strong></td>
+<td><code>/clear</code> 清空上下文</td>
+<td>修完 bug 要去写新功能，先 <code>/clear</code></td>
+</tr>
+</tbody></table>
+<p>这里有条<strong>老用户都认、新手最该听的铁律</strong>，官方说得斩钉截铁：</p>
+<blockquote>
+<p><strong>如果你在一个会话里对同一个问题纠正了 Claude 两次以上，context 就被失败的方法污染了。</strong> 运行 <code>/clear</code>，用一个更具体的、包含你刚学到的东西的提示重新开始。</p>
+</blockquote>
+<p>翻成大白话：<strong>纠正第三次还不对，别再纠正第四次了</strong>。这时候你的白板上已经堆满了「试过 A 不行、试过 B 也不行」的垃圾，Claude 被这些噪音带着越走越偏。<strong>正确动作是 <code>/clear</code> 推倒重来</strong>——但这次开局的 prompt 里，把你这几轮折腾<strong>学到的东西</strong>写进去（「别走 X 方案、问题根源在 Y」）。</p>
+<blockquote>
+<p>干净的会话 + 更好的提示，几乎总是优于冗长的会话 + 一堆累积的更正。</p>
+</blockquote>
+<p>这条我是吃过亏才信的。有阵子跟它死磕一个状态管理的 bug，一轮轮纠正下去，纠了得有五六次，越改越乱，最后那版代码连我自己都看不懂了，还在那儿犟着不肯重开。后来一咬牙 <code>/rewind</code> 回最初状态、<code>/clear</code>，重开一个会话，把「这 bug 跟组件卸载时的异步回调有关，别动渲染逻辑」一次性说清——<strong>新会话两轮就修好了</strong>，前面那一下午全是白耗。打那以后我给自己定了条硬规矩：<strong>同一个问题纠正满三次，无条件 <code>/clear</code> 重开</strong>。</p>
+<h3>顺带两个「经营会话」的好习惯</h3>
+<p>这条法则底下，还挂着两个官方推荐、能让你白板更干净的习惯（都呼应第 19 篇的上下文管理）：</p>
+<ul>
+<li><strong>派 subagent 去做调查</strong>：让它「<strong>用 subagent 去查 X</strong>」。它在自己独立的白板上翻一堆文件，<strong>只把结论递回你的主对话</strong>，你的白板一点不沾（第 23 篇细讲）。官方原话——「由于 context 是你的基本约束，subagents 是可用的最强大的工具之一」。</li>
+<li><strong>给会话起名、之后能续上</strong>：<code>claude --continue</code> 接最近一次会话，<code>claude --resume</code> 从列表里挑。给会话起个像 <code>oauth-migration</code> 这样的描述性名字，<strong>像对待 git 分支一样对待它们</strong>，下次直接找回来接着干。</li>
+</ul>
+<blockquote>
+<p>💡 一句话总结：<strong>一跑偏立刻 <code>Esc</code> 停 / <code>/rewind</code> 倒带 / 说「撤销那个」；同一问题纠正满三次，无条件 <code>/clear</code> 带着教训重开</strong>——干净会话 + 好 prompt 永远赢过长会话 + 一堆更正。调查的脏活派给 subagent，别脏了主白板。</p>
+</blockquote>
+<hr>
+<h2>07 法则六：一个 Claude 用顺了，再考虑横向铺开</h2>
+<p>前五条都默认「一个你、一个 Claude、一段对话」。但你把单个 Claude 用顺之后，官方还有一整套「<strong>横向扩展</strong>」的玩法能让产出翻几倍。这一节只给你建个印象、点几个最值钱的，具体操作分散在第 41 篇（并行任务）和第 44 篇（GitHub Actions）里。</p>
+<blockquote>
+<p><strong>先把一个 Claude 用对，再谈并行。</strong> 顺序别反——一个都指挥不利索，开五个只会乱五倍。</p>
+</blockquote>
+<p>官方点了几个最常用的扩展姿势：</p>
+<ul>
+<li><strong>多开几个会话并行干</strong>：几个互不依赖的活儿，开多个会话各干各的。最稳的隔离办法是 worktree（每个会话在独立的 git 检出里，编辑不打架），或者干脆用桌面端 / 网页版可视化地管多个会话。</li>
+<li><strong>Writer / Reviewer 模式</strong>：这个我极力推荐。<strong>让会话 A 写代码，再开一个全新的会话 B 去审 A 写的代码</strong>。妙处在于——B 的白板是干净的，它<strong>不会偏袒「自己刚写的代码」</strong>，挑起毛病来比 A 自审狠得多。官方原话点破了关键：</li>
+</ul>
+<blockquote>
+<p>新鲜的 context 改进了代码审查，因为 Claude 不会偏向于它刚刚编写的代码。</p>
+</blockquote>
+<ul>
+<li><strong>非交互模式跑脚本</strong>：<code>claude -p &quot;你的提示&quot;</code> 不开交互会话直接出结果，这是把 Claude 塞进 CI、pre-commit hook、批处理脚本的入口。需要结构化输出时加 <code>--output-format json</code>，调试时加 <code>--verbose</code>。比如大规模迁移，可以写个循环对几千个文件逐个 <code>claude -p</code>，配 <code>--allowedTools</code> 把它无人值守时能干的事框死。</li>
+<li><strong>加一道对抗性审查</strong>：Claude 无人值守跑得越久，<strong>交工前让一个全新的 subagent 在干净白板上审一遍 diff</strong> 就越重要。官方自带的 <code>/code-review</code> 就是干这个的——它在新 subagent 里只看差异、挑 bug，再把发现递回来。</li>
+</ul>
+<p>不过官方在这儿补了句<strong>反过来的提醒</strong>，值得记住，免得用力过猛：</p>
+<blockquote>
+<p>被提示查找缺陷的审查者通常会报告一些，即使工作是健全的……追逐每个发现会导致过度工程。</p>
+</blockquote>
+<p>意思是：让它「找毛病」它就<strong>一定会找出毛病</strong>，哪怕代码本来没问题。<strong>别每条都追着改</strong>，否则会堆出一坨没必要的抽象和防御性代码——告诉审查者「只标影响正确性的，其余当可选」。这条恰好跟「对抗过度工程」是一个道理。</p>
+<blockquote>
+<p>💡 一句话总结：<strong>一个 Claude 用顺了再横向铺开</strong>——多会话并行（worktree 隔离）、Writer/Reviewer 用干净白板互审、<code>claude -p</code> 进脚本、收尾加道对抗性审查；但审查者「报的毛病」别每条都追，<strong>只改影响正确性的</strong>，别过度工程。</p>
+</blockquote>
+<hr>
+<h2>08 还有几条「沟通」上的好习惯</h2>
+<p>上面五条是骨架，再补几条官方专门讲「<strong>怎么跟 Claude 沟通</strong>」的小习惯，零散但顶用。</p>
+<p><strong>第一，把它当资深同事一样问。</strong> 加入一个陌生代码库时，别自己闷头啃，直接问它你会问老员工的那些问题——官方原话「<strong>问 Claude 你会问资深工程师的问题</strong>」：</p>
+<pre><code class="language-text">日志是怎么工作的？
+我要怎么新建一个 API 端点？
+foo.rs 第 134 行那个 async move 是干嘛的？
+为啥这段代码第 333 行调 foo() 而不是 bar()？
+</code></pre>
+<p>不用任何特殊咒语，<strong>直接问</strong>。这是个特别高效的入职方式，每接手一个新项目都先这么问一圈，比看半天文档快。</p>
+<p><strong>第二，大功能让它先「采访」你。</strong> 这条是官方一个很妙的技巧——动手前，让 Claude 反过来拿问题轰你：</p>
+<pre><code class="language-text">我想做 [一句话描述]。用 AskUserQuestion 工具详细采访我。
+
+问技术实现、UI/UX、边界情况、顾虑和权衡。别问显而易见的，
+专挑我可能没想到的硬骨头问。聊透了，把完整的 spec 写到 SPEC.md。
+</code></pre>
+<p>它会问出一堆你压根没考虑过的东西（边界情况、技术选型的权衡）。<strong>采访完得到一份 <code>SPEC.md</code>，然后开个新会话、用干净的白板照着这份 spec 实现</strong>。官方点了句关键——「花在让 spec 精确上的时间，比花在盯实现上的时间收益更大」。做稍大点的功能都建议这么干，那份被逼出来的 spec 经常能帮你发现需求里的窟窿。</p>
+<blockquote>
+<p>你应该问 Claude 你会问另一个工程师的相同类型的问题。</p>
+</blockquote>
+<p><strong>第三，让它显示证据，别信它的「我觉得」。</strong> 这条跟法则一一脉相承，但值得单拎出来当沟通习惯：凡是它说「应该可以了」「这样就对了」，你都回一句「<strong>跑一下验证，把输出贴出来</strong>」。把「声称」逼成「证据」，是对付那种看着合理、实则没处理边界的实现的最稳一招。</p>
+<blockquote>
+<p>💡 一句话总结：陌生代码库<strong>直接当资深同事问</strong>（不用特殊提示）；大功能让它用 <code>AskUserQuestion</code> <strong>先采访你、产出 SPEC.md 再新会话实现</strong>；它一说「搞定了」，就让它<strong>亮出测试 / 命令输出当证据</strong>。</p>
+</blockquote>
+<hr>
+<h2>09 动手：用一个对比实验，亲眼看看「具体」值多少</h2>
+<p>光看法则不够，得亲眼看一次差距。这个实验<strong>不依赖你任何现成项目</strong>，跟着做五分钟，你会对「把话说具体 + 给验收」有肌肉记忆。</p>
+<p><strong>目标</strong>：同一个需求，先用模糊 prompt、再用具体 prompt，对比 Claude 干出来的活差多少。</p>
+<p><strong>第一步：建个空目录，进 Claude</strong></p>
+<pre><code class="language-bash">mkdir cc-best-practice-demo &amp;&amp; cd cc-best-practice-demo &amp;&amp; claude
+</code></pre>
+<p><strong>第二步：先发一条「模糊」prompt</strong></p>
+<p>进去后敲（故意学新手那样省着说）：</p>
+<pre><code class="language-text">写个判断密码强不强的函数
+</code></pre>
+<p><strong>预期</strong>：它多半会给你一个 <code>checkPassword</code> 之类的函数，但<strong>判定标准全是它自己拍脑袋定的</strong>——可能只看长度，也可能加一堆你没要的规则；大概率<strong>没有测试</strong>，你根本不知道它对不对。先把这版留着。</p>
+<p><strong>第三步：<code>/clear</code> 后，发一条「具体 + 带验收」的 prompt</strong></p>
+<pre><code class="language-text">/clear
+</code></pre>
+<p>清空后，按法则一和法则三重写这条需求：</p>
+<pre><code class="language-text">写一个 isStrongPassword(pwd) 函数，放到 password.js。
+规则：长度 &gt;= 8、至少 1 个大写字母、至少 1 个数字，三条全满足才算强。
+示例用例：&#39;Abc12345&#39; 为 true，&#39;abc12345&#39; 为 false（没大写），&#39;Abcdefgh&#39; 为 false（没数字）。
+写完用这些用例跑一遍验证，把测试输出贴给我。
+</code></pre>
+<p><strong>预期</strong>：这一版你会明显看到三处不同——</p>
+<ol>
+<li>函数的判定规则<strong>跟你说的一字不差</strong>，不再是它自己瞎定；</li>
+<li>它会<strong>真的去跑那几个示例用例</strong>，并把类似 <code>✓ Abc12345 → true</code> 的结果贴出来；</li>
+<li>你扫一眼那个输出就能<strong>自己验收</strong>，不用再去人肉读代码猜它对不对。</li>
+</ol>
+<p><strong>第四步：把两版并排看一眼</strong></p>
+<p>你不用记任何东西，<strong>就盯着这两版的差距感受一下</strong>：左边那版你得自己当质检员、还未必查得出错；右边那版它自己验完、把证据递到你手上。<strong>这就是这一整篇法则压缩成的一次体感</strong>——多花十几个字写清楚「规则 + 用例 + 验证」，省下的是你来回返工的好几轮。</p>
+<blockquote>
+<p>💡 一句话总结：同一个需求，<strong>模糊 prompt 让你当质检员、具体 + 带验收的 prompt 让它自己交验过的活</strong>；亲手跑一遍这个对比，比记十条法则都管用。</p>
+</blockquote>
+<hr>
+<h2>10 小结</h2>
+<p>这一篇没教新功能，教的是「<strong>怎么把已有功能用到位</strong>」——把官方《最佳实践》和老用户的经验，归成几条你今天就能照着改的法则。</p>
+<p>最后用上下文窗口那条总约束，把六条法则串成一张速查表：</p>
+<table>
+<thead>
+<tr>
+<th>你遇到的情况</th>
+<th>该用哪条法则</th>
+<th>一句话关键动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>「它干完我得自己一行行查对不对」</td>
+<td><strong>给验收手段</strong></td>
+<td>prompt 结尾挂「做完跑测试 / 截图比对并验证」</td>
+</tr>
+<tr>
+<td>「它写出来的东西方向就错了」</td>
+<td><strong>先探索再编程</strong></td>
+<td>不熟 / 改多文件，先进 Plan Mode；一句话能说清的直接干</td>
+</tr>
+<tr>
+<td>「它老 get 不到我要啥」</td>
+<td><strong>把话说具体</strong></td>
+<td>点文件、限场景、给参照、说清「修好的样子」，料用 <code>@</code>/贴图喂足</td>
+</tr>
+<tr>
+<td>「叮嘱过的规矩它总不听」</td>
+<td><strong>CLAUDE.md 写精</strong></td>
+<td>逐行问「删了会犯错吗」，不会就删；文档贴链接、细则挪 Skill</td>
+</tr>
+<tr>
+<td>「同一个问题改了好几轮越改越乱」</td>
+<td><strong>及时纠偏</strong></td>
+<td>纠正满三次无条件 <code>/clear</code>，带着教训重开</td>
+</tr>
+<tr>
+<td>「一个 Claude 不够用，想提速」</td>
+<td><strong>横向铺开</strong></td>
+<td>先用顺一个再并行；Writer/Reviewer 用干净白板互审</td>
+</tr>
+</tbody></table>
+<p><strong>你现在应该能：</strong> 拿到任何一段「跟 Claude 较劲」的体验，先回到那条总约束（白板别塞满），再对号入座该提哪条法则——是没给验收、没说具体、CLAUDE.md 太肥，还是该 <code>/clear</code> 重开了。<strong>这六条不是死规矩</strong>，官方最后那句话说得很到位——它们是「<strong>通常很管用的起点</strong>」，用多了你会长出自己的直觉：什么时候该具体、什么时候故意模糊去探路，什么时候清空、什么时候让上下文攒着。</p>
+<blockquote>
+<p>注意什么有效。当 Claude 产生很好的输出时，注意你做了什么。</p>
+</blockquote>
+<p>把这套心法用顺，你和 Claude 的配合就从「天天较劲」变成「越用越顺手」了。</p>
+<hr>
+<p>下一篇 <strong>50「反模式：常见的错误用法」</strong>——这一篇讲的是「该怎么做」，下一篇专讲「<strong>千万别这么做</strong>」。官方那张「常见失败模式」清单（厨房水槽会话、反复纠正、CLAUDE.md 过度膨胀、信任却不验证、无限探索）我只在这篇点了名，下一篇把每一个掰开揉碎、配上真实翻车现场和解药。想想看：你回顾自己这段时间用 Claude Code，<strong>最常踩的是哪一个坑</strong>？带着这个问题翻下一篇，对号入座会格外有共鸣。</p>
+
+    </article>
+    
+<div class="pager">
+  <a class="pg" href="/library/claude-code/48-capstone-project.html"><span class="mono">← 上一篇 · 48</span><b>综合实战：从零到上线，把所学串成一条线</b></a>
+  <a class="pg nx" href="/library/claude-code/50-anti-patterns.html"><span class="mono">下一篇 · 50 →</span><b>反模式：常见的错误用法</b></a>
+</div>
+    
+<div class="attrib">
+  <p class="attrib-title">出处与许可</p>
+  <p>本手册内容来自 <a href="https://github.com/stormzhang/ai-coding-guide" target="_blank" rel="noreferrer noopener">stormzhang/ai-coding-guide</a>(原站 <a href="https://coding.stormzhang.ai" target="_blank" rel="noreferrer noopener">coding.stormzhang.ai</a>),原作者 <b>stormzhang</b>,以 <a href="https://github.com/stormzhang/ai-coding-guide/blob/main/LICENSE" target="_blank" rel="noreferrer noopener">MIT License</a> 许可开源。我们原样收录,保留全部署名与版权声明:<span class="mono">Copyright (c) 2026 stormzhang</span></p>
+</div>
+  </main>
+</div>
+<footer class="foot"><div class="wrap"><span>© 2026 老板有AI</span><span class="mono">内容 MIT License · stormzhang</span></div></footer>
+</body>
+</html>

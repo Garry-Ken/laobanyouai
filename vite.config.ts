@@ -15,6 +15,8 @@ export default defineConfig({
         cases: resolve(__dirname, 'cases.html'),
         intel: resolve(__dirname, 'intel.html'),
         join: resolve(__dirname, 'join.html'),
+        // GitHub Pages 对未知路径回落到 dist/404.html
+        notfound: resolve(__dirname, '404.html'),
       },
     },
   },

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>加入 — 老板有AI</title>
+    <meta name="description" content="社区规模控制得很小，因为陪跑有产能上限。先确认合不合适，再谈其他。" />
+    <link rel="canonical" href="https://laobanyouai.com/join.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="老板有AI" />
+    <meta property="og:title" content="加入 — 老板有AI" />
+    <meta property="og:description" content="先确认合不合适，再谈其他。" />
+    <meta property="og:url" content="https://laobanyouai.com/join.html" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafafc" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#09090c" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      ;(function () {
+        try {
+          var s = localStorage.getItem('lby-theme')
+          var d = s ? s === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
+          if (d) document.documentElement.classList.add('dark')
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body class="h-full">
+    <div id="root" class="h-full"></div>
+    <script type="module" src="/src/entries/join.tsx"></script>
+  </body>
+</html>

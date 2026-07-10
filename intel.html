@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI 情报 — 老板有AI</title>
+    <meta
+      name="description"
+      content="每周一封，只写会影响你这个月经营决策的事：能落地的新工具、同行做法、成本变化、踩坑记录。"
+    />
+    <link rel="canonical" href="https://laobanyouai.com/intel.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="老板有AI" />
+    <meta property="og:title" content="AI 情报 — 老板有AI" />
+    <meta property="og:description" content="模型跑分、融资金额、发布会——不写。" />
+    <meta property="og:url" content="https://laobanyouai.com/intel.html" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fafafc" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#09090c" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      ;(function () {
+        try {
+          var s = localStorage.getItem('lby-theme')
+          var d = s ? s === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
+          if (d) document.documentElement.classList.add('dark')
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body class="h-full">
+    <div id="root" class="h-full"></div>
+    <script type="module" src="/src/entries/intel.tsx"></script>
+  </body>
+</html>

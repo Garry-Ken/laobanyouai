@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>长文评分 — 老板有AI</title>
+    <meta
+      name="description"
+      content="免费公众号长文九维评分:传播性、情绪共鸣、讲故事、信息增量、价值量、结构、框架、获客、引流。粘贴文章 10 秒出分,浏览器本地计算,不上传。"
+    />
+    <link rel="canonical" href="https://laobanyouai.com/score.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="老板有AI" />
+    <meta property="og:title" content="长文评分 — 老板有AI" />
+    <meta property="og:description" content="你的公众号长文,值几分?九维客观测量,每条旗标都可直接动手改。" />
+    <meta property="og:url" content="https://laobanyouai.com/score.html" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#fbfaf7" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      ;(function () {
+        try {
+          var s = localStorage.getItem('lby-theme')
+          var d = s ? s === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
+          if (d) document.documentElement.classList.add('dark')
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body class="h-full">
+    <div id="root" class="h-full"></div>
+    <script type="module" src="/src/entries/score.tsx"></script>
+  </body>
+</html>

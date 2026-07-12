@@ -14,6 +14,7 @@ export default defineConfig({
         index: resolve(__dirname, 'index.html'),
         cases: resolve(__dirname, 'cases.html'),
         intel: resolve(__dirname, 'intel.html'),
+        workbench: resolve(__dirname, 'workbench.html'),
         write: resolve(__dirname, 'write.html'),
         studio: resolve(__dirname, 'studio.html'),
         score: resolve(__dirname, 'score.html'),

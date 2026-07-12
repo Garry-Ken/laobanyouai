@@ -208,9 +208,13 @@ export default function Write() {
                   className="rounded-[10px] border border-line-strong bg-surface px-5 py-2.5 text-[0.8rem] font-semibold text-fg transition hover:border-fg">
                   复制全文
                 </button>
+                <a href="/studio.html#draft"
+                  className="rounded-[10px] border border-line-strong bg-surface px-5 py-2.5 text-[0.8rem] font-semibold text-fg transition hover:border-fg">
+                  送去排版 →
+                </a>
                 <a href="/score.html#draft"
                   className="rounded-[10px] bg-fg px-5 py-2.5 text-[0.8rem] font-semibold text-canvas transition hover:bg-accent hover:text-white">
-                  送去九维评分 →
+                  送去评分 →
                 </a>
               </div>
             </div>

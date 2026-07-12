@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>公众号排版 — 老板有AI</title>
+    <meta
+      name="description"
+      content="免费公众号排版工具:Markdown 一键转公众号 HTML,11 套主题实时预览,图片自动 Base64 打包,复制到后台样式零丢失。浏览器本地渲染,文章不上传。"
+    />
+    <link rel="canonical" href="https://laobanyouai.com/studio.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="老板有AI" />
+    <meta property="og:title" content="公众号排版 — 老板有AI" />
+    <meta property="og:description" content="Markdown 写完,一键变成公众号里的样子。11 套主题,图片自动打包,粘进后台不掉样式。" />
+    <meta property="og:url" content="https://laobanyouai.com/studio.html" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#fbfaf7" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      ;(function () {
+        try {
+          var s = localStorage.getItem('lby-theme')
+          var d = s ? s === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
+          if (d) document.documentElement.classList.add('dark')
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body class="h-full">
+    <div id="root" class="h-full"></div>
+    <script type="module" src="/src/entries/studio.tsx"></script>
+  </body>
+</html>

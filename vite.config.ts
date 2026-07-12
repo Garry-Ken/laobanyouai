@@ -15,6 +15,7 @@ export default defineConfig({
         cases: resolve(__dirname, 'cases.html'),
         intel: resolve(__dirname, 'intel.html'),
         write: resolve(__dirname, 'write.html'),
+        studio: resolve(__dirname, 'studio.html'),
         score: resolve(__dirname, 'score.html'),
         join: resolve(__dirname, 'join.html'),
         // GitHub Pages 对未知路径回落到 dist/404.html

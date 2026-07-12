@@ -18,6 +18,7 @@ export const NAV: readonly NavItem[] = [
   { label: '首页', href: '/' },
   { label: '案例库', href: '/cases.html' },
   { label: 'AI 情报', href: '/intel.html' },
+  { label: '长文写作', href: '/write.html' },
   { label: '长文评分', href: '/score.html' },
   { label: '团队手册', href: '/library/' },
   { label: '加入', href: '/join.html' },

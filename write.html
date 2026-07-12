@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>长文写作 — 老板有AI</title>
+    <meta
+      name="description"
+      content="免费公众号长文写作:输入主题,按开源「长信」信任长文宪法成稿——七段式结构+九条叙事原理+诚实红线。复制写作指令给任何 AI,或自带 Key 在线流式生成。"
+    />
+    <link rel="canonical" href="https://laobanyouai.com/write.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="老板有AI" />
+    <meta property="og:title" content="长文写作 — 老板有AI" />
+    <meta property="og:description" content="输入主题,产出一篇「读完就信」的公众号长文。写作宪法开源,案例不编造。" />
+    <meta property="og:url" content="https://laobanyouai.com/write.html" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#fbfaf7" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script>
+      ;(function () {
+        try {
+          var s = localStorage.getItem('lby-theme')
+          var d = s ? s === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
+          if (d) document.documentElement.classList.add('dark')
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body class="h-full">
+    <div id="root" class="h-full"></div>
+    <script type="module" src="/src/entries/write.tsx"></script>
+  </body>
+</html>

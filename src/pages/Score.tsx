@@ -48,7 +48,13 @@ function ScoreBar({ label, weight, score }: { label: string; weight: number; sco
 }
 
 export default function Score() {
-  const [input, setInput] = useState('')
+  // 从「长文写作」页带稿进来(#draft):自动填入刚生成的文章
+  const [input, setInput] = useState(() => {
+    try {
+      if (window.location.hash === '#draft') return localStorage.getItem('lby.draft') || ''
+    } catch { /* 忽略 */ }
+    return ''
+  })
   const [r, setR] = useState<HeuristicsResult | null>(null)
 
   const run = () => {

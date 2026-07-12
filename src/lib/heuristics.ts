@@ -1,4 +1,5 @@
 // 长信 · 启发式客观测量(浏览器版,与 skill/scripts/heuristics.mjs 同逻辑同口径)
+// v2:并入汤质底座三组信号(坦诚自曝/立场判断/换范畴命名),见 tangzhi-narrative.md
 export interface HeuristicsResult {
   title: string
   stats: Record<string, number | string | Record<string, boolean>>
@@ -7,6 +8,9 @@ export interface HeuristicsResult {
 }
 
 const EMOTION_WORDS = ['焦虑', '后悔', '害怕', '崩溃', '心疼', '心动', '扎心', '委屈', '愤怒', '生气', '爽', '痛', '怕', '亏', '血亏', '烧光', '睡不着', '后背发凉', '惊', '居然', '竟然', '没想到', '救命', '离谱', '崩', '燃', '狠', '敢']
+const CANDOR_WORDS = ['说实话', '坦白', '老实说', '说来惭愧', '我纠结', '我犹豫', '我怕', '我不确定', '我不懂', '我错', '我亏', '我没做到', '我失败', '交学费', '翻车', '踩坑', '搞砸', '返工', '我没跑通', '让我后背发凉']
+const STANCE_WORDS = ['我不建议', '别买', '别学', '别急着', '劝你', '我反对', '别碰', '别找我', '不适合', '都先别', '别再', '我拒绝', '我的规矩', '坚决不']
+const RECAT_HINTS = ['本质上', '说白了', '换句话说', '真正的问题', '我把它叫', '我称之为', '我管这叫']
 const BUREAU_WORDS = ['首先', '其次', '再次', '最后,', '综上所述', '总而言之', '总之,']
 const AI_SMELL = ['不仅仅是', '更是一种', '赋能', '抓手', '众所周知', '毋庸置疑', '值得注意的是', '不难发现', '让我们一起', '在这个快速发展的时代', '随着人工智能的发展']
 const STORY_WORDS = ['那天', '那一刻', '去年', '前年', '上个月', '有一阵子', '后来', '直到', '当时', '一开始', '第一次', '突然']
@@ -52,6 +56,11 @@ export function analyze(raw: string): HeuristicsResult {
   const storyHits = count(text, STORY_WORDS)
   const quoteHits = (text.match(/[「“][^」”]{2,40}[」”]/g) || []).length
   const exampleHits = count(text, ['比如', '例如', '举个', '举例'])
+  const candorHits = count(text, CANDOR_WORDS)
+  const stanceHits = count(text, STANCE_WORDS)
+  const recatHits = (text.match(/不是[^。;;\n]{1,16}[,,](而?是|问题是)/g) || []).length
+    + count(text, RECAT_HINTS)
+    + Math.min(3, (text.match(/[「][^」]{2,8}[」]/g) || []).length)
 
   const golden = paras.filter((p) => {
     const l = (p.match(/[一-鿿]/g) || []).length
@@ -80,18 +89,19 @@ export function analyze(raw: string): HeuristicsResult {
     h2Count: h2s.length, hanPerH2: Math.round(h2Gap), listBlocks,
     numbersPer500: r1(per500(numbers)), youPer500: r1(per500(youCnt)), iPer500: r1(per500(iCnt)),
     questions, emotionHits, storyHits, quoteHits, exampleHits, goldenCandidates: golden,
+    candorHits, stanceHits, recatHits,
     bureauHits, aiSmellHits, ctaHitsInTail: ctaHits, titleLen, hookSignals,
   }
 
   const rule: Record<string, number> = {
-    spread: clamp(titleScore * 0.4 + hookScore * 0.3 + clamp(golden * 2) * 0.3),
+    spread: clamp(titleScore * 0.35 + hookScore * 0.25 + clamp(golden * 2) * 0.2 + clamp(stanceHits * 2.5) * 0.2),
     emotion: clamp(clamp(per500(emotionHits) * 3) * 0.5 + clamp(per500(youCnt) * 1.2) * 0.3 + clamp(questions * 1.2) * 0.2),
-    story: clamp(clamp(per500(storyHits) * 4) * 0.5 + clamp(quoteHits * 2.5) * 0.2 + clamp(per500(iCnt) * 0.8) * 0.3),
-    info: clamp(clamp(per500(numbers) * 1.6) * 0.6 + clamp(exampleHits * 2) * 0.4),
+    story: clamp(clamp(per500(storyHits) * 4) * 0.35 + clamp(quoteHits * 2.5) * 0.15 + clamp(per500(iCnt) * 0.8) * 0.2 + clamp(candorHits * 2.2) * 0.3),
+    info: clamp(clamp(per500(numbers) * 1.6) * 0.45 + clamp(exampleHits * 2) * 0.25 + clamp(recatHits * 2.2) * 0.3),
     value: clamp(clamp(per500(numbers) * 1.4) * 0.5 + clamp(golden * 1.6) * 0.3 + clamp(exampleHits * 1.5) * 0.2),
     structure: clamp((avgPara <= 90 ? 4 : avgPara <= 130 ? 2.5 : 1) + (longParaRatio < 0.1 ? 2 : longParaRatio < 0.25 ? 1 : 0) + (h2Gap >= 250 && h2Gap <= 700 ? 3 : h2s.length ? 1.5 : 0) + (listBlocks <= 2 ? 1 : 0)),
     framework: clamp((h2s.length >= 4 ? 3 : h2s.length >= 2 ? 1.5 : 0) + (han >= 2500 && han <= 6000 ? 3 : han >= 1500 ? 1.5 : 0) + (ctaHits ? 2 : 0) + (hookScore >= 5 ? 2 : 0)),
-    acquisition: clamp(clamp(per500(iCnt) * 0.9) * 0.4 + clamp(storyHits * 0.8) * 0.3 + clamp(golden * 1.2) * 0.3),
+    acquisition: clamp(clamp(per500(iCnt) * 0.9) * 0.25 + clamp(storyHits * 0.8) * 0.2 + clamp(golden * 1.2) * 0.2 + clamp(candorHits * 2) * 0.2 + clamp(stanceHits * 2) * 0.15),
     cta: clamp(ctaHits >= 2 ? 8 : ctaHits === 1 ? 6 : 1),
   }
   for (const k of Object.keys(rule)) rule[k] = r1(rule[k])
@@ -104,6 +114,8 @@ export function analyze(raw: string): HeuristicsResult {
   if (!ctaHits) flags.push('文末没有可识别的 CTA/互动引导')
   if (titleLen > 30) flags.push(`标题 ${titleLen} 字偏长(建议 ≤30)`)
   if (han < 2500) flags.push(`正文 ${han} 字,低于信任长文下限 3000`)
+  if (candorHits === 0 && han > 2000) flags.push('无一处朝向自己的坦诚(自曝踩坑/"我不确定")——信任浓度最高的信号缺失')
+  if (stanceHits === 0 && han > 2000) flags.push('无立场判断句(不建议/别急着/别碰…)——全文可能都在读者预期之内')
 
   return { title, stats, rule, flags }
 }

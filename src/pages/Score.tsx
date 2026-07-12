@@ -5,16 +5,29 @@ import { analyze, ruleTotal, DIM_META, type HeuristicsResult } from '../lib/heur
 
 /** 九维口径速览(与长信 scoring.md 同源,这里只放一句话版) */
 const DIM_DESC: Record<string, string> = {
-  spread: '标题钩子、开头停留力、金句可截图性——读者愿不愿意转发。',
+  spread: '标题钩子 + 打破读者预期的判断——全文都在预期之内,你就沦为读者心理剧场的群演。',
   emotion: '痛点场景具体到对话与金额,让目标读者"这说的就是我"。',
-  story: '论点是讲出来的还是列出来的:张力 → 转折 → 兑现。',
-  info: '读者本来不知道的东西有多少,搬运常识等于零增量。',
+  story: '张力→转折→兑现,带"超出舒适度的坦诚"——细节颗粒度是伪造不出来的流露。',
+  info: '给新信息只是及格,给旧问题换范畴并命名才是增量——不是没逻辑,而是没概念。',
   value: '读完能带走什么:可上手的方法、判断标准、干货密度。',
   structure: '手机屏上的阅读节奏:段落长度、小标题间隔、扫读友好。',
-  framework: '宏观骨架:钩子→痛点→认知重构→方法论→案例→边界→收束。',
-  acquisition: '高客单信任:敢说边界、体系有命名、真实经历可验证。',
-  cta: '下一步动作清不清楚:唯一 CTA、低门槛、承接全文立场。',
+  framework: '宏观骨架:钩子→痛点→认知重构→方法论→案例→边界→收束,配一个贯穿全文的核心隐喻。',
+  acquisition: '信任四支柱 + 敢说"这事别找我"——冒犯朝向自己,善意才对准读者。',
+  cta: '下一步动作清不清楚:唯一 CTA、低门槛、承接全文立场、不赤裸谈利害。',
 }
+
+/** 叙事底座九条(蒸馏自汤质 tangzhi.me 一手文稿 + 传播学经典,详见开源仓库 tangzhi-narrative.md) */
+const PRINCIPLES: { t: string; d: string }[] = [
+  { t: '为解释而写', d: '你写的 ≠ 读者解出来的。每段问一句:目标读者会把这段解释成什么?' },
+  { t: '语境先行', d: '开头三行既是钩子,也在回答"你是谁、凭什么说"——语境决定后文每句怎么被解读。' },
+  { t: '流露 > 给予', d: '读者只信漏出来的:时间、金额、犹豫、失败过程。自我标榜天然被打折。' },
+  { t: '关系先于内容', d: '评价一件事 = 建构你我关系。敢下判断不是文风,是与读者确立关系的动作。' },
+  { t: '打破预期,顺应张力', d: '符合预期 = 群演;敢说同行不说的话,读者才把你当"人"看。' },
+  { t: '不舒服的坦诚', d: '冒犯朝向自己(自曝短处/说"别找我"),善意就对准了读者。说服是生理级的。' },
+  { t: '换范畴,并命名', d: '改变观念不靠堆论据,靠给旧问题一个新范畴,再起一个带得走的名字。' },
+  { t: '一个核心隐喻', d: '"逝者如斯夫"让时间秒懂。一个贯穿全文的结构类比,抵一千字解释。' },
+  { t: '流畅是强准备', d: '"张嘴就来"是即时性错觉。内容力 = 写前备足的证据、数字与案例密度。' },
+]
 
 const GITHUB = 'https://github.com/Garry-Ken/changxin'
 
@@ -98,8 +111,18 @@ export default function Score() {
               ))}
             </div>
 
+            <div className="mt-7 rounded-xl2 border border-line bg-canvas/70 p-4">
+              <p className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-muted">信任信号(叙事底座探测)</p>
+              <div className="mt-2.5 flex flex-wrap gap-x-6 gap-y-1.5 text-[0.82rem] text-fg-soft">
+                <span>朝向自己的坦诚 <b className="text-fg">{Number(r.stats.candorHits) || 0}</b> 处</span>
+                <span>立场判断句 <b className="text-fg">{Number(r.stats.stanceHits) || 0}</b> 处</span>
+                <span>换范畴/命名 <b className="text-fg">{Number(r.stats.recatHits) || 0}</b> 处</span>
+                <span>金句候选 <b className="text-fg">{Number(r.stats.goldenCandidates) || 0}</b> 处</span>
+              </div>
+            </div>
+
             {r.flags.length > 0 && (
-              <div className="mt-8 rounded-xl2 border border-line-strong bg-canvas p-5">
+              <div className="mt-5 rounded-xl2 border border-line-strong bg-canvas p-5">
                 <p className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-accent-hi">旗标 / 每条都可直接动手改</p>
                 <ul className="mt-3 grid gap-1.5">
                   {r.flags.map((f, i) => (
@@ -118,7 +141,7 @@ export default function Score() {
         <div className="mt-8">
           <SectionHeading
             title="九个维度,三种能力"
-            desc="传播力(传播性/情绪共鸣/讲故事)让文章被看到;内容力(信息增量/价值量/结构/框架)让读者留下来;转化力(获取客户/引流程度)让信任变成生意。口径融合了高星内容项目与《疯传》STEPPS、《让创意更有黏性》SUCCESs。"
+            desc="传播力(传播性/情绪共鸣/讲故事)让文章被看到;内容力(信息增量/价值量/结构/框架)让读者留下来;转化力(获取客户/引流程度)让信任变成生意。口径融合了高星内容项目、《疯传》STEPPS、《让创意更有黏性》SUCCESs,以及对汤质《关于说话的一切》一手文稿的蒸馏。"
           />
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -134,9 +157,32 @@ export default function Score() {
         </div>
       </Section>
 
+      {/* 叙事底座 */}
+      <Section className="mt-20">
+        <Ruler idx="03" name="Narrative Base" tick="九条原理" />
+        <div className="mt-8">
+          <SectionHeading
+            eyebrow="评分背后的功夫"
+            title="好文章不靠技巧,靠这九条底层原理"
+            desc="蒸馏自 B 站知识区 UP 主汤质(《关于说话的一切》作者)的一手文稿——意义、关系、洞见与隐喻四篇,近三万字逐字读完提炼,再对照传播学经典校准。评分器的「信任信号」探测就来自这里。"
+          />
+        </div>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {PRINCIPLES.map((p, i) => (
+            <Card key={p.t} className="!p-5">
+              <div className="flex items-baseline gap-2.5">
+                <span className="font-mono text-[0.66rem] tracking-[0.1em] text-accent">{String(i + 1).padStart(2, '0')}</span>
+                <b className="text-[0.94rem] text-fg">{p.t}</b>
+              </div>
+              <p className="mt-2 text-[0.8rem] leading-relaxed text-muted">{p.d}</p>
+            </Card>
+          ))}
+        </div>
+      </Section>
+
       {/* 长信产品区 */}
       <Section className="mt-20">
-        <Ruler idx="03" name="Changxin / 长信" tick="MIT 开源" />
+        <Ruler idx="04" name="Changxin / 长信" tick="MIT 开源" />
         <div className="mt-8">
           <SectionHeading
             eyebrow="这个评分器从哪来"

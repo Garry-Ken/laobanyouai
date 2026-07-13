@@ -14,6 +14,13 @@ const turndownService = new TurndownService({
 
 turndownService.use(gfm);
 
+// 剥离从 Word / Pages / TextEdit 等富文本粘贴时带进来的 <style>/<head> 等噪音,
+// 否则 macOS Cocoa HTML 的 CSS 定义(p.p1{font:Menlo…})会被当成正文塞进来。
+turndownService.remove(['style', 'script', 'head', 'meta', 'link', 'title', 'noscript']);
+// 富文本 → 公众号 markdown 专用场景:不转义 # ** - > 等记号,
+// 保留用户在源文档里手写的 markdown 结构(否则「# 标题」会变成「\# 标题」,排版不识别)。
+turndownService.escape = (str: string) => str;
+
 turndownService.addRule('image', {
   filter: 'img',
   replacement: (_content: string, node: any) => {

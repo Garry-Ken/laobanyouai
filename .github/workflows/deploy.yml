@@ -24,7 +24,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
         with:
-          version: 11
+          version: 11.7.0  # 钉死:11.12.0 的自安装器在 CI 上崩溃(lockfileToDepGraph)
 
       - name: Setup Node
         uses: actions/setup-node@v6

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Card } from '../ui'
-import { buildPrompt, streamDirect, SITE_PROVIDERS, type WriteParams } from '../../lib/writer'
+import { buildPrompt, streamDirect, fetchModelsBrowser, SITE_PROVIDERS, type WriteParams } from '../../lib/writer'
 
 const field = 'w-full rounded-[10px] border border-line-strong bg-surface px-3.5 py-2.5 text-[0.86rem] text-fg outline-none transition focus:border-fg placeholder:text-faint'
 const label = 'block font-mono text-[0.62rem] uppercase tracking-[0.14em] text-muted mb-1.5 mt-5 first:mt-0'
@@ -14,10 +14,13 @@ export default function WriteModule({ markdown, setMarkdown, goTo }: Props) {
 
   const [mode, setMode] = useState<'prompt' | 'direct'>('prompt')
   const [copied, setCopied] = useState(false)
-  const [providerId, setProviderId] = useState('custom')
-  const [baseUrl, setBaseUrl] = useState('')
-  const [model, setModel] = useState('')
+  const [providerId, setProviderId] = useState('deepseek')
+  const [baseUrl, setBaseUrl] = useState('https://api.deepseek.com')
+  const [model, setModel] = useState('deepseek-chat')
   const [apiKey, setApiKey] = useState('')
+  const [models, setModels] = useState<string[]>(['deepseek-chat', 'deepseek-reasoner'])
+  const [fetching, setFetching] = useState(false)
+  const [fetchNote, setFetchNote] = useState<{ ok: boolean; text: string } | null>(null)
   const [generating, setGenerating] = useState(false)
   const [err, setErr] = useState('')
   const abortRef = useRef<AbortController | null>(null)
@@ -25,7 +28,11 @@ export default function WriteModule({ markdown, setMarkdown, goTo }: Props) {
   useEffect(() => {
     try {
       const c = JSON.parse(localStorage.getItem(LS.cfg) || '{}')
-      if (c.providerId) { setProviderId(c.providerId); setBaseUrl(c.baseUrl || ''); setModel(c.model || '') }
+      if (c.providerId) {
+        const pr = SITE_PROVIDERS.find((x) => x.id === c.providerId)
+        setProviderId(c.providerId); setBaseUrl(c.baseUrl || pr?.baseUrl || ''); setModel(c.model || pr?.model || '')
+        if (pr?.fallback?.length) setModels(pr.fallback)
+      }
       setApiKey(localStorage.getItem(LS.key) || '')
     } catch { /* 忽略 */ }
   }, [])
@@ -33,8 +40,30 @@ export default function WriteModule({ markdown, setMarkdown, goTo }: Props) {
   const preset = SITE_PROVIDERS.find((x) => x.id === providerId)!
   const pickProvider = (id: string) => {
     const pr = SITE_PROVIDERS.find((x) => x.id === id)!
-    setProviderId(id); setBaseUrl(pr.baseUrl); setModel(pr.model)
+    setProviderId(id); setBaseUrl(pr.baseUrl); setModel(pr.model); setModels(pr.fallback); setFetchNote(null)
   }
+
+  const pullModels = async () => {
+    if (!baseUrl.trim()) { setFetchNote({ ok: false, text: '先填 Base URL' }); return }
+    if (!apiKey.trim() && preset.style !== 'openai') { setFetchNote({ ok: false, text: '先填 API Key' }); return }
+    setFetching(true); setFetchNote(null)
+    try {
+      const list = await fetchModelsBrowser(preset.style, baseUrl, apiKey)
+      if (list.length) {
+        setModels(list)
+        if (!list.includes(model)) setModel(preset.model && list.includes(preset.model) ? preset.model : list[0])
+        setFetchNote({ ok: true, text: `已拉取 ${list.length} 个模型` })
+      } else {
+        setModels(preset.fallback)
+        setFetchNote({ ok: false, text: '返回空列表,已用常用清单,可手填' })
+      }
+    } catch {
+      // 跨域/网络失败 → fallback,不阻塞使用
+      setModels(preset.fallback)
+      setFetchNote({ ok: false, text: '该服务商不支持浏览器直连列模型(跨域),已给常用清单,填 Key 后可直接生成或手填模型名' })
+    } finally { setFetching(false) }
+  }
+
   const canGo = p.topic.trim().length > 0
 
   const copyPrompt = async () => {
@@ -108,20 +137,60 @@ export default function WriteModule({ markdown, setMarkdown, goTo }: Props) {
 
         {mode === 'direct' && (
           <div className="mt-5 rounded-xl2 border border-line bg-canvas/70 p-5">
-            <label className={label}>服务商</label>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="rounded-[10px] border border-line bg-surface/60 px-3 py-2 text-[0.75rem] leading-relaxed text-muted">
+              选服务商 → 填 API Key,模型会自动拉取(拉不到就用内置常用清单)。<b className="text-fg">你只管填 Key。</b>🆓 零成本先跑:智谱 GLM-Flash / 硅基流动 / OpenRouter :free 模型。
+            </div>
+
+            <label className={label}>服务商(点一下自动填好接口)</label>
+            <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-4">
               {SITE_PROVIDERS.map((x) => (
-                <button key={x.id} onClick={() => pickProvider(x.id)} className={`rounded-[8px] border px-3 py-1.5 text-[0.76rem] font-semibold transition ${providerId === x.id ? 'border-fg text-fg bg-surface' : 'border-line text-muted hover:border-line-strong'}`}>{x.name}</button>
+                <button key={x.id} onClick={() => pickProvider(x.id)}
+                  className={`rounded-[8px] border px-2 py-2 text-[0.74rem] font-semibold transition text-left ${providerId === x.id ? 'border-fg text-fg bg-surface' : 'border-line text-muted hover:border-line-strong'}`}>
+                  {x.name}{x.free ? ' 🆓' : ''}{x.abroad ? <span className="text-[0.6rem] opacity-60"> 海外</span> : ''}
+                </button>
               ))}
             </div>
-            <p className="mt-2 text-[0.74rem] text-muted">{preset.note}</p>
-            <div className="mt-2 grid gap-3 sm:grid-cols-2">
-              <div><label className={label}>Base URL</label><input className={field} value={baseUrl} onChange={(e) => setBaseUrl(e.target.value)} placeholder="https://你的中转站/v1" /></div>
-              <div><label className={label}>模型</label><input className={field} value={model} onChange={(e) => setModel(e.target.value)} placeholder="模型名" /></div>
-            </div>
-            <label className={label}>API Key(只存你的浏览器 localStorage,本站无后端、不上传)</label>
-            <input className={field} type="password" value={apiKey} onChange={(e) => setApiKey(e.target.value)} placeholder="sk-…" />
-            <div className="mt-4 flex items-center gap-3">
+            {(preset.free || preset.note) && (
+              <p className="mt-2 text-[0.73rem] text-muted">
+                {preset.free && <span className="text-[#248a3d]">🆓 {preset.free}。</span>}{preset.note}
+                {preset.abroad && '。海外服务,需网络可达'}
+              </p>
+            )}
+
+            <label className={label}>
+              API Key(只存你的浏览器 localStorage,本站无后端、不上传)
+              {preset.keyUrl && <a href={preset.keyUrl} target="_blank" rel="noreferrer" className="ml-2 font-semibold text-accent-hi">去申请 →</a>}
+            </label>
+            <input className={field} type="password" value={apiKey}
+              onChange={(e) => setApiKey(e.target.value)}
+              onBlur={() => { if (apiKey.trim().length > 8) pullModels() }}
+              placeholder="sk-…(填完自动拉取模型)" />
+
+            <label className={label}>
+              模型
+              <button onClick={pullModels} disabled={fetching} className="ml-2 font-semibold text-accent-hi disabled:opacity-50">{fetching ? '拉取中…' : '↻ 拉取模型列表'}</button>
+            </label>
+            {models.length > 0 ? (
+              <select className={field} value={models.includes(model) ? model : ''} onChange={(e) => setModel(e.target.value)}>
+                {!models.includes(model) && <option value="">{model ? `当前手填:${model}` : '请选择模型'}</option>}
+                {models.map((m) => <option key={m} value={m}>{m}{m.endsWith(':free') ? ' 🆓' : ''}</option>)}
+              </select>
+            ) : (
+              <input className={field} value={model} onChange={(e) => setModel(e.target.value)} placeholder={preset.model || '模型名'} />
+            )}
+            {models.length > 0 && (
+              <input className={`${field} mt-1.5`} value={model} onChange={(e) => setModel(e.target.value)} placeholder="也可手动输入/修改模型名(如豆包接入点 ep-…)" />
+            )}
+            {fetchNote && <p className={`mt-1.5 text-[0.73rem] leading-relaxed ${fetchNote.ok ? 'text-[#248a3d]' : 'text-muted'}`}>{fetchNote.text}</p>}
+
+            {providerId === 'custom' && (
+              <>
+                <label className={label}>Base URL</label>
+                <input className={field} value={baseUrl} onChange={(e) => setBaseUrl(e.target.value)} placeholder="https://你的中转站/v1" />
+              </>
+            )}
+
+            <div className="mt-5 flex items-center gap-3">
               {generating ? (
                 <button onClick={() => abortRef.current?.abort()} className="rounded-[10px] border border-line-strong bg-surface px-7 py-3 text-label font-semibold text-fg transition hover:border-fg">■ 停止</button>
               ) : (

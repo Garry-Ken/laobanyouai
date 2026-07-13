@@ -66,13 +66,60 @@ digest: (≤100字:一句认知差+一句读完得到什么)
 // ── 浏览器直连(BYO key,key 只存访客本机 localStorage)────────────────
 export interface DirectCfg { style: 'openai' | 'anthropic'; baseUrl: string; apiKey: string; model: string }
 
-export const SITE_PROVIDERS: { id: string; name: string; style: 'openai' | 'anthropic'; baseUrl: string; model: string; note: string }[] = [
-  { id: 'custom', name: '中转站/自定义', style: 'openai', baseUrl: '', model: '', note: '国内最稳:任何 OpenAI 兼容中转(one-api/new-api 等通常开了浏览器直连)' },
-  { id: 'zhipu', name: '智谱 GLM', style: 'openai', baseUrl: 'https://open.bigmodel.cn/api/paas/v4', model: 'glm-4.5-flash', note: '国内直连,GLM-Flash 免费;若浏览器被拒会明确提示' },
-  { id: 'gemini', name: 'Google Gemini', style: 'openai', baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai', model: 'gemini-2.5-flash', note: '免费额度,浏览器直连可用(需网络可达)' },
-  { id: 'openrouter', name: 'OpenRouter', style: 'openai', baseUrl: 'https://openrouter.ai/api/v1', model: 'deepseek/deepseek-chat-v3.1', note: '支持浏览器直连,:free 结尾模型免费(需网络可达)' },
-  { id: 'anthropic', name: 'Claude 官方', style: 'anthropic', baseUrl: 'https://api.anthropic.com', model: 'claude-sonnet-5', note: '长文质量首选,浏览器直连可用(需网络可达)' },
+export interface SiteProvider {
+  id: string
+  name: string
+  style: 'openai' | 'anthropic'
+  baseUrl: string
+  model: string
+  keyUrl?: string           // 去哪申请 Key
+  free?: string             // 免费说明(有就显示 🆓)
+  abroad?: boolean          // 海外,国内需网络可达
+  fallback: string[]        // 浏览器拉不到模型列表时的常用兜底清单
+  note: string
+}
+
+// 国内主流全覆盖 + 海外。浏览器直连拉模型:能拉到用真实列表,拉不到(跨域)用 fallback。
+export const SITE_PROVIDERS: SiteProvider[] = [
+  { id: 'deepseek', name: 'DeepSeek', style: 'openai', baseUrl: 'https://api.deepseek.com', model: 'deepseek-chat', keyUrl: 'https://platform.deepseek.com/api_keys', fallback: ['deepseek-chat', 'deepseek-reasoner'], note: '国内主流,便宜量大' },
+  { id: 'zhipu', name: '智谱 GLM', style: 'openai', baseUrl: 'https://open.bigmodel.cn/api/paas/v4', model: 'glm-4.5-flash', keyUrl: 'https://open.bigmodel.cn/usercenter/apikeys', free: 'GLM-Flash 系列长期免费', fallback: ['glm-4.6', 'glm-4.5', 'glm-4.5-air', 'glm-4.5-flash', 'glm-4-flash'], note: '国内直连' },
+  { id: 'siliconflow', name: '硅基流动', style: 'openai', baseUrl: 'https://api.siliconflow.cn/v1', model: 'deepseek-ai/DeepSeek-V3.1', keyUrl: 'https://cloud.siliconflow.cn/account/ak', free: '注册送额度,多款小模型免费', fallback: ['deepseek-ai/DeepSeek-V3.1', 'Qwen/Qwen3-8B', 'Qwen/Qwen2.5-7B-Instruct', 'THUDM/glm-4-9b-chat'], note: '聚合多家,浏览器直连友好' },
+  { id: 'moonshot', name: 'Kimi 月之暗面', style: 'openai', baseUrl: 'https://api.moonshot.cn/v1', model: 'kimi-latest', keyUrl: 'https://platform.moonshot.cn/console/api-keys', fallback: ['kimi-k2-0905-preview', 'kimi-latest', 'moonshot-v1-8k', 'moonshot-v1-32k', 'moonshot-v1-128k'], note: '长文能力强' },
+  { id: 'qwen', name: '通义千问/百炼', style: 'openai', baseUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1', model: 'qwen-plus', keyUrl: 'https://bailian.console.aliyun.com/?apiKey=1', free: '新用户各模型有免费额度', fallback: ['qwen-plus', 'qwen-max', 'qwen-turbo', 'qwen-long'], note: '阿里,稳定' },
+  { id: 'doubao', name: '火山方舟 豆包', style: 'openai', baseUrl: 'https://ark.cn-beijing.volces.com/api/v3', model: '', keyUrl: 'https://console.volcengine.com/ark', fallback: ['doubao-seed-1-6-250615', 'doubao-seed-1-6-flash-250615', 'doubao-1-5-pro-32k-250115'], note: '豆包用「接入点/模型名」以控制台为准,建议填 Key 后拉取或手填' },
+  { id: 'hunyuan', name: '腾讯混元', style: 'openai', baseUrl: 'https://api.hunyuan.cloud.tencent.com/v1', model: 'hunyuan-turbos-latest', keyUrl: 'https://console.cloud.tencent.com/hunyuan/api-key', fallback: ['hunyuan-turbos-latest', 'hunyuan-large', 'hunyuan-standard'], note: '腾讯' },
+  { id: 'minimax', name: 'MiniMax', style: 'openai', baseUrl: 'https://api.minimaxi.com/v1', model: 'MiniMax-Text-01', keyUrl: 'https://platform.minimaxi.com/user-center/basic-information/interface-key', fallback: ['MiniMax-Text-01', 'abab6.5s-chat'], note: '模型名以控制台为准' },
+  { id: 'stepfun', name: '阶跃星辰', style: 'openai', baseUrl: 'https://api.stepfun.com/v1', model: 'step-2-16k', keyUrl: 'https://platform.stepfun.com/interface-key', fallback: ['step-2-16k', 'step-2-mini', 'step-1-8k'], note: '阶跃' },
+  { id: 'qianfan', name: '百度千帆', style: 'openai', baseUrl: 'https://qianfan.baidubce.com/v2', model: 'ernie-4.5-turbo-128k', keyUrl: 'https://console.bce.baidu.com/iam/#/iam/apikey/list', fallback: ['ernie-4.5-turbo-128k', 'ernie-x1-turbo-32k', 'ernie-speed-128k'], note: '文心一言' },
+  { id: 'openrouter', name: 'OpenRouter', style: 'openai', baseUrl: 'https://openrouter.ai/api/v1', model: 'deepseek/deepseek-chat-v3.1', keyUrl: 'https://openrouter.ai/keys', free: 'id 以 :free 结尾的模型免费', abroad: true, fallback: ['deepseek/deepseek-chat-v3.1', 'deepseek/deepseek-chat-v3.1:free', 'meta-llama/llama-3.3-70b-instruct:free'], note: '聚合海外,浏览器直连友好' },
+  { id: 'gemini', name: 'Google Gemini', style: 'openai', baseUrl: 'https://generativelanguage.googleapis.com/v1beta/openai', model: 'gemini-2.5-flash', keyUrl: 'https://aistudio.google.com/apikey', free: 'AI Studio 免费额度', abroad: true, fallback: ['gemini-2.5-pro', 'gemini-2.5-flash', 'gemini-2.5-flash-lite'], note: '免费额度大' },
+  { id: 'groq', name: 'Groq', style: 'openai', baseUrl: 'https://api.groq.com/openai/v1', model: 'llama-3.3-70b-versatile', keyUrl: 'https://console.groq.com/keys', free: '免费额度大,速度极快', abroad: true, fallback: ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant'], note: '极速' },
+  { id: 'anthropic', name: 'Claude 官方', style: 'anthropic', baseUrl: 'https://api.anthropic.com', model: 'claude-sonnet-5', keyUrl: 'https://console.anthropic.com/settings/keys', abroad: true, fallback: ['claude-sonnet-5', 'claude-opus-4-8', 'claude-haiku-4-5'], note: '长文质量首选' },
+  { id: 'openai', name: 'OpenAI', style: 'openai', baseUrl: 'https://api.openai.com/v1', model: 'gpt-5.2', keyUrl: 'https://platform.openai.com/api-keys', abroad: true, fallback: ['gpt-5.2', 'gpt-5.2-mini'], note: '' },
+  { id: 'custom', name: '中转站/自定义', style: 'openai', baseUrl: '', model: '', fallback: [], note: '任何 OpenAI 兼容中转(one-api/new-api 等,通常开了浏览器直连,国内最稳)' },
 ]
+
+/**
+ * 浏览器直连拉取模型列表。纯静态站无后端,直连服务商 /models。
+ * 部分国内厂商的 /models 不开 CORS,会抛错 → 上层用 fallback 兜底。
+ */
+export async function fetchModelsBrowser(style: 'openai' | 'anthropic', baseUrl: string, apiKey: string): Promise<string[]> {
+  const base = baseUrl.replace(/\/+$/, '')
+  let res: Response
+  if (style === 'anthropic') {
+    res = await fetch(`${base}/v1/models?limit=200`, {
+      headers: { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+    })
+  } else {
+    res = await fetch(`${base}/models`, { headers: apiKey ? { authorization: `Bearer ${apiKey}` } : {} })
+  }
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  const j = await res.json()
+  const ids = (j.data || j.models || [])
+    .map((m: unknown) => (typeof m === 'string' ? m : ((m as { id?: string; name?: string }).id || (m as { name?: string }).name)))
+    .filter((x: unknown): x is string => Boolean(x))
+  return [...new Set<string>(ids)].sort()
+}
 
 export async function streamDirect(
   cfg: DirectCfg,
